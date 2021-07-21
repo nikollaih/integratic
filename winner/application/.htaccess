@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteBase
+RewriteCond $1 !^(index.php|css|js|images)
+RewriteRule ^(.*)$ /index.php/$1 [L]
+php_value upload_max_filesize 40M
+php_value post_max_size 40M
