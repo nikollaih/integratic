@@ -30,8 +30,19 @@
                             <ul class="nav navbar-nav navbar-right pull-right">
                                 <li class="dropdown hidden-xs">                                    
                                     <a href="javascript:void(0);" class="logo"><div id="nomusuario">
-                                        <span><?php if(isset($_SESSION['nom'])){echo $_SESSION['nom']." ".$_SESSION['ape'];}?>
-                                        </span></div></a>                                    
+                                        <span><?= ($this->session->userdata('logged_in')) ? "Hola, " . $this->session->userdata("logged_in")["nombres"]. " ".$this->session->userdata("logged_in")["apellidos"] : ""?>
+                                        </span></div></a>  
+                                       <?php
+                                          if(($this->session->userdata('logged_in'))){
+                                             ?>
+                                                <form>
+                                                   <input type="hidden" id="ced" name="ced" value='<?= $this->session->userdata("logged_in")["id"] ?>'>
+                                                   <input class="form-control input-sm" type="hidden" id="usr_cambio" name="usr_cambio" value="<?= $this->session->userdata("logged_in")["usuario"] ?>">
+                                                   <input type="hidden" id="rol" name="rol" value="<?= $this->session->userdata("logged_in")["rol"] ?>">
+                                                </form>
+                                             <?php
+                                          }
+                                       ?>                                  
                                 </li>
                                 <li class="dropdown hidden-xs">
                                     <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
@@ -113,11 +124,6 @@
                                             </a>   
                                         </li>
                                     </ul>
-                                </li>
-                                <li class="dropdown hidden-xs">                                    
-                                    <a href="javascript:void(0);" class="logo"><div id="nomusuario">
-                                        <span><?php if(isset($_SESSION['nom'])){echo $_SESSION['nom']." ".$_SESSION['ape'];}?>
-                                        </span></div></a>                                    
                                 </li>
                                 <li class="dropdown"><div id="foto"><br>                                    
                                     <a href="javascript:prelogin();" class="dropdown-toggle profile"><img src="./img/iconos/login.png" alt="user-img" class="img-circle"></a>

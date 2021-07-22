@@ -9,6 +9,7 @@ class Principal extends CI_Controller {
          $this->load->helper('form');
          $this->load->helper('html');
          $this->load->helper('url');
+         $this->load->library(["session"]);
          $this->load->model('consultas_model');
     }
 
@@ -38,15 +39,14 @@ class Principal extends CI_Controller {
     {  
         $usr    = $_POST['usr'];
         $pass   = $_POST['pass'];
-        if($datos=$this->consultas_model->login($usr,$pass)){                   
-            session_start();
-            foreach($datos as $row){
-                $_SESSION['nom']=$row->nombres;
-                $_SESSION['ape']=$row->apellidos;
-                $_SESSION['usr']=$row->usuario;
-                $_SESSION['rol']=$row->rol;
-                $_SESSION['id']=$row->id;
-            }
+        if($datos=$this->consultas_model->login($usr,$pass)){  
+            $this->session->set_userdata("logged_in", $datos); 
+            $_SESSION['nom']=$datos["nombres"];
+            $_SESSION['ape']=$datos["apellidos"];
+            $_SESSION['usr']=$datos["usuario"];
+            $_SESSION['rol']=$datos["rol"];
+            $_SESSION['id']=$datos["id"];
+            
             echo json_encode($datos);
         } 
         else{return 0;}
@@ -54,8 +54,7 @@ class Principal extends CI_Controller {
     public function login_estudiante()
     {   
         $usr    = $_POST['documento'];
-        if($datos=$this->consultas_model->login_estudiante($usr)){                   
-            session_start();
+        if($datos=$this->consultas_model->login_estudiante($usr)){  
             foreach($datos as $row){
                 $_SESSION['nombre']=$row->nombre;
                 $_SESSION['usr']=$row->documento;
@@ -221,6 +220,11 @@ function prelogin(){
     $html=$html+"<div class='col-sm-5 text-right'>";
     $html=$html+"<a href='register.html'>Create an account</a></div></div></form></div></div></div>";  
     echo $html;
+}
+
+function cambio_clave(){
+    $data = $this->input->post();
+    print_r($data);
 }
 
 }

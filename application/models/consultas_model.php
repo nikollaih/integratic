@@ -8,7 +8,7 @@ class Consultas_Model extends CI_Model {
   public function login($usr,$pass){
     $result=$this->db->query("Select * From usuarios where usuario='$usr' And clave='$pass'");
     if(!$result) {return false;}
-    else {return $result->result();}      
+    else {return $result->row_array();}      
   }  
   public function login_estudiante($usr){
     date_default_timezone_set('america/bogota');

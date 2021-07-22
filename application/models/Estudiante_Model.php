@@ -7,9 +7,9 @@ class Estudiante_Model extends CI_Model {
  	}
 
 	function getAll(){
-		$this->db->from("estudiantes e");
-		$this->db->right_join("usuarios u", "e.document = u.id");
-		$result = $this->db->query();
+		$this->db->from("estudiante e");
+		$this->db->join("usuarios u", "e.documento = u.id", "left");
+		$result = $this->db->get();
 
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}

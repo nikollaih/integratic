@@ -1,6 +1,5 @@
  <?php 
  if(isset($datos)){
-    session_start();
     foreach($datos as $row){
         $_SESSION['nom']=$row->nombres;
         $_SESSION['ape']=$row->apellidos;

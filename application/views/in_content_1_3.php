@@ -1706,6 +1706,7 @@ function login(){
                });
 }
 function cambiar_clave(){
+    alert("1");
     var url = "./index.php/principal/cambio_clave";   
         $.ajax({
                url:url,

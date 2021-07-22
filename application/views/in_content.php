@@ -8,35 +8,41 @@
 </div>
   
 <!-- Ventana Modal Portada-->
-<div class="modal fade" id="portada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">      
-      <div class="modal-body">
-               <img src="./videos/portada.gif"  width="100%" height="100%">            
-      </div>
-      <div class="modal-footer">
-          <form id="frmpersona" name="frmpersona" role="form">
-              <table> 
-                <tr>
-                  <td width='30%'></td>
-                  <td width='30%'><h6>No. Documento del Estudiante</h6></td>
-                  <td width='10%'></td>
-                  <td width='20%'>                                                              
-                    <input class="form-control" size="50" type="text" name="documento" id="documento">
-                  </td>
-                    
-                  <td width='10%'></td>  
-                  <td width='10%'></td>                              
-                  <td width='10%'>
-                     <button type='button' class='btn btn-primary btn-sm w-sm waves-effect waves-light' data-dismiss="modal" onclick='login_estudiante();'>Ingresar</button>
-                  </td>
-                </tr>                               
-              </table>
-          </form>        
-      </div>        
+<?php 
+    if(!$this->session->userdata("logged_in")){
+?>
+    <div class="modal fade" id="portada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">      
+        <div class="modal-body">
+                <img src="./videos/portada.gif"  width="100%" height="100%">            
+        </div>
+        <div class="modal-footer">
+            <form id="frmpersona" name="frmpersona" role="form">
+                <table> 
+                    <tr>
+                    <td width='30%'></td>
+                    <td width='30%'><h6></h6></td>
+                    <td width='10%'></td>
+                    <td width='20%'>                                                              
+                    <!-- <input class="form-control" size="50" type="text" name="documento" id="documento">-->
+                    </td>
+                        
+                    <td width='10%'><button type='button' class='btn btn-primary btn-sm w-sm waves-effect waves-light' data-dismiss="modal" onclick='prelogin();'>Ingresar</button></td>  
+                    <td width='10%'></td>                              
+                    <td width='10%'>
+                        <button type='button' class='btn btn-dark btn-sm w-sm waves-effect waves-light' data-dismiss="modal" onclick='login_estudiante();'>Continuar como invitado</button>
+                    </td>
+                    </tr>                               
+                </table>
+            </form>        
+        </div>        
+        </div>
     </div>
-  </div>
-</div> 
+    </div> 
+<?php
+    }
+?>
 <!-- Ventana Modal Creditos-->
 <div class="modal fade" id="creditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
@@ -721,10 +727,14 @@
 
 <script>
 var titulo;
+
 function inicio(){ 
-    var ht = menupri();
-    $("#migas").html('');    
-    $("#contenedor").html(ht);     
+    var logged_user = <?= ($this->session->userdata("logged_in")) ? "true" : "false" ?>;
+    if(logged_user == false){
+        var ht = menupri();  
+        $("#contenedor").html(ht);   
+    }
+    $("#migas").html('');      
     $('#portada').modal('show'); 
     nobackbutton();
   }
@@ -1855,11 +1865,11 @@ function cambio_clave(){
     html+="<div class='form-group '>";
     html+="<div class='col-xs-12'>";
     html+="<input id='usr' name='usr' value='"+usr+"' type='hidden'>";
-    html+="<input id='usr' name='pass'  class='form-control input-lg' required placeholder='Ingrese Clave Actual' type='password'>";
+    html+="<input id='pass' name='pass'  class='form-control input-lg' required placeholder='Ingrese Clave Actual' type='password'>";
     html+="</div> </div>";
     html+="<div class='form-group '>";    
     html+="<div class='col-xs-12'>";
-    html+="<input id='usr' name='nueva'  class='form-control input-lg' required placeholder='Ingrese Nueva Clave' type='password'>";
+    html+="<input id='nueva' name='nueva'  class='form-control input-lg' required placeholder='Ingrese Nueva Clave' type='password'>";
     html+="</div> </div>";    
     html+="<div class='form-group '>";               
     html+="<div class='form-group text-center m-t-40'>";
@@ -1911,20 +1921,20 @@ function login(){
                type:'POST',
                data:$("#frmlogin").serialize(),
                success:function(respuesta){
+                   console.log(respuesta);
                if(respuesta!=0){   
-                 var registros = eval(respuesta); 
-                      if(registros.length>0){ 
-                          for (i=0; i<registros.length; i++) { 
-                               var html = '<label>Hola, '+registros[i]["nombres"]+" "+registros[i]["apellidos"]+'</label>';
-                               html=html+'<form><input type="hidden" id="ced" name="ced" value="'+registros[i]["id"]+'"/>';
+                 var registros = JSON.parse(respuesta); 
+                      if(Object.keys(registros).length>0){ 
+                               var html = '<label>Hola, '+registros.nombres+" "+registros.apellidos+'</label>';
+                               html=html+'<form><input type="hidden" id="ced" name="ced" value="'+registros.id+'"/>';
                                html=html+'<input class="form-control input-sm" type="hidden" id="usr_cambio" name="usr_cambio" value="usr"/>'; 
-                               html=html+'<input type="hidden" id="rol" name="rol" value="'+registros[i]["rol"]+'"/></form>';
+                               html=html+'<input type="hidden" id="rol" name="rol" value="'+registros.rol+'"/></form>';
                                $("#nomusuario").html(html);
-                               var nomusr=registros[i]["usuario"];
+                               var nomusr=registros.usuario;
 
                                html='<br><a href="javascript:prelogin();" class="dropdown-toggle profile">';
-                               if(registros[i]["foto"]==='S'){
-                               html=html+'<img src="./fotos/'+registros[i]["id"]+'.png" alt="user-img" class="img-circle"></a>';
+                               if(registros.foto==='S'){
+                               html=html+'<img src="./fotos/'+registros.id+'.png" alt="user-img" class="img-circle"></a>';
                                 }else{
                                   html=html+'<img src="./fotos/user.png" alt="user-img" class="img-circle"></a>';  
                                 }                                    
@@ -1934,8 +1944,8 @@ function login(){
                                document.getElementById("usr_cambio").value=nomusr;
                                cfg_docente();
                                 }          
-                      }
-                     } 
+                      
+                    } 
                     else{alert("Error Usuario/Contraseña!")}                    
                 },
                error:function(){ alert("Error!");}                                   
@@ -1965,6 +1975,7 @@ function login_estudiante(){
                });
 }
 function cambiar_clave(){
+    alert("aqui");
     var url = "./index.php/principal/cambio_clave";   
         $.ajax({
                url:url,

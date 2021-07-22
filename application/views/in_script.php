@@ -7,6 +7,7 @@
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/waves.js"></script>
+        <script src="js/general.js"></script>
         <script src="js/wow.min.js"></script>
         <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
         <script src="js/jquery.scrollTo.min.js"></script>
@@ -61,3 +62,14 @@
     
     </body>
 </html>
+
+<?php
+    if($this->session->userdata("logged_in")){
+        ?>
+            <script type="text/javascript">
+                cambio_menu();
+                cfg_docente();
+            </script>
+        <?php
+    }
+?>
