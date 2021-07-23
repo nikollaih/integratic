@@ -10,7 +10,7 @@ class Principal extends CI_Controller {
          $this->load->helper('html');
          $this->load->helper('url');
          $this->load->library(["session"]);
-         $this->load->model('consultas_model');
+         $this->load->model(['consultas_model', 'usuarios_model']);
     }
 
     public function index()
@@ -224,7 +224,35 @@ function prelogin(){
 
 function cambio_clave(){
     $data = $this->input->post();
-    print_r($data);
+    
+    if(is_logged()){
+        if(isset($data["usr"]) && isset($data["pass"]) && isset($data["nueva"])){
+            $user = $this->usuarios_model->login($data["usr"], $data["pass"]);
+
+            if($user){
+                $new_data["id"] = $data["usr"];
+                $new_data["clave"] = $data["nueva"];
+
+                if($this->usuarios_model->update_user($new_data)){
+                    $user["clave"] = $data["nueva"];
+                    $this->session->set_userdata("logged_in", $user); 
+                    json_response($data, true, "Contraseña modificada exitosamente!");
+                }
+                else{
+                    json_response(null, false, "Ha ocurrido un error, por favor intente de nuevo más tarde");
+                }
+            }
+            else{
+                json_response(null, false, "Contraseña incorrecta");
+            }
+        }
+        else{
+            json_response(null, false, "Datos no válidos");
+        }
+    }
+    else{
+        json_response(null, false, "Usuario no válido");
+    }
 }
 
 }

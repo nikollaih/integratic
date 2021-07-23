@@ -727,12 +727,15 @@
 
 <script>
 var titulo;
-
+var user = <?= json_encode($this->session->userdata("logged_in")) ?>;
 function inicio(){ 
-    var logged_user = <?= ($this->session->userdata("logged_in")) ? "true" : "false" ?>;
-    if(logged_user == false){
+    if((user && !user.id) || !user){
         var ht = menupri();  
         $("#contenedor").html(ht);   
+    }
+
+    if(user && (user.id == user.clave)){
+        cambio_clave();
     }
     $("#migas").html('');      
     $('#portada').modal('show'); 
@@ -1864,6 +1867,9 @@ function cambio_clave(){
     html+="<form id='frmcambio' class='form-horizontal m-t-20'>";                    
     html+="<div class='form-group '>";
     html+="<div class='col-xs-12'>";
+    if(user.id == user.clave){
+        html+="<p style='margin-bottom:20px;'>Su número de identificación y contraseña tienen los mismos valores, es recomendable cambiar la contraseña para efectos de seguridad.</p>";
+    }
     html+="<input id='usr' name='usr' value='"+usr+"' type='hidden'>";
     html+="<input id='pass' name='pass'  class='form-control input-lg' required placeholder='Ingrese Clave Actual' type='password'>";
     html+="</div> </div>";
@@ -1922,8 +1928,9 @@ function login(){
                data:$("#frmlogin").serialize(),
                success:function(respuesta){
                    console.log(respuesta);
-               if(respuesta!=0){   
+               if(respuesta!=0){ 
                  var registros = JSON.parse(respuesta); 
+                 user = registros; 
                       if(Object.keys(registros).length>0){ 
                                var html = '<label>Hola, '+registros.nombres+" "+registros.apellidos+'</label>';
                                html=html+'<form><input type="hidden" id="ced" name="ced" value="'+registros.id+'"/>';
@@ -1942,7 +1949,15 @@ function login(){
                                $("#foto").html(html);
                                $("#contenedor").html('');
                                document.getElementById("usr_cambio").value=nomusr;
-                               cfg_docente();
+
+                               cambio_menu();
+                               if(registros.rol == "Docente"){
+                                cfg_docente();
+                               }
+
+                               if(user.id == user.clave){
+                                   cambio_clave();
+                               }
                                 }          
                       
                     } 

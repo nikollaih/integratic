@@ -5,10 +5,15 @@ function cambiar_clave(){
                url:url,
                type:'POST',
                data:$("#frmcambio").serialize(),
-               success:function(respuesta){
-                   console.log(respuesta);
-                alert("Clave Modificada con Éxito!"); 
-                $("#contenedor").html('');  
+               success:function(data){
+                var data = JSON.parse(data);
+                
+                if(data.status){
+                    user["clave"] = data.object.nueva;
+                    $("#contenedor").html('');  
+                }
+                alert(data.message); 
+                
               },
                error:function(){ alert("Error!");}                                   
                });

@@ -67,6 +67,7 @@
     if($this->session->userdata("logged_in")){
         ?>
             <script type="text/javascript">
+                var user = <?= json_encode($this->session->userdata("logged_in")) ?>;
                 cambio_menu();
                 cfg_docente();
             </script>
