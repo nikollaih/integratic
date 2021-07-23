@@ -227,7 +227,7 @@ function cambio_clave(){
     
     if(is_logged()){
         if(isset($data["usr"]) && isset($data["pass"]) && isset($data["nueva"])){
-            $user = $this->usuarios_model->login($data["usr"], $data["pass"]);
+            $user = $this->consultas_model->login($data["usr"], $data["pass"]);
 
             if($user){
                 $new_data["id"] = $data["usr"];
