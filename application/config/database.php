@@ -73,6 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+#staging
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
@@ -94,3 +95,28 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+#staging
+$db['default'] = array(
+	'dsn'	=> '',
+	'hostname' => 'us-cdbr-east-04.cleardb.com',
+	'username' => 'bf82af08370229',
+	'password' => '7b2a39ba',
+	'database' => 'heroku_7d66ae622de5ffa',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+
+
