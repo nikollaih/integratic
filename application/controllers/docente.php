@@ -9,7 +9,7 @@ class Docente extends CI_Controller {
          $this->load->helper('form');
          $this->load->helper('html');
          $this->load->helper('url');
-         $this->load->model('consultas_model');
+         $this->load->model(array('consultas_model','Foro_Model'));
     }
     
     public function lista_usr(){  
@@ -130,6 +130,24 @@ class Docente extends CI_Controller {
 header("Cache-Control: no-cache, must-revalidate");       
         $carpeta    = $_POST['ruta']; 
         $titulo     = $_POST['titulo']; 
+        $materia     = $_POST['materia']; 
+        $grupo     = $_POST['grupo'];
+        
+        $foros = $this->Foro_Model->get_all($materia, $grupo);
+
+        $foros_dom = '';
+        if($foros != false){
+            $foros_dom = '<div><h3 style="background: #718fc8;padding-left: 9px;font-size: 18px;color:#fff;">Foros</h3><ul style="padding:0">';
+            foreach ($foros as $foro) {
+                $foros_dom = $foros_dom. "<li class='item-foro'>".
+                "<h4 class='titulo-foro'><a href='javascript:ver_foro(".$foro["id_foro"].")'>".$foro["titulo"]."</a></h4>".
+                "<p class='fecha-foro'>".date("Y-m-d, h:i a", strtotime($foro["created_at"]))."</h4>".
+                "<p class='descripcion-foro'>".$foro["descripcion"]."</p>".
+                "</li>";
+            }
+            $foros_dom = $foros_dom. "</ul></div>";
+        }
+        
         date_default_timezone_set ('America/Bogota');
         setlocale(LC_ALL,"es_ES");           
         $html='<div class="panel panel-primary">';        
@@ -142,7 +160,10 @@ header("Cache-Control: no-cache, must-revalidate");
         $html=$html."<img src='./img/iconos/crear.png' width='40' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
         $html=$html."<a href='javascript:subir();' style='width:10%'>";
         $html=$html."<img src='./img/iconos/subir.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'></a>&nbsp;"; 
-        $html=$html."</div></div>";         
+        $html=$html."<a href='javascript:subir();' style='width:10%'>";
+        $html=$html."<img src='./img/iconos/foro.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'></a>&nbsp;"; 
+        $html=$html."</div></div>"; 
+        $html=$html. $foros_dom;       
         $html=$html."<table style='width:80%;'><tbody><tr>";
         $i=0;
         if(is_dir($carpeta)){

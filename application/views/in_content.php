@@ -1288,6 +1288,7 @@ function enlace_materia(doc,cod){
                async:false,
                success:function(respuesta){                         
                  var registros = eval(respuesta);
+                 console.log(registros)
                     html='<div class="panel panel-primary">';        
                     html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica ..:  '+registros[0]["nommateria"]+'</b></div>';
                     html=html+'<div class="panel-body">';  
@@ -1298,12 +1299,13 @@ function enlace_materia(doc,cod){
                             var tipo=registros[i]["tipo"];
                             var grado=registros[i]["grado"];
                             var grupo=registros[i]["grupo"];
+                            var idmateria=registros[i]["materia"];
                             if(grupo==='N'){
-                                listardoc(tipo,narea,nmateria+grado,'N');
+                                listardoc(tipo,narea,nmateria+grado,'N',$idmateria,grupo);
                             }else{
                                 html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                                 html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                                html=html+"<a href='javascript:listardoc(\""+tipo+"\",\""+narea+"\",\""+nmateria+grado+"\",\""+grado+grupo+"\")'>";                                
+                                html=html+"<a href='javascript:listardoc(\""+tipo+"\",\""+narea+"\",\""+nmateria+grado+"\",\""+grado+grupo+"\",\""+idmateria+"\",\""+grupo+"\")'>";                                
                                 html=html+"<img src='./img/botones/grupos/"+grado+grupo+".png' width='100%' height='100%'></a></div></div>";                               
                             }
                           }                              
@@ -1317,7 +1319,7 @@ function enlace_materia(doc,cod){
        });    
 }
 
-function listardoc(tipo,carpeta,materia,grupo){
+function listardoc(tipo,carpeta,materia,grupo,idmateria=null,idgrupo=null){
     switch(tipo){
         case 'labs':titulo = "Laboratoria Virtual "+materia;
                     ruta="principal/labs/"+materia;
@@ -1384,7 +1386,7 @@ function listardoc(tipo,carpeta,materia,grupo){
                url:url,
                type:'POST',
                async:false,
-               data:{ruta:ruta,titulo:titulo},
+               data:{ruta:ruta,titulo:titulo,materia:idmateria,grupo:idgrupo},
                success:function(respuesta){                     
                         $("#listacon").html(respuesta);  
                         $("#rutas").html(titulo);                          
