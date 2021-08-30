@@ -980,6 +980,41 @@ function crearMenu(){
             }                    
     });    
 }
+
+function StudentAreas(){
+	var url = '<?=site_url();?>/estudiante/areas';
+	$.ajax({
+		url:url,
+		type:'POST',
+		success:function(respuesta){
+			var registros = eval(respuesta);                 
+			var html="<div class='row'>";                    
+				if(registros.length>0){ 
+						for (i=0; i<registros.length; i++) { 
+							html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
+							if(registros[i]["tipo"]==='areas'){
+							html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:StudentMaterias("+registros[i]["codarea"]+")'>";
+					}else{
+							html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"areabase"'+",\""+registros[i]["nomarea"]+"\",\""+registros[i]["nomarea"]+"\")'>";
+					}
+							html+="<img src='./img/botones/areas/"+registros[i]["icoarea"]+"' width='100%' height='100%'></a></div></div>";                             
+						}
+							html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
+							html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:subir_acti()'>";
+							html+="<img src='./img/botones/actividades/actividades.png' width='100%' height='100%'></a></div></div>";                           
+					}
+					html+="</div>";    
+			var migas="<div class='col-sm-12'>";
+					migas+="<ol class='breadcrumb pull-right'>";
+					migas+="<li><a href='javascript:menupri();'>Home</a></li>";
+					migas+="<li><a class='active'>Areas</a></li>";
+					migas+="</ol></div>";      
+					//$("#migas").html(migas);
+					$("#contenedor").html(html);  
+		},
+		error:function(){ alert("Error 400!");}                                   
+	});  
+}
 function areas(){
   var url = '<?=site_url();?>/docente/co_areas';
         $.ajax({
@@ -1014,6 +1049,35 @@ function areas(){
                error:function(){ alert("Error 400!");}                                   
                });      
 }
+
+function StudentMaterias(area){
+	$.ajax({
+		url:'<?=site_url();?>/estudiante/materias/'+area,
+		type:'POST',
+		success:function(respuesta){ 
+			var registros = eval(respuesta);                 
+				html="<div class='row'>";                    
+					if(registros.length>0){ 
+							for (i=0; i<registros.length; i++) { 
+								html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
+								// html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"areas"'+",\""+registros[i]["nomarea"]+"\",\""+registros[i]["nommateria"]+registros[i]["grado"]+"\")'>";
+								html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:enlace_mat_est("+registros[i]["codmateria"]+")'>";
+								html+="<img src='./img/botones/materias/"+registros[i]["icomateria"]+"' width='100%' height='100%'></a></div></div>";                             
+							}                              
+						}
+						html+="</div>";    
+						migas="<div class='col-sm-12'>";
+						migas+="<ol class='breadcrumb pull-right'>";
+						migas+="<li><a href='javascript:menupri();'>Home</a></li>";
+						migas+="<li><a class='active'>Areas</a></li>";
+						migas+="</ol></div>";      
+						//$("#migas").html(migas);
+						$("#contenedor").html(html);  
+		},
+		error:function(){ alert("Error 400!");}                                   
+		});      
+}
+
 function materias(area){
         $.ajax({
                url:'<?=site_url();?>/docente/co_materias/'+area,
@@ -1990,7 +2054,6 @@ function login_estudiante(){
                });
 }
 function cambiar_clave(){
-    alert("aqui");
     var url = "./index.php/principal/cambio_clave";   
         $.ajax({
                url:url,
@@ -2190,7 +2253,7 @@ var ced=document.getElementById("ced").value;
 }
 
 function cambio_menu(){
-var rol=document.getElementById("rol").value;    
+		var rol=document.getElementById("rol").value;    
     if (rol!=='super'){ 
         html="<ul>";
         //html+="<li><a href='javascript:cfg_docente();'>";
@@ -2205,7 +2268,7 @@ var rol=document.getElementById("rol").value;
         html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Planeación</span></a></li>"; 
         html+="<li><a href='javascript:cfg_cambio_clave();' class='waves-effect'>";
         html+="<i><img src='./img/iconos/clave.png' width='50' height='50'></i><span>Cambio Clave</span></a></li>";             
-        html+="<li><a href='index.php'>";
+        html+="<li><a href='javascript:logout();'>";
         html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar Sesión</span></a></li>";  
         html+="</ul>";
         $("#sidebar-menu").html(html); 
@@ -2213,8 +2276,36 @@ var rol=document.getElementById("rol").value;
     if (rol==='super'){
         administrar();
     }
+		if(rol=== 'Estudiante'){
+			menuForStudents();
+		}
 }
 
+function menuForStudents(){
+	html="<ul>";
+	html+="<li><a href='javascript:StudentAreas();'>";
+	html+="<i><img src='./img/iconos/areas.png' width='50' height='50'></i><span>Areas</span></a></li>";             
+	html+="<li><a href='javascript:cfg_cambio_clave();' class='waves-effect'>";
+	html+="<i><img src='./img/iconos/clave.png' width='50' height='50'></i><span>Cambio Clave</span></a></li>";             
+	html+="<li><a href='javascript:logout();'>";
+	html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar Sesión</span></a></li>";  
+	html+="</ul>";
+	$("#sidebar-menu").html(html); 
+}
+
+
+function logout(){
+    var url = "./index.php/principal/logout";   
+    $.ajax({
+			url:url,
+			type:'POST',
+			data:$("#frmcambio").serialize(),
+			success:function(respuesta){
+				window.location.replace("");
+			},
+			error:function(){ alert("error al intentar hacer logout");}                                   
+		});
+}
 function administrar(){
         html='<div class="panel panel-primary">';        
         html=html+'<div class="panel-heading text-capitalize"><b>Administrar IntegraTIC</b></div>';
