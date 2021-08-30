@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 if($_SERVER['HTTP_HOST'] == 'localhost:8888' || $_SERVER['HTTP_HOST'] == 'localhost'){
-  $config['base_url'] = "http://".$_SERVER['HTTP_HOST']."/loteria_quindio";
+  $config['base_url'] = "http://".$_SERVER['HTTP_HOST']."/integratic";
 }else{
   $config['base_url'] = "https://".$_SERVER['HTTP_HOST'];
 }
