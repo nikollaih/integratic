@@ -3305,6 +3305,187 @@ div.dataTables_info {
 }
 
 
+/* ===== FOROS ======= */
+.titulo-foro{
+  margin-bottom: 0;
+}
+
+.descripcion-foro{
+
+}
+
+.fecha-foro{
+  font-size: 11px;
+}
+
+.item-foro{
+  background: #f5f5f5;
+    padding: 10px;
+    border: 1px solid #ccc;
+    list-style: none;
+}
+
+.card {
+  box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+  border-width: 0;
+  transition: all .2s
+}
+
+.card-header:first-child {
+  border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
+}
+
+.card-header {
+  border-bottom-width: 1px;
+  padding: 10px;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(26, 54, 126, 0.125)
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem
+}
+
+.card-body p {
+  font-size: 15px
+}
+
+.card-footer {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.image-list .files-text {
+    display: inline-block;
+    margin: 0 -12px!important;
+    padding: 0 12px!important;
+    overflow: visible;
+    width: auto;
+    height: 24px;
+    border: 0;
+    vertical-align: top;
+    text-decoration: none!important;
+    line-height: 24px;
+    font-family: inherit;
+    font-size: 12px;
+    color: #333;
+    cursor: pointer;
+    background: 0 0;
+}
+
+
+.image-list * {
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.image-list button {
+    margin: 0 !important;
+}
+
+.image-list .file-list-info {
+    float: left;
+    white-space: nowrap;
+    padding: 10px;
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+}
+
+.image-list .file-list-info span {
+    display: block;
+    width: 100%;
+    margin: 12px 0;
+}
+
+.image-list .file-list-info .total-size {
+    color: #333;
+}
+
+.image-list .file-list {
+    padding: 0 0 0 0;
+    margin: 0 0 0 10px;
+    border: none;
+}
+
+.image-list .file-list ul {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    width: 100%;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+}
+
+.image-list .file-list ul li {
+    position: relative;
+    display: inline-block;
+    margin: 3px;
+    width: 60px;
+    height: 60px;
+    border: 3px solid #fff;
+}
+
+.image-list .file-list ul li .image-wrapper {
+    width: 54px;
+    height: 54px;;
+}
+
+.image-list .file-list ul li.checked {
+    border: 3px solid #dc3545;
+}
+
+.image-list .file-list ul li img {
+    width: 100%;
+    height: auto;
+}
+
+.image-list .file-list ul li .image-size {
+    color: #666;
+    font-size: 10px;
+}
+
+.image-list .file-list ul li .image-check {
+    position: absolute;
+    height: 12px;
+    width: 12px;;
+    top: 0;
+    left: auto;
+    right: 0;
+    margin: 0;
+    padding: 1px 0 1px 2px;
+    border: 0;
+    border-radius: 0 0 0 5px;
+    outline: none;
+    background-color: #dc3545;
+}
+
+.image-list .file-list ul li.checked .image-check {
+    display: block;
+}
+
+.image-list .file-list ul li:not(.checked) .image-check {
+    display: none;
+}
+
+.image-list .file-list ul li .image-check svg {
+    display: inline-block;
+    font-size: 10px;
+    height: 1em;
+    width: 1em;
+    overflow: visible;
+    vertical-align: 0.875em;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+.ke-wrapper-inner.ke-wrapper-wysiwyg.kothing-editor-editable{
+  height: 200px !important;
+}
+
+
 
 /* ================== 18.RESPONSIVE ========================
 =======================================================*/

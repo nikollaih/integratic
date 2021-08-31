@@ -1,5 +1,4 @@
 function cambiar_clave(){
-    console.log($("#frmcambio").serialize());
     var url = "./index.php/principal/cambio_clave";   
         $.ajax({
                url:url,
@@ -18,4 +17,16 @@ function cambiar_clave(){
                error:function(){ alert("Error!");}                                   
                });
 
+}
+
+function ver_foro(id_foro){
+    var url = "./index.php/Foros/ver/" + id_foro;   
+        $.ajax({
+            url:url,
+            type:'GET',
+            success:function(data){
+            $("#listacon").html(data); 
+            },
+            error:function(){ alert("Error!");}                                   
+            });
 }
