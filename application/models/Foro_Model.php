@@ -22,6 +22,7 @@ class Foro_Model extends CI_Model {
         $this->db->where("f.id_foro", $id_foro);
 		$result = $this->db->get();
 
+
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
     }
 
@@ -44,6 +45,17 @@ class Foro_Model extends CI_Model {
         $this->db->from("respuestas_foro f");
         $this->db->join("usuarios u", "f.created_by = u.id");
         $this->db->where("f.id_foro", $id_foro);
+        $this->db->order_by("f.created_at", "desc");
+		$result = $this->db->get();
+
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
+
+    function get_subanswers($answer){
+        $this->db->from("respuestas_foro f");
+        $this->db->join("usuarios u", "f.created_by = u.id");
+        $this->db->where("f.id_relacion_respuesta", $answer);
         $this->db->order_by("f.created_at", "desc");
 		$result = $this->db->get();
 

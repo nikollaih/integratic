@@ -3485,7 +3485,25 @@ div.dataTables_info {
   height: 200px !important;
 }
 
+/* =========== FOROS ============ */
+.show-hide-answers-foro{
+  position: absolute;
+  right: 10px;
+  top: 12px;
+}
 
+.show-hide-answers-foro p{
+  display: inline-block;
+  margin: 0px 0px 0px 10px;
+}
+
+.answer-toggle{
+  cursor: pointer;
+}
+
+.container-answers-foro{
+  display: none;
+}
 
 /* ================== 18.RESPONSIVE ========================
 =======================================================*/

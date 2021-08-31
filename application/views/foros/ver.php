@@ -34,7 +34,7 @@
 </div>
 
 <div class="container-fluid mt-100">
-    <div class="row">
+    <div class="row" style="margin-bottom:10px;">
         <div class="col-md-12">
             <div class="card mb-4">
                 <div class="card-header">
@@ -50,12 +50,13 @@
                 </div>
                 <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
                     <div class="px-4 pt-3"> <a href="javascript:void(0)" class="text-muted d-inline-flex align-items-center align-middle" data-abc="true"> <i class="fa fa-comment text-danger"></i>&nbsp; <span class="align-middle"><?= ($respuestas) ? count($respuestas) : "0" ?></span> </a>  </div>
-                    <div class="px-4 pt-3"> <button data-toggle="modal" data-target="#agregar-respuesta-foro" type="button" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Agregar Respuesta</button> </div>
+                    <div class="px-4 pt-3"> <button data-toggle="modal" data-target="#agregar-respuesta-foro" data-id="<?= $foro['id_foro'] ?>" data-type="foro" type="button" class="btn btn-primary agregar-respuesta-foro"><i class="fa fa-plus"></i>&nbsp; Agregar Respuesta</button> </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row" style="margin-top:30px;">
+    <?= $dom ?>
+   <!-- <div class="row" style="margin-top:30px;">
         <div class="col-md-12" style="padding-left:70px;">
             <ul style="padding:0;">
             <?php
@@ -74,6 +75,7 @@
                                     <div class="card-body">
                                         <p><?= $r["descripcion"] ?></p>
                                     </div>
+                                    <div class="px-4 pt-3"> <button data-toggle="modal" data-target="#agregar-respuesta-foro" type="button" data-type="respuesta" data-id="<?= $r["id_respuesta"] ?>" class="btn btn-primary agregar-respuesta-foro"><i class="fa fa-plus"></i>&nbsp; Agregar Respuesta</button> </div>
                                 </div>
                             </li>
             <?php
@@ -82,7 +84,7 @@
             ?>
             </ul>
         </div>
-    </div>
+    </div>-->
 </div>
 <!-- Foros -->
 <script src="js/foros.js"></script>

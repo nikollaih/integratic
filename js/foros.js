@@ -1,4 +1,24 @@
 let editorImageSample;
+let tipoRespuestaForo = "foro";
+let idRespuestaForo = null;
+let idForo = null;
+
+$(document).on( "click", ".answer-toggle", function() {
+    let toggle = $(this).attr("data-toggle");
+    $("." + toggle).slideDown();
+});
+
+$(document).on( "click", ".agregar-respuesta-foro", function() {
+    tipoRespuestaForo = $(this).attr("data-type");
+    if(tipoRespuestaForo == "respuesta"){
+        idRespuestaForo = $(this).attr("data-id");
+        idForo = null;
+    }
+    else{
+        idRespuestaForo = null;
+        idForo = $(this).attr("data-id");
+    }
+});
 
 setTimeout(() => {        
      document.getElementById('image_wrapper');
@@ -121,12 +141,20 @@ setTimeout(() => {
     }
 }, 1000);
 
-function guardar_respuesta(id_foro){
-    var url = "./index.php/Foros/agregar_respuesta/" + id_foro;   
+function guardar_respuesta(foro){
+    console.log(idForo)
+    console.log(idRespuestaForo)
+    console.log(tipoRespuestaForo)
+    var url = "./index.php/Foros/agregar_respuesta";   
         $.ajax({
             url:url,
             type:'POST',
-            data: {mensaje: editorImageSample.getContents() },
+            data: {
+                mensaje: editorImageSample.getContents(),
+                id_foro: idForo,
+                id_respuesta: idRespuestaForo,
+                tipo: tipoRespuestaForo
+            },
             success:function(data){
                 var data = JSON.parse(data);
                 
@@ -134,7 +162,7 @@ function guardar_respuesta(id_foro){
                     $('#agregar-respuesta-foro').modal('hide') ; 
 
                     setTimeout(() => {
-                        ver_foro(id_foro);
+                        ver_foro(foro);
                     }, 1000)
 
                 }

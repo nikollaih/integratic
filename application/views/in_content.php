@@ -1123,12 +1123,13 @@ function enlace_mat_est(cod){
                             var tipo=registros[i]["tipo"];
                             var grado=registros[i]["grado"];
                             var grupo=registros[i]["grupo"];
+                            var idmateria=registros[i]["materia"];
                             if(grupo==='N'){
                                 listardoc(tipo,narea,nmateria+grado,'N');
                             }else{
                                 html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                                 html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                                html=html+"<a href='javascript:listado(\""+tipo+"\",\""+narea+"\",\""+nmateria+grado+"\",\""+grado+grupo+"\")'>";                                
+                                html=html+"<a href='javascript:listado(\""+tipo+"\",\""+narea+"\",\""+nmateria+grado+"\",\""+grado+grupo+"\",\"\",\""+idmateria+"\",\""+grupo+"\")'>";                                
                                 html=html+"<img src='./img/botones/grupos/"+grado+grupo+".png' width='100%' height='100%'></a></div></div>";                               
                             }
                           }                              
@@ -1356,6 +1357,7 @@ function enlace_materia(doc,cod){
                     html='<div class="panel panel-primary">';        
                     html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica ..:  '+registros[0]["nommateria"]+'</b></div>';
                     html=html+'<div class="panel-body">';  
+                    console.log(registros)
                       if(registros.length>0){  
                           for (i=0; i<registros.length; i++) {                             
                             var narea=registros[i]["nomarea"];
@@ -1736,7 +1738,7 @@ function submenu_acti(ruta,sub){
        
        $("#rutas").html(sub);
 }
-function listado(tipo,carpeta,materia,grupo,descripcion){
+function listado(tipo,carpeta,materia,grupo,descripcion,idmateria=null,idgrupo=null ){
     //$("#contenedor").html('<div id="listacon"></div>');
     switch(tipo){
         case 'labs':titulo = "Laboratorio Virtual "+materia;
@@ -1771,8 +1773,9 @@ function listado(tipo,carpeta,materia,grupo,descripcion){
             $.ajax({
                url:url,
                type:'POST',
-               data:{ruta:ruta,titulo:titulo},
+               data:{ruta:ruta,titulo:titulo,materia:idmateria,grupo:idgrupo},
                success:function(respuesta){ 
+                   console.log(respuesta)
                         migas="<div class='col-sm-12'>";
                         migas+="<ol class='breadcrumb pull-right'>";
                         migas+="<li><a href='javascript:menupri();'>Home</a></li>";

@@ -129,14 +129,15 @@ class Docente extends CI_Controller {
     }    
 
     public function listar(){ 
-header("Cache-Control: no-cache, must-revalidate");       
+header("Cache-Control: no-cache, must-revalidate");   
+
         $carpeta    = $_POST['ruta']; 
         $titulo     = $_POST['titulo']; 
         $materia     = $_POST['materia']; 
         $grupo     = $_POST['grupo'];
         
         $foros = $this->Foro_Model->get_all($materia, $grupo);
-
+print_r($foros);
         $foros_dom = '';
         if($foros != false){
             $foros_dom = '<div><h3 style="background: #718fc8;padding-left: 9px;font-size: 18px;color:#fff;">Foros</h3><ul style="padding:0">';
