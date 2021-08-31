@@ -34,6 +34,11 @@ class Principal extends CI_Controller {
         $this->load->view('in_footer'); 
         $this->load->view('in_script');         
     }
+
+    public function logout(){
+        $this->session->set_userdata("logged_in", ''); 
+        echo json_encode('ok');
+    }
     
     public function login()
     {  

@@ -9,6 +9,8 @@ class Docente extends CI_Controller {
          $this->load->helper('form');
          $this->load->helper('html');
          $this->load->helper('url');
+         $this->load->model('consultas_model');
+				 $this->load->model('Estudiante_Model');
          $this->load->model(array('consultas_model','Foro_Model'));
     }
     
@@ -781,10 +783,16 @@ public function listar_filtro(){
         } 
         else{echo ("Error en consulta");}
     }      
-    public function cop_materias_gen($mat){  
+    public function cop_materias_gen($mat){
+			if(is_logged() && logged_user()['rol'] === 'Estudiante'){
+				if($datos  = $this->Estudiante_Model->groupGradeAsignature(logged_user()['id'], $mat)){                   
+					echo json_encode($datos);
+				}else{echo ("Error en consulta");}
+			}else{
         if($datos  = $this->consultas_model->conp_materias_gen($mat)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}
+			}
     }    
 }

@@ -7,18 +7,26 @@ class Consultas_Model extends CI_Model {
   }
   public function login($usr,$pass){
     $result=$this->db->query("Select * From usuarios where usuario='$usr' And clave='$pass'");
-    if(!$result) {return false;}
-    else {return $result->row_array();}      
-  }  
-  public function login_estudiante($usr){
-    date_default_timezone_set('america/bogota');
+    if(!$result){return false;}
+    else{
+      if($result->row_array()){$this->registrar_ingreso($usr); }
+      return $result->row_array();
+    }      
+  }
+
+  public function registrar_ingreso($user_id){
     $date = date_create();
     $fecha= date_format($date, 'Y-m-d H:i:s');
     $hora= date_format($date, 'H:i:s');
+    $f=$this->db->query("INSERT INTO ingresos VALUES(0,'$user_id','$fecha','$hora')");
+  }
+
+  public function login_estudiante($usr){
+    date_default_timezone_set('america/bogota');
     if($usr){$result=$this->db->query("Select * From estudiante where documento='$usr'");}
     if(!$result) {return false;}
     else {
-      $f=$this->db->query("INSERT INTO ingresos VALUES(0,'$usr','$fecha','$hora')");
+      if($result->row_array()){$this->registrar_ingreso($usr); }
       return $result->result();}      
   }   
   public function nom_docente($id){
