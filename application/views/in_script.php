@@ -4,7 +4,6 @@
         </script>
 
         <!-- jQuery  -->
-        <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/waves.js"></script>
         <script src="js/general.js"></script>
@@ -47,6 +46,10 @@
 
         <!-- Todo -->
         <script src="js/jquery.todo.js"></script>
+
+        <!-- Foros -->
+        <script src="https://kothing.github.io/editor/dist/kothing-editor.min.js"></script>
+        <script src="js/foros.js"></script>
 
         <script type="text/javascript">
             /* ==============================================

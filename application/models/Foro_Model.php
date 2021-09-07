@@ -27,7 +27,7 @@ class Foro_Model extends CI_Model {
     }
 
     function add($data){
-        $this->db->inser("foros", $data);
+        $this->db->insert("foros", $data);
         return $this->get($this->db->insert_id());
     }
 

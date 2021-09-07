@@ -6,7 +6,7 @@
         </div> <!-- container -->                               
     </div> <!-- content -->
 </div>
-  
+<?php $this->load->view("foros/template/crear_foro_modal");?>
 <!-- Ventana Modal Portada-->
 <?php 
     if(!$this->session->userdata("logged_in")){
@@ -1386,35 +1386,44 @@ function enlace_materia(doc,cod){
 }
 
 function listardoc(tipo,carpeta,materia,grupo,idmateria=null,idgrupo=null){
+    $("#nuevo-foro-materia").val(idmateria);
+    $("#nuevo-foro-grupo").val(idgrupo);
+
     switch(tipo){
-        case 'labs':titulo = "Laboratoria Virtual "+materia;
-                    ruta="principal/labs/"+materia;
+        case 'labs':
+            titulo = "Laboratoria Virtual " + materia;
+            ruta = "principal/labs/" + materia;
             break;
-        case 'biblioteca':titulo = "Biblioteca Virtual"; 
-                          ruta="principal/"+carpeta;
+        case 'biblioteca':
+            titulo = "Biblioteca Virtual"; 
+            ruta="principal/" + carpeta;
             break;
-        case 'saber':titulo = "Pruebas y Simulacros Saber"; 
-                        ruta="principal/"+carpeta;
+        case 'saber':
+            titulo = "Pruebas y Simulacros Saber"; 
+            ruta="principal/" + carpeta;
             break;       
-        case 'semilla':titulo = "Colección Semilla - Plan Nacional de Lectura y Escritura";  
-                        ruta="principal/"+carpeta;
+        case 'semilla':
+            titulo = "Colección Semilla - Plan Nacional de Lectura y Escritura";  
+            ruta="principal/" + carpeta;
             break; 
-        case 'animat':titulo = "Animaciones Matemáticas";  
-                        ruta="principal/"+carpeta;
+        case 'animat':
+            titulo = "Animaciones Matemáticas";  
+            ruta="principal/" + carpeta;
             break;   
-        case 'animaingles': titulo = "Animaciones Inglés";  
-                            ruta="principal/"+carpeta;
+        case 'animaingles': 
+            titulo = "Animaciones Inglés";  
+            ruta="principal/" + carpeta;
             break;     
-        case 'mecanico':titulo = "Videos el universo mecánico";  
-                        ruta="principal/"+carpeta;
+        case 'mecanico':
+            titulo = "Videos el universo mecánico";  
+            ruta="principal/" + carpeta;
             break;    
         case 'areas':
-                var gra=materia.replace(/\D/g,'');
-                var mat=materia.replace(gra,'');            
-                titulo = mat+" grado "+grupo;  
-                if(grupo==='N'){ruta="./principal/areas/"+carpeta+"/"+materia;}
-                    else{ruta="./principal/areas/"+carpeta+"/"+materia+"/"+grupo;}
-                document.getElementById("dir").value=ruta;
+            var gra = materia.replace(/\D/g,'');
+            var mat = materia.replace(gra,'');            
+            titulo = mat + " grado " + grupo;  
+            ruta = (grupo==='N') ? "./principal/areas/" + carpeta + "/" + materia : "./principal/areas/" + carpeta + "/" + materia + "/" + grupo;
+            document.getElementById("dir").value  =ruta;
             break;   
         case 'areabase':
             switch(carpeta){
@@ -1429,8 +1438,7 @@ function listardoc(tipo,carpeta,materia,grupo,idmateria=null,idgrupo=null){
                 case 'apoyo'        :  titulo = "Aula de Apoyo"; break;    
                 case 'pta'          :  titulo = "Programa Todos a Aprender"; break;        
             }                                        
-                if(grupo==='N'){ruta="./principal/areas/"+carpeta+"/"+materia;}
-                    else{ruta="./principal/areas/"+carpeta+"/"+materia+"/"+grupo;}
+            ruta = (grupo==='N') ? "./principal/areas/" + carpeta + "/" + materia : "./principal/areas/" + carpeta + "/" + materia + "/" + grupo;
             break;             
         case 'raiz': 
             switch(carpeta){
@@ -1440,27 +1448,29 @@ function listardoc(tipo,carpeta,materia,grupo,idmateria=null,idgrupo=null){
                 case 'verdetopia'   : titulo = "VerdeTopía"; break; 
                 default 			: titulo = grupo; break;
             }             
-                ruta="principal/"+carpeta; 
-                $("#contenedor").html('<div id="contenido" class="ir-arriba"></div><div id="listacon"></div>');
-                break;
-    }   
+            ruta = "principal/" + carpeta; 
+            $("#contenedor").html('<div id="contenido" class="ir-arriba"></div><div id="listacon"></div>');
+            break;
+    }
+
     $("#rutas").html(titulo);
     document.getElementById("ubica").value=titulo;
     document.getElementById("dir").value=ruta;
     url='./index.php/docente/listar';
-            $.ajax({
-               url:url,
-               type:'POST',
-               async:false,
-               data:{ruta:ruta,titulo:titulo,materia:idmateria,grupo:idgrupo},
-               success:function(respuesta){                     
-                        $("#listacon").html(respuesta);  
-                        $("#rutas").html(titulo);                          
-               },
-               error:function(){alert("Ocurrió un Error!");}        
-       }); 
-         
+
+    $.ajax({
+        url:url,
+        type:'POST',
+        async:false,
+        data:{ruta:ruta,titulo:titulo,materia:idmateria,grupo:idgrupo},
+        success:function(respuesta){                     
+                $("#listacon").html(respuesta);  
+                $("#rutas").html(titulo);                          
+        },
+        error:function(){alert("Ocurrió un Error!");}        
+    });         
 }
+
 function listarpro(proy,tit){    
     titulo=tit;
     document.getElementById("ubica").value=tit;

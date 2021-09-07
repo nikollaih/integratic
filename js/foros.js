@@ -2,10 +2,38 @@ let editorImageSample;
 let tipoRespuestaForo = "foro";
 let idRespuestaForo = null;
 let idForo = null;
+let kothingParams = {
+    width: '100%',
+    height: 'auto',
+    toolbarItem: [
+      ['undo', 'redo'],
+      ['font', 'fontSize', 'formatBlock'],
+      ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'fontColor', 'hiliteColor'],
+      ['outdent', 'indent', 'align', 'list', 'horizontalRule'],
+      ['link', 'table', 'image', 'audio', 'video'],
+      '/', // Line break
+      ['lineHeight', 'paragraphStyle', 'textStyle'],
+      ['showBlocks', 'codeView'],
+      ['preview', 'print', 'fullScreen'],
+      ['save', 'template'],
+      ['removeFormat']
+    ],
+    templates: [
+      {
+        name: 'Template-1',
+        html: '<p>HTML source1</p>'
+      },
+      {
+        name: 'Template-2',
+        html: '<p>HTML source2</p>'
+      },
+    ],
+    charCounter: true,
+}
 
 $(document).on( "click", ".answer-toggle", function() {
     let toggle = $(this).attr("data-toggle");
-    $("." + toggle).slideDown();
+    $("." + toggle).slideToggle();
 });
 
 $(document).on( "click", ".agregar-respuesta-foro", function() {
@@ -21,7 +49,7 @@ $(document).on( "click", ".agregar-respuesta-foro", function() {
 });
 
 setTimeout(() => {        
-     document.getElementById('image_wrapper');
+    document.getElementById('image_wrapper');
     const imageSize = document.getElementById('image_size');
     const imageRemove = document.getElementById('image_remove');
     const imageTable = document.getElementById('image_list');
@@ -29,15 +57,7 @@ setTimeout(() => {
     let imageList = [];
     let selectedImages = [];
 
-    editorImageSample = KothingEditor.create('imageManagement', {
-        buttonList: [
-            ['undo', 'redo',  'font', 'fontSize'],
-            ['formatBlock'],
-            ['horizontalRule', 'list', 'table'],
-            ['image', 'video'],
-            ['showBlocks', 'fullScreen', 'preview', 'print']
-        ],
-    })
+    editorImageSample = KothingEditor.create('imageManagement', kothingParams);
 
     editorImageSample.onImageUpload = function (targetImgElement, index, state, imageInfo, remainingFilesCount) {
         if (state === 'delete') {
@@ -54,13 +74,13 @@ setTimeout(() => {
         }
     }
 
-    // Upload from outside the editor
-    document.getElementById('files_upload').addEventListener('change', function (e) {
+    $(document).on( "change", ".files_upload", function(e) {
         if (e.target.files) {
             editorImageSample.insertImage(e.target.files)
             e.target.value = ''
         }
-    })
+    });
+
 
     // Edit image list
     function setImageList () {
@@ -142,9 +162,6 @@ setTimeout(() => {
 }, 1000);
 
 function guardar_respuesta(foro){
-    console.log(idForo)
-    console.log(idRespuestaForo)
-    console.log(tipoRespuestaForo)
     var url = "./index.php/Foros/agregar_respuesta";   
         $.ajax({
             url:url,
@@ -170,4 +187,42 @@ function guardar_respuesta(foro){
             },
             error:function(){ alert("Error!");}                                   
     });
+}
+
+function guardar_foro(){
+    let titulo = $("#nuevo-foro-titulo").val();
+    let materia = $("#nuevo-foro-materia").val();
+    let grupo = $("#nuevo-foro-grupo").val();
+
+    if(titulo.trim() != "" && materia && grupo){
+        var url = "./index.php/Foros/agregar_foro";   
+        $.ajax({
+            url:url,
+            type:'POST',
+            data: {
+                descripcion: editorImageForo.getContents(),
+                titulo: titulo,
+                materia: materia,
+                grupo: grupo
+            },
+            success:function(data){
+                var data = JSON.parse(data);
+                
+                if(data.status){
+                    let titulo = $("#nuevo-foro-titulo").val("");
+                    $('#agregar-nuevo-foro').modal('hide') ; 
+
+                    setTimeout(() => {
+                        ver_foro(data.object.id_foro);
+                    }, 1000)
+                }
+
+                alert(data.message); 
+            },
+            error:function(){ alert("Error!");}                                   
+        });
+    }
+    else{
+        alert("Por favor complete todos los campos requeridos!");
+    }
 }
