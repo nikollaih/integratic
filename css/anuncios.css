@@ -1,0 +1,40 @@
+.add-announcement-container {
+    display: flex;
+    margin-bottom: 20px;
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.add-announcement-container p {
+    font-weight: bold;
+    margin: 0px 0px 0px 10px !important;
+}
+
+.add-announcement-container a {
+    margin-right: 10px;
+}
+
+.card-anuncio {
+    border-radius: 10px;
+    color: #000;
+    overflow: hidden;
+    margin-bottom: 20px !important;
+}
+
+.card-anuncio .card-header {
+    background-color: #ff5c5c;
+}
+
+.card-anuncio .card-header h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #fff;
+}
+
+.card-anuncio .anuncio-date {
+    margin: 0 0 10px 0px;
+    font-size: 11px;
+    color: #676767;
+}

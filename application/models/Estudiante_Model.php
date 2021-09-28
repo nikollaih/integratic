@@ -29,6 +29,7 @@ class Estudiante_Model extends CI_Model {
 	public function groupGradeAsignature($student_id, $mat){
 		$group = $this->getStudentGroupGrade($student_id);
     $result = $this->db->query("Select * from asg_materias,cfg_materias,cfg_areas where materia=$mat and codarea=area and codmateria=materia and grupo='$group'");
+
     if(!$result) {return false;}
     else {return $result->result();}      
   }  

@@ -47,9 +47,11 @@
         <!-- Todo -->
         <script src="js/jquery.todo.js"></script>
 
+        <!-- Anuncios -->
+        <script src="js/anuncios.js"></script>
+
         <!-- Foros -->
         <script src="https://kothing.github.io/editor/dist/kothing-editor.min.js"></script>
-        <script src="js/foros.js"></script>
 
         <script type="text/javascript">
             /* ==============================================

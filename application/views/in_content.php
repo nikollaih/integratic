@@ -6,7 +6,9 @@
         </div> <!-- container -->                               
     </div> <!-- content -->
 </div>
-<?php $this->load->view("foros/template/crear_foro_modal");?>
+<!-- Modals -->
+<?php $this->load->view("foros/template/crear_foro_modal"); ?>
+<?php $this->load->view("anuncios/crear_anuncio_modal"); ?>
 <!-- Ventana Modal Portada-->
 <?php 
     if(!$this->session->userdata("logged_in")){
@@ -1785,7 +1787,6 @@ function listado(tipo,carpeta,materia,grupo,descripcion,idmateria=null,idgrupo=n
                type:'POST',
                data:{ruta:ruta,titulo:titulo,materia:idmateria,grupo:idgrupo},
                success:function(respuesta){ 
-                   console.log(respuesta)
                         migas="<div class='col-sm-12'>";
                         migas+="<ol class='breadcrumb pull-right'>";
                         migas+="<li><a href='javascript:menupri();'>Home</a></li>";

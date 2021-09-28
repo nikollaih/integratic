@@ -21,6 +21,8 @@
         <link href="./assets/sweet-alert/sweet-alert.min.css" rel="stylesheet">
         <!-- Custom Files -->
         <link href="./css/helper.css" rel="stylesheet" type="text/css" />
+        <link href="./css/anuncios.css" rel="stylesheet" type="text/css" />
+        <link href="./css/foros.css" rel="stylesheet" type="text/css" />
         <link href="https://kothing.github.io/editor/dist/css/kothing-editor.min.css" rel="stylesheet">
         <link href="./css/style.css" rel="stylesheet" type="text/css" />
         <!--HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
