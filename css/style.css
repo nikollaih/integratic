@@ -4314,6 +4314,19 @@ div.dataTables_info {
     text-align: center;
 }
 
+.notificacion-tipo {
+    font-size: 11px;
+}
+
+.list-notificacion-anuncio {
+    border-left: 4px solid #ff5c5c;
+    border-bottom: 1px solid #b1b1b1;
+}
+
+.list-notificacion-anuncio .notificacion-tipo {
+    color: #ff5c5c;
+}
+
 
 /* ================== 18.RESPONSIVE ========================
 =======================================================*/

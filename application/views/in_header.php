@@ -45,23 +45,17 @@
                                        ?>                                  
                                 </li>
                                 <li class="dropdown hidden-xs">
-                                    <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
+                                    <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light notificaciones-icon" data-toggle="dropdown" aria-expanded="true">
                                         <i class="fa fa-bell"></i>
                                         <div class="counter-notification">
-                                           <p>12</p>
+                                           <p id="contador-notificaciones"><?= obtener_contador_anuncios() ?></p>
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-lg">
-                                        <li class="text-center notifi-title">Filtrar Areas</li>
-                                        <li class="list-group">
-                                            <a href="javascript:filtrar_menu('VIDEOS');" class="list-group-item">
-                                              <div class="media">
-                                                 <div class="media-body clearfix">
-                                                    <div class="media-heading">Videos</div>
-                                                 </div>
-                                              </div>
-                                            </a>   
-                                        </li>
+                                        <li class="text-center notifi-title">Notificaciones</li>
+                                        <div id="notificaciones-container">
+                                           
+                                        </div>
                                     </ul>
                                 </li>
                                 <li class="dropdown hidden-xs">

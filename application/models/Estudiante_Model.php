@@ -54,4 +54,26 @@ class Estudiante_Model extends CI_Model {
 		}     
 	}
 
+	// Obtiene los anuncios de un grupo en especifico
+	function getAnuncios($grado, $grupo, $date = null, $query = false){
+		$this->db->from("cfg_materias m");
+		$this->db->join("anuncios a", "m.codmateria = a.materia");
+		$this->db->where("m.grado", $grado);
+		$this->db->where("a.grupo", $grupo);
+
+		if($date != null && $query == false){
+			$this->db->where("a.created_at >", $date);
+		}
+
+		if($query){
+			$this->db->limit(10);
+		}
+
+		$this->db->order_by("a.id_anuncio", "desc");
+
+		$result = $this->db->get();
+
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
 }

@@ -12,6 +12,7 @@ class Anuncio_Model extends CI_Model {
 		$this->db->join("usuarios u", "a.created_by = u.id");
         $this->db->where("a.grupo", $grupo);
         $this->db->where("a.materia", $materia);
+		$this->db->order_by("a.created_at", "desc");
 		$result = $this->db->get();
 
 		return ($result->num_rows() > 0) ? $result->result_array() : false;

@@ -2007,7 +2007,6 @@ function login(){
                type:'POST',
                data:$("#frmlogin").serialize(),
                success:function(respuesta){
-                   console.log(respuesta);
                if(respuesta!=0){ 
                  var registros = JSON.parse(respuesta); 
                  user = registros; 
@@ -2033,6 +2032,11 @@ function login(){
                                cambio_menu();
                                if(registros.rol == "Docente"){
                                 cfg_docente();
+                               }
+
+                               if(registros.rol == "Estudiante"){
+                                StudentAreas();
+                                actualizar_notificaciones();
                                }
 
                                if(user.id == user.clave){

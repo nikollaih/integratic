@@ -10,7 +10,7 @@ function guardar_anuncio() {
                 descripcion: descripcion,
                 titulo: titulo
             },
-            success: function (data) {
+            success: function(data) {
                 var data = JSON.parse(data);
 
                 if (data.status) {
@@ -20,10 +20,9 @@ function guardar_anuncio() {
 
                 alert(data.message);
             },
-            error: function () { alert("Error!") }
+            error: function() { alert("Error!") }
         });
-    }
-    else {
+    } else {
         alert("Por favor complete todos los campos requeridos!");
     }
 }

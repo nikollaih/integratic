@@ -46,6 +46,9 @@
                         </div>
                     </div>
                 </div>
+                <?php
+                    print_r($this->session->userdata());
+                ?>
             <?php $this->load->view("foros/template/lista_foros", $foros) ?>    
             <table style='width:80%;'>
                 <tbody>
