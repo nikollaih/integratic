@@ -17,4 +17,11 @@ class Usuarios_Model extends CI_Model {
     	$this->db->where("id", $data["id"]);
 		return $this->db->update("usuarios", $data);
   	}
+
+	public function get_user($id){
+		$this->db->from("usuarios");
+		$this->db->where("id", $id);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+	}
 }

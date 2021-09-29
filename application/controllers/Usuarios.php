@@ -5,7 +5,7 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model('general_model');
+       $this->load->model(['general_model', "Usuarios_model"]);
     }
     
     public function nuevo()
@@ -41,4 +41,21 @@
          }
     }
 
+	// Actualiza la fecha de ultima vista a las notificaciones
+    public function actualizar_fecha_notificaciones(){
+		if(is_logged()){
+			$data["id"] = logged_user()["id"];
+			$data["ultima_fecha_anuncios"] = date("Y-m-d H:i:s");
+
+			if($this->Usuarios_model->update_user($data)){
+				json_response(null, true, "Fecha actualizada");
+			}
+			else{
+				json_response(null, false, "Ha ocurrido un error");
+			}
+		}
+		else{
+			json_response(null, false, "Usuario no válido");
+		}
+	}
 } 

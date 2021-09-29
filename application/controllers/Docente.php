@@ -10,8 +10,8 @@ class Docente extends CI_Controller {
          $this->load->helper('html');
          $this->load->helper('url');
          $this->load->model('consultas_model');
-				 $this->load->model('Estudiante_Model');
-         $this->load->model(array('consultas_model','Foro_Model'));
+		$this->load->model('Estudiante_Model');
+         $this->load->model(array('consultas_model','Foro_Model', 'Anuncio_Model'));
     }
     
     public function lista_usr(){  
@@ -135,13 +135,15 @@ class Docente extends CI_Controller {
         $data["materia"] = $this->input->post("materia");
         $data["grupo"] = $this->input->post("grupo");
         $data["foros"] = $this->Foro_Model->get_all($data["materia"], $data["grupo"]);
+        $data["anuncios"] = $this->Anuncio_Model->get_all($data["materia"], $data["grupo"]);
+        $this->session->set_userdata("materia_grupo", array("materia"  => $data["materia"], "grupo"  => $data["grupo"]));
 
         // Verificamos si existe un usuario logueado
         if(is_logged()){
             $this->load->view("docente/listar", $data);
         }
         else{
-            header('Location: '.$_SERVER['REQUEST_URI']);
+            header('Location: '.$_SERVER['HTTP_HOST']);
         }
 }         
     public function listar_acti(){ 
@@ -637,14 +639,16 @@ public function listar_filtro(){
     }      
     public function cop_materias_gen($mat){
 			if(is_logged() && logged_user()['rol'] === 'Estudiante'){
-				if($datos  = $this->Estudiante_Model->groupGradeAsignature(logged_user()['id'], $mat)){                   
+                $datos  = $this->Estudiante_Model->groupGradeAsignature(logged_user()['id'], $mat);
+              
+				if($datos){                   
 					echo json_encode($datos);
-				}else{echo ("Error en consulta");}
+				}else{echo ("Error en consulta 1");}
 			}else{
         if($datos  = $this->consultas_model->conp_materias_gen($mat)){                   
             echo json_encode($datos);
         } 
-        else{echo ("Error en consulta");}
+        else{echo ("Error en consulta 2");}
 			}
     }    
 }

@@ -1,4 +1,4 @@
-let editorImageSample;
+let editorImageRespuesta;
 let tipoRespuestaForo = "foro";
 let idRespuestaForo = null;
 let idForo = null;
@@ -33,7 +33,7 @@ let kothingParams = {
 
 $(document).on( "click", ".answer-toggle", function() {
     let toggle = $(this).attr("data-toggle");
-    $("." + toggle).slideToggle();
+    $("." + toggle).slideDown();
 });
 
 $(document).on( "click", ".agregar-respuesta-foro", function() {
@@ -57,79 +57,39 @@ setTimeout(() => {
     let imageList = [];
     let selectedImages = [];
 
-    editorImageSample = KothingEditor.create('imageManagement', kothingParams);
+    editorImageRespuesta = KothingEditor.create('imageManagement', kothingParams);
 
-    editorImageSample.onImageUpload = function (targetImgElement, index, state, imageInfo, remainingFilesCount) {
+    editorImageRespuesta.onImageUpload = function (targetImgElement, index, state, imageInfo, remainingFilesCount) {
         if (state === 'delete') {
-            imageList.splice(findIndex(imageList, index), 1)
+            imageList.splice(findIndexRespuesta(imageList, index), 1)
         } else {
             if (state === 'create') {
-                const image = editorImageSample.getImagesInfo()[findIndex(editorImageSample.getImagesInfo(), index)]
+                const image = editorImageRespuesta.getImagesInfo()[findIndexRespuesta(editorImageRespuesta.getImagesInfo(), index)]
                 imageList.push(image)
             } else { }
         }
 
         if (remainingFilesCount === 0) {
-            setImageList(imageList)
+            setImageListRespuesta(imageList)
         }
     }
 
-    $(document).on( "change", ".files_upload", function(e) {
+    $(document).on( "change", ".files_upload_respuesta", function(e) {
         if (e.target.files) {
-            editorImageSample.insertImage(e.target.files)
+            editorImageRespuesta.insertImage(e.target.files)
             e.target.value = ''
         }
     });
 
-
-    // Edit image list
-    function setImageList () {
-        let list = '';
-        let size = 0;
-
-        for (let i = 0, image, fixSize; i < imageList.length; i++) {
-            image = imageList[i];
-            fixSize = (image.size / 1000).toFixed(1) * 1
-                
-            list += '<li id="img_' + image.index + '">' +
-                        '<div onclick="checkImage(' + image.index + ')">' +
-                            '<div class="image-wrapper"><img src="' + image.src + '"></div>' +
-                        '</div>' +
-                        '<a href="javascript:void(0)" onclick="selectImage(\'select\',' + image.index + ')" class="image-size">' + fixSize + 'KB</a>' +
-                        '<div class="image-check"><svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg></div>' +
-                    '</li>';
-            
-            size += fixSize;
-        }
-
-        imageSize.innerText = size.toFixed(1) + 'KB';
-        imageTable.innerHTML = list;
-    }
-
-    // Array.prototype.findIndex
-    function findIndex(arr, index) {
-        let idx = -1;
-
-        arr.some(function (a, i) {
-            if ((typeof a === 'number' ? a : a.index) === index) {
-                idx = i;
-                return true;
-            }
-            return false;
-        })
-
-        return idx;
-    }
-
     // Click the file size
-    function selectImage (type, index) {
-        imageList[findIndex(imageList, index)][type]();
+    function selectImageRespuesta (type, index) {
+        imageList[findIndexRespuesta(imageList, index)][type]();
     }
 
     // Image check
-    function checkImage (index) {
+    function checkImageRespuesta (index) {
         const li = imageTable.querySelector('#img_' + index);
-        const currentImageIdx = findIndex(selectedImages, index)
+        const currentImageIdx = findIndexRespuesta(selectedImages, index)
 
         if (currentImageIdx > -1) {
             selectedImages.splice(currentImageIdx, 1)
@@ -147,8 +107,8 @@ setTimeout(() => {
     }
 
     // Click the remove button
-    function deleteCheckedImages() {
-        const iamgesInfo = editorImageSample.getImagesInfo();
+    function deleteCheckedImagesRespuesta() {
+        const iamgesInfo = editorImageRespuesta.getImagesInfo();
 
         for (let i = 0; i < iamgesInfo.length; i++) {
             if (selectedImages.indexOf(iamgesInfo[i].index) > -1) {
@@ -159,6 +119,46 @@ setTimeout(() => {
 
         selectedImages = []
     }
+
+
+    // Edit image list
+    function setImageListRespuesta () {
+        let list = '';
+        let size = 0;
+
+        for (let i = 0, image, fixSize; i < imageList.length; i++) {
+            image = imageList[i];
+            fixSize = (image.size / 1000).toFixed(1) * 1
+                
+            list += '<li id="img_' + image.index + '">' +
+                        '<div onclick="checkImageRespuesta(' + image.index + ')">' +
+                            '<div class="image-wrapper"><img src="' + image.src + '"></div>' +
+                        '</div>' +
+                        '<a href="javascript:void(0)" onclick="selectImageRespuesta(\'select\',' + image.index + ')" class="image-size">' + fixSize + 'KB</a>' +
+                        '<div class="image-check"><svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg></div>' +
+                    '</li>';
+            
+            size += fixSize;
+        }
+
+        imageSize.innerText = size.toFixed(1) + 'KB';
+        imageTable.innerHTML = list;
+    }
+
+    // Array.prototype.findIndexRespuesta
+    function findIndexRespuesta(arr, index) {
+        let idx = -1;
+
+        arr.some(function (a, i) {
+            if ((typeof a === 'number' ? a : a.index) === index) {
+                idx = i;
+                return true;
+            }
+            return false;
+        })
+
+        return idx;
+    }
 }, 1000);
 
 function guardar_respuesta(foro){
@@ -167,7 +167,7 @@ function guardar_respuesta(foro){
             url:url,
             type:'POST',
             data: {
-                mensaje: editorImageSample.getContents(),
+                mensaje: editorImageRespuesta.getContents(),
                 id_foro: idForo,
                 id_respuesta: idRespuestaForo,
                 tipo: tipoRespuestaForo

@@ -3,7 +3,7 @@
     {
         function mover_estudiantes_usuarios(){
             $CI = &get_instance();
-            $CI->load->model(['Estudiante_Model', 'General_Model']);
+            $CI->load->model(['Estudiante_Model', 'General_Model', 'Usuarios_model']);
             
             $estudiantes = $CI->Estudiante_Model->getAll();
             
@@ -26,8 +26,10 @@
                     $data["clave"] =  $e["documento"];
                     $data["estado"] = "ac";
 
-
-                   $CI->General_Model->insertar("usuarios", $data);
+                    $user = $CI->Usuarios_model->get_user($e["documento"]);
+                    if(!$user){
+                        $CI->General_Model->insertar("usuarios", $data);
+                    }
                 }
 
                 

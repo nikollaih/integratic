@@ -4,8 +4,8 @@
         function load_answer($respuesta, $margin = 0, $id, $count_answers = 0){
             $dom_answers = ($count_answers > 0) ? '<div data-toggle="'.$id.'" class="show-hide-answers-foro answer-toggle"><i class="fa fa-eye"></i><p>Mostrar Respuestas ('.$count_answers.')</p></div>' : '';
            return 
-            '<li style="list-style:none;margin-bottom: 10px;">'.
-                    '<div class="card mb-4">'.
+            '<li style="list-style:none;">'.
+                    '<div class="card mb-4 item-foro">'.
                         '<div class="card-header">'.
                             '<div class="media flex-wrap w-100 align-items-center" style="position:relative;">'.
                                 '<div class="media-body ml-3"> <a data-abc="true" style="font-weight:bold;">'.$respuesta["nombres"].' '.$respuesta["apellidos"] .'</a>'.

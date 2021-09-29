@@ -45,6 +45,10 @@ class Principal extends CI_Controller {
         $usr    = $_POST['usr'];
         $pass   = $_POST['pass'];
         if($datos=$this->consultas_model->login($usr,$pass)){  
+            if($datos["rol"] == "Estudiante"){
+                $datos = array_merge($datos, get_group_grade($datos["id"]));
+            }
+
             $this->session->set_userdata("logged_in", $datos); 
             $_SESSION['nom']=$datos["nombres"];
             $_SESSION['ape']=$datos["apellidos"];
