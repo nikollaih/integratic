@@ -21,6 +21,6 @@ class Anuncio_Model extends CI_Model {
 	// Create a nrew announcement
 	function create($data){
 		$this->db->insert("anuncios", $data);
-		return $this->db->insert_id();
+		return $this->db->insert_id(); 
 	}
 }

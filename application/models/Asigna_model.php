@@ -10,4 +10,4 @@ class Asigna_Model extends CI_Model {
     if(!$result) {return false;}
     else {return $result->result();}      
   }     
-}
+} 
