@@ -14,23 +14,28 @@ class Estudiante extends CI_Controller {
 
       
     public function areas(){
-      if(is_logged() && logged_user()['rol'] === 'Estudiante'){
-        if($datos  = $this->Estudiante_Model->getAreas(logged_user()['id'])){                   
-            echo json_encode($datos);
-        }else{
-          echo ("Error en consulta");
-        }
-      }
+      	if(is_logged() && logged_user()['rol'] === 'Estudiante'){
+        	if($datos  = $this->Estudiante_Model->getAreas(logged_user()['id'])){                   
+            	echo json_encode($datos);
+			}
+			else
+			{
+				echo ("Error en consulta");
+			}
+      	}
     }  
     
     public function materias($area_id){
-      if(is_logged() && logged_user()['rol'] === 'Estudiante'){
-        if($datos  = $this->Estudiante_Model->getMaterias(logged_user()['id'], $area_id)){                   
-            echo json_encode($datos);
-        }else{
-          echo ("Error en consulta");
-        }
-      }
-    }  
-   
+      	if(is_logged() && logged_user()['rol'] === 'Estudiante'){
+        	if($datos  = $this->Estudiante_Model->getMaterias(logged_user()['id'], $area_id)){                   
+            	echo json_encode($datos);
+       		}else{
+          		echo ("Error en consulta");
+        	}
+      	}
+    }
+	
+	public function mover(){
+		mover_estudiantes_usuarios();
+	}
 }

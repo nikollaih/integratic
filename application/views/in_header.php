@@ -45,6 +45,20 @@
                                        ?>                                  
                                 </li>
                                 <li class="dropdown hidden-xs">
+                                    <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light notificaciones-icon" data-toggle="dropdown" aria-expanded="true">
+                                        <i class="fa fa-bell"></i>
+                                        <div class="counter-notification">
+                                           <p id="contador-notificaciones"><?= obtener_contador_anuncios() ?></p>
+                                        </div>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-lg">
+                                        <li class="text-center notifi-title">Notificaciones</li>
+                                        <div id="notificaciones-container">
+                                           
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li class="dropdown hidden-xs">
                                     <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
                                         <i class="fa fa-th"></i>
                                     </a>
