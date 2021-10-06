@@ -989,7 +989,8 @@ function StudentAreas(){
 		url:url,
 		type:'POST',
 		success:function(respuesta){
-			var registros = eval(respuesta);                 
+			var registros = eval(respuesta);   
+            console.log(registros);              
 			var html="<div class='row'>";                    
 				if(registros.length>0){ 
 						for (i=0; i<registros.length; i++) { 
