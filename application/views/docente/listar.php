@@ -4,15 +4,21 @@
             <div class="panel-heading text-capitalize">
                 <b><div id="">Anuncios</div></b>
             </div>
-            <div class="panel-body">       
-                <div class="row">
-                    <div class='col-lg-12'>    
-                        <a data-toggle='modal' data-target='#agregar-nuevo-anuncio' href='javascript:crear();' class="add-announcement-container">
-                            <img src='./img/iconos/crear.png' width='40' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'>
-                            <p>Crear Anuncio</p>
-                        </a>
+            <div class="panel-body">
+                <?php
+                    if(logged_user()["rol"] == "Docente"){
+                ?>
+                    <div class="row">
+                        <div class='col-lg-12'>    
+                            <a data-toggle='modal' data-target='#agregar-nuevo-anuncio' href='javascript:crear();' class="add-announcement-container">
+                                <img src='./img/iconos/crear.png' width='40' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'>
+                                <p>Crear Anuncio</p>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                <?php
+                    }
+                ?>
                 <?php
                     if($anuncios){
                         foreach ($anuncios as $anuncio) {
@@ -32,23 +38,26 @@
                 <div class='row' id='migas'>
                     <input id='ruta' name='ruta' value=".htmlentities($carpeta)." type='hidden'/>
                     <input id='nombre' name='nombre' type='hidden'/>
-                    <div class="col-md-12">
-                        <div class='add-announcement-container'>    
-                            <a href='javascript:crear();'>
-                                <img src='./img/iconos/crear.png' width='40' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'>
-                            </a>&nbsp;
-                            <a href='javascript:subir();'> 
-                                <img src='./img/iconos/subir.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'>
-                            </a>&nbsp;
-                            <a  data-toggle='modal' data-target='#agregar-nuevo-foro'> 
-                                <img src='./img/iconos/foro.png' width='32' height='32' alt='Crear foro' title='Crear foro'>
-                            </a>&nbsp;
+                    <?php
+                        if(logged_user()["rol"] == "Docente"){
+                    ?>
+                        <div class="col-md-12">
+                            <div class='add-announcement-container'>    
+                                <a href='javascript:crear();'>
+                                    <img src='./img/iconos/crear.png' width='40' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'>
+                                </a>&nbsp;
+                                <a href='javascript:subir();'> 
+                                    <img src='./img/iconos/subir.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'>
+                                </a>&nbsp;
+                                <a  data-toggle='modal' data-target='#agregar-nuevo-foro'> 
+                                    <img src='./img/iconos/foro.png' width='32' height='32' alt='Crear foro' title='Crear foro'>
+                                </a>&nbsp;
+                            </div>
                         </div>
-                    </div>
+                    <?php
+                        }
+                    ?>
                 </div>
-                <?php
-                    print_r($this->session->userdata());
-                ?>
             <?php $this->load->view("foros/template/lista_foros", $foros) ?>    
             <table style='width:80%;'>
                 <tbody>
