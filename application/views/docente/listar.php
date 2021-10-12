@@ -58,6 +58,7 @@
                         }
                     ?>
                 </div>
+            <?php $this->load->view("actividades/lista_actividades", $actividades) ?> 
             <?php $this->load->view("foros/template/lista_foros", $foros) ?>    
             <table style='width:80%;'>
                 <tbody>
