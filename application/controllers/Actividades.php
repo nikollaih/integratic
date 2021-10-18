@@ -9,7 +9,47 @@ class Actividades extends CI_Controller {
          $this->load->helper('form');
          $this->load->helper('html');
          $this->load->helper('url');
-         $this->load->model('consultas_model');
+         $this->load->model(['Consultas_model', 'Actividades_Model']);
+         $this->load->library('upload');
+    }
+
+    public function guardar(){
+        if(is_logged()){
+            if(logged_user()["rol"] == "Docente"){
+                $data = $this->input->post();
+                $materia_grupo = $this->session->userdata("materia_grupo");
+                $inserted_id = false;
+    
+                if($data["titulo"] != "" && $data["descripcion"] != "" && $data["date"] != "" && $data["time"] != ""){
+                    $actividad["titulo_actividad"] = $data["titulo"];
+                    $actividad["descripcion_actividad"] = $data["descripcion"];
+                    $actividad["disponible_hasta"] = date("Y-m-d H:i:s", strtotime($data["date"]. " ".$data["time"]));
+                    $actividad["materia"] = $materia_grupo["materia"];
+                    $actividad["grupo"] = $materia_grupo["grupo"];
+                    $actividad["created_by"] = logged_user()["id"];
+                    $inserted_id = $this->Actividades_Model->create($actividad);
+                }
+    
+                if(isset($_FILES["userfile"]) && $inserted_id){
+                    if(isset($_FILES['userfile']['name'])) {
+                        $file_name = md5($inserted_id).".".get_file_format($_FILES['userfile']['name']);
+                        $file_tmp =$_FILES['userfile']['tmp_name'];
+                        move_uploaded_file($file_tmp,"uploads/actividades/".$file_name);
+                        $this->Actividades_Model->update(array("id_actividad" => $inserted_id, "url_archivo" => $file_name, "nombre_archivo" => $_FILES['userfile']['name']));
+                    }
+                }
+    
+                if($inserted_id){
+                    json_response(true, true, "Actividad creada exitosamente.");
+                }
+                else{
+                    json_response(false, false, "Ha ocurrido un error, por favor intente de nuevo");
+                }
+            }
+            else{
+                json_response(false, false, "No tiene permisos para realizar esta acción");
+            }
+        }
     }
     
     public function asignacion($id){  

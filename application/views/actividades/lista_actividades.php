@@ -5,9 +5,25 @@
         if($actividades){
             foreach ($actividades as $a) { ?>
                 <li class='item-foro'>
-                <h4 class='titulo-foro'><a  style="color:#33aaff;" href='javascript:ver_foro(<?= $a["id_actividad"] ?>)'><?= $a["titulo_actividad"] ?></a></h4>
-                <p class='fecha-foro'> Disponible hasta: <?= date("F j, Y g:i a", strtotime($a["disponible_hasta"])) ?></p>
-                <p class='descripcion-foro'><?= $a["descripcion_actividad"] ?></p>
+                    <div class="d-flex">
+                        <h4 class='titulo-foro'><a  style="color:#33aaff;"><?= $a["titulo_actividad"] ?></a></h4>
+                        <a href="javascript:subir();"> 
+                                    <img src="./img/iconos/subir.png" width="32" height="32" alt="Subir Archivo" title="Subir Archivo">
+                                    <label for="">Subir respuesta</label>
+                                </a>
+                    </div>
+                    <p class='fecha-foro'> Disponible hasta: <?= date("F j, Y g:i a", strtotime($a["disponible_hasta"])) ?></p>
+                    <p class='descripcion-foro'><?= $a["descripcion_actividad"] ?></p>
+                    <?php
+                        if($a["url_archivo"]){
+                    ?>
+                        <br>
+                        <a style="margin-top: 10px;" target="_blank" href="<?= base_url() ?>uploads/actividades/<?= $a["url_archivo"] ?>">
+                            <?= document_icon(get_file_format($a["url_archivo"]), $a["nombre_archivo"]) ?>
+                        </a>
+                    <?php
+                        }
+                    ?>
                 </li>
             <?php  }
         }

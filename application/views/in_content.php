@@ -9,6 +9,7 @@
 <!-- Modals -->
 <?php $this->load->view("foros/template/crear_foro_modal"); ?>
 <?php $this->load->view("anuncios/crear_anuncio_modal"); ?>
+<?php $this->load->view("actividades/crear_actividad_modal"); ?>
 <!-- Ventana Modal Portada-->
 <?php 
     if(!$this->session->userdata("logged_in")){
