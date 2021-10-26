@@ -2,6 +2,17 @@ $(document).on("click", ".notificaciones-icon", function() {
     actualizar_fecha_notificaciones();
 });
 
+$(document).on("click", ".open-section", function() {
+    if ($(this).hasClass("fa-chevron-down")) {
+        $(this).removeClass("fa-chevron-down");
+        $(this).addClass("fa-chevron-up");
+    } else {
+        $(this).removeClass("fa-chevron-up");
+        $(this).addClass("fa-chevron-down");
+    }
+    $(".section-" + $(this).attr("data-section")).slideToggle();
+});
+
 
 function cambiar_clave() {
     var url = "./index.php/principal/cambio_clave";

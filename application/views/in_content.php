@@ -10,6 +10,8 @@
 <?php $this->load->view("foros/template/crear_foro_modal"); ?>
 <?php $this->load->view("anuncios/crear_anuncio_modal"); ?>
 <?php $this->load->view("actividades/crear_actividad_modal"); ?>
+<?php $this->load->view("actividades/crear_respuesta_actividad_modal"); ?>
+<?php $this->load->view("actividades/lista_respuestas_modal"); ?>
 <!-- Ventana Modal Portada-->
 <?php 
     if(!$this->session->userdata("logged_in")){

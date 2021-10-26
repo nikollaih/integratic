@@ -76,4 +76,12 @@ class Estudiante_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+	function getStudentsByMateriaGroup($materia_group){
+		$this->db->from("estudiante");
+		$this->db->where("grado", $materia_group);
+		$this->db->order_by("nombre", "asc");
+		$result = $this->db->get();
+
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
 }

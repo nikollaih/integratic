@@ -2,7 +2,7 @@
 <div class="modal fade bd-example-modal-lg" id="agregar-nueva-actividad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header d-flex justify-between align-items-center">
             <h5 class="modal-title" id="agregar-nueva-actividad-label">Crear nueva actividad</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -31,7 +31,7 @@
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button onclick="guardar_actividad()" type="button" class="btn btn-primary">Guardar Respuesta</button>
+        <button onclick="guardar_actividad()" type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>
