@@ -96,3 +96,68 @@ function obtener_lista_notificaciones() {
         error: function() { $('#contador-notificaciones').html("0"); }
     });
 }
+
+function guardar_respuesta(foro) {
+    var url = "./index.php/Foros/agregar_respuesta";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            mensaje: editorImageRespuesta.getContents(),
+            id_foro: idForo,
+            id_respuesta: idRespuestaForo,
+            tipo: tipoRespuestaForo
+        },
+        success: function(data) {
+            var data = JSON.parse(data);
+
+            if (data.status) {
+                $('#agregar-respuesta-foro').modal('hide');
+
+                setTimeout(() => {
+                    ver_foro(foro);
+                }, 1000)
+
+            }
+            alert(data.message);
+        },
+        error: function() { alert("Error!"); }
+    });
+}
+
+function guardar_foro() {
+    let titulo = $("#nuevo-foro-titulo").val();
+    let materia = $("#nuevo-foro-materia").val();
+    let grupo = $("#nuevo-foro-grupo").val();
+
+    if (titulo.trim() != "" && materia && grupo) {
+        var url = "./index.php/Foros/agregar_foro";
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                descripcion: editorImageForo.getContents(),
+                titulo: titulo,
+                materia: materia,
+                grupo: grupo
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+
+                if (data.status) {
+                    let titulo = $("#nuevo-foro-titulo").val("");
+                    $('#agregar-nuevo-foro').modal('hide');
+
+                    setTimeout(() => {
+                        ver_foro(data.object.id_foro);
+                    }, 1000)
+                }
+
+                alert(data.message);
+            },
+            error: function() { alert("Error!"); }
+        });
+    } else {
+        alert("Por favor complete todos los campos requeridos!");
+    }
+}
