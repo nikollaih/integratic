@@ -32,7 +32,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button onclick="guardar_foro()" type="button" class="btn btn-primary">Guardar Respuesta</button>
+        <button onclick="guardar_foro()" type="button" class="btn btn-primary">Crear Foro</button>
       </div>
     </div>
   </div>

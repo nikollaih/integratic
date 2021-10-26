@@ -52,7 +52,7 @@
 
         <!-- Actividades -->
         <script src="js/actividades.js"></script>
-
+        
         <!-- Foros -->
         <script src="https://kothing.github.io/editor/dist/kothing-editor.min.js"></script>
 
