@@ -9,7 +9,121 @@ class Actividades extends CI_Controller {
          $this->load->helper('form');
          $this->load->helper('html');
          $this->load->helper('url');
-         $this->load->model('consultas_model');
+         $this->load->model(['Consultas_model', 'Actividades_Model']);
+         $this->load->library('upload');
+    }
+
+    public function guardar(){
+        if(is_logged()){
+            if(logged_user()["rol"] == "Docente"){
+                $data = $this->input->post();
+                $materia_grupo = $this->session->userdata("materia_grupo");
+                $inserted_id = false;
+    
+                if($data["titulo"] != "" && $data["descripcion"] != "" && $data["date"] != "" && $data["time"] != ""){
+                    $actividad["titulo_actividad"] = $data["titulo"];
+                    $actividad["descripcion_actividad"] = $data["descripcion"];
+                    $actividad["disponible_hasta"] = date("Y-m-d H:i:s", strtotime($data["date"]. " ".$data["time"]));
+                    $actividad["materia"] = $materia_grupo["materia"];
+                    $actividad["grupo"] = $materia_grupo["grupo"];
+                    $actividad["created_by"] = logged_user()["id"];
+                    $inserted_id = $this->Actividades_Model->create($actividad);
+                }
+    
+                if(isset($_FILES["userfile"]) && $inserted_id){
+                    if(isset($_FILES['userfile']['name'])) {
+                        $file_name = md5($inserted_id).".".get_file_format($_FILES['userfile']['name']);
+                        $file_tmp =$_FILES['userfile']['tmp_name'];
+                        move_uploaded_file($file_tmp,"uploads/actividades/".$file_name);
+                        $this->Actividades_Model->update(array("id_actividad" => $inserted_id, "url_archivo" => $file_name, "nombre_archivo" => $_FILES['userfile']['name']));
+                    }
+                }
+    
+                if($inserted_id){
+                    json_response(true, true, "Actividad creada exitosamente.");
+                }
+                else{
+                    json_response(false, false, "Ha ocurrido un error, por favor intente de nuevo");
+                }
+            }
+            else{
+                json_response(false, false, "No tiene permisos para realizar esta acción");
+            }
+        }
+    }
+
+    public function guardar_respuesta(){
+        if(is_logged()){
+            if(logged_user()["rol"] == "Estudiante"){
+                $data = $this->input->post();
+                $inserted_id = false;
+    
+                if(isset($_FILES["userfile"])){
+                    if(isset($_FILES['userfile']['name'])) {
+                        $file_name = md5($inserted_id).".".get_file_format($_FILES['userfile']['name']);
+                        $file_tmp =$_FILES['userfile']['tmp_name'];
+                        move_uploaded_file($file_tmp,"uploads/actividades/respuestas/".$file_name);
+
+                        if($data["id_actividad"]){
+                            $respuesta["id_actividad"] = $data["id_actividad"];
+                            $respuesta["url_archivo"] = $file_name;
+                            $respuesta["created_at"] = date("Y-m-d H:i:s");
+                            $respuesta["estudiante_notas"] = $data["notas"];
+                            $respuesta["created_by"] = logged_user()["id"];
+                            $inserted_id = $this->Actividades_Model->create_response($respuesta);
+                            json_response(true, true, "Respuesta creada exitosamente.");
+                        }
+                        else{
+                            json_response(false, false, "Error, No se ha seleccionado una actividad");
+                        }
+                    }
+                }
+                else{
+                    json_response(false, false, "Error, No se ha seleccionado un archivo");
+                }
+            }
+            else{
+                json_response(false, false, "Error, No tiene permisos para realizar esta acción");
+            }
+        }
+    }
+
+    public function actividades_respuestas(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $actividad = $this->input->post()["id_actividad"];
+                $grupo_materia = $this->session->userdata("materia_grupo");
+                $estudiantes = get_students_by_materia($grupo_materia["materia"], $grupo_materia["grupo"]);
+
+                for ($i=0; $i < count($estudiantes); $i++) { 
+                    $estudiantes[$i]["respuesta"] = $this->Actividades_Model->get_activity_response($actividad, $estudiantes[$i]["documento"]);
+                }
+
+                json_response($this->load->view("actividades/lista_estudiantes_respuestas", array("estudiantes" => $estudiantes), true), true, "Lista de estudiantes");
+            }
+        }
+    }
+
+    public function calificar_respuesta(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $data["id_respuestas_actividades"] = $this->input->post()["id"];
+                $data["calificacion"] = $this->input->post()["calificacion"];
+
+                if($this->Actividades_Model->update_response($data)){
+                    json_response(null, true, "Calificación actualizada correctamente");
+                }
+                else{
+                    json_response(null, true, "Ha ocurrido un error, por favor intente de nuevo más tarde");
+                }
+            }
+            else{
+                json_response(null, false, "No tiene permisos para realizar esta acción");
+            }
+        }
+        else{
+            json_response(null, false, "Por favor inicie sesion");
+        }
     }
     
     public function asignacion($id){  

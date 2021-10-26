@@ -83,4 +83,12 @@
             }           
         }
     }
+
+    if(!function_exists('get_file_format'))
+    {
+        function get_file_format($document_name){
+            $split = explode(".", $document_name);
+            return end($split);
+        }
+    }
 ?>

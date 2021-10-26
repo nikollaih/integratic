@@ -49,8 +49,11 @@
                                 <a href='javascript:subir();'> 
                                     <img src='./img/iconos/subir.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'>
                                 </a>&nbsp;
-                                <a  data-toggle='modal' data-target='#agregar-nuevo-foro'> 
+                                <a href="#"  data-toggle='modal' data-target='#agregar-nuevo-foro'> 
                                     <img src='./img/iconos/foro.png' width='32' height='32' alt='Crear foro' title='Crear foro'>
+                                </a>&nbsp;
+                                <a href="#"  data-toggle='modal' data-target='#agregar-nueva-actividad'> 
+                                    <img src='./img/iconos/foro.png' width='32' height='32' alt='Crear actividad' title='Crear actividad'>
                                 </a>&nbsp;
                             </div>
                         </div>
@@ -58,6 +61,7 @@
                         }
                     ?>
                 </div>
+            <?php $this->load->view("actividades/lista_actividades", $actividades) ?> 
             <?php $this->load->view("foros/template/lista_foros", $foros) ?>    
             <table style='width:80%;'>
                 <tbody>

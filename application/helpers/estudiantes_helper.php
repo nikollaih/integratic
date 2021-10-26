@@ -30,4 +30,16 @@
         }
     
     }
+
+    if(!function_exists('get_students_by_materia'))
+    {
+        function get_students_by_materia($id_materia, $grupo = null){
+            $CI = &get_instance();
+            $CI->load->model(['Estudiante_Model', 'Materias_Model']);
+            $materia = $CI->Materias_Model->getMateria($id_materia);
+            $estudiantes = $CI->Estudiante_Model->getStudentsByMateriaGroup($materia["grado"].$grupo);
+            return $estudiantes;
+        }
+    
+    }
 ?>

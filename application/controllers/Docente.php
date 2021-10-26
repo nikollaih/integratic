@@ -11,7 +11,7 @@ class Docente extends CI_Controller {
          $this->load->helper('url');
          $this->load->model('consultas_model');
 		$this->load->model('Estudiante_Model');
-         $this->load->model(array('consultas_model','Foro_Model', 'Anuncio_Model'));
+         $this->load->model(array('consultas_model','Foro_Model', 'Anuncio_Model', 'Actividades_Model'));
     }
     
     public function lista_usr(){  
@@ -129,17 +129,18 @@ class Docente extends CI_Controller {
     }    
 
     public function listar(){ 
-        // Obtiene las variables POST
-        $data["carpeta"] = $this->input->post("ruta");
-        $data["titulo"] = $this->input->post("titulo");
-        $data["materia"] = $this->input->post("materia");
-        $data["grupo"] = $this->input->post("grupo");
-        $data["foros"] = $this->Foro_Model->get_all($data["materia"], $data["grupo"]);
-        $data["anuncios"] = $this->Anuncio_Model->get_all($data["materia"], $data["grupo"]);
-        $this->session->set_userdata("materia_grupo", array("materia"  => $data["materia"], "grupo"  => $data["grupo"]));
-
         // Verificamos si existe un usuario logueado
         if(is_logged()){
+            $estudiante = (strtolower(logged_user()["rol"]) == "estudiante") ? logged_user()["id"] : null;
+            // Obtiene las variables POST
+            $data["carpeta"] = $this->input->post("ruta");
+            $data["titulo"] = $this->input->post("titulo");
+            $data["materia"] = $this->input->post("materia");
+            $data["grupo"] = $this->input->post("grupo");
+            $data["foros"] = $this->Foro_Model->get_all($data["materia"], $data["grupo"]);
+            $data["anuncios"] = $this->Anuncio_Model->get_all($data["materia"], $data["grupo"]);
+            $data["actividades"] = $this->Actividades_Model->get_all($data["materia"], $data["grupo"], $estudiante);
+            $this->session->set_userdata("materia_grupo", array("materia"  => $data["materia"], "grupo"  => $data["grupo"]));
             $this->load->view("docente/listar", $data);
         }
         else{
