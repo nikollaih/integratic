@@ -9,6 +9,11 @@ $(document).on("click", ".cargar-respuestas-boton", function() {
     obtener_actividad_respuestas(actividad);
 });
 
+$(document).on("click", ".descargar-excel-respuestas", function() {
+    window.location = "index.php/Files/generar_reporte_notas_actividad/" + $(this).attr("data-id");
+});
+
+
 $(document).on("click", ".btn-guardar-calificar", function() {
     let respuesta = $(this).attr("data-id");
     let calificacion = $("#calificacion-respuesta-" + respuesta).val();
@@ -85,6 +90,7 @@ function guardar_actividad_respuesta() {
 }
 
 function obtener_actividad_respuestas(actividad) {
+    $(".descargar-excel-respuestas").attr("data-id", actividad);
     $.ajax({
         url: 'index.php/Actividades/actividades_respuestas',
         data: { id_actividad: actividad },

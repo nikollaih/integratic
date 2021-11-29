@@ -18,6 +18,14 @@ class Actividades_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+	function get($id_actividad){
+		$this->db->from("actividades");
+		$this->db->where("id_actividad", $id_actividad);
+		$result = $this->db->get();
+
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+	}
+
 	function get_activity_response($id_actividad, $estudiante){
 		$this->db->from("respuestas_actividades");
 		$this->db->where("id_actividad", $id_actividad);

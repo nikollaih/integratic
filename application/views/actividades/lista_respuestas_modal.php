@@ -9,6 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <button data-id="null" class="btn btn-primary m-b-1 descargar-excel-respuestas">Descargar Excel</button>
                 <table class="table table-bordered table-striped table-hovered">
                     <thead class="thead-dark">
                         <tr>
