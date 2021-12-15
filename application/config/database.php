@@ -99,10 +99,10 @@ $db['default'] = array(
 #staging
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'us-cdbr-east-04.cleardb.com',
-	'username' => 'bf82af08370229',
-	'password' => '7b2a39ba',
-	'database' => 'heroku_7d66ae622de5ffa',
+	'hostname' => '92.205.0.161',
+	'username' => 'integratic_database',
+	'password' => 'K^os[j_(MX=$',
+	'database' => 'integratic',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
