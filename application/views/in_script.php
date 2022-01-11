@@ -4,57 +4,73 @@
         </script>
 
         <!-- jQuery  -->
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/waves.js"></script>
-        <script src="js/general.js"></script>
-        <script src="js/wow.min.js"></script>
-        <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-        <script src="js/jquery.scrollTo.min.js"></script>
-        <script src="assets/chat/moment-2.2.1.js"></script>
-        <script src="assets/jquery-sparkline/jquery.sparkline.min.js"></script>
-        <script src="assets/jquery-detectmobile/detect.js"></script>
-        <script src="assets/fastclick/fastclick.js"></script>
-        <script src="assets/jquery-slimscroll/jquery.slimscroll.js"></script>
-        <script src="assets/jquery-blockui/jquery.blockUI.js"></script>
+        <script src="<?= base_url() ?>js/bootstrap.min.js"></script>
+        <script src="<?= base_url() ?>js/waves.js"></script>
+        <script src="<?= base_url() ?>js/general.js"></script>
+        <script src="<?= base_url() ?>js/wow.min.js"></script>
+        <script src="<?= base_url() ?>js/jquery.nicescroll.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>js/jquery.scrollTo.min.js"></script>
+        <script src="<?= base_url() ?>assets/chat/moment-2.2.1.js"></script>
+        <script src="<?= base_url() ?>assets/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <script src="<?= base_url() ?>assets/jquery-detectmobile/detect.js"></script>
+        <script src="<?= base_url() ?>assets/fastclick/fastclick.js"></script>
+        <script src="<?= base_url() ?>assets/jquery-slimscroll/jquery.slimscroll.js"></script>
+        <script src="<?= base_url() ?>assets/jquery-blockui/jquery.blockUI.js"></script>
 
         <!-- sweet alerts -->
-        <script src="assets/sweet-alert/sweet-alert.min.js"></script>
-        <script src="assets/sweet-alert/sweet-alert.init.js"></script>
+        <script src="<?= base_url() ?>assets/sweet-alert/sweet-alert.min.js"></script>
+        <script src="<?= base_url() ?>assets/sweet-alert/sweet-alert.init.js"></script>
 
         <!-- flot Chart -->
-        <script src="assets/flot-chart/jquery.flot.js"></script>
-        <script src="assets/flot-chart/jquery.flot.time.js"></script>
-        <script src="assets/flot-chart/jquery.flot.tooltip.min.js"></script>
-        <script src="assets/flot-chart/jquery.flot.resize.js"></script>
-        <script src="assets/flot-chart/jquery.flot.pie.js"></script>
-        <script src="assets/flot-chart/jquery.flot.selection.js"></script>
-        <script src="assets/flot-chart/jquery.flot.stack.js"></script>
-        <script src="assets/flot-chart/jquery.flot.crosshair.js"></script>
+        <script src="<?= base_url() ?>assets/flot-chart/jquery.flot.js"></script>
+        <script src="<?= base_url() ?>assets/flot-chart/jquery.flot.time.js"></script>
+        <script src="<?= base_url() ?>assets/flot-chart/jquery.flot.tooltip.min.js"></script>
+        <script src="<?= base_url() ?>assets/flot-chart/jquery.flot.resize.js"></script>
+        <script src="<?= base_url() ?>assets/flot-chart/jquery.flot.pie.js"></script>
+        <script src="<?= base_url() ?>assets/flot-chart/jquery.flot.selection.js"></script>
+        <script src="<?= base_url() ?>assets/flot-chart/jquery.flot.stack.js"></script>
+        <script src="<?= base_url() ?>assets/flot-chart/jquery.flot.crosshair.js"></script>
 
         <!-- Counter-up -->
-        <script src="assets/counterup/waypoints.min.js" type="text/javascript"></script>
-        <script src="assets/counterup/jquery.counterup.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/counterup/waypoints.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/counterup/jquery.counterup.min.js" type="text/javascript"></script>
         
         <!-- CUSTOM JS -->
-        <script src="js/jquery.app.js"></script>
+        <script src="<?= base_url() ?>js/jquery.app.js"></script>
 
         <!-- Dashboard -->
-        <script src="js/jquery.dashboard.js"></script>
+        <script src="<?= base_url() ?>js/jquery.dashboard.js"></script>
 
         <!-- Chat -->
-        <script src="js/jquery.chat.js"></script>
+        <script src="<?= base_url() ?>js/jquery.chat.js"></script>
 
         <!-- Todo -->
-        <script src="js/jquery.todo.js"></script>
+        <script src="<?= base_url() ?>js/jquery.todo.js"></script>
 
         <!-- Anuncios -->
-        <script src="js/anuncios.js"></script>
+        <script src="<?= base_url() ?>js/anuncios.js"></script>
 
         <!-- Actividades -->
-        <script src="js/actividades.js"></script>
+        <script src="<?= base_url() ?>js/actividades.js"></script>
+
+        <!-- Pruebas -->
+        <script src="<?= base_url() ?>js/pruebas.js"></script>
+
+        <!-- Datatable -->
+        <script src="<?= base_url() ?>assets/dataTables/jquery.dataTables.min.js"></script>
+        <script src="<?= base_url() ?>assets/dataTables/dataTables.bootstrap4.min.js"></script>
+        <script src="<?= base_url() ?>assets/dataTables/dataTables.responsive.min.js"></script>
+        <script src="<?= base_url() ?>assets/dataTables/responsive.bootstrap4.min.js"></script>
+        <script src="<?= base_url() ?>assets/dataTables/dataTables.buttons.min.js"></script>
+        <script src="<?= base_url() ?>assets/dataTables/buttons.bootstrap4.min.js"></script>
+        <script src="<?= base_url() ?>assets/dataTables/buttons.html5.min.js"></script>
+        <script src="<?= base_url() ?>assets/dataTables/buttons.flash.min.js"></script>
+        <script src="<?= base_url() ?>assets/dataTables/buttons.print.min.js"></script>
+        <script src="<?= base_url() ?>assets/dataTables/dataTables.keyTable.min.js"></script>
+        <script src="<?= base_url() ?>assets/dataTables/dataTables.select.min.js"></script>
         
         <!-- Foros -->
-        <script src="https://kothing.github.io/editor/dist/kothing-editor.min.js"></script>
+        <script src="<?= base_url() ?>https://kothing.github.io/editor/dist/kothing-editor.min.js"></script>
 
         <script type="text/javascript">
             /* ==============================================
