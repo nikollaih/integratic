@@ -28,7 +28,15 @@ class Consultas_Model extends CI_Model {
     else {
       if($result->row_array()){$this->registrar_ingreso($usr); }
       return $result->result();}      
-  }   
+  } 
+  
+  public function get_materias_diff(){
+    $this->db->from("cfg_materias");
+    $this->db->group_by("nommateria");
+    $result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+  }
+
   public function nom_docente($id){
     $result=$this->db->query("Select * From usuarios where id='$id'");
     if(!$result) {return false;}

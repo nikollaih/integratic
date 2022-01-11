@@ -7,35 +7,33 @@
             <div class="container">
                 <div class="row" id="migas"></div>
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b>Lista de pruebas</b></div>
+                        <div class="panel-heading text-capitalize"><b>Lista de preguntas</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-lg-12">
-                                    <table id="tabla-pruebas" class="table table-bordered">
+                                    <table id="tabla-preguntas" class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Nombre</th>
-                                                <th>Alcance</th>
-                                                <th>Tipo</th>
-                                                <th>Cantidad de preguntas</th>
+                                                <th>Id</th>
+                                                <th>Materia</th>
+                                                <th>Dificultad</th>
+                                                <th>Pregunta</th>
                                                 <th>Fecha de creación</th>
-                                                <th>Estado</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                                if($pruebas != false){
-                                                    foreach ($pruebas as $p) {
+                                                if($preguntas != false){
+                                                    foreach ($preguntas as $pregunta) {
                                                         ?>
                                                             <tr>
-                                                                <td><?= $p["nombre_prueba"] ?></td>
-                                                                <td><?= $p["alcance_prueba"] ?></td>
-                                                                <td><?= $p["tipo_prueba"] ?></td>
-                                                                <td>20</td>
-                                                                <td><?= date("d F Y H:i a", strtotime($p["created_at"])) ?></td>
-                                                                <td><?= ($p["estado"] == "1") ? "<label class='text-success'>Activa</label>" : "<label class='text-danger'>Inactiva</label>" ?></td>
-                                                                <td class="text-center"><a target="_blank" class="btn btn-success" href="<?= base_url() ?>PreguntasPrueba/ver/<?= $p["id_prueba"] ?>">Ver</a></td>
+                                                                <td><?= $pregunta["id_pregunta_prueba"] ?></td>
+                                                                <td><?= $pregunta["nommateria"] ?></td>
+                                                                <td><?= $pregunta["dificultad"] ?></td>
+                                                                <td><?= $pregunta["descripcion_pregunta"] ?></td>
+                                                                <td><?= date("d F Y H:i a", strtotime($pregunta["created_at"])) ?></td>
+                                                                <td class="text-center"><a target="_blank" class="btn btn-success" href="<?= base_url() ?>PreguntasPrueba/ver/<?= $pregunta["id_pregunta_prueba"] ?>">Ver</a></td>
                                                             </tr>
                                                         <?php
                                                     }
@@ -57,7 +55,7 @@
 
 <script>
     $(document).ready( function () {
-    $('#tabla-pruebas').DataTable({
+    $('#tabla-preguntas').DataTable({
         order: []
     });
 } );

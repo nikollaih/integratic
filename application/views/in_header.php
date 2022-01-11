@@ -7,7 +7,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="javascript:menu();" class="logo"><img src='./img/it.png' width='26' height='26'><span>&nbsp;IntegraTIC</span></a>
+                        <a href="javascript:menu();" class="logo"><img src='<?= base_url() ?>img/it.png' width='26' height='26'><span>&nbsp;IntegraTIC</span></a>
                     </div>
                 </div>
                 <!-- Button mobile view to collapse sidebar menu -->

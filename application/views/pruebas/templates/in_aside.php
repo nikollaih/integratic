@@ -3,19 +3,27 @@
     <div class="sidebar-inner slimscrollleft">
         <div class="user-details">
             <div class="pull-left">
-                <img src="./img/logo.png" alt="" class="thumb-lg">
+                <img src="<?= base_url() ?>img/logo.png" alt="" class="thumb-lg">
             </div>
         </div>
         <!--- Divider -->
         <div id="sidebar-menu">
             <ul>
                 <li>
-                    <a href="javascript:menu();" class="waves-effect active">
-                        <i><img src='./img/iconos/aplicativos.png' width="50" height="50"></i><span>Ver pruebas</span></a>
+                    <a href="<?= base_url() ?>PreguntasPrueba" class="waves-effect">
+                        <i><img src='<?= base_url() ?>img/iconos/aplicativos.png' width="50" height="50"></i><span>Lista preguntas</span></a>
+                </li>   
+                <li>
+                    <a href="<?= base_url() ?>Pruebas" class="waves-effect">
+                        <i><img src='<?= base_url() ?>img/iconos/aplicativos.png' width="50" height="50"></i><span>Lista pruebas</span></a>
                 </li>                         
                 <li>
-                    <a href="./principal/aprender" target='_blank'>
-                        <i><img src='./img/iconos/aprender.png' width="50" height="50"></i><span>Crear prueba</span></a>
+                    <a href="<?= base_url() ?>principal/aprender" target='_blank'>
+                        <i><img src='<?= base_url() ?>img/iconos/aprender.png' width="50" height="50"></i><span>Crear prueba</span></a>
+                </li>
+                <li>
+                    <a href="<?= base_url() ?>PreguntasPrueba/crearPregunta">
+                        <i><img src='<?= base_url() ?>img/iconos/aprender.png' width="50" height="50"></i><span>Crear pregunta</span></a>
                 </li>
             </ul>
             <div class="clearfix"></div>
