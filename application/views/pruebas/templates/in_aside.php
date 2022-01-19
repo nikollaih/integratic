@@ -18,7 +18,7 @@
                         <i><img src='<?= base_url() ?>img/iconos/aplicativos.png' width="50" height="50"></i><span>Lista pruebas</span></a>
                 </li>                         
                 <li>
-                    <a href="<?= base_url() ?>principal/aprender" target='_blank'>
+                    <a href="<?= base_url() ?>Pruebas/crearPrueba">
                         <i><img src='<?= base_url() ?>img/iconos/aprender.png' width="50" height="50"></i><span>Crear prueba</span></a>
                 </li>
                 <li>

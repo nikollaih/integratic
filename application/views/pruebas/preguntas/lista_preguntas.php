@@ -29,7 +29,7 @@
                                                         ?>
                                                             <tr>
                                                                 <td><?= $pregunta["id_pregunta_prueba"] ?></td>
-                                                                <td><?= $pregunta["nommateria"] ?></td>
+                                                                <td><?= $pregunta["nommateria"]." - ".$pregunta["grado"]."°" ?></td>
                                                                 <td><?= $pregunta["dificultad"] ?></td>
                                                                 <td><?= $pregunta["descripcion_pregunta"] ?></td>
                                                                 <td><?= date("d F Y H:i a", strtotime($pregunta["created_at"])) ?></td>

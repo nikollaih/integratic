@@ -32,7 +32,7 @@ class Consultas_Model extends CI_Model {
   
   public function get_materias_diff(){
     $this->db->from("cfg_materias");
-    $this->db->group_by("nommateria");
+    //$this->db->group_by("nommateria");
     $result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
   }

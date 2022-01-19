@@ -313,7 +313,6 @@ a:focus {
     -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
 }
 
 .panel .panel-body {
@@ -504,6 +503,12 @@ a:focus {
 
 
 /* 2.2 Buttons */
+
+.btn.dropdown-toggle.btn-default {
+    background-color: #fafafa;
+    border-color: #ededed;
+    box-shadow: none;
+}
 
 .btn {
     border-radius: 2px;
@@ -1764,7 +1769,6 @@ body.fixed-left .side-menu.left {
 
 .content-page {
     margin-left: 180px;
-    overflow: hidden;
     position: relative;
     min-height: 940px;
 }
