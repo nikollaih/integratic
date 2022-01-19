@@ -35,7 +35,7 @@
                                                                 <td>20</td>
                                                                 <td><?= date("d F Y H:i a", strtotime($p["created_at"])) ?></td>
                                                                 <td><?= ($p["estado"] == "1") ? "<label class='text-success'>Activa</label>" : "<label class='text-danger'>Inactiva</label>" ?></td>
-                                                                <td class="text-center"><a target="_blank" class="btn btn-success" href="<?= base_url() ?>PreguntasPrueba/ver/<?= $p["id_prueba"] ?>">Ver</a></td>
+                                                                <td class="text-center"><a class="btn btn-success" href="<?= base_url() ?>Pruebas/ver/<?= $p["id_prueba"] ?>">Ver</a></td>
                                                             </tr>
                                                         <?php
                                                     }

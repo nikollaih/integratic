@@ -28,7 +28,7 @@
                                                     if($materias != false){
                                                         foreach ($materias as $materia) {
                                                         ?>
-                                                            <option value="<?= $materia["codmateria"] ?>"><?= $materia["nommateria"] ?></option>
+                                                            <option value="<?= $materia["codmateria"] ?>"><?= $materia["nommateria"]. " - ".$materia["grado"] . "°"; ?></option>
                                                         <?php
                                                         }
                                                     }
@@ -57,18 +57,13 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-12 col-lg-5">
+                                    <div class="col-md-6 col-sm-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="">Nombre Autor </label>
                                             <input type="text" name="pregunta[nombre_author]" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-7">
-                                        <div class="form-group">
-                                            <label for="">Email Autor </label>
-                                            <input type="text" name="pregunta[email_author]" class="form-control">
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                         </div>
                     </div>
