@@ -70,7 +70,7 @@
         <script src="<?= base_url() ?>assets/dataTables/dataTables.select.min.js"></script>
         
         <!-- Foros -->
-        <script src="<?= base_url() ?>https://kothing.github.io/editor/dist/kothing-editor.min.js"></script>
+        <script src="https://kothing.github.io/editor/dist/kothing-editor.min.js"></script>
 
         <script type="text/javascript">
             /* ==============================================
