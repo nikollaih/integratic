@@ -4,9 +4,9 @@
     public function __construct() { 
          parent::__construct(); 
          $this->load->helper(array('form','url','html')); 
-         $this->load->model('general_model');
-         $this->load->model('config_model');
-         $this->load->model('consultas_model');
+         $this->load->model('General_Model');
+         $this->load->model('Config_Model');
+         $this->load->model('Consultas_Model');
          $this->load->library('upload');
       }
     public function nuevoMenu(){
@@ -24,7 +24,7 @@
                 "icono"         => $_FILES["archivomenu"]['name']
              );
 
-            if($this->general_model->insertar("cfg_menuad",$datos)==true){
+            if($this->General_Model->insertar("cfg_menuad",$datos)==true){
                  echo json_encode("Creado Satisfactoriamente!");}
             else { echo ("No se pudo guardar los datos");} 
          }else { echo json_encode("Nada");}
@@ -44,7 +44,7 @@
                 "fecha"     => $fecha
              );
 
-            if($this->general_model->insertar("cfg_areas",$datos)==true){
+            if($this->General_Model->insertar("cfg_areas",$datos)==true){
                 $dir=utf8_decode('./principal/areas/'.$nom);
                 if (!is_dir($dir)) { mkdir($dir, 0777); } 
                  echo json_encode("Area creada!");}
@@ -69,9 +69,9 @@
                 "icomateria"    => $ico,
                 "fecha"         => $fecha
              );            
-            $nomarea=$this->general_model->co_nomarea($area);
+            $nomarea=$this->General_Model->co_nomarea($area);
             foreach($nomarea as $row){$narea=$row->nomarea;}            
-            if($this->general_model->insertar("cfg_materias",$datos)==true){
+            if($this->General_Model->insertar("cfg_materias",$datos)==true){
                 //$dir=utf8_decode('./principal/areas/'.$narea.'/'.$nom.$grado);
                 $dir='./principal/areas/'.$narea.'/'.$nom.$grado;
                 if(!is_dir($dir)){mkdir($dir,0777);}
@@ -90,7 +90,7 @@
                 "icono"         => $ico
              );
 
-            if($this->general_model->insertar("cfg_proyectos",$datos)==true){
+            if($this->General_Model->insertar("cfg_proyectos",$datos)==true){
                 $dir=utf8_decode('./principal/proyectos/'.$nom);
                 if (!is_dir($dir)) { mkdir($dir, 0777); } 
                  echo json_encode($ico);}
@@ -106,7 +106,7 @@
                 "nomproceso"   => $nom,
                 "icono"        => $ico
              );
-            if($this->general_model->insertar("cfg_procesos",$datos)==true){
+            if($this->General_Model->insertar("cfg_procesos",$datos)==true){
                 $dir=utf8_decode('./principal/procesos/'.$nom);
                 if (!is_dir($dir)) { mkdir($dir, 0777); } 
                  echo json_encode($ico);}
@@ -117,10 +117,10 @@ public function bo_area(){
 $conta=0; 
          if ($this->input->is_ajax_request()) {
              $id = $this->input->post("id");
-             $mat=$this->consultas_model->mat_area($id); 
+             $mat=$this->Consultas_Model->mat_area($id); 
              foreach($mat as $row){$conta=1;} 
              if($conta==0){
-                    $conn=$this->config_model->bo_area($id); 
+                    $conn=$this->Config_Model->bo_area($id); 
                     echo json_encode('Area Borrada!');  
                 }
              else{echo json_encode('NO Borrado! Verifique si existen materias'); }   
@@ -130,7 +130,7 @@ $conta=0;
 public function bo_materia(){  
          if ($this->input->is_ajax_request()) {
              $id = $this->input->post("id");
-             $conn=$this->config_model->bo_materia($id); 
+             $conn=$this->Config_Model->bo_materia($id); 
               echo json_encode($conn);  
          }
          else{show_404();}
@@ -138,7 +138,7 @@ public function bo_materia(){
 public function bo_proyecto(){  
          if ($this->input->is_ajax_request()) {
              $id = $this->input->post("id");
-             $conn=$this->config_model->bo_proyecto($id); 
+             $conn=$this->Config_Model->bo_proyecto($id); 
               echo json_encode($conn);  
          }
          else{show_404();}
@@ -146,7 +146,7 @@ public function bo_proyecto(){
 public function bo_proceso(){  
          if ($this->input->is_ajax_request()) {
              $id = $this->input->post("id");
-             $conn=$this->config_model->bo_proceso($id); 
+             $conn=$this->Config_Model->bo_proceso($id); 
               echo json_encode($conn);  
          }
          else{show_404();}
@@ -154,7 +154,7 @@ public function bo_proceso(){
 public function bo_usr(){  
          if ($this->input->is_ajax_request()) {
              $id = $this->input->post("id");
-             $conn=$this->config_model->bo_usr($id); 
+             $conn=$this->Config_Model->bo_usr($id); 
               echo json_encode($conn);  
          }
          else{show_404();}
@@ -162,7 +162,7 @@ public function bo_usr(){
 public function bo_menuad(){  
          if ($this->input->is_ajax_request()) {
              $id = $this->input->post("id");
-             $conn=$this->config_model->bo_menuad($id); 
+             $conn=$this->Config_Model->bo_menuad($id); 
               echo json_encode($conn);  
          }
          else{show_404();}
@@ -175,7 +175,7 @@ public function up_area(){
             $fecha      = date('Y-m-d');
             $ico        = $_FILES["uicoarea"]['name'];
             
-          $this->config_model->up_area($cod,$nom,$ico,$fecha);
+          $this->Config_Model->up_area($cod,$nom,$ico,$fecha);
           echo json_encode($ico);
          }
          else{show_404();}       
@@ -189,7 +189,7 @@ public function up_materia(){
             $fecha      = date('Y-m-d');
             $ico        = $_FILES["uicomat"]['name'];
             
-          $this->config_model->up_materia($cod,$nom,$gra,$ico,$fecha);
+          $this->Config_Model->up_materia($cod,$nom,$gra,$ico,$fecha);
           echo json_encode($ico);
          }
          else{show_404();}       
@@ -201,7 +201,7 @@ public function up_proyecto(){
             $nom        = $this->input->post("unombre");
             $ico        = $_FILES["uicono"]['name'];
             
-          $this->config_model->up_proyecto($cod,$nom,$ico);
+          $this->Config_Model->up_proyecto($cod,$nom,$ico);
           echo json_encode($ico);
          }
          else{show_404();}        
@@ -213,7 +213,7 @@ public function up_proceso(){
             $nom        = $this->input->post("unombre");
             $ico        = $_FILES["uicono"]['name'];
             
-          $this->config_model->up_proceso($cod,$nom,$ico);
+          $this->Config_Model->up_proceso($cod,$nom,$ico);
           echo json_encode($ico);
          }
          else{show_404();}       
@@ -229,7 +229,7 @@ public function up_usuario(){
             $cel        = $this->input->post("ucel");
             $usr        = $this->input->post("uusr");
             $pas        = $this->input->post("upas");
-          $this->config_model->up_usuario($cod,$nom,$ape,$car,$rol,$cel,$usr,$pas);
+          $this->Config_Model->up_usuario($cod,$nom,$ape,$car,$rol,$cel,$usr,$pas);
           echo json_encode($ico);
          }
          else{show_404();}       
@@ -243,26 +243,26 @@ public function up_menu(){
             $tipo       = $this->input->post("utipo");
             $link       = $this->input->post("ulink");
             $ico        = $this->input->post("uicono");
-          $this->config_model->up_menu($cod,$nom,$ord,$tipo,$link,$ico);
+          $this->Config_Model->up_menu($cod,$nom,$ord,$tipo,$link,$ico);
           echo json_encode($ico);
          }
          else{show_404();}       
      }      
 public function co_menu(){  
          if ($this->input->is_ajax_request()) {
-             $con=$this->config_model->con_menu(); 
+             $con=$this->Config_Model->con_menu(); 
               echo json_encode($con);  
          }
          else{show_404();}
      }      
 public function co_menupri_fil($filtro){ 
       $con=''; 
-      $con=$this->config_model->con_menupri_fil($filtro); 
+      $con=$this->Config_Model->con_menupri_fil($filtro); 
       echo json_encode($con);  
      }  
 public function co_menuadd_fil($filtro){  
       $con='';
-      $con=$this->config_model->con_menuadd_fil($filtro); 
+      $con=$this->Config_Model->con_menuadd_fil($filtro); 
       echo json_encode($con);  
      }              
 }

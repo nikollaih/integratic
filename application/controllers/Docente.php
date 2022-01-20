@@ -9,77 +9,77 @@ class Docente extends CI_Controller {
          $this->load->helper('form');
          $this->load->helper('html');
          $this->load->helper('url');
-         $this->load->model('consultas_model');
+         $this->load->model('Consultas_Model');
 		$this->load->model('Estudiante_Model');
-         $this->load->model(array('consultas_model','Foro_Model', 'Anuncio_Model', 'Actividades_Model'));
+         $this->load->model(array('Consultas_Model','Foro_Model', 'Anuncio_Model', 'Actividades_Model'));
     }
     
     public function lista_usr(){  
-        if($datos  = $this->consultas_model->lisusuario()){                   
+        if($datos  = $this->Consultas_Model->lisusuario()){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en asignacion");}
     }    
     public function asignacion($id){  
-        if($datos  = $this->consultas_model->asignacion($id)){                   
+        if($datos  = $this->Consultas_Model->asignacion($id)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en asignacion");}
     }
     public function asigna_procesos($id){  
-        if($datos  = $this->consultas_model->asigna_procesos($id)){                   
+        if($datos  = $this->Consultas_Model->asigna_procesos($id)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en asignacion");}
     }    
     public function asignadoc($id){  
-        if($datos  = $this->consultas_model->asignadoc($id)){                   
+        if($datos  = $this->Consultas_Model->asignadoc($id)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en asignacion");}
     }   
     public function asignapro($id){  
-        if($datos  = $this->consultas_model->asignapro($id)){                   
+        if($datos  = $this->Consultas_Model->asignapro($id)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en asignacion");}
     }     
     public function asignaproc($id){  
-        if($datos  = $this->consultas_model->asignaproc($id)){                   
+        if($datos  = $this->Consultas_Model->asignaproc($id)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en asignacion");}
     }     
     public function tmaterias(){  
-        if($datos  = $this->consultas_model->tmaterias()){                   
+        if($datos  = $this->Consultas_Model->tmaterias()){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en asignacion");}
     }    
     public function proyectos($id)
     {  
-        if($datos  = $this->consultas_model->proyectos($id)){                   
+        if($datos  = $this->Consultas_Model->proyectos($id)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en Asignacion");}
     } 
     public function planeacion()
     {  
-        if($datos  = $this->consultas_model->planeacion()){                   
+        if($datos  = $this->Consultas_Model->planeacion()){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en Asignacion");}
     }    
     public function tproyectos()
     {  
-        if($datos  = $this->consultas_model->tproyectos()){                   
+        if($datos  = $this->Consultas_Model->tproyectos()){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en Proyectos");}
     }     
     public function tprocesos()
     {  
-        if($datos  = $this->consultas_model->tprocesos()){                   
+        if($datos  = $this->Consultas_Model->tprocesos()){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en Procesos!");}
@@ -572,68 +572,68 @@ public function listar_filtro(){
 }         
     
     public function co_areas(){  
-        if($datos  = $this->consultas_model->con_areas()){                   
+        if($datos  = $this->Consultas_Model->con_areas()){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}
     }       
     public function co_docentes(){  
-        if($datos  = $this->consultas_model->con_docentes()){                   
+        if($datos  = $this->Consultas_Model->con_docentes()){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}
     }   
     public function co_nodocentes(){  
-        if($datos  = $this->consultas_model->con_nodocentes()){                   
+        if($datos  = $this->Consultas_Model->con_nodocentes()){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}
     }     
     public function co_materias($area){  
-        if($datos  = $this->consultas_model->con_materias($area)){                   
+        if($datos  = $this->Consultas_Model->con_materias($area)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}
     }   
     public function cop_areas(){ 
         $cod        = $this->input->post("buscar");
-        if($datos  = $this->consultas_model->conp_areas($cod)){                   
+        if($datos  = $this->Consultas_Model->conp_areas($cod)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}
     } 
     public function cop_materias($mat,$doc){  
-        if($datos  = $this->consultas_model->conp_materias($mat,$doc)){                   
+        if($datos  = $this->Consultas_Model->conp_materias($mat,$doc)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}
     }   
     public function con_materias($mat){  
-        if($datos  = $this->consultas_model->conp_materias($mat,$doc)){                   
+        if($datos  = $this->Consultas_Model->conp_materias($mat,$doc)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");} 
     }     
     public function con_materia($mat){  
-        if($datos  = $this->consultas_model->con_materia($mat)){                   
+        if($datos  = $this->Consultas_Model->con_materia($mat)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}
     }    
     public function con_usuario($usr){  
-        if($datos  = $this->consultas_model->con_usuario($usr)){                   
+        if($datos  = $this->Consultas_Model->con_usuario($usr)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}
     }    
     public function con_proyecto($mat){  
-        if($datos  = $this->consultas_model->con_proyecto($mat)){                   
+        if($datos  = $this->Consultas_Model->con_proyecto($mat)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}
     }   
     public function con_proceso($pro){  
-        if($datos  = $this->consultas_model->con_proceso($pro)){                   
+        if($datos  = $this->Consultas_Model->con_proceso($pro)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}
@@ -646,7 +646,7 @@ public function listar_filtro(){
 					echo json_encode($datos);
 				}else{echo ("Error en consulta 1");}
 			}else{
-        if($datos  = $this->consultas_model->conp_materias_gen($mat)){                   
+        if($datos  = $this->Consultas_Model->conp_materias_gen($mat)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta 2");}

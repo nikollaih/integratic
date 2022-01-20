@@ -5,7 +5,7 @@
       public function __construct() { 
          parent::__construct(); 
          $this->load->helper(array('form', 'url')); 
-         $this->load->model('consultas_model');
+         $this->load->model('Consultas_Model');
       }
 
 function do_upload(){
