@@ -10,6 +10,12 @@ $(document).on("click", ".btn-asignacion-pregunta", function() {
     asignar_pregunta(id_pregunta, id_prueba);
 });
 
+$(document).on("click", ".btn-eliminar-participante", function() {
+    let id_participante = $(this).attr("data-participante");
+    let id_prueba = $(this).attr("data-prueba");
+    eliminar_participante(id_participante, id_prueba);
+});
+
 $(document).on("click", ".ver-mas-extra-info", function() {
     $("#prueba-extra-info").slideDown();
 });
@@ -34,6 +40,28 @@ function asignar_pregunta(id_pregunta, id_prueba) {
                     let btn_dom = ' <button data-prueba="' + id_prueba + '" data-pregunta="' + id_pregunta + '" class="btn btn-success btn-sm btn-asignacion-pregunta">Asignar</button>';
                     $("#pregunta-" + id_pregunta).html(btn_dom);
                 }
+            }
+            $("#background-loading").css("display", "none");
+            alert(data.message);
+        },
+        error: function() { alert("Error!") }
+    });
+}
+
+function eliminar_participante(id_participante, id_prueba) {
+    $("#background-loading").css("display", "flex");
+    $.ajax({
+        url: base_url + "ParticipantesPrueba/delete",
+        type: 'POST',
+        data: {
+            id_prueba: id_prueba,
+            id_participante: id_participante
+        },
+        success: function(data) {
+            console.log(data);
+            var data = JSON.parse(data);
+            if (data.status) {
+                $("#participante-" + id_participante).remove();
             }
             $("#background-loading").css("display", "none");
             alert(data.message);

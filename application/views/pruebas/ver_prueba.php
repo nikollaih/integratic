@@ -21,7 +21,7 @@
                                                     <h4><?= $prueba["nombre_prueba"] ?></h4>
                                                     <div class="d-flex">
                                                         <a href="<?= base_url() ?>Pruebas/asignarPreguntas/<?= $prueba["id_prueba"] ?>" class="btn btn-info">Configurar preguntas</a>
-                                                        <button class="btn btn-success m-l-1">Importar participantes</button>
+                                                        <a href="<?= base_url() ?>Pruebas/participantes/<?= $prueba["id_prueba"] ?>" class="btn btn-success m-l-1">Participantes</a>
                                                     </div>
                                                 </div>
                                                 <hr>

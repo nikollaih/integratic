@@ -5,7 +5,7 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model(["Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model"]);
+       $this->load->model(["Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model"]);
     }
     
     public function index(){
@@ -49,7 +49,50 @@
         $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
         $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
         $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+        $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
         $this->load->view("pruebas/ver_prueba", $params);
+    }
+
+    function participantes($id_prueba){
+        if($this->input->post()){
+            $participantes = importar_participantes_pruebas($_FILES);
+            $params["message"] = $this->asignarParticipantes($participantes, $id_prueba);
+        }
+        $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
+        $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
+        $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
+        $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+        $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+        $params["participantes"] = $this->Asignacion_Participantes_Prueba_Model->get_all($id_prueba);
+        $this->load->view("pruebas/participantes", $params);
+    }
+
+    function asignarParticipantes($participantes, $id_prueba){
+        if(is_array($participantes)){
+            foreach ($participantes as $participante) {
+                $exists = $this->Participantes_Prueba_Model->get($participante["identificacion"]);
+                if($exists){
+                    $asignado["id_participante"] = $exists["id_participante_prueba"];
+                    $asignado["id_prueba"] = $id_prueba;
+                    if(!$this->Asignacion_Participantes_Prueba_Model->get($id_prueba, $exists["id_participante_prueba"])){
+                        $this->Asignacion_Participantes_Prueba_Model->create($asignado);
+                    }
+                }
+                else{
+                    $id_participante = $this->Participantes_Prueba_Model->create($participante);
+                    $asignado["id_participante"] = $id_participante;
+                    $asignado["id_prueba"] = $id_prueba;
+                    if(!$this->Asignacion_Participantes_Prueba_Model->get($id_prueba, $id_participante)){
+                        $this->Asignacion_Participantes_Prueba_Model->create($asignado);
+                    }
+                }
+            }
+
+            return array("type" => "success", "message" => "Participantes cargados satisfactoriamente.", "success" => true);
+        }
+        else{
+            return array("type" => "danger", "message" => "No se han seleccionado los participantes.", "success" => false);
+        }
     }
 
     function asignarPreguntas($id_prueba){

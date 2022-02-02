@@ -4357,6 +4357,10 @@ div.dataTables_info {
     margin-bottom: 10px !important;
 }
 
+.m-b-2 {
+    margin-bottom: 20px !important;
+}
+
 .m-l-1 {
     margin-left: 10px;
 }
