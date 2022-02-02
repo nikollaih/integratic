@@ -99,14 +99,14 @@
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-lg-3">
                                         <div class="form-group">
-                                            <label for="">Fecha Inicio *</label>
-                                            <input required type="date" name="prueba[fecha_inicio]" class="form-control">
+                                            <label for="">Fecha y hora Inicio *</label>
+                                            <input required type="datetime-local" name="prueba[fecha_inicio]" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-lg-3">
                                         <div class="form-group">
-                                            <label for="">Fecha Finalización *</label>
-                                            <input required type="date" name="prueba[fecha_finaliza]" class="form-control">
+                                            <label for="">Fecha y hora Finalización *</label>
+                                            <input required type="datetime-local" name="prueba[fecha_finaliza]" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-lg-3">

@@ -65,6 +65,15 @@
                                     </div>
                                     
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="descripcion_pregunta">Comentarios</label>
+                                            <p><b>Nota: </b>Los comentarios serán mostrados a los participantes déspues de finalizar la prueba.</p>
+                                            <textarea name="prueba[comentarios_prueba]" id="comentarios_prueba" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
 

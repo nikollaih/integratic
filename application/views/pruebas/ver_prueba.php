@@ -11,16 +11,24 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading text-capitalize"><b>Prueba</b></div>
+                                    <div class="panel-heading text-capitalize">
+                                        <b>Prueba</b>
+                                    </div>
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12 col-lg-12">
-                                                <h4><?= $prueba["nombre_prueba"] ?></h4>
+                                                <div class="subtitle-buttons">
+                                                    <h4><?= $prueba["nombre_prueba"] ?></h4>
+                                                    <div class="d-flex">
+                                                        <a href="<?= base_url() ?>Pruebas/asignarPreguntas/<?= $prueba["id_prueba"] ?>" class="btn btn-info">Configurar preguntas</a>
+                                                        <button class="btn btn-success m-l-1">Importar participantes</button>
+                                                    </div>
+                                                </div>
                                                 <hr>
                                                 <p><?= $prueba["descripcion_prueba"] ?></p>
                                                 <p><b>Alcance: </b><?= $prueba["alcance_prueba"] ?></p>
                                                 <p><b>Tipo: </b><?= $prueba["tipo_prueba"] ?></p>
-                                                <p><b>Cantidad de preguntas: </b><?= $prueba["cantidad_preguntas"] ?></p>
+                                                <p><b>Cantidad de preguntas: </b><?= ($preguntas) ? count($preguntas) : "0" ?>/<?= $prueba["cantidad_preguntas"] ?></p>
                                                 <p><b>Inicia: </b><?= date("d F, Y", strtotime($prueba["fecha_inicio"])) ?></p>
                                                 <p><b>Finaliza: </b><?= date("d F, Y", strtotime($prueba["fecha_finaliza"])) ?></p>
                                                 <p><b>Fecha de creación: </b><?= date("d F, Y", strtotime($prueba["created_at"])) ?></p>

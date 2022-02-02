@@ -1,11 +1,11 @@
 <?php
     if(!function_exists('obtener_preguntas'))
     {
-        function obtener_preguntas($materias = null, $dificultad = null){
+        function obtener_preguntas($materias = null, $dificultad = null, $only_ids = false){
             $CI = &get_instance();
             $CI->load->library('session');
             $CI->load->model(array("Preguntas_Model"));
-            return $CI->Preguntas_Model->get_all_mat_dif($materias,  $dificultad);
+            return $CI->Preguntas_Model->get_all_mat_dif($materias,  $dificultad, $only_ids);
         }
     
     }

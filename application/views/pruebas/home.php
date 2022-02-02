@@ -32,7 +32,7 @@
                                                                 <td><?= $p["nombre_prueba"] ?></td>
                                                                 <td><?= $p["alcance_prueba"] ?></td>
                                                                 <td><?= $p["tipo_prueba"] ?></td>
-                                                                <td>20</td>
+                                                                <td><?= $p["cantidad_preguntas"] ?></td>
                                                                 <td><?= date("d F Y H:i a", strtotime($p["created_at"])) ?></td>
                                                                 <td><?= ($p["estado"] == "1") ? "<label class='text-success'>Activa</label>" : "<label class='text-danger'>Inactiva</label>" ?></td>
                                                                 <td class="text-center"><a class="btn btn-success" href="<?= base_url() ?>Pruebas/ver/<?= $p["id_prueba"] ?>">Ver</a></td>
