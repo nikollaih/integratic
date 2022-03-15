@@ -18,6 +18,7 @@
                                                 <th>Alcance</th>
                                                 <th>Tipo</th>
                                                 <th>Cantidad de preguntas</th>
+                                                <th>Duración</th>
                                                 <th>Fecha de creación</th>
                                                 <th>Estado</th>
                                                 <th></th>
@@ -32,10 +33,14 @@
                                                                 <td><?= $p["nombre_prueba"] ?></td>
                                                                 <td><?= $p["alcance_prueba"] ?></td>
                                                                 <td><?= $p["tipo_prueba"] ?></td>
-                                                                <td>20</td>
-                                                                <td><?= date("d F Y H:i a", strtotime($p["created_at"])) ?></td>
+                                                                <td><?= $p["cantidad_preguntas"] ?></td>
+                                                                <td><?= $p["duracion"] ?> Minutos</td>
+                                                                <td><?= date("d F Y", strtotime($p["created_at"])) ?></td>
                                                                 <td><?= ($p["estado"] == "1") ? "<label class='text-success'>Activa</label>" : "<label class='text-danger'>Inactiva</label>" ?></td>
-                                                                <td class="text-center"><a class="btn btn-success" href="<?= base_url() ?>Pruebas/ver/<?= $p["id_prueba"] ?>">Ver</a></td>
+                                                                <td class="text-center">
+                                                                    <a class="btn btn-success" href="<?= base_url() ?>Pruebas/ver/<?= $p["id_prueba"] ?>">Ver</a>
+                                                                    <a class="btn btn-success" href="<?= base_url() ?>Pruebas/empezar/<?= $p["id_prueba"] ?>">Realizar prueba</a>
+                                                                </td>
                                                             </tr>
                                                         <?php
                                                     }

@@ -1,4 +1,6 @@
- 
+ <div id="background-loading">
+ <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+ </div>
 <body class="fixed-left" onload="javascript:inicio();">         
         <!-- Begin page -->
         <div id="wrapper">        
@@ -154,3 +156,6 @@
                 </div>
            </div>
             <!-- Top Bar End -->
+            <script>
+               let base_url = "<?= base_url() ?>";
+            </script>

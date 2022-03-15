@@ -9,7 +9,7 @@ class Actividades extends CI_Controller {
          $this->load->helper('form');
          $this->load->helper('html');
          $this->load->helper('url');
-         $this->load->model(['Consultas_model', 'Actividades_Model']);
+         $this->load->model(['Consultas_Model', 'Actividades_Model']);
          $this->load->library('upload');
     }
 
@@ -127,24 +127,24 @@ class Actividades extends CI_Controller {
     }
     
     public function asignacion($id){  
-        if($datos  = $this->consultas_model->asignacion($id)){                   
+        if($datos  = $this->Consultas_Model->asignacion($id)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en asignacion");}
     }
     public function grupos(){  
-        if($datos  = $this->consultas_model->grupos()){                   
+        if($datos  = $this->Consultas_Model->grupos()){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en asignacion");}
     }    
     public function materias(){  
-        if($datos  = $this->consultas_model->materias()){                   
+        if($datos  = $this->Consultas_Model->materias()){                   
             echo json_encode($datos);
         } 
     }    
     public function materias_grupo($gra){  
-        if($datos  = $this->consultas_model->materias_grupo($gra)){                   
+        if($datos  = $this->Consultas_Model->materias_grupo($gra)){                   
             echo json_encode($datos);
         }  
     }     
@@ -558,7 +558,7 @@ class Actividades extends CI_Controller {
         echo $html;
     } 
     function listar_docente1($id){
-        if($datos  = $this->consultas_model->asignacion($id)){
+        if($datos  = $this->Consultas_Model->asignacion($id)){
             $html='';
             foreach ($datos as $row){
             $carpeta="./principal/areas/actividades/".$row->nommateria.$row->grado;

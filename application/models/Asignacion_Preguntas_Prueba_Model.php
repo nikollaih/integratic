@@ -17,4 +17,9 @@ class Asignacion_Preguntas_Prueba_Model extends CI_Model {
     function create($data){
         return $this->db->insert_batch("asignacion_preguntas_prueba", $data);
     }
+
+	function delete($id_asignacion_pregunta_prueba){
+		$this->db->where("id_asignacion_pregunta_prueba", $id_asignacion_pregunta_prueba);
+		return $this->db->delete("asignacion_preguntas_prueba");
+	}
 }

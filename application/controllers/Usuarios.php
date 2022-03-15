@@ -5,7 +5,7 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model(['general_model', "Usuarios_model"]);
+       $this->load->model(['General_Model', "Usuarios_Model"]);
     }
     
     public function nuevo()
@@ -35,7 +35,7 @@
                 "estado"    => "ac"
              );
 
-            if($this->general_model->insertar("usuarios",$datos)==true){
+            if($this->General_Model->insertar("usuarios",$datos)==true){
                 echo ("Registro Guardado");}
             else { echo ("No se pudo guardar los datos");} 
          }
@@ -47,7 +47,7 @@
 			$data["id"] = logged_user()["id"];
 			$data["ultima_fecha_anuncios"] = date("Y-m-d H:i:s");
 
-			if($this->Usuarios_model->update_user($data)){
+			if($this->Usuarios_Model->update_user($data)){
 				json_response(null, true, "Fecha actualizada");
 			}
 			else{

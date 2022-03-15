@@ -11,7 +11,7 @@ class Guardar extends CI_Controller {
              $this->load->helper('url');
              $this->load->helper('date');             
              $this->load->model('guardar_model'); 
-             $this->load->model('consultas_model'); 
+             $this->load->model('Consultas_Model'); 
              $this->load->library('form_validation');
     }        
     function in_persona(){

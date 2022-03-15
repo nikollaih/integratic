@@ -36,7 +36,10 @@ class Preguntas_Model extends CI_Model {
 	}
 
 	// Get the questions listing based on subject and difficult
-	function get_all_mat_dif($materias, $dificultad){
+	function get_all_mat_dif($materias, $dificultad, $only_ids){
+		if($only_ids){
+			$this->db->select("pp.id_pregunta_prueba");
+		}
 		$this->db->from("preguntas_prueba pp");
 		$this->db->join("cfg_materias cm", "cm.codmateria = pp.id_materia");
 		$this->db->where_in("id_materia", $materias);
@@ -46,12 +49,21 @@ class Preguntas_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
-	function get_preguntas_prueba($id_prueba){
+	function get_preguntas_prueba($id_prueba, $id_pregunta = null){
 		$this->db->from("asignacion_preguntas_prueba app");
 		$this->db->join("preguntas_prueba pp", "app.id_pregunta = pp.id_pregunta_prueba");
 		$this->db->join("cfg_materias cm", "cm.codmateria = pp.id_materia");
 		$this->db->where("app.id_prueba", $id_prueba);
+		if($id_pregunta != null){
+			$this->db->where("app.id_pregunta", $id_pregunta);
+		}
 		$result = $this->db->get();
-		return ($result->num_rows() > 0) ? $result->result_array() : false;
+		
+		if($result->num_rows() > 0){
+			return ($id_pregunta == null) ? $result->result_array() : $result->row_array();
+		}
+		else{
+			return false;
+		}
 	}
 }

@@ -10,7 +10,7 @@ class Principal extends CI_Controller {
          $this->load->helper('url');
          $this->load->helper('date');
          $this->load->model('cargar_model');
-         $this->load->model('consultas_model');
+         $this->load->model('Consultas_Model');
          $this->load->library('form_validation');
     }
     public function index()
@@ -42,7 +42,7 @@ class Principal extends CI_Controller {
     {
         $datos['muni']          = $this->cargar_model->llena_select('municipios');
         $datos['concurso']      = $this->cargar_model->llena_select('concurso');
-        $datos['concursoac']    = $this->consultas_model->concursoac();
+        $datos['concursoac']    = $this->Consultas_Model->concursoac();
         $this->load->view('wn_personas',$datos);
       
     } 

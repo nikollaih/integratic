@@ -10,12 +10,12 @@ class Principal extends CI_Controller {
          $this->load->helper('html');
          $this->load->helper('url');
          $this->load->library(["session"]);
-         $this->load->model(['consultas_model', 'usuarios_model']);
+         $this->load->model(['Consultas_Model', 'Usuarios_Model']);
     }
 
     public function index()
     {
-        $datos['usua']   = $this->consultas_model->lisusuario();
+        $datos['usua']   = $this->Consultas_Model->lisusuario();
         $this->load->view('in_head');
         $this->load->view('in_header');
         $this->load->view('in_aside');
@@ -26,7 +26,7 @@ class Principal extends CI_Controller {
 
     public function repositorio(){
         $this->load->__construct();
-        $datos['usua']   = $this->consultas_model->lisusuario();
+        $datos['usua']   = $this->Consultas_Model->lisusuario();
         $this->load->view('in_head');
         $this->load->view('in_header');
         $this->load->view('in_aside');
@@ -44,7 +44,7 @@ class Principal extends CI_Controller {
     {  
         $usr    = $_POST['usr'];
         $pass   = $_POST['pass'];
-        if($datos=$this->consultas_model->login($usr,$pass)){  
+        if($datos=$this->Consultas_Model->login($usr,$pass)){  
             if($datos["rol"] == "Estudiante"){
                 $datos = array_merge($datos, get_group_grade($datos["id"]));
             }
@@ -63,7 +63,7 @@ class Principal extends CI_Controller {
     public function login_estudiante()
     {   
         $usr    = $_POST['documento'];
-        if($datos=$this->consultas_model->login_estudiante($usr)){  
+        if($datos=$this->Consultas_Model->login_estudiante($usr)){  
             foreach($datos as $row){
                 $_SESSION['nombre']=$row->nombre;
                 $_SESSION['usr']=$row->documento;
@@ -236,13 +236,13 @@ function cambio_clave(){
     
     if(is_logged()){
         if(isset($data["usr"]) && isset($data["pass"]) && isset($data["nueva"])){
-            $user = $this->consultas_model->login($data["usr"], $data["pass"]);
+            $user = $this->Consultas_Model->login($data["usr"], $data["pass"]);
 
             if($user){
                 $new_data["id"] = $data["usr"];
                 $new_data["clave"] = $data["nueva"];
 
-                if($this->usuarios_model->update_user($new_data)){
+                if($this->Usuarios_Model->update_user($new_data)){
                     $user["clave"] = $data["nueva"];
                     $this->session->set_userdata("logged_in", $user); 
                     json_response($data, true, "Contraseña modificada exitosamente!");

@@ -823,17 +823,17 @@ class Ordenes extends CI_Controller {
     
     public function verifica_registros($orden){
         //registros Plancha
-        $plan_ac =$this->consultas_model->ac_plancha($orden);
-        $plan_pe =$this->consultas_model->pe_plancha($orden);
+        $plan_ac =$this->Consultas_Model->ac_plancha($orden);
+        $plan_pe =$this->Consultas_Model->pe_plancha($orden);
         /*/*registros Litografia
-        $ac_lito    =$this->consultas_model->ac_litografia($orden);
-        $pe_lito    =$this->consultas_model->pe_litografia($orden);
+        $ac_lito    =$this->Consultas_Model->ac_litografia($orden);
+        $pe_lito    =$this->Consultas_Model->pe_litografia($orden);
         //Registros Acabados
-        $ac_aca     =$this->consultas_model->ac_acabado($orden);
-        $pe_aca     =$this->consultas_model->pe_acabado($orden);
+        $ac_aca     =$this->Consultas_Model->ac_acabado($orden);
+        $pe_aca     =$this->Consultas_Model->pe_acabado($orden);
         //Registros Encuadernado
-        $ac_encu    =$this->consultas_model->pe_encuaderna($orden);
-        $pe_encu    =$this->consultas_model->pe_encuaderna($orden);*/      
+        $ac_encu    =$this->Consultas_Model->pe_encuaderna($orden);
+        $pe_encu    =$this->Consultas_Model->pe_encuaderna($orden);*/      
         foreach($plan_ac as $plan){ $ac_plan = $plan->nac; }
         foreach($plan_pe as $plan){ $pe_plan = $plan->nac; }
         $ac = $ac_plan;//+$ac_lito+$ac_aca+$ac_encu;

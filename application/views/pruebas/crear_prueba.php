@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Alcance Prueba *</label>
                                             <select required name="prueba[alcance_prueba]" id="" class="form-control">
@@ -44,7 +44,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Tipo Prueba *</label>
                                             <select required name="prueba[tipo_prueba]" id="" class="form-control">
@@ -61,7 +61,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Materias *</label>
                                             <select required name="prueba[materias][]" id="" class="form-control multiple-select" multiple data-live-search="true" data-size="10" data-actions-box="true">
@@ -77,44 +77,59 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Dificultad *</label>
                                             <select required name="prueba[dificultad][]" id="" class="form-control multiple-select" multiple data-live-search="true" data-actions-box="true" data-actions-box="true">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
+                                                <option value="1">Facil</option>
+                                                <option value="2">Intermedia</option>
+                                                <option value="3">Avanzada</option>
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Cantidad de preguntas *</label>
                                             <input required type="number" name="prueba[cantidad_preguntas]" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
-                                        <div class="form-group">
-                                            <label for="">Fecha Inicio *</label>
-                                            <input required type="date" name="prueba[fecha_inicio]" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
-                                        <div class="form-group">
-                                            <label for="">Fecha Finalización *</label>
-                                            <input required type="date" name="prueba[fecha_finaliza]" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Estado</label>
                                             <select required name="prueba[estado]" id="" class="form-control">
                                                 <option value="1">Activo</option>
                                                 <option value="0">Inactivo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="">Fecha y hora Inicio *</label>
+                                            <input required type="datetime-local" name="prueba[fecha_inicio]" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="">Fecha y hora Finalización *</label>
+                                            <input required type="datetime-local" name="prueba[fecha_finaliza]" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="">Duración Prueba (Minutos) *</label>
+                                            <select required name="prueba[duracion]" id="" class="form-control">
+                                                <option value="">- Seleccionar</option>
+                                                <?php
+                                                    for ($i=5; $i <= 300 ; $i+=5) { 
+                                                ?>
+                                                    <option value="<?= $i ?>"><?= $i ?> Minutos</option>
+                                                <?php
+                                                    }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>

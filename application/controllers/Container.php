@@ -5,7 +5,7 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model('general_model');
+       $this->load->model('General_Model');
     }
     
     public function biblioteca()

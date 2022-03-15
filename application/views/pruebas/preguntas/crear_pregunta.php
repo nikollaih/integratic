@@ -41,11 +41,9 @@
                                             <label for="">Dificultad *</label>
                                             <select required name="pregunta[dificultad]" id="" class="form-control">
                                                 <option value="">- Seleccionar</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
+                                                <option value="1">Fácil</option>
+                                                <option value="2">Intermedia</option>
+                                                <option value="3">Avanzada</option>
                                             </select>
                                         </div>
                                     </div>
@@ -64,6 +62,15 @@
                                         </div>
                                     </div>
                                     
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="descripcion_pregunta">Comentarios</label>
+                                            <p><b>Nota: </b>Los comentarios serán mostrados a los participantes déspues de finalizar la prueba.</p>
+                                            <textarea name="pregunta[comentarios_pregunta]" id="comentarios_pregunta" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                         </div>
                     </div>
