@@ -38,4 +38,39 @@
         }
     
     }
+
+    if(!function_exists('calcular_nota_prueba'))
+    {
+        function calcular_nota_prueba($id_prueba, $id_participante){
+            $CI = &get_instance();
+            $CI->load->library('session');
+            $CI->load->model(array("Realizar_Prueba_Model", "Asignacion_Preguntas_Prueba_Model", "Preguntas_Model", "Respuestas_Realizar_Prueba_Model"));
+            $correctas = 0;
+            $preguntas = $CI->Preguntas_Model->get_preguntas_prueba($id_prueba);
+            $realizar_prueba = $CI->Realizar_Prueba_Model->get($id_prueba, $id_participante);
+            $respuestas = $CI->Respuestas_Realizar_Prueba_Model->get($realizar_prueba["id_realizar_prueba"]);
+            
+
+            if($respuestas){
+                foreach ($respuestas as $respuesta) {
+                    $respuestas_pregunta = obtener_respuestas_pregunta($respuesta["id_pregunta"]);
+                    foreach ($respuestas_pregunta as $rp) {
+                        if($respuesta["id_respuesta"] == $rp["id_respuesta_pregunta_prueba"] && $rp["tipo_respuesta"] == 1){
+                            $correctas++;
+                        }
+                    }
+                }
+            }
+
+            $respuesta = array(
+                "correctas" => $correctas,
+                "total" => count($preguntas),
+                "parcial" => ($respuestas) ? count($respuestas) : 0,
+                "porcentaje" => number_format((float)($correctas / count($preguntas)) * 100, 1, '.', '')
+            );
+
+            return $respuesta;
+        }
+    
+    }
 ?>

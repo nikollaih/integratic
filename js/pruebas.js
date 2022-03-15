@@ -48,6 +48,26 @@ function asignar_pregunta(id_pregunta, id_prueba) {
     });
 }
 
+function cerrar_intento_prueba(id_realizar_prueba) {
+    $("#background-loading").css("display", "flex");
+    $.ajax({
+        url: base_url + "Pruebas/cerrarIntentoPrueba",
+        type: 'POST',
+        data: {
+            id_realizar_prueba: id_realizar_prueba,
+        },
+        success: function(data) {
+            var data = JSON.parse(data);
+            let object = data.object;
+            if (data.status) {
+                window.open(base_url + "Pruebas/resumen/" + object, "_self")
+            }
+            //$("#background-loading").css("display", "none");
+        },
+        error: function() { alert("Error!") }
+    });
+}
+
 function eliminar_participante(id_participante, id_prueba) {
     $("#background-loading").css("display", "flex");
     $.ajax({

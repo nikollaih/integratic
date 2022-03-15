@@ -21,7 +21,7 @@ class Participantes_Prueba_Model extends CI_Model {
 
 	// Create a new question
 	function update($data){
-		$this->db->where("id_pregunta_prueba", $data["id_pregunta_prueba"]);
+		$this->db->where("identificacion", $data["identificacion"]);
 		return $this->db->update("core_participantes_pruebas", $data);
 	}
 

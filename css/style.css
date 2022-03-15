@@ -4408,6 +4408,10 @@ div.dataTables_info {
     justify-content: center;
 }
 
+.form-check-label {
+    font-weight: normal !important;
+}
+
 .lds-ring {
     display: inline-block;
     position: relative;

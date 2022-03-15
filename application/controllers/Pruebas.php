@@ -5,7 +5,7 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model(["Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model"]);
+       $this->load->model(["Respuestas_Realizar_Prueba_Model", "Realizar_Prueba_Model", "Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model"]);
     }
     
     public function index(){
@@ -36,6 +36,9 @@
             if($post["asignacion_preguntas"] == 1){
                 return asignar_preguntas_prueba($id_prueba);
             }
+            else{
+                header("Location: ".base_url()."Pruebas/asignarPreguntas/".$id_prueba);
+            }
 
             return array("type" => "success", "message" => "Prueba guardada exitosamente.", "success" => true);
         }
@@ -51,6 +54,80 @@
         $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
         $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
         $this->load->view("pruebas/ver_prueba", $params);
+    }
+
+    function empezar($id_prueba){
+        $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
+        $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
+        $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
+        $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+        $this->load->view("pruebas/empezar_prueba", $params);
+    }
+
+    function resumen($id_prueba){
+        // TODO cambiar
+        $id_participante = 1;
+        $params["id_participante"] = $id_participante;
+        $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
+        $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
+        $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
+        $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+        $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
+        $params["respuestas"] = $this->Respuestas_Realizar_Prueba_Model->get($params["prueba_realizada"]["id_realizar_prueba"]);
+
+        $this->load->view("pruebas/resumen_prueba", $params);
+    }
+
+    function resolver($id_prueba){
+        // TODO cambiar
+        $id_participante = 1;
+        $params["id_participante"] = $id_participante;
+        $iniciado = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
+        if(!$iniciado){
+            $iniciado = $this->Realizar_Prueba_Model->create(array("id_prueba" => $id_prueba, "id_participante" => $id_participante, "created_at" => date("Y-m-d H:i:s")));
+        }
+
+        if($this->input->post()){
+            if($iniciado){
+                $data = $this->input->post();
+                $this->Respuestas_Realizar_Prueba_Model->create(array("id_realizar_prueba" => $iniciado["id_realizar_prueba"], "id_pregunta" => $data["id_pregunta"], "id_respuesta" => $data["id_respuesta"]));
+            }
+        }
+
+        $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
+        $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+        $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);;
+
+        if($params["prueba"]["fecha_inicio"] < date("Y-m-d H:i:s") && $params["prueba"]["fecha_finaliza"] > date("Y-m-d H:i:s")){
+            if($iniciado){
+                if($iniciado["is_closed"] == 1){
+                    header("Location: ".base_url()."Pruebas/resumen/".$id_prueba);
+                }
+    
+                $siguiente = siguiente_pregunta($id_prueba, $id_participante);
+                if($siguiente == false){
+    
+                }
+                else if(is_array($siguiente)){
+                    $params["pregunta"] = $siguiente["pregunta"];
+                    $params["respuestas"] = $siguiente["respuestas"];
+    
+                    $this->load->view("pruebas/resolver_prueba", $params);
+                }
+                else{
+                    if(!$iniciado["finished_at"]){
+                        $this->Realizar_Prueba_Model->update(array("id_realizar_prueba" => $iniciado["id_realizar_prueba"], "finished_at" => date("Y-m-d H:i:s"), "is_closed" => 1));
+                    }
+                    header("Location: ".base_url()."Pruebas/resumen/".$id_prueba);
+                }
+            }
+            else{
+                header("Location: ".base_url()."Pruebas/empezar/".$id_prueba);
+            }
+        }   
+        else{
+            header("Location: ".base_url()."Pruebas/resumen/".$id_prueba);
+        }
     }
 
     function participantes($id_prueba){
@@ -72,6 +149,7 @@
             foreach ($participantes as $participante) {
                 $exists = $this->Participantes_Prueba_Model->get($participante["identificacion"]);
                 if($exists){
+                    $this->Participantes_Prueba_Model->update($participante);
                     $asignado["id_participante"] = $exists["id_participante_prueba"];
                     $asignado["id_prueba"] = $id_prueba;
                     if(!$this->Asignacion_Participantes_Prueba_Model->get($id_prueba, $exists["id_participante_prueba"])){
@@ -158,6 +236,29 @@
                         json_response(null, false, "No ha sido posible asignar la pregunta de la prueba, intente de nuevo más tarde.");
                     }
                 }
+            }
+        }
+    }
+
+    function cerrarIntentoPrueba(){
+        if($this->input->post()){
+            $id_realizar_prueba = $this->input->post()["id_realizar_prueba"];
+            $realizar_prueba = $this->Realizar_Prueba_Model->get_by_id($id_realizar_prueba);
+
+            if($realizar_prueba){
+                if($realizar_prueba["is_closed"] != 1){
+                    $realizar_prueba["is_closed"] = 1;
+                    $realizar_prueba["finished_at"] = date("Y-m-d H:i:s");
+                }
+                if ($this->Realizar_Prueba_Model->update($realizar_prueba)){
+                    json_response($realizar_prueba["id_prueba"], true, "");
+                }
+                else{
+                    json_response(null, false, "");
+                }
+            }
+            else{
+                json_response(null, false, "");
             }
         }
     }

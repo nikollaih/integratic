@@ -1,5 +1,6 @@
 <?php
 
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -29,6 +30,8 @@ function importar_participantes_pruebas($FILES){
                     $nuevo_participante["apellidos"] = $participante[2];
                     $nuevo_participante["telefono"] = $participante[3];
                     $nuevo_participante["email"] = $participante[4];
+                    $nuevo_participante["institucion"] = $participante[5];
+                    $nuevo_participante["grado"] = $participante[6];
                     array_push($participantes, $nuevo_participante);
                 }
             }

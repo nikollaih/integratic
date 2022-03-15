@@ -18,20 +18,31 @@
                                                 <h4><?= $prueba["nombre_prueba"] ?></h4>
                                                 <hr>
                                                 <p class="m-b-1"><?= $prueba["descripcion_prueba"] ?></p>
-                                                <div id="prueba-extra-info" class="m-b-1" style="display: none;">
+                                                <div id="prueba-extra-info" class="m-b-1">
                                                     <p><b>Alcance: </b><?= $prueba["alcance_prueba"] ?></p>
                                                     <p><b>Tipo: </b><?= $prueba["tipo_prueba"] ?></p>
                                                     <p><b>Cantidad de preguntas: </b><?= ($asignadas) ? count($asignadas) : "0" ?>/<?= $prueba["cantidad_preguntas"] ?></p>
-                                                    <p><b>Inicia: </b><?= date("d F, Y", strtotime($prueba["fecha_inicio"])) ?></p>
-                                                    <p><b>Finaliza: </b><?= date("d F, Y", strtotime($prueba["fecha_finaliza"])) ?></p>
+                                                    <p><b>Duración: </b><?= $prueba["duracion"] ?> Minutos</p>
+                                                    <p><b>Disponible desde: </b><?= date("d/m/Y - h:i a", strtotime($prueba["fecha_inicio"])) ?></p>
+                                                    <p><b>Disponible hasta: </b><?= date("d/m/Y - h:i a", strtotime($prueba["fecha_finaliza"])) ?></p>
                                                     <p><b>Fecha de creación: </b><?= date("d F, Y", strtotime($prueba["created_at"])) ?></p>
                                                     <p>
                                                         <b>Dificultad: </b>
                                                         <?php
                                                             if($dificultad){
+                                                                echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
                                                                 for ($i=0; $i < count($dificultad); $i++) { 
-                                                                    echo "<span>".$dificultad[$i]." </span>";
+                                                                    if ($dificultad[$i] == 1) {
+                                                                        $dificultad_seleccionada = "Fácil";
+                                                                    } else if($dificultad[$i] == 2) {
+                                                                        $dificultad_seleccionada = "Intermedia";
+                                                                    }else{
+                                                                        $dificultad_seleccionada = "Avanzada";
+                                                                    }
+                                                                    
+                                                                    echo "<li>".$dificultad_seleccionada."</li>";
                                                                 }
+                                                                echo "</ul>";
                                                             }
                                                         ?>
                                                     </p>
@@ -46,7 +57,6 @@
                                                         }
                                                     ?>
                                                 </div>
-                                                <a href="#" class="ver-mas-extra-info m-t-2"><b>+ Ver más</b></a>
                                             </div>
                                         </div>
                                     </div>
