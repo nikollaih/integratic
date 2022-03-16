@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class='col-lg-12'>    
                             <a data-toggle='modal' data-target='#agregar-nuevo-anuncio' href='javascript:crear();' class="add-announcement-container">
-                                <img src='./img/iconos/crear.png' width='40' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'>
+                                <img src='./img/iconos/crear_anuncio.png' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'>
                                 <p>Crear Anuncio</p>
                             </a>
                         </div>
@@ -44,16 +44,16 @@
                         <div class="col-md-12">
                             <div class='add-announcement-container'>    
                                 <a href='javascript:crear();'>
-                                    <img src='./img/iconos/crear.png' width='40' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'>
+                                    <img src='./img/iconos/nueva_carpeta.png' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'>
                                 </a>&nbsp;
                                 <a href='javascript:subir();'> 
-                                    <img src='./img/iconos/subir.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'>
+                                    <img src='./img/iconos/subir_archivo.png' height='32' alt='Subir Archivo' title='Subir Archivo'>
                                 </a>&nbsp;
                                 <a href="#"  data-toggle='modal' data-target='#agregar-nuevo-foro'> 
-                                    <img src='./img/iconos/foro.png' width='32' height='32' alt='Crear foro' title='Crear foro'>
+                                    <img src='./img/iconos/crear_foro.png'  height='32' alt='Crear foro' title='Crear foro'>
                                 </a>&nbsp;
                                 <a href="#"  data-toggle='modal' data-target='#agregar-nueva-actividad'> 
-                                    <img src='./img/iconos/foro.png' width='32' height='32' alt='Crear actividad' title='Crear actividad'>
+                                    <img src='./img/iconos/crear_actividad.png'  height='32' alt='Crear actividad' title='Crear actividad'>
                                 </a>&nbsp;
                             </div>
                         </div>

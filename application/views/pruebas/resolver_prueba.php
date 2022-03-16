@@ -19,7 +19,7 @@
                                 <div class="col-md-12">
                                     <div class="panel panel-primary">
                                         <div class="panel-heading text-capitalize">
-                                            <b>Pregunta <?= (calcular_nota_prueba($prueba["id_prueba"], $id_participante)["parcial"] + 1)."/".$prueba["cantidad_preguntas"] ?> </b>
+                                            <b>Pregunta <?= (info_prueba_realizada($prueba["id_prueba"], $id_participante)["parcial"] + 1)."/".$prueba["cantidad_preguntas"] ?> </b>
                                         </div>
                                         <div class="panel-body">
                                             <div class="row">

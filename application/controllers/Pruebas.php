@@ -64,27 +64,39 @@
         $this->load->view("pruebas/empezar_prueba", $params);
     }
 
-    function resumen($id_prueba){
+    function resumen($id_prueba, $id_participante = null){
         // TODO cambiar
-        $id_participante = 1;
+        if($id_participante == null){
+            $id_participante = 1;
+        }
+        $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
+        if($params["prueba_realizada"]["calificacion"] == null){
+            $this->Realizar_Prueba_Model->update(array("id_realizar_prueba" => $params["prueba_realizada"]["id_realizar_prueba"], "calificacion" => info_prueba_realizada($id_prueba, $id_participante)["porcentaje"]));
+            $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
+        }
         $params["id_participante"] = $id_participante;
         $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
         $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
         $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
         $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
-        $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
         $params["respuestas"] = $this->Respuestas_Realizar_Prueba_Model->get($params["prueba_realizada"]["id_realizar_prueba"]);
 
-        $this->load->view("pruebas/resumen_prueba", $params);
+        if($params["prueba_realizada"]){
+            $this->load->view("pruebas/resumen_prueba", $params);
+        }
+        else{
+            header("Location: " . base_url() . "Pruebas");
+        }
     }
 
     function resolver($id_prueba){
         // TODO cambiar
         $id_participante = 1;
+        $participante = $this->Asignacion_Participantes_Prueba_Model->get_participante($id_participante);
         $params["id_participante"] = $id_participante;
         $iniciado = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
         if(!$iniciado){
-            $iniciado = $this->Realizar_Prueba_Model->create(array("id_prueba" => $id_prueba, "id_participante" => $id_participante, "created_at" => date("Y-m-d H:i:s")));
+            $iniciado = $this->Realizar_Prueba_Model->create(array("id_prueba" => $id_prueba, "id_participante" => $id_participante, "institucion" => $participante["institucion"], "grado" => $participante["grado"], "created_at" => date("Y-m-d H:i:s")));
         }
 
         if($this->input->post()){

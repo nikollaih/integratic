@@ -21,7 +21,7 @@
                                                     <h4><?= $prueba["nombre_prueba"] ?></h4>
                                                     <div class="d-flex">
                                                         <?php
-                                                            if($asignadas && $prueba["cantidad_preguntas"] == count($asignadas)){
+                                                            if($asignadas && $prueba["cantidad_preguntas"] == count($asignadas) && $prueba["fecha_inicio"] <= date("Y-m-d H:i:s") && $prueba["fecha_finaliza"] > date("Y-m-d H:i:s")){
                                                                 ?>
                                                                     <a href="<?= base_url() ?>Pruebas/resolver/<?= $prueba["id_prueba"] ?>" class="btn btn-info">Comenzar Prueba</a>
                                                                 <?php

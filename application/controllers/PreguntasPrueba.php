@@ -8,8 +8,10 @@
        $this->load->model(["Preguntas_Model", "Respuestas_Preguntas_Model", "Consultas_Model"]);
     }
     
-    public function index(){
-        $params["preguntas"] = $this->Preguntas_Model->get_all();
+    public function index($id_materia = null){
+        $params["preguntas"] = $this->Preguntas_Model->get_all($id_materia);
+        $params["materias"] = $this->Consultas_Model->get_materias_diff();
+        $params["id_materia"] = $id_materia;
         $this->load->view("pruebas/preguntas/lista_preguntas", $params);
     }
 
@@ -82,6 +84,41 @@
                     }
                 }
             }
+        }
+    }
+
+    function exportarPreguntas($materia, $id_preguntas){
+        if($id_preguntas == "-1"){
+            $preguntas = $this->Preguntas_Model->get_preguntas_exportar_by_materia($materia);
+        }
+        else{
+            $id_preguntas = explode("-", $id_preguntas);
+            $preguntas = $this->Preguntas_Model->get_preguntas_exportar($id_preguntas);
+        }
+        if(is_array($preguntas)){
+            $materia = $this->Consultas_Model->get_materia($preguntas[0]["id_materia"]);
+            exportarPreguntasExcel($preguntas, $materia);
+        }
+    }
+
+    function exportarRespuestas($materia, $id_preguntas){
+        if($id_preguntas == "-1"){
+            $preguntas = $this->Preguntas_Model->get_preguntas_exportar_by_materia($materia);
+        }
+        else{
+            $id_preguntas = explode("-", $id_preguntas);
+            $preguntas = $this->Preguntas_Model->get_preguntas_exportar($id_preguntas);
+        }
+
+        if(is_array($preguntas)){
+            $materia = $this->Consultas_Model->get_materia($preguntas[0]["id_materia"]);
+            if($id_preguntas == "-1"){
+                $respuestas = $this->Respuestas_Preguntas_Model->get_respuestas_exportar_by_materia($materia);
+            }
+            else{
+                $respuestas = $this->Respuestas_Preguntas_Model->get_respuestas_exportar($id_preguntas);
+            }
+            exportarRespuestasExcel($respuestas, $materia);
         }
     }
 } 

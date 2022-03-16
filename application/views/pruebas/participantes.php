@@ -104,6 +104,7 @@
                                                             <th>Email</th>
                                                             <th>Institución</th>
                                                             <th>Grado</th>
+                                                            <th>Calificación</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -111,15 +112,32 @@
                                                     <?php
                                                         if($participantes){
                                                             foreach ($participantes as $participante) {
+                                                                $info_prueba = info_prueba_realizada($prueba["id_prueba"], $participante["id_participante_prueba"]);
                                                     ?>
                                                         <tr id="participante-<?= $participante["id_participante_prueba"] ?>">
                                                             <td><p><?= $participante["identificacion"] ?></p></td>
                                                             <td><p><?= $participante["nombres"]." ".$participante["apellidos"] ?></p></td>
                                                             <td><p><?= $participante["telefono"] ?></p></td>
                                                             <td><p><?= $participante["email"] ?></p></td>
-                                                            <td><p><?= $participante["institucion"] ?></p></td>
-                                                            <td><p><?= $participante["grado"] ?></p></td>
-                                                            <td class="text-center"><button data-prueba="<?= $prueba["id_prueba"] ?>" data-participante="<?= $participante["id_participante_prueba"] ?>" class="btn btn-danger btn-sm btn-eliminar-participante">Eliminar</button></td>
+                                                            <td><p><?= ($info_prueba["porcentaje"] == null) ? $participante["institucion"] : $info_prueba["institucion"] ?></p></td>
+                                                            <td><p><?= ($info_prueba["porcentaje"] == null) ? $participante["grado"] : $info_prueba["grado"] ?></p></td>
+                                                            <td><p class="text-center"><?= $info_prueba["porcentaje"] ?></p></td>
+                                                            <td class="text-center">
+                                                                <?php
+                                                                    if($info_prueba["porcentaje"] == null){
+                                                                        ?>
+                                                                            <button data-prueba="<?= $prueba["id_prueba"] ?>" data-participante="<?= $participante["id_participante_prueba"] ?>" class="btn btn-danger btn-sm btn-eliminar-participante">Eliminar</button>
+                                                                        <?php
+                                                                    }
+                                                                    else{
+                                                                        ?>
+                                                                        <a href="<?= base_url() ?>Pruebas/resumen/<?= $prueba["id_prueba"] ?>/<?= $participante["id_participante_prueba"] ?>">
+                                                                            <button class="btn btn-success btn-sm">Ver Resumen</button>
+                                                                        </a>
+                                                                        <?php
+                                                                    }
+                                                                ?>
+                                                            </td>
                                                         </tr>
                                                     <?php
                                                             }
