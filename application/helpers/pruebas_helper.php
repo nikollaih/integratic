@@ -67,8 +67,8 @@
                 "total" => count($preguntas),
                 "parcial" => ($respuestas) ? count($respuestas) : 0,
                 "porcentaje" => ($correctas == 0 && !$respuestas) ? null : number_format((float)($correctas / count($preguntas)) * 100, 1, '.', ''),
-                "institucion" => $realizar_prueba["institucion"],
-                "grado" => $realizar_prueba["grado"]
+                "institucion" => ($realizar_prueba) ? $realizar_prueba["institucion"] : null,
+                "grado" => ($realizar_prueba) ? $realizar_prueba["grado"] : null
             );
 
             return $respuesta;
