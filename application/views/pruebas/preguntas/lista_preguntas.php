@@ -40,12 +40,18 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-lg-12">
-                                    <div class="alert alert-warning">
-                                        <label style="display: inline-flex;">
-                                            <input id="exportar-todas-check" type="checkbox" name="" id="">
-                                            <h5 style="margin:3px 10px;">Exportar todas</h5>
-                                        </label> 
-                                    </div>
+                                <?php
+                                    if($id_materia && $preguntas != false){
+                                        ?>
+                                            <div class="alert alert-warning">
+                                                <label style="display: inline-flex;">
+                                                    <input id="exportar-todas-check" type="checkbox" name="" id="">
+                                                    <h5 style="margin:3px 10px;">Exportar todas</h5>
+                                                </label> 
+                                            </div>
+                                            <?php
+                                    }
+                                ?>
                                     <table id="tabla-preguntas" class="table table-bordered">
                                         <thead>
                                             <tr>
