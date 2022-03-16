@@ -48,8 +48,13 @@
             $correctas = 0;
             $preguntas = $CI->Preguntas_Model->get_preguntas_prueba($id_prueba);
             $realizar_prueba = $CI->Realizar_Prueba_Model->get($id_prueba, $id_participante);
-            $respuestas = $CI->Respuestas_Realizar_Prueba_Model->get($realizar_prueba["id_realizar_prueba"]);
-            
+
+            if($realizar_prueba){
+                $respuestas = $CI->Respuestas_Realizar_Prueba_Model->get($realizar_prueba["id_realizar_prueba"]);
+            }
+            else{
+                $respuestas = false;
+            }
 
             if($respuestas){
                 foreach ($respuestas as $respuesta) {
