@@ -6,9 +6,12 @@ class Preguntas_Model extends CI_Model {
     	$this->load->database();
  	}
 
-	function get_all(){
+	function get_all($id_materia){
 		$this->db->from("preguntas_prueba pp");
 		$this->db->join("cfg_materias cm", "cm.codmateria = pp.id_materia");
+		if($id_materia && $id_materia != "null"){
+			$this->db->where("pp.id_materia", $id_materia);
+		}
 		$this->db->order_by("pp.created_at", "desc");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
@@ -65,5 +68,21 @@ class Preguntas_Model extends CI_Model {
 		else{
 			return false;
 		}
+	}
+
+	// Get the questions listing that will be exported
+	function get_preguntas_exportar($ids){
+		$this->db->from("preguntas_prueba pp");
+		$this->db->where_in("id_pregunta_prueba", $ids);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
+	// Get the questions listing that will be exported
+	function get_preguntas_exportar_by_materia($id_materia){
+		$this->db->from("preguntas_prueba pp");
+		$this->db->where_in("id_materia", $id_materia);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 }

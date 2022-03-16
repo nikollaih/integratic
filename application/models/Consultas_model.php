@@ -30,12 +30,19 @@ class Consultas_Model extends CI_Model {
       return $result->result();}      
   } 
   
-  public function get_materias_diff(){
-    $this->db->from("cfg_materias");
-    //$this->db->group_by("nommateria");
-    $result = $this->db->get();
+  	public function get_materias_diff(){
+    	$this->db->from("cfg_materias");
+    	$this->db->order_by("nommateria");
+    	$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
-  }
+  	}
+
+	public function get_materia($codmateria){
+    	$this->db->from("cfg_materias");
+    	$this->db->where("codmateria", $codmateria);
+    	$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+  	}
 
   public function nom_docente($id){
     $result=$this->db->query("Select * From usuarios where id='$id'");

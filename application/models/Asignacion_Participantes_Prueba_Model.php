@@ -10,6 +10,7 @@ class Asignacion_Participantes_Prueba_Model extends CI_Model {
 		$this->db->from("core_participantes_pruebas cpp");
         $this->db->join("asignacion_participantes_prueba pp", "pp.id_participante = cpp.id_participante_prueba");
 		$this->db->where("pp.id_prueba", $id_prueba);
+		$this->db->group_by("cpp.id_participante_prueba");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
@@ -19,6 +20,13 @@ class Asignacion_Participantes_Prueba_Model extends CI_Model {
         $this->db->join("asignacion_participantes_prueba pp", "pp.id_participante = cpp.id_participante_prueba");
 		$this->db->where("pp.id_prueba", $id_prueba);
 		$this->db->where("pp.id_participante", $id_participante);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+	}
+
+	function get_participante($id_participante){
+		$this->db->from("core_participantes_pruebas cpp");
+		$this->db->where("cpp.id_participante_prueba", $id_participante);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}

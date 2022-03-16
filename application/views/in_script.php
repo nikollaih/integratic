@@ -56,6 +56,9 @@
         <!-- Pruebas -->
         <script src="<?= base_url() ?>js/pruebas.js"></script>
 
+        <!-- Preguntas -->
+        <script src="<?= base_url() ?>js/preguntas.js"></script>
+
         <!-- Datatable -->
         <script src="<?= base_url() ?>assets/dataTables/jquery.dataTables.min.js"></script>
         <script src="<?= base_url() ?>assets/dataTables/dataTables.bootstrap4.min.js"></script>

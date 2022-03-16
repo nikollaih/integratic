@@ -17,10 +17,10 @@
                     <a href="./principal/aprender" target='_blank'>
                         <i><img src='./img/iconos/aprender.png' width="50" height="50"></i><span>Aprender</span></a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="javascript:areas();" class="waves-effect">
                         <i><img src='./img/iconos/areas.png' width="50" height="50"></i><span>Areas</span></a>
-                </li>
+                </li> -->
                 <li>
                     <a href="javascript:subir_acti();" class="waves-effect">
                         <i><img src='./img/iconos/cargar.png' width="50" height="50"></i><span>Subir<br>Actividades</span></a>

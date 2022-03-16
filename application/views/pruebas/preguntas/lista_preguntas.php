@@ -6,14 +6,50 @@
         <div class="content">  
             <div class="container">
                 <div class="row" id="migas"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select class="form-control" name="" id="id-materia-preguntas">
+                                    <option value="null">Todas las materias</option>
+                                    <?php
+                                        if($materias != false){
+                                            foreach ($materias as $materia) {
+                                            ?>
+                                                <option <?= ($id_materia == $materia["codmateria"]) ? "selected" : "" ?> value="<?= $materia["codmateria"] ?>"><?= $materia["nommateria"]. " - ".$materia["grado"] . "°"; ?></option>
+                                            <?php
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <?php
+                            if($id_materia && $preguntas != false){
+                                ?>
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-success m-b-2">Importar</button>
+                                    <button data-materia="<?= $id_materia ?>" id="btn-exportar-preguntas" class="btn btn-primary m-b-2">Exportar Preguntas</button>
+                                    <button data-materia="<?= $id_materia ?>" id="btn-exportar-respuestas" class="btn btn-primary m-b-2">Exportar Respuestas</button>
+                                </div>
+                                <?php
+                            }
+                        ?>
+                    </div>
                     <div class="panel panel-primary">
                         <div class="panel-heading text-capitalize"><b>Lista de preguntas</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-lg-12">
+                                    <div class="alert alert-warning">
+                                        <label style="display: inline-flex;">
+                                            <input id="exportar-todas-check" type="checkbox" name="" id="">
+                                            <h5 style="margin:3px 10px;">Exportar todas</h5>
+                                        </label> 
+                                    </div>
                                     <table id="tabla-preguntas" class="table table-bordered">
                                         <thead>
                                             <tr>
+                                                <?= ($id_materia) ? "<th>Exportar</th>" : "" ?>
                                                 <th>Id</th>
                                                 <th>Materia</th>
                                                 <th>Dificultad</th>
@@ -28,6 +64,13 @@
                                                     foreach ($preguntas as $pregunta) {
                                                         ?>
                                                             <tr>
+                                                                <?php 
+                                                                    if($id_materia){
+                                                                        ?>
+                                                                            <td><input data-id="<?= $pregunta["id_pregunta_prueba"] ?>" class="form-check-input check-exportar-pregunta" type="checkbox" name="" id=""></td>
+                                                                        <?php
+                                                                    }
+                                                                ?>
                                                                 <td><?= $pregunta["id_pregunta_prueba"] ?></td>
                                                                 <td><?= $pregunta["nommateria"]." - ".$pregunta["grado"]."°" ?></td>
                                                                 <td><?= $pregunta["dificultad"] ?></td>

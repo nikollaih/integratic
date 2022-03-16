@@ -20,7 +20,7 @@
                                                 <div class="subtitle-buttons">
                                                     <h4><?= $prueba["nombre_prueba"] ?></h4>
                                                     <div class="d-flex">
-                                                        <h4><?= calcular_nota_prueba($prueba["id_prueba"], $id_participante)["porcentaje"] ?>%</h4>
+                                                        <h4><?= $prueba_realizada["calificacion"] ?>%</h4>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -34,9 +34,9 @@
                                                     }
                                                 ?>
                                                 <p><?= $prueba["descripcion_prueba"] ?></p>
-                                                <p><b>Calificación: </b><span><?= calcular_nota_prueba($prueba["id_prueba"], $id_participante)["porcentaje"] ?>%</span></p>
+                                                <p><b>Calificación: </b><span><?= $prueba_realizada["calificacion"] ?>%</span></p>
                                                 <p><b>Tipo: </b><?= $prueba["tipo_prueba"] ?></p>
-                                                <p><b>Cantidad de preguntas:  </b> Correctas: <b><?= calcular_nota_prueba($prueba["id_prueba"], $id_participante)["correctas"] ?></b>, Total: <b><?= $prueba["cantidad_preguntas"] ?></b></p>
+                                                <p><b>Cantidad de preguntas:  </b> Correctas: <b><?= info_prueba_realizada($prueba["id_prueba"], $id_participante)["correctas"] ?></b>, Total: <b><?= $prueba["cantidad_preguntas"] ?></b></p>
                                                 <p><b>Tiempo disponible:  </b> <?= $prueba["duracion"] ?> Minutos</p>
                                                 <p><b>Tiempo utilizado:  </b> <?= intval(round(abs(strtotime($prueba_realizada["created_at"]) - strtotime($prueba_realizada["finished_at"])) / 60,2)); ?> Minutos - ( <span style="font-size: 12px;"> <b>Inicio:</b> <?= date("Y-m-d h:i a", strtotime($prueba_realizada["created_at"])) ?> - <b>Fin:</b> <?= date("Y-m-d h:i a", strtotime($prueba_realizada["finished_at"])) ?> </span>)</p>
                                                 <p>
