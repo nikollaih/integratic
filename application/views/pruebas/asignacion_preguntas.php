@@ -15,48 +15,82 @@
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12 col-lg-12">
-                                                <h4><?= $prueba["nombre_prueba"] ?></h4>
-                                                <hr>
-                                                <p class="m-b-1"><?= $prueba["descripcion_prueba"] ?></p>
-                                                <div id="prueba-extra-info" class="m-b-1">
-                                                    <p><b>Alcance: </b><?= $prueba["alcance_prueba"] ?></p>
-                                                    <p><b>Tipo: </b><?= $prueba["tipo_prueba"] ?></p>
-                                                    <p><b>Cantidad de preguntas: </b><?= ($asignadas) ? count($asignadas) : "0" ?>/<?= $prueba["cantidad_preguntas"] ?></p>
-                                                    <p><b>Duración: </b><?= $prueba["duracion"] ?> Minutos</p>
-                                                    <p><b>Disponible desde: </b><?= date("d/m/Y - h:i a", strtotime($prueba["fecha_inicio"])) ?></p>
-                                                    <p><b>Disponible hasta: </b><?= date("d/m/Y - h:i a", strtotime($prueba["fecha_finaliza"])) ?></p>
-                                                    <p><b>Fecha de creación: </b><?= date("d F, Y", strtotime($prueba["created_at"])) ?></p>
-                                                    <p>
-                                                        <b>Dificultad: </b>
-                                                        <?php
-                                                            if($dificultad){
-                                                                echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
-                                                                for ($i=0; $i < count($dificultad); $i++) { 
-                                                                    if ($dificultad[$i] == 1) {
-                                                                        $dificultad_seleccionada = "Fácil";
-                                                                    } else if($dificultad[$i] == 2) {
-                                                                        $dificultad_seleccionada = "Intermedia";
-                                                                    }else{
-                                                                        $dificultad_seleccionada = "Avanzada";
+                                                <table class="table table-bordered table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><b>Titulo</b></td>
+                                                            <td><?= $prueba["nombre_prueba"] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Descripción</b></td>
+                                                            <td><?= $prueba["descripcion_prueba"] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Alcance</b></td>
+                                                            <td><?= $prueba["alcance_prueba"] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Tipo</b></td>
+                                                            <td><?= $prueba["tipo_prueba"] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Cantidad de preguntas</b></td>
+                                                            <td><?= ($asignadas) ? count($asignadas) : "0" ?>/<?= $prueba["cantidad_preguntas"] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Duración</b></td>
+                                                            <td><?= $prueba["duracion"] ?> Minutos</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Disponible desde</b></td>
+                                                            <td><?= date("d/m/Y - h:i a", strtotime($prueba["fecha_inicio"])) ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Disponible hasta</b></td>
+                                                            <td><?= date("d/m/Y - h:i a", strtotime($prueba["fecha_finaliza"])) ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Fecha de creación</b></td>
+                                                            <td><?= date("d F, Y", strtotime($prueba["created_at"])) ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Dificultad</b></td>
+                                                            <td>
+                                                                <?php
+                                                                    if($dificultad){
+                                                                        echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
+                                                                        for ($i=0; $i < count($dificultad); $i++) { 
+                                                                            if ($dificultad[$i] == 1) {
+                                                                                $dificultad_seleccionada = "Fácil";
+                                                                            } else if($dificultad[$i] == 2) {
+                                                                                $dificultad_seleccionada = "Intermedia";
+                                                                            }else{
+                                                                                $dificultad_seleccionada = "Avanzada";
+                                                                            }
+                                                                            
+                                                                            echo "<li>".$dificultad_seleccionada."</li>";
+                                                                        }
+                                                                        echo "</ul>";
                                                                     }
-                                                                    
-                                                                    echo "<li>".$dificultad_seleccionada."</li>";
-                                                                }
-                                                                echo "</ul>";
-                                                            }
-                                                        ?>
-                                                    </p>
-                                                    <p><b>Materias: </b></p>
-                                                    <?php
-                                                        if($materias){
-                                                            echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
-                                                            foreach ($materias as $materia) {
-                                                                echo "<li>".$materia["nommateria"]." - ".$materia["grado"]."°</li>";
-                                                            }
-                                                            echo "</ul>";
-                                                        }
-                                                    ?>
-                                                </div>
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Materias</b></td>
+                                                            <td>
+                                                                <?php
+                                                                    if($materias){
+                                                                        echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
+                                                                        foreach ($materias as $materia) {
+                                                                            echo "<li>".$materia["nommateria"]." - ".$materia["grado"]."°</li>";
+                                                                        }
+                                                                        echo "</ul>";
+                                                                    }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -74,7 +108,7 @@
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12 col-lg-12">
-                                                <table class="table table-hovered table-bordered table-stripped">
+                                                <table class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th>Pregunta</th>

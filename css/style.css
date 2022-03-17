@@ -4552,3 +4552,30 @@ div.dataTables_info {
         width: 1170px;
     }
 }
+
+
+/* CUSTOM STYLES */
+
+.estadisticas-top-container {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.estadisticas-top-container.success {
+    background-color: #229678;
+}
+
+.estadisticas-top-container.warning {
+    background-color: #8a6d3b;
+}
+
+.estadisticas-top-container.primary {
+    background-color: #337ab7;
+}
+
+.estadisticas-top-container h1,
+.estadisticas-top-container h5 {
+    color: #fff;
+    text-align: center;
+    margin: 0;
+}

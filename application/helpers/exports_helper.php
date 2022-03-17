@@ -106,7 +106,7 @@ function exportarRespuestasExcel($answers, $materia){
             $writer->save('php://output');	// download file
         }
         else{
-            json_response(null, false, "No hay preguntas seleccionadas.");
+            json_response(null, false, "No hay registros de respuestas.");
         }
     }
     else{

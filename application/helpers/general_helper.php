@@ -47,4 +47,36 @@
          }
      
      }
+
+    if(!function_exists('encrypt_string'))
+    {
+        function encrypt_string($string, $url_format = false){
+            $CI = &get_instance();
+            $CI->load->library("encryption");
+            
+            if($url_format){
+                return urlencode($CI->encryption->encrypt($string));
+            }
+            else{
+                return $CI->encryption->encrypt($string);
+            }
+        }
+    
+    }
+
+    if(!function_exists('decrypt_string'))
+    {
+        function decrypt_string($string, $url_format = false){
+            $CI = &get_instance();
+            $CI->load->library("encryption");
+            
+            if($url_format){
+                return $CI->encryption->decrypt(urldecode($string));
+            }
+            else{
+                return $CI->encryption->decrypt($string);
+            }
+        }
+    
+    }
 ?>

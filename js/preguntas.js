@@ -12,6 +12,10 @@ $(document).on("click", "#btn-exportar-respuestas", function() {
     }
 });
 
+$("#import-form").on('submit', function(e) {
+    $(".btn-guardar-importar").attr("disabled", "disabled");
+});
+
 $(document).on("click", ".check-exportar-pregunta", function() {
     if (preguntas_seleccionadas.length == 1) {
         if (preguntas_seleccionadas[0] == "-1") {

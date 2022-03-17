@@ -21,6 +21,14 @@ class Realizar_Prueba_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
+	function get_by_participante($id_participante){
+		$this->db->from("realizar_prueba rp");
+		$this->db->join("pruebas p", "p.id_prueba = rp.id_prueba");
+		$this->db->where("rp.id_participante", $id_participante);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
     function create($data){
         $this->db->insert("realizar_prueba", $data);
         return $this->db->insert_id();

@@ -23,17 +23,24 @@
                                 </select>
                             </div>
                         </div>
-                        <?php
-                            if($id_materia && $preguntas != false){
-                                ?>
-                                <div class="col-md-6 text-right">
-                                    <button class="btn btn-success m-b-2">Importar</button>
+                        <div class="col-md-6 text-right">
+                            <?php
+                                if($id_materia){
+                            ?>
+                                    <a href="<?= base_url() ?>PreguntasPrueba/importar/<?= $id_materia ?>"><button class="btn btn-success m-b-2">Importar</button></a>
+                            <?php
+                                }
+                            ?>
+
+                            <?php
+                                if($id_materia && $preguntas != false){
+                            ?>
                                     <button data-materia="<?= $id_materia ?>" id="btn-exportar-preguntas" class="btn btn-primary m-b-2">Exportar Preguntas</button>
                                     <button data-materia="<?= $id_materia ?>" id="btn-exportar-respuestas" class="btn btn-primary m-b-2">Exportar Respuestas</button>
-                                </div>
-                                <?php
-                            }
-                        ?>
+                            <?php
+                                }
+                            ?>
+                        </div>    
                     </div>
                     <div class="panel panel-primary">
                         <div class="panel-heading text-capitalize"><b>Lista de preguntas</b></div>

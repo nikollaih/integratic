@@ -85,4 +85,11 @@ class Preguntas_Model extends CI_Model {
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
+
+	function get_count(){
+		$this->db->select("COUNT(pp.id_pregunta_prueba) as cantidad_preguntas");
+		$this->db->from("preguntas_prueba pp");
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+	}
 }
