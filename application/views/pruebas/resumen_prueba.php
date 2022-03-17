@@ -18,12 +18,10 @@
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12 col-lg-12">
                                                 <div class="subtitle-buttons">
-                                                    <h4><?= $prueba["nombre_prueba"] ?></h4>
                                                     <div class="d-flex">
                                                         <h4><?= $prueba_realizada["calificacion"] ?>%</h4>
                                                     </div>
                                                 </div>
-                                                <hr>
                                                 <?php
                                                     if(!$asignadas || $prueba["cantidad_preguntas"] != count($asignadas)){
                                                         ?>
@@ -33,42 +31,74 @@
                                                         <?php
                                                     }
                                                 ?>
-                                                <p><?= $prueba["descripcion_prueba"] ?></p>
-                                                <p><b>Calificación: </b><span><?= $prueba_realizada["calificacion"] ?>%</span></p>
-                                                <p><b>Tipo: </b><?= $prueba["tipo_prueba"] ?></p>
-                                                <p><b>Cantidad de preguntas:  </b> Correctas: <b><?= info_prueba_realizada($prueba["id_prueba"], $id_participante)["correctas"] ?></b>, Total: <b><?= $prueba["cantidad_preguntas"] ?></b></p>
-                                                <p><b>Tiempo disponible:  </b> <?= $prueba["duracion"] ?> Minutos</p>
-                                                <p><b>Tiempo utilizado:  </b> <?= intval(round(abs(strtotime($prueba_realizada["created_at"]) - strtotime($prueba_realizada["finished_at"])) / 60,2)); ?> Minutos - ( <span style="font-size: 12px;"> <b>Inicio:</b> <?= date("Y-m-d h:i a", strtotime($prueba_realizada["created_at"])) ?> - <b>Fin:</b> <?= date("Y-m-d h:i a", strtotime($prueba_realizada["finished_at"])) ?> </span>)</p>
-                                                <p>
-                                                    <b>Dificultad: </b>
-                                                    <?php
-                                                        if($dificultad){
-                                                            echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
-                                                            for ($i=0; $i < count($dificultad); $i++) { 
-                                                                if ($dificultad[$i] == 1) {
-                                                                    $dificultad_seleccionada = "Fácil";
-                                                                } else if($dificultad[$i] == 2) {
-                                                                    $dificultad_seleccionada = "Intermedia";
-                                                                }else{
-                                                                    $dificultad_seleccionada = "Avanzada";
-                                                                }
-                                                                
-                                                                echo "<li>".$dificultad_seleccionada."</li>";
-                                                            }
-                                                            echo "</ul>";
-                                                        }
-                                                    ?>
-                                                </p>
-                                                <p><b>Materias: </b></p>
-                                                <?php
-                                                    if($materias){
-                                                        echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
-                                                        foreach ($materias as $materia) {
-                                                            echo "<li>".$materia["nommateria"]." - ".$materia["grado"]."°</li>";
-                                                        }
-                                                        echo "</ul>";
-                                                    }
-                                                ?>
+                                                <table class="table table-bordered table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><b>Titulo</b></td>
+                                                            <td><?= $prueba["nombre_prueba"] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Descripción</b></td>
+                                                            <td><?= $prueba["descripcion_prueba"] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Calificación</b></td>
+                                                            <td><?= $prueba_realizada["calificacion"] ?>%</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Tipo</b></td>
+                                                            <td><?= $prueba["tipo_prueba"] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Cantidad de preguntas</b></td>
+                                                            <td>Correctas: <b><?= info_prueba_realizada($prueba["id_prueba"], $id_participante)["correctas"] ?></b>, Total: <b><?= $prueba["cantidad_preguntas"] ?></b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Tiempo disponible</b></td>
+                                                            <td><?= $prueba["duracion"] ?> Minutos</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Tiempo utilizado</b></td>
+                                                            <td><?= intval(round(abs(strtotime($prueba_realizada["created_at"]) - strtotime($prueba_realizada["finished_at"])) / 60,2)); ?> Minutos - ( <span style="font-size: 12px;"> <b>Inicio:</b> <?= date("Y-m-d h:i a", strtotime($prueba_realizada["created_at"])) ?> - <b>Fin:</b> <?= date("Y-m-d h:i a", strtotime($prueba_realizada["finished_at"])) ?> </span>)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Dificultad</b></td>
+                                                            <td>
+                                                                <?php
+                                                                    if($dificultad){
+                                                                        echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
+                                                                        for ($i=0; $i < count($dificultad); $i++) { 
+                                                                            if ($dificultad[$i] == 1) {
+                                                                                $dificultad_seleccionada = "Fácil";
+                                                                            } else if($dificultad[$i] == 2) {
+                                                                                $dificultad_seleccionada = "Intermedia";
+                                                                            }else{
+                                                                                $dificultad_seleccionada = "Avanzada";
+                                                                            }
+                                                                            
+                                                                            echo "<li>".$dificultad_seleccionada."</li>";
+                                                                        }
+                                                                        echo "</ul>";
+                                                                    }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Materias</b></td>
+                                                            <td>
+                                                                <?php
+                                                                    if($materias){
+                                                                        echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
+                                                                        foreach ($materias as $materia) {
+                                                                            echo "<li>".$materia["nommateria"]." - ".$materia["grado"]."°</li>";
+                                                                        }
+                                                                        echo "</ul>";
+                                                                    }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>

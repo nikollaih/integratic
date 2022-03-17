@@ -11,7 +11,7 @@ class Participantes_Prueba_Model extends CI_Model {
         $this->db->where("cpp.identificacion", $identificacion);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
-	 }
+	}
 
 	// Create a new question
 	function create($data){
@@ -25,4 +25,10 @@ class Participantes_Prueba_Model extends CI_Model {
 		return $this->db->update("core_participantes_pruebas", $data);
 	}
 
+	function get_count(){
+		$this->db->select("COUNT(cpp.identificacion) as cantidad_participantes");
+		$this->db->from("core_participantes_pruebas cpp");
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+	}
 }

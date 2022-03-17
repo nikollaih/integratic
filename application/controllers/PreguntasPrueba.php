@@ -44,7 +44,7 @@
             if(isset($_FILES["pregunta_archivo"]) && $id_pregunta){
                 if(isset($_FILES['pregunta_archivo']['name'])) {
                     if($_FILES['pregunta_archivo']['name']){
-                        $file_name = md5($id_pregunta).".".get_file_format($_FILES['pregunta_archivo']['name']);
+                        $file_name = md5($id_pregunta.rand(100000, 999999)).".".get_file_format($_FILES['pregunta_archivo']['name']);
                         $file_tmp =$_FILES['pregunta_archivo']['tmp_name'];
                         if (move_uploaded_file($file_tmp,"uploads/preguntas/".$file_name)){
                             $this->Preguntas_Model->update(array("id_pregunta_prueba" => $id_pregunta, "archivo" => $file_name, "nombre_archivo" => $_FILES['pregunta_archivo']['name']));
@@ -77,7 +77,7 @@
         if(isset($_FILES[$archivo_imagen]) && $id_respuesta){
             if(isset($_FILES[$archivo_imagen]['name']['archivo_respuesta'])) {
                 if($_FILES[$archivo_imagen]['name']['archivo_respuesta']){
-                    $file_name = md5($id_pregunta.$x).".".get_file_format($_FILES[$archivo_imagen]['name']['archivo_respuesta']);
+                    $file_name = md5($id_pregunta.rand(100000, 999999)).".".get_file_format($_FILES[$archivo_imagen]['name']['archivo_respuesta']);
                     $file_tmp =$_FILES[$archivo_imagen]['tmp_name']['archivo_respuesta'];
                     if (move_uploaded_file($file_tmp,"uploads/respuestas/".$file_name)){
                         $this->Respuestas_Preguntas_Model->update(array("id_respuesta_pregunta_prueba" => $id_respuesta, "archivo_respuesta" => $file_name, "nombre_archivo_respuesta" => $_FILES[$archivo_imagen]['name']['archivo_respuesta']));
@@ -119,6 +119,53 @@
                 $respuestas = $this->Respuestas_Preguntas_Model->get_respuestas_exportar($id_preguntas);
             }
             exportarRespuestasExcel($respuestas, $materia);
+        }
+    }
+
+    function importar($id_materia = null){
+        if($this->input->post()){
+            $params["message"] = $this->procesarImportar($this->input->post(), $_FILES);
+        }
+
+        $params["id_materia"] = $id_materia;
+        $params["materias"] = $this->Consultas_Model->get_materias_diff();
+        $this->load->view("pruebas/preguntas/importar_preguntas_respuestas", $params);
+    }
+
+    function procesarImportar($data, $FILES){
+        if($FILES["archivo_preguntas"]){
+            $preguntas = excel_preguntas_array($FILES);
+            $respuestas = excel_respuestas_array($FILES);
+
+            if(is_array($preguntas)){
+                foreach ($preguntas as $pregunta) {
+                    $temp_id_pregunta = $pregunta["id_pregunta"];
+                    unset($pregunta["id_pregunta"]);
+                    $pregunta["id_materia"] = $data["id_materia"];
+                    $id_pregunta = $this->Preguntas_Model->create($pregunta);
+
+                    if(is_array($respuestas)){
+                        $respuestas_pregunta = array_filter($respuestas, function ($var) use ($temp_id_pregunta) {
+                            return ($var['id_pregunta'] == $temp_id_pregunta);
+                        });
+
+                        if(is_array($respuestas_pregunta)){
+                            foreach ($respuestas_pregunta as $respuesta) {
+                                $respuesta["id_pregunta"] = $id_pregunta;
+                                $this->Respuestas_Preguntas_Model->create($respuesta);
+                            }
+                        }
+                    }
+                }
+
+                return array("type" => "success", "message" => "Preguntas importadas correctamente.", "success" => true);
+            }
+            else{
+                return array("type" => "danger", "message" => "No se han encontrado preguntas.", "success" => false);
+            }
+        }
+        else{
+            return array("type" => "danger", "message" => "Es necesario cargar un archivo de preguntas.", "success" => false);
         }
     }
 } 

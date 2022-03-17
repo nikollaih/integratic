@@ -2284,8 +2284,6 @@ function cambio_menu(){
         //html+="<i><img src='./img/iconos/menu.png' width='60' height='40'></i><span>Administrar</span></a></li>";  
         html+="<li><a href='"+base_url+"Pruebas' class='waves-effect'>";
         html+="<i><img src='./img/iconos/areas.png' width='50' height='50'></i><span>Pruebas</span></a></li>";   
-        html+="<li><a href='javascript:areas();' class='waves-effect'>";
-        html+="<i><img src='./img/iconos/areas.png' width='50' height='50'></i><span>Areas</span></a></li>";         
         html+="<li><a href='javascript:cfg_docente();' class='waves-effect'>";
         html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
         html+="<li><a href='javascript:cfg_proyectos();' class='waves-effect'>";

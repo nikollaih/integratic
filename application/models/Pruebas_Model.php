@@ -31,4 +31,11 @@ class Pruebas_Model extends CI_Model {
 		$this->db->insert("pruebas", $data);
 		return $this->db->insert_id(); 
 	}
+
+	function get_count(){
+        $this->db->select("COUNT(p.id_prueba) as cantidad_pruebas");
+		$this->db->from("pruebas p");
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+	}
 }

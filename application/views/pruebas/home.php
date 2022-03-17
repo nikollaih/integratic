@@ -11,7 +11,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-lg-12">
-                                    <table id="tabla-pruebas" class="table table-bordered">
+                                    <table id="tabla-pruebas" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
@@ -38,8 +38,8 @@
                                                                 <td><?= date("d F Y", strtotime($p["created_at"])) ?></td>
                                                                 <td><?= ($p["estado"] == "1") ? "<label class='text-success'>Activa</label>" : "<label class='text-danger'>Inactiva</label>" ?></td>
                                                                 <td class="text-center">
-                                                                    <a class="btn btn-success" href="<?= base_url() ?>Pruebas/ver/<?= $p["id_prueba"] ?>">Ver</a>
-                                                                    <a class="btn btn-success" href="<?= base_url() ?>Pruebas/empezar/<?= $p["id_prueba"] ?>">Realizar prueba</a>
+                                                                    <a class="btn btn-success" href="<?= base_url() ?>Pruebas/ver/<?= encrypt_string($p["id_prueba"], true) ?>">Ver</a>
+                                                                    <a class="btn btn-success" href="<?= base_url() ?>Pruebas/empezar/<?= encrypt_string($p["id_prueba"], true) ?>">Realizar prueba</a>
                                                                 </td>
                                                             </tr>
                                                         <?php

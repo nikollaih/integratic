@@ -142,7 +142,7 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown"><div id="foto"><br>                                    
-                                    <a href="javascript:prelogin();" class="dropdown-toggle profile"><img src="./img/iconos/login.png" alt="user-img" class="img-circle"></a>
+                                    <a href="javascript:prelogin();" class="dropdown-toggle profile"><img src="<?= base_url() ?>img/iconos/login.png" alt="user-img" class="img-circle"></a>
                                     </div>
                                 </li>
                                 <!--<li class="dropdown"><div id="foto"><br>                                    
