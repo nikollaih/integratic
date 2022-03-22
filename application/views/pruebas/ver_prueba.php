@@ -129,6 +129,13 @@
                                                         foreach ($preguntas as $pregunta) {
                                                 ?>
                                                             <p><?= "<b>".$x.".</b> ".$pregunta["descripcion_pregunta"] ?></p>
+                                                            <?php
+                                                                if($pregunta["archivo"] && $pregunta["nombre_archivo"]){
+                                                            ?>
+                                                                <img src="<?= base_url() ?>uploads/preguntas/<?= $pregunta["archivo"] ?>" alt="" srcset="" width="200" class="m-t-2">
+                                                            <?php
+                                                                }
+                                                            ?>
                                                 <?php
                                                             $x++;
                                                         }
