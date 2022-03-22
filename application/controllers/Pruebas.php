@@ -48,7 +48,7 @@
     }
 
     function ver($id_prueba){
-        $id_prueba = decrypt_string($id_prueba, true);
+        //$id_prueba = decrypt_string($id_prueba, true);
         $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
         $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
         $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
