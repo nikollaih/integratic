@@ -19,6 +19,9 @@
         if($id_pregunta){
             $params["pregunta"] = $this->Preguntas_Model->get($id_pregunta);
             $params["respuestas"] = $this->Respuestas_Preguntas_Model->get_all($id_pregunta);
+            $params["pruebas_pregunta"] = $this->Preguntas_Model->get_cantidad_pruebas($id_pregunta);
+            $params["correctas"] = $this->Preguntas_Model->get_cantidad_correctas_incorrectas($id_pregunta);
+            $params["incorrectas"] = $this->Preguntas_Model->get_cantidad_correctas_incorrectas($id_pregunta, 0);
             $this->load->view("pruebas/preguntas/ver_pregunta", $params);
         }
         else{

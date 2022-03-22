@@ -78,15 +78,15 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>Cantidad de veces utilizada en pruebas</td>
-                                                            <td>98</td>
+                                                            <td><?= ($pruebas_pregunta) ? count($pruebas_pregunta) : 0 ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Cantidad de veces respondida correctamente</td>
-                                                            <td>50</td>
+                                                            <td><?= ($correctas) ? count($correctas) : 0 ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Cantidad de veces respondida de manera incorrecta</td>
-                                                            <td>48</td>
+                                                            <td><?= ($incorrectas) ? count($incorrectas) : 0 ?></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

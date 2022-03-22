@@ -38,4 +38,16 @@ class Realizar_Prueba_Model extends CI_Model {
 		$this->db->where("id_realizar_prueba", $data["id_realizar_prueba"]);
 		return $this->db->update("realizar_prueba", $data);
 	}
+
+	function get_aprobadas($tipo = true, $value = 60){
+		$this->db->from("realizar_prueba");
+		if($tipo){
+			$this->db->where("calificacion >= ", $value);
+		}
+		else{
+			$this->db->where("calificacion <= ", $value);
+		}
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
 }

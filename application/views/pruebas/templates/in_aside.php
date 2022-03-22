@@ -27,7 +27,7 @@
                 </li>
                 <li>
                     <a href="<?= base_url() ?>EstadisticasPruebas/ver">
-                        <i><img src='<?= base_url() ?>img/iconos/aprender.png' width="50" height="50"></i><span>Estadisticas</span></a>
+                        <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Estadisticas</span></a>
                 </li>
             </ul>
             <div class="clearfix"></div>

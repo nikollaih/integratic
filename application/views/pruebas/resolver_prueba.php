@@ -27,6 +27,13 @@
                                                     <div class="subtitle-buttons">
                                                         <?= $pregunta["descripcion_pregunta"] ?>
                                                     </div>
+                                                    <?php
+                                                        if($pregunta["archivo"] && $pregunta["nombre_archivo"]){
+                                                    ?>
+                                                        <img src="<?= base_url() ?>uploads/preguntas/<?= $pregunta["archivo"] ?>" alt="" srcset="" width="200" class="m-t-2">
+                                                    <?php
+                                                        }
+                                                    ?>
                                                     <hr>
                                                     <?php
                                                         if($respuestas){
@@ -37,6 +44,13 @@
                                                                 <div class="form-check">
                                                                     <label class="form-check-label">
                                                                         <input required type="radio" class="form-check-input" name="id_respuesta" value="<?= $respuesta['id_respuesta_pregunta_prueba'] ?>"> <?= $respuesta["descripcion_respuesta"] ?>
+                                                                        <?php
+                                                                            if($respuesta["archivo_respuesta"] && $respuesta["nombre_archivo_respuesta"]){
+                                                                        ?>
+                                                                            <img src="<?= base_url() ?>uploads/respuestas/<?= $respuesta["archivo_respuesta"] ?>" alt="" srcset="" width="200" class="m-t-3" style="margin-left:15px;">
+                                                                        <?php
+                                                                            }
+                                                                        ?>
                                                                     </label>
                                                                 </div>
                                                     <?php

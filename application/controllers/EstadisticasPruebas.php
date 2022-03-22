@@ -5,13 +5,16 @@ class EstadisticasPruebas extends CI_Controller {
     function __construct() 
     {
         parent::__construct();
-        $this->load->model(['Pruebas_Model', 'Preguntas_Model', 'Participantes_Prueba_Model', 'Realizar_Prueba_Model']);
+        $this->load->model(['Pruebas_Model', 'Preguntas_Model', 'Participantes_Prueba_Model', 'Realizar_Prueba_Model', 'Consultas_Model']);
     }
 
     public function ver(){
         $params["cantidad_pruebas"] = $this->Pruebas_Model->get_count();
         $params["cantidad_preguntas"] = $this->Preguntas_Model->get_count();
         $params["cantidad_participantes"] = $this->Participantes_Prueba_Model->get_count();
+        $params["materias"] = $this->Consultas_Model->get_materias_diff();
+        $params["pruebas_aprobadas"] = $this->Realizar_Prueba_Model->get_aprobadas();
+        $params["pruebas_no_aprobadas"] = $this->Realizar_Prueba_Model->get_aprobadas(false);
         $this->load->view("estadisticas/pruebas", $params);
     }
 

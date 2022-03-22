@@ -92,4 +92,30 @@ class Preguntas_Model extends CI_Model {
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
+
+	function get_cantidad_pruebas($id_pregunta){
+		$this->db->from("pruebas");
+		$this->db->like("materias", $id_pregunta);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
+	function get_cantidad_correctas_incorrectas($id_pregunta, $tipo_respuesta = 1){
+		$this->db->from("respuestas_realizar_prueba rrp");
+		$this->db->join("respuestas_preguntas_pruebas rpp", "rrp.id_respuesta = id_respuesta_pregunta_prueba");
+		$this->db->where("rrp.id_pregunta", $id_pregunta);
+		$this->db->where("rpp.tipo_respuesta", $tipo_respuesta);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
+	function get_cantidad_correctas_incorrectas_by_materia($id_materia, $tipo_respuesta = 1){
+		$this->db->from("preguntas_prueba pp");
+		$this->db->join("respuestas_realizar_prueba rrp", "rrp.id_pregunta = pp.id_pregunta_prueba");
+		$this->db->join("respuestas_preguntas_pruebas rpp", "rrp.id_respuesta = id_respuesta_pregunta_prueba");
+		$this->db->where("pp.id_materia", $id_materia);
+		$this->db->where("rpp.tipo_respuesta", $tipo_respuesta);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
 }
