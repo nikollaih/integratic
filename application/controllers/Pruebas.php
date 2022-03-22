@@ -113,7 +113,7 @@
         $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);;
 
         if($params["prueba"]["fecha_inicio"] < date("Y-m-d H:i:s") && $params["prueba"]["fecha_finaliza"] > date("Y-m-d H:i:s")){
-            if($iniciado){
+            if(is_array($iniciado)){
                 if($iniciado["is_closed"] == 1){
                     header("Location: ".base_url()."Pruebas/resumen/".$id_prueba);
                 }
