@@ -95,7 +95,7 @@ class Preguntas_Model extends CI_Model {
 
 	function get_cantidad_pruebas($id_pregunta){
 		$this->db->from("pruebas");
-		$this->db->like("materias", $id_pregunta);
+		$this->db->like("materias", '"'.$id_pregunta.'"');
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}

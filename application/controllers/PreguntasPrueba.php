@@ -142,8 +142,17 @@
 
             if(is_array($preguntas)){
                 foreach ($preguntas as $pregunta) {
+
+                    if(trim($pregunta["base64"]) != ""){
+                        $mime = explode(".", $pregunta["archivo"]);
+                        array_pop($mime);
+                        $nombre_archivo = implode($mime);
+                        save_base64_image($pregunta["base64"], $nombre_archivo, "./uploads/preguntas/");
+                    }
+
                     $temp_id_pregunta = $pregunta["id_pregunta"];
                     unset($pregunta["id_pregunta"]);
+                    unset($pregunta["base64"]);
                     $pregunta["id_materia"] = $data["id_materia"];
                     $id_pregunta = $this->Preguntas_Model->create($pregunta);
 
@@ -154,6 +163,13 @@
 
                         if(is_array($respuestas_pregunta)){
                             foreach ($respuestas_pregunta as $respuesta) {
+                                if(trim($respuesta["base64"]) != ""){
+                                    $mime = explode(".", $respuesta["archivo_respuesta"]);
+                                    array_pop($mime);
+                                    $nombre_archivo = implode($mime);
+                                    save_base64_image($respuesta["base64"], $nombre_archivo, "./uploads/respuestas/");
+                                }
+                                unset($respuesta["base64"]);
                                 $respuesta["id_pregunta"] = $id_pregunta;
                                 $this->Respuestas_Preguntas_Model->create($respuesta);
                             }
