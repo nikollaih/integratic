@@ -23,10 +23,19 @@ function exportarPreguntasExcel($questions, $materia){
             $sheet->setCellValue('H'.$line, 'ARCHIVO'); 
             $sheet->setCellValue('I'.$line, 'NOMBRE ARCHIVO'); 
             $sheet->setCellValue('J'.$line, 'FECHA DE CREACION'); 
+            $sheet->setCellValue('K'.$line, 'ARCHIVO'); 
 
             $line++;
 
             foreach ($questions as $q) {
+                $file = "";
+                $formato = "";
+
+                if($q["archivo"] && $q["nombre_archivo"] && file_exists("./uploads/preguntas/".$q["archivo"])){
+                    $formato = explode(".", $q["nombre_archivo"]);
+                    $formato = $formato[count($formato) - 1];
+                    $file = "data:image/".$formato.";base64,".base64_encode(file_get_contents(base_url()."uploads/preguntas/".$q["archivo"]));
+                }
                 // Set the winners data
                 $sheet->setCellValue('A'.$line, $q["id_pregunta_prueba"]); 
                 $sheet->setCellValue('B'.$line, $q["nombre_author"]); 
@@ -38,6 +47,7 @@ function exportarPreguntasExcel($questions, $materia){
                 $sheet->setCellValue('H'.$line, $q["archivo"]);
                 $sheet->setCellValue('I'.$line, $q["nombre_archivo"]);
                 $sheet->setCellValue('J'.$line, $q["created_at"]);
+                $sheet->setCellValue('K'.$line, $file);
                 $line++;
             }
 
@@ -79,10 +89,20 @@ function exportarRespuestasExcel($answers, $materia){
             $sheet->setCellValue('E'.$line, 'NOMBRE ARCHIVO'); 
             $sheet->setCellValue('F'.$line, 'TIPO RESPUESTA'); 
             $sheet->setCellValue('G'.$line, 'FECHA DE CREACION');
+            $sheet->setCellValue('H'.$line, 'ARCHIVO');
 
             $line++;
 
             foreach ($answers as $q) {
+                $file = "";
+                $formato = "";
+
+
+                if($q["archivo_respuesta"] && $q["nombre_archivo_respuesta"] && file_exists("./uploads/respuestas/".$q["archivo_respuesta"])){
+                    $formato = explode(".", $q["nombre_archivo_respuesta"]);
+                    $formato = $formato[count($formato) - 1];
+                    $file = "data:image/".$formato.";base64,".base64_encode(file_get_contents(base_url()."uploads/respuestas/".$q["archivo_respuesta"]));
+                }
                 // Set the winners data
                 $sheet->setCellValue('A'.$line, $q["id_respuesta_pregunta_prueba"]); 
                 $sheet->setCellValue('B'.$line, $q["id_pregunta"]); 
@@ -91,6 +111,7 @@ function exportarRespuestasExcel($answers, $materia){
                 $sheet->setCellValue('E'.$line, $q["nombre_archivo_respuesta"]); 
                 $sheet->setCellValue('F'.$line, $q["tipo_respuesta"]);
                 $sheet->setCellValue('G'.$line, $q["created_at"]);
+                $sheet->setCellValue('H'.$line, $file);
                 $line++;
             }
 

@@ -130,6 +130,7 @@
                             $nueva_respuesta["archivo_respuesta"] = $respuesta[3];
                             $nueva_respuesta["nombre_archivo_respuesta"] = $respuesta[4];
                             $nueva_respuesta["tipo_respuesta"] = $respuesta[5];
+                            $nueva_respuesta["base64"] = $respuesta[7];
                             array_push($respuestas, $nueva_respuesta);
                         }
                     }
@@ -181,6 +182,7 @@
                             $nueva_pregunta["dificultad"] = $pregunta[6];
                             $nueva_pregunta["archivo"] = $pregunta[7];
                             $nueva_pregunta["nombre_archivo"] = $pregunta[8];
+                            $nueva_pregunta["base64"] = $pregunta[10];
                             array_push($preguntas, $nueva_pregunta);
                         }
                     }
