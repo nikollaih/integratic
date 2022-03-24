@@ -16,6 +16,28 @@ class Pruebas_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+	function get_docente_all($ids){
+		$query = "";
+		if(is_array($ids)){
+			for ($i=0; $i < count($ids) ; $i++) { 
+				$query.= "p.materias LIKE '%".$ids[$i]."%' OR ";
+			}
+			$query = substr($query, 0, -4);
+
+			$this->db->select("p.*, tp.descripcion as tipo_prueba, ap.descripcion as alcance_prueba");
+			$this->db->from("pruebas p");
+			$this->db->join("alcance_prueba ap", "p.alcance_prueba = ap.id_alcance_prueba");
+			$this->db->join("tipo_prueba tp", "p.tipo_prueba = tp.id_tipo_prueba");
+			$this->db->where($query, NULL, FALSE);
+			$this->db->order_by("p.created_at", "desc");
+			$result = $this->db->get();
+			return ($result->num_rows() > 0) ? $result->result_array() : false;
+		}
+		else{
+			return false;
+		}
+	}
+
 	function get($id_prueba){
 		$this->db->select("p.*, tp.descripcion as tipo_prueba, ap.descripcion as alcance_prueba");
 		$this->db->from("pruebas p");

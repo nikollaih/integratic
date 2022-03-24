@@ -21,4 +21,16 @@ class Materias_Model extends CI_Model {
 
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
+
+	function getMateriasDocente($id_docente, $ids = false){
+		if($ids){
+			$this->db->select("am.materia");
+		}
+		$this->db->from("asg_materias am");
+		$this->db->join("cfg_materias cm", "am.materia = cm.codmateria");
+        $this->db->where("am.docente", $id_docente);
+		$this->db->group_by("am.materia");
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
 }

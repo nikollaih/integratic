@@ -5,7 +5,7 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model(["Preguntas_Model", "Respuestas_Preguntas_Model", "Consultas_Model"]);
+       $this->load->model(["Preguntas_Model", "Respuestas_Preguntas_Model", "Consultas_Model", "Materias_Model"]);
     }
     
     public function index($id_materia = null){
@@ -30,13 +30,23 @@
     }
 
     function crearPregunta(){
-        $params = [];
-        $params["materias"] = $this->Consultas_Model->get_materias_diff();
-        if($this->input->post()){
-            $params["message"] = $this->guardarPregunta($this->input->post());
-        }
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $params = [];
+                $params["materias"] = $this->Materias_Model->getMateriasDocente(logged_user()["id"]);
+                if($this->input->post()){
+                    $params["message"] = $this->guardarPregunta($this->input->post());
+                }
 
-        $this->load->view("pruebas/preguntas/crear_pregunta", $params);
+                $this->load->view("pruebas/preguntas/crear_pregunta", $params);
+            }
+            else{
+                header("Location: ".base_url()."Pruebas");
+            }
+        }
+        else{
+            header("Location: ".base_url());
+        }
     }
 
     function guardarPregunta($data){

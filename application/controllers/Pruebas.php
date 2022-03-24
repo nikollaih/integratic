@@ -9,20 +9,38 @@
     }
     
     public function index(){
-        $params["pruebas"] = $this->Pruebas_Model->get_all();
-        $this->load->view("pruebas/home", $params);
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $materias = array_column($this->Materias_Model->getMateriasDocente(logged_user()["id"], true), "materia");
+                $params["pruebas"] = $this->Pruebas_Model->get_docente_all($materias);
+                $this->load->view("pruebas/home", $params);
+            }
+        }
+        else{
+            header("Location: ".base_url());
+        }
     }
 
     public function crearPrueba(){
-        $params["tipo_pruebas"] = $this->TipoPrueba_Model->get_all();
-        $params["alcance_prueba"] = $this->AlcancePruebas_Model->get_all();
-        $params["materias"] = $this->Consultas_Model->get_materias_diff();
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $params["materias"] = $this->Materias_Model->getMateriasDocente(logged_user()["id"]);
+                $params["tipo_pruebas"] = $this->TipoPrueba_Model->get_all();
+                $params["alcance_prueba"] = $this->AlcancePruebas_Model->get_all();
 
-        if($this->input->post()){
-            $params["message"] = $this->guardarPrueba($this->input->post());
+                if($this->input->post()){
+                    $params["message"] = $this->guardarPrueba($this->input->post());
+                }
+
+                $this->load->view("pruebas/crear_prueba", $params);
+            }
+            else{
+                header("Location: ".base_url()."Pruebas");
+            }
         }
-
-        $this->load->view("pruebas/crear_prueba", $params);
+        else{
+            header("Location: ".base_url());
+        }
     }
 
     function guardarPrueba($post){

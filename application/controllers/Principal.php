@@ -40,26 +40,30 @@ class Principal extends CI_Controller {
         echo json_encode('ok');
     }
     
-    public function login()
-    {  
-        $usr    = $_POST['usr'];
-        $pass   = $_POST['pass'];
-        if($datos=$this->Consultas_Model->login($usr,$pass)){  
+    public function login(){  
+        $usr = $this->input->post()['usr'];
+        $pass = $this->input->post()['pass'];
+        $datos = $this->Consultas_Model->login($usr,$pass);
+
+        if($datos){  
             if($datos["rol"] == "Estudiante"){
                 $datos = array_merge($datos, get_group_grade($datos["id"]));
             }
 
-            $this->session->set_userdata("logged_in", $datos); 
+            $this->session->set_userdata("logged_in", $datos);
+
             $_SESSION['nom']=$datos["nombres"];
             $_SESSION['ape']=$datos["apellidos"];
             $_SESSION['usr']=$datos["usuario"];
             $_SESSION['rol']=$datos["rol"];
             $_SESSION['id']=$datos["id"];
-            
             echo json_encode($datos);
         } 
-        else{return 0;}
-    }     
+        else{
+            return 0;
+        }
+    }
+
     public function login_estudiante()
     {   
         $usr    = $_POST['documento'];
