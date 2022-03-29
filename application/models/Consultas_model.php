@@ -34,7 +34,15 @@ class Consultas_Model extends CI_Model {
     	$this->db->from("cfg_materias");
     	$this->db->order_by("nommateria");
     	$result = $this->db->get();
-		return ($result->num_rows() > 0) ? $result->result_array() : false;
+		  return ($result->num_rows() > 0) ? $result->result_array() : false;
+  	}
+
+    public function get_materias_diff_ids($ids){
+    	$this->db->from("cfg_materias cm");
+    	$this->db->order_by("cm.nommateria");
+      $this->db->where_in("cm.codmateria", $ids);
+    	$result = $this->db->get();
+		  return ($result->num_rows() > 0) ? $result->result_array() : false;
   	}
 
 	public function get_materia($codmateria){

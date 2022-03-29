@@ -10,7 +10,7 @@ class Principal extends CI_Controller {
          $this->load->helper('html');
          $this->load->helper('url');
          $this->load->library(["session"]);
-         $this->load->model(['Consultas_Model', 'Usuarios_Model']);
+         $this->load->model(['Consultas_Model', 'Usuarios_Model', 'Participantes_Prueba_Model']);
     }
 
     public function index()
@@ -48,6 +48,7 @@ class Principal extends CI_Controller {
         if($datos){  
             if($datos["rol"] == "Estudiante"){
                 $datos = array_merge($datos, get_group_grade($datos["id"]));
+                $datos["participante_prueba"] = $this->Participantes_Prueba_Model->get($datos["id"]);
             }
 
             $this->session->set_userdata("logged_in", $datos);

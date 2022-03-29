@@ -6,11 +6,14 @@ class Preguntas_Model extends CI_Model {
     	$this->load->database();
  	}
 
-	function get_all($id_materia){
+	function get_all($materias, $id_materia){
 		$this->db->from("preguntas_prueba pp");
 		$this->db->join("cfg_materias cm", "cm.codmateria = pp.id_materia");
 		if($id_materia && $id_materia != "null"){
 			$this->db->where("pp.id_materia", $id_materia);
+		}
+		else{
+			$this->db->where_in("pp.id_materia", $materias);
 		}
 		$this->db->order_by("pp.created_at", "desc");
 		$result = $this->db->get();

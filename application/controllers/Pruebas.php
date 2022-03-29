@@ -10,11 +10,15 @@
     
     public function index(){
         if(is_logged()){
-            if(strtolower(logged_user()["rol"]) == "docente"){
+            $params["pruebas"] = false;
+            if(strtolower(logged_user()["rol"]) == "docente"){ 
                 $materias = array_column($this->Materias_Model->getMateriasDocente(logged_user()["id"], true), "materia");
                 $params["pruebas"] = $this->Pruebas_Model->get_docente_all($materias);
-                $this->load->view("pruebas/home", $params);
             }
+            if(strtolower(logged_user()["rol"]) == "estudiante"){
+                $params["pruebas"] = $this->Pruebas_Model->get_estudiante_all(logged_user()["id"]);
+            }
+            $this->load->view("pruebas/home", $params);
         }
         else{
             header("Location: ".base_url());
@@ -85,27 +89,32 @@
     }
 
     function resumen($id_prueba, $id_participante = null){
-        // TODO cambiar
-        if($id_participante == null){
-            $id_participante = 1;
-        }
-        $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
-        if($params["prueba_realizada"]["calificacion"] == null){
-            $this->Realizar_Prueba_Model->update(array("id_realizar_prueba" => $params["prueba_realizada"]["id_realizar_prueba"], "calificacion" => info_prueba_realizada($id_prueba, $id_participante)["porcentaje"]));
+        if(is_logged()){
+            // TODO cambiar
+            if($id_participante == null){
+                $id_participante = 1;
+            }
             $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
-        }
-        $params["id_participante"] = $id_participante;
-        $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
-        $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
-        $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
-        $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
-        $params["respuestas"] = $this->Respuestas_Realizar_Prueba_Model->get($params["prueba_realizada"]["id_realizar_prueba"]);
+            if($params["prueba_realizada"]["calificacion"] == null){
+                $this->Realizar_Prueba_Model->update(array("id_realizar_prueba" => $params["prueba_realizada"]["id_realizar_prueba"], "calificacion" => info_prueba_realizada($id_prueba, $id_participante)["porcentaje"]));
+                $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
+            }
+            $params["id_participante"] = $id_participante;
+            $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
+            $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
+            $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
+            $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+            $params["respuestas"] = $this->Respuestas_Realizar_Prueba_Model->get($params["prueba_realizada"]["id_realizar_prueba"]);
 
-        if($params["prueba_realizada"]){
-            $this->load->view("pruebas/resumen_prueba", $params);
+            if($params["prueba_realizada"]){
+                $this->load->view("pruebas/resumen_prueba", $params);
+            }
+            else{
+                header("Location: " . base_url() . "Pruebas");
+            }
         }
         else{
-            header("Location: " . base_url() . "Pruebas");
+            header("Location: ".base_url());
         }
     }
 
