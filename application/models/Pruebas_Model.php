@@ -38,6 +38,18 @@ class Pruebas_Model extends CI_Model {
 		}
 	}
 
+	function get_estudiante_all($identificacion_estudiante){
+		$this->db->select("p.*, tp.descripcion as tipo_prueba, ap.descripcion as alcance_prueba, cpp.id_participante_prueba");
+		$this->db->from("core_participantes_pruebas cpp");
+        $this->db->join("asignacion_participantes_prueba pp", "pp.id_participante = cpp.id_participante_prueba");
+		$this->db->join("pruebas p", "p.id_prueba = pp.id_prueba");
+		$this->db->join("alcance_prueba ap", "p.alcance_prueba = ap.id_alcance_prueba");
+		$this->db->join("tipo_prueba tp", "p.tipo_prueba = tp.id_tipo_prueba");
+		$this->db->where("cpp.identificacion", $identificacion_estudiante);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
 	function get($id_prueba){
 		$this->db->select("p.*, tp.descripcion as tipo_prueba, ap.descripcion as alcance_prueba");
 		$this->db->from("pruebas p");

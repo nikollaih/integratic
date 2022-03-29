@@ -98,6 +98,17 @@ class Docente extends CI_Controller {
         $nomdir     = $_POST['nomdir'];
         //$dir=utf8_decode($ruta.'/'.$nomdir);
         $dir=$ruta.'/'.$nomdir;
+        $split_ruta = explode("/", $ruta);
+
+        if(is_array($split_ruta)){
+            $temp_ruta = "";
+            for ($i=0; $i < count($split_ruta); $i++) { 
+                $temp_ruta.= $split_ruta[$i]."/";
+                if (!is_dir($temp_ruta)) {
+                    mkdir($temp_ruta, 0777);
+                }
+            }
+        }
         
         if (!is_dir($dir)) {
             mkdir($dir, 0777);
@@ -126,9 +137,9 @@ class Docente extends CI_Controller {
         }
         //borramos el directorio
         rmdir ($nomdir);  
-    }    
+    }
 
-    public function listar(){ 
+    public function listar($menu_materia = false){ 
         // Verificamos si existe un usuario logueado
         if(is_logged()){
             $estudiante = (strtolower(logged_user()["rol"]) == "estudiante") ? logged_user()["id"] : null;
@@ -137,6 +148,7 @@ class Docente extends CI_Controller {
             $data["titulo"] = $this->input->post("titulo");
             $data["materia"] = $this->input->post("materia");
             $data["grupo"] = $this->input->post("grupo");
+            $data["menu_materia"] = $menu_materia;
             $data["foros"] = $this->Foro_Model->get_all($data["materia"], $data["grupo"]);
             $data["anuncios"] = $this->Anuncio_Model->get_all($data["materia"], $data["grupo"]);
             $data["actividades"] = $this->Actividades_Model->get_all($data["materia"], $data["grupo"], $estudiante);
@@ -144,7 +156,7 @@ class Docente extends CI_Controller {
             $this->load->view("docente/listar", $data);
         }
         else{
-            header('Location: '.$_SERVER['HTTP_HOST']);
+            json_response(null, false, "Debe iniciar sesion");
         }
 }         
     public function listar_acti(){ 

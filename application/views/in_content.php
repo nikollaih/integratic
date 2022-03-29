@@ -784,7 +784,7 @@ function menupri(){
                         html+='<a href="./principal/'+registros[i]["enlace"]+'" target="_blank">';
                         switch(registros[i]["tipo"]){
                             case 'carpeta':
-                                html+="<a href='javascript:listado(\""+"raiz"+"\",\""+registros[i]["enlace"]+"\",\""+"raiz"+"\",\""+"raiz"+"\",\""+registros[i]["descripcion"]+"\")'>";
+                                html+="<a href='javascript:listado(\"" + "raiz" + "\",\"" + registros[i]["enlace"]+"\",\"" + "raiz" + "\",\"" + "raiz" + "\",\"" + registros[i]["descripcion"]+"\")'>";
                                 break;
                             case 'aplica':
                                 html+='<a href="./principal/'+registros[i]["enlace"]+'" target="_blank">';
@@ -828,7 +828,7 @@ function menuadd(){
                         html+='<a href="./principal/'+registros[i]["enlace"]+'" target="_blank">';
                         switch(registros[i]["tipo"]){
                             case 'carpeta':
-                                html+="<a href='javascript:listado(\""+"raiz"+"\",\""+registros[i]["enlace"]+"\",\""+registros[i]["enlace"]+"\")'>";
+                                html+="<a href='javascript:listado(\"" + "raiz" + "\",\"" + registros[i]["enlace"]+"\",\"" + registros[i]["enlace"]+"\")'>";
                                 break;
                             case 'aplica':
                                 html+='<a href="./principal/'+registros[i]["enlace"]+'" target="_blank">';
@@ -880,7 +880,7 @@ function menupri_fil(farea){
                         html+='<a href="./principal/'+registros[i]["enlace"]+'" target="_blank">';
                         switch(registros[i]["tipo"]){
                             case 'carpeta':
-                                html+="<a href='javascript:listado(\""+"raiz"+"\",\""+registros[i]["enlace"]+"\",\""+"raiz"+"\",\""+"raiz"+"\",\""+registros[i]["descripcion"]+"\")'>";
+                                html+="<a href='javascript:listado(\"" + "raiz" + "\",\"" + registros[i]["enlace"]+"\",\"" + "raiz" + "\",\"" + "raiz" + "\",\"" + registros[i]["descripcion"]+"\")'>";
                                 break;
                             case 'aplica':
                                 html+='<a href="./principal/'+registros[i]["enlace"]+'" target="_blank">';
@@ -924,7 +924,7 @@ function menuadd_fil(farea){
                         html+='<a href="./principal/'+registros[i]["enlace"]+'" target="_blank">';
                         switch(registros[i]["tipo"]){
                             case 'Carpeta':
-                                html+="<a href='javascript:listado(\""+"raiz"+"\",\""+registros[i]["enlace"]+"\",\""+registros[i]["enlace"]+"\")'>";
+                                html+="<a href='javascript:listado(\"" + "raiz" + "\",\"" + registros[i]["enlace"]+"\",\"" + registros[i]["enlace"]+"\")'>";
                                 break;
                             case 'Aplica':
                                 html+='<a href="./principal/'+registros[i]["enlace"]+'" target="_blank">';
@@ -963,7 +963,7 @@ function conMenu(){
                 alert(respuesta);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });    
 }
@@ -981,7 +981,7 @@ function crearMenu(){
                 alert(respuesta);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });    
 }
@@ -992,18 +992,17 @@ function StudentAreas(){
 		url:url,
 		type:'POST',
 		success:function(respuesta){
-			var registros = eval(respuesta);   
-            console.log(registros);              
+			var registros = eval(respuesta);            
 			var html="<div class='row'>";                    
 				if(registros.length>0){ 
 						for (i=0; i<registros.length; i++) { 
 							html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
 							if(registros[i]["tipo"]==='areas'){
-							html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:StudentMaterias("+registros[i]["codarea"]+")'>";
+							html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:StudentMaterias(" + registros[i]["codarea"]+")'>";
 					}else{
-							html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"areabase"'+",\""+registros[i]["nomarea"]+"\",\""+registros[i]["nomarea"]+"\")'>";
+							html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"areabase"'+",\"" + registros[i]["nomarea"]+"\",\"" + registros[i]["nomarea"]+"\")'>";
 					}
-							html+="<img src='./img/botones/areas/"+registros[i]["icoarea"]+"' width='100%' height='100%'></a></div></div>";                             
+							html+="<img src='./img/botones/areas/" + registros[i]["icoarea"]+"' width='100%' height='100%'></a></div></div>";                             
 						}
 							html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
 							html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:subir_acti()'>";
@@ -1033,11 +1032,11 @@ function areas(){
                           for (i=0; i<registros.length; i++) { 
                             html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
                             if(registros[i]["tipo"]==='areas'){
-                            html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:materias("+registros[i]["codarea"]+")'>";
+                            html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:materias(" + registros[i]["codarea"]+")'>";
                         }else{
-                            html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"areabase"'+",\""+registros[i]["nomarea"]+"\",\""+registros[i]["nomarea"]+"\")'>";
+                            html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"areabase"'+",\"" + registros[i]["nomarea"]+"\",\"" + registros[i]["nomarea"]+"\")'>";
                         }
-                            html+="<img src='./img/botones/areas/"+registros[i]["icoarea"]+"' width='100%' height='100%'></a></div></div>";                             
+                            html+="<img src='./img/botones/areas/" + registros[i]["icoarea"]+"' width='100%' height='100%'></a></div></div>";                             
                           }
                             html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
                             html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:subir_acti()'>";
@@ -1066,9 +1065,9 @@ function StudentMaterias(area){
 					if(registros.length>0){ 
 							for (i=0; i<registros.length; i++) { 
 								html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
-								// html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"areas"'+",\""+registros[i]["nomarea"]+"\",\""+registros[i]["nommateria"]+registros[i]["grado"]+"\")'>";
-								html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:enlace_mat_est("+registros[i]["codmateria"]+")'>";
-								html+="<img src='./img/botones/materias/"+registros[i]["icomateria"]+"' width='100%' height='100%'></a></div></div>";                             
+								// html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"areas"'+",\"" + registros[i]["nomarea"]+"\",\"" + registros[i]["nommateria"]+registros[i]["grado"]+"\")'>";
+								html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:enlace_mat_est(" + registros[i]["codmateria"]+")'>";
+								html+="<img src='./img/botones/materias/" + registros[i]["icomateria"]+"' width='100%' height='100%'></a></div></div>";                             
 							}                              
 						}
 						html+="</div>";    
@@ -1094,9 +1093,9 @@ function materias(area){
                       if(registros.length>0){ 
                           for (i=0; i<registros.length; i++) { 
                             html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
-                           // html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"areas"'+",\""+registros[i]["nomarea"]+"\",\""+registros[i]["nommateria"]+registros[i]["grado"]+"\")'>";
-                            html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:enlace_mat_est("+registros[i]["codmateria"]+")'>";
-                            html+="<img src='./img/botones/materias/"+registros[i]["icomateria"]+"' width='100%' height='100%'></a></div></div>";                             
+                           // html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"areas"'+",\"" + registros[i]["nomarea"]+"\",\"" + registros[i]["nommateria"]+registros[i]["grado"]+"\")'>";
+                            html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:enlace_mat_est(" + registros[i]["codmateria"]+")'>";
+                            html+="<img src='./img/botones/materias/" + registros[i]["icomateria"]+"' width='100%' height='100%'></a></div></div>";                             
                           }                              
                         }
                         html+="</div>";    
@@ -1135,8 +1134,8 @@ function enlace_mat_est(cod){
                             }else{
                                 html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                                 html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                                html=html+"<a href='javascript:listado(\""+tipo+"\",\""+narea+"\",\""+nmateria+grado+"\",\""+grado+grupo+"\",\"\",\""+idmateria+"\",\""+grupo+"\")'>";                                
-                                html=html+"<img src='./img/botones/grupos/"+grado+grupo+".png' width='100%' height='100%'></a></div></div>";                               
+                                html=html+"<a href='javascript:listado(\"" + tipo+"\",\"" + narea+"\",\"" + nmateria+grado+"\",\"" + grado+grupo+"\",\"\",\"" + idmateria+"\",\"" + grupo+"\")'>";                                
+                                html=html+"<img src='./img/botones/grupos/" + grado+grupo+".png' width='100%' height='100%'></a></div></div>";                               
                             }
                           }                              
                      html=html+"</div></div>";
@@ -1248,16 +1247,16 @@ function descartes(){
 function lab(){
     html="<div class='row'>";
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
-    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"labs"'+","+'"labs"'+","+'"biologia"'+")'>";
+    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"labs"'+"," + '"labs"'+"," + '"biologia"'+")'>";
     html+="<img src='./img/botones/lab/biolab.png' width='100%' height='100%'></a></div></div>";
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";    
-    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"labs"'+","+'"labs"'+","+'"fisica"'+")'>";
+    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"labs"'+"," + '"labs"'+"," + '"fisica"'+")'>";
     html+="<img src='./img/botones/lab/fislab.png' width='100%' height='100%'></a></div></div>";    
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
-    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"labs"'+","+'"labs"'+","+'"matematicas"'+")'>";
+    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"labs"'+"," + '"labs"'+"," + '"matematicas"'+")'>";
     html+="<img src='./img/botones/lab/matlab.png' width='100%' height='100%'></a></div></div>";
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
-    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"labs"'+","+'"labs"'+","+'"quimica"'+")'>";
+    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"labs"'+"," + '"labs"'+"," + '"quimica"'+")'>";
     html+="<img src='./img/botones/lab/quimlab.png' width='100%' height='100%'></a></div></div>";      
     html+="</div>"; 
     html+='<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
@@ -1327,25 +1326,25 @@ function explora(){
 function artes_plasticas(){
     html="<div class='row'>";
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
-    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"artes"'+","+'"artes"'+","+'"Arte y Artistas"'+")'>";
+    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"artes"'+"," + '"artes"'+"," + '"Arte y Artistas"'+")'>";
     html+="<img src='./img/botones/artes/arte_artistas.png' width='100%' height='100%'></a></div></div>";
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";    
-    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"artes"'+","+'"artes"'+","+'"Bases del Dibujo"'+")'>";
+    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"artes"'+"," + '"artes"'+"," + '"Bases del Dibujo"'+")'>";
     html+="<img src='./img/botones/artes/bases_dibujo.png' width='100%' height='100%'></a></div></div>";    
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
-    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"artes"'+","+'"artes"'+","+'"Figura Humana"'+")'>";
+    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"artes"'+"," + '"artes"'+"," + '"Figura Humana"'+")'>";
     html+="<img src='./img/botones/artes/figura_humana.png' width='100%' height='100%'></a></div></div>";
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
-    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"artes"'+","+'"artes"'+","+'"Muralismo"'+")'>";
+    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"artes"'+"," + '"artes"'+"," + '"Muralismo"'+")'>";
     html+="<img src='./img/botones/artes/muralismo.png' width='100%' height='100%'></a></div></div>";    
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
-    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"artes"'+","+'"artes"'+","+'"Redes y Estructuras Modulares"'+")'>";
+    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"artes"'+"," + '"artes"'+"," + '"Redes y Estructuras Modulares"'+")'>";
     html+="<img src='./img/botones/artes/modulares.png' width='100%' height='100%'></a></div></div>";  
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
-    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"artes"'+","+'"artes"'+","+'"Teoria del Color"'+")'>";
+    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"artes"'+"," + '"artes"'+"," + '"Teoria del Color"'+")'>";
     html+="<img src='./img/botones/artes/color.png' width='100%' height='100%'></a></div></div>";  
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
-    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado("+'"artes"'+","+'"artes"'+","+'"Perspectiva"'+")'>";
+    html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"artes"'+"," + '"artes"'+"," + '"Perspectiva"'+")'>";
     html+="<img src='./img/botones/artes/perspectiva.png' width='100%' height='100%'></a></div></div>";                
     html+="</div>"; 
     html+='<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
@@ -1359,11 +1358,9 @@ function enlace_materia(doc,cod){
                async:false,
                success:function(respuesta){                         
                  var registros = eval(respuesta);
-                 console.log(registros)
                     html='<div class="panel panel-primary">';        
                     html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica ..:  '+registros[0]["nommateria"]+'</b></div>';
-                    html=html+'<div class="panel-body">';  
-                    console.log(registros)
+                    html=html+'<div class="panel-body">'; 
                       if(registros.length>0){  
                           for (i=0; i<registros.length; i++) {                             
                             var narea=registros[i]["nomarea"];
@@ -1377,8 +1374,8 @@ function enlace_materia(doc,cod){
                             }else{
                                 html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                                 html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                                html=html+"<a href='javascript:listardoc(\""+tipo+"\",\""+narea+"\",\""+nmateria+grado+"\",\""+grado+grupo+"\",\""+idmateria+"\",\""+grupo+"\")'>";                                
-                                html=html+"<img src='./img/botones/grupos/"+grado+grupo+".png' width='100%' height='100%'></a></div></div>";                               
+                                html=html+"<a href='javascript:listardoc(\"" + tipo+"\",\"" + narea+"\",\"" + nmateria+grado+"\",\"" + grado+grupo+"\",\"" + idmateria+"\",\"" + grupo+"\")'>";                                
+                                html=html+"<img src='./img/botones/grupos/" + grado+grupo+".png' width='100%' height='100%'></a></div></div>";                               
                             }
                           }                              
                      html=html+"</div></div>";
@@ -1395,6 +1392,7 @@ function listardoc(tipo,carpeta,materia,grupo,idmateria=null,idgrupo=null){
     $("#nuevo-foro-materia").val(idmateria);
     $("#nuevo-foro-grupo").val(idgrupo);
 
+    let menu_materia = false;
     switch(tipo){
         case 'labs':
             titulo = "Laboratoria Virtual " + materia;
@@ -1430,6 +1428,7 @@ function listardoc(tipo,carpeta,materia,grupo,idmateria=null,idgrupo=null){
             titulo = mat + " grado " + grupo;  
             ruta = (grupo==='N') ? "./principal/areas/" + carpeta + "/" + materia : "./principal/areas/" + carpeta + "/" + materia + "/" + grupo;
             document.getElementById("dir").value  =ruta;
+            menu_materia = true;
             break;   
         case 'areabase':
             switch(carpeta){
@@ -1462,7 +1461,7 @@ function listardoc(tipo,carpeta,materia,grupo,idmateria=null,idgrupo=null){
     $("#rutas").html(titulo);
     document.getElementById("ubica").value=titulo;
     document.getElementById("dir").value=ruta;
-    url='./index.php/docente/listar';
+    url= base_url + 'docente/listar/' + menu_materia;
 
     $.ajax({
         url:url,
@@ -1480,8 +1479,8 @@ function listardoc(tipo,carpeta,materia,grupo,idmateria=null,idgrupo=null){
 function listarpro(proy,tit){    
     titulo=tit;
     document.getElementById("ubica").value=tit;
-    document.getElementById("dir").value="./principal/proyectos/"+proy;    
-    proy="./principal/proyectos/"+proy;
+    document.getElementById("dir").value="./principal/proyectos/" + proy;    
+    proy="./principal/proyectos/" + proy;
     url='./index.php/docente/listarpro';
             $.ajax({
                url:url,
@@ -1496,8 +1495,8 @@ function listarpro(proy,tit){
 }
 function listarproc(proc,tit){ 
     document.getElementById("ubica").value=tit;
-    document.getElementById("dir").value="./principal/procesos/"+proc;
-    proc="./principal/procesos/"+proc;
+    document.getElementById("dir").value="./principal/procesos/" + proc;
+    proc="./principal/procesos/" + proc;
     url='./index.php/docente/listarpro';
             $.ajax({
                url:url,
@@ -1580,13 +1579,16 @@ function elicar(nomarc){
 function creadir(){
     var ruta=document.getElementById("dir").value;
     var nomdir=document.getElementById("nomdir").value;
+    console.log(ruta);
     if(confirm("¿Desea crear este directorio?")){ 
-    url='./index.php/docente/crear';
+        console.log(ruta);
+    url=base_url + 'docente/crear';
             $.ajax({
                url:url,
                type:'POST',
                data:{ruta:ruta,nomdir:nomdir},
-               success:function(){
+               success:function(data){
+                   console.log(data);
                    $("#creardir").modal("hide");
                    listar_arc();   
                },
@@ -1679,7 +1681,7 @@ function subir_actividad(){
     var gru     = combo.options[combo.selectedIndex].text; 
         combo   = document.getElementById("materia");
     var mat     = combo.options[combo.selectedIndex].text; 
-    //document.getElementById("diract").value=mat+" "+gru;
+    //document.getElementById("diract").value=mat+" " + gru;
 
     var formData = new FormData($("#frmsubiract")[0]);
     var url = './index.php/upload/do_upload_act';
@@ -1754,57 +1756,81 @@ function submenu_acti(ruta,sub){
        
        $("#rutas").html(sub);
 }
-function listado(tipo,carpeta,materia,grupo,descripcion,idmateria=null,idgrupo=null ){
-    //$("#contenedor").html('<div id="listacon"></div>');
+
+function listado(tipo, carpeta, materia, grupo, descripcion, idmateria = null, idgrupo = null){
+    let menu_materia = false;
     switch(tipo){
-        case 'labs':titulo = "Laboratorio Virtual "+materia;
-                        ruta="principal/labs/"+materia;
+        case 'labs':
+            titulo = "Laboratorio Virtual " + materia;
+            ruta = "principal/labs/" + materia;
             break; 
-        case 'artes':titulo = "Artes Plasticas - "+materia;
-                        ruta="principal/artes_plasticas/"+materia;                        
+        case 'artes':
+            titulo = "Artes Plasticas - " + materia;
+            ruta = "principal/artes_plasticas/" + materia;                        
             break;                 
         case 'areas':
-                var gra=materia.replace(/\D/g,'');
-                var mat=materia.replace(gra,'');            
-                titulo = mat+" grado "+grupo;  
-                if(grupo==='N'){ruta="./principal/areas/"+carpeta+"/"+materia;}
-                    else{ruta="./principal/areas/"+carpeta+"/"+materia+"/"+grupo;}
-            break;   
+            var gra = materia.replace(/\D/g,'');
+            var mat = materia.replace(gra,'');            
+            titulo = mat + " grado " + grupo;  
+            menu_materia = true;
+            if(grupo==='N'){
+                ruta = base_url + "principal/areas/" + carpeta + "/" + materia;
+            }
+            else{
+                ruta = base_url + "principal/areas/" + carpeta + "/" + materia + "/" + grupo;
+            }
+        break;   
         case 'areabase':
-              titulo = descripcion;                                       
-                if(grupo==='N'){ruta="./principal/areas/"+carpeta+"/"+materia;}
-                    else{ruta="./principal/areas/"+carpeta+"/"+materia+"/"+grupo;}
+            titulo = descripcion;                                       
+            if(grupo==='N'){
+                ruta = base_url + "principal/areas/" + carpeta+"/" + materia;
+            }
+            else{
+                ruta=base_url + "principal/areas/" + carpeta + "/" + materia + "/" + grupo;
+            }
             break;             
         case 'raiz':
             titulo = descripcion; 
             $("#contenedor").html('<div id="contenido" class="ir-arriba"></div><div id="listacon"></div>');
-            ruta="./principal/"+carpeta;
+            ruta = base_url + "principal/" + carpeta;
             break;            
     }  
-    document.getElementById("dir").value=ruta;
-    document.getElementById("ubica").value=titulo;
-    var rol=document.getElementById("rol").value; 
-    if(rol==='Docente'){url='./index.php/principal/listar';}
-    else{url='./index.php/docente/listar';}
-            $.ajax({
-               url:url,
-               type:'POST',
-               data:{ruta:ruta,titulo:titulo,materia:idmateria,grupo:idgrupo},
-               success:function(respuesta){ 
-                        migas="<div class='col-sm-12'>";
-                        migas+="<ol class='breadcrumb pull-right'>";
-                        migas+="<li><a href='javascript:menupri();'>Home</a></li>";
-                        migas+="<li><a href='javascript:areas();'>Areas</a></li>";
-                        migas+="<li><a href='javascript:"+carpeta+"();'>"+carpeta+"</a></li>";
-                        migas+="<li><a class='active'>"+titulo+"</a></li>";
-                        migas+="</ol></div>";      
-                        //$("#migas").html(migas); 
-                        //$("#contenedor").html(respuesta);  
-                        $("#listacon").html(respuesta);  
-                        $("#rutas").html(titulo);
-               },
-               error:function(){alert("Ocurrió un Error!");}        
-       });         
+
+    document.getElementById("dir").value = ruta;
+    document.getElementById("ubica").value = titulo;
+    var rol = document.getElementById("rol").value; 
+
+    if(rol==='Docente') {
+        url = base_url + 'principal/listar';
+    }
+    else{
+        url = base_url + 'docente/listar/' + menu_materia;
+    }
+
+    $.ajax({
+        url:url,
+        type:'POST',
+        data:{
+            ruta: ruta,
+            titulo: titulo,
+            materia: idmateria,
+            grupo: idgrupo
+        },
+        success:function(respuesta){ 
+            migas="<div class='col-sm-12'>";
+            migas+="<ol class='breadcrumb pull-right'>";
+            migas+="<li><a href='javascript:menupri();'>Home</a></li>";
+            migas+="<li><a href='javascript:areas();'>Areas</a></li>";
+            migas+="<li><a href='javascript:" + carpeta+"();'>" + carpeta+"</a></li>";
+            migas+="<li><a class='active'>" + titulo+"</a></li>";
+            migas+="</ol></div>";      
+            //$("#migas").html(migas); 
+            //$("#contenedor").html(respuesta);  
+            $("#listacon").html(respuesta);  
+            $("#rutas").html(titulo);
+        },
+        error:function(){alert("Ocurrió un Error!");}        
+    });         
 }
 
 function listar_anuncios(tipo,carpeta,materia,grupo,descripcion){
@@ -1832,18 +1858,18 @@ function listar_anuncios(tipo,carpeta,materia,grupo,descripcion){
 function listado_filtro(tipo,carpeta,materia,grupo,filtro,descripcion){
     //$("#contenedor").html('<div id="listacon"></div>');
     switch(tipo){
-        case 'labs':titulo = "Laboratorio Virtual "+materia;
-                        ruta="principal/labs/"+materia;
+        case 'labs':titulo = "Laboratorio Virtual " + materia;
+                        ruta="principal/labs/" + materia;
             break; 
-        case 'artes':titulo = "Artes Plasticas - "+materia;
-                        ruta="principal/artes_plasticas/"+materia;                        
+        case 'artes':titulo = "Artes Plasticas - " + materia;
+                        ruta="principal/artes_plasticas/" + materia;                        
             break;                 
         case 'areas':
                 var gra=materia.replace(/\D/g,'');
                 var mat=materia.replace(gra,'');            
-                titulo = mat+" grado "+grupo;  
-                if(grupo==='N'){ruta="./principal/areas/"+carpeta+"/"+materia;}
-                    else{ruta="./principal/areas/"+carpeta+"/"+materia+"/"+grupo;}
+                titulo = mat+" grado " + grupo;  
+                if(grupo==='N'){ruta="./principal/areas/" + carpeta+"/" + materia;}
+                    else{ruta="./principal/areas/" + carpeta+"/" + materia+"/" + grupo;}
             break;   
         case 'areabase':
             switch(carpeta){
@@ -1858,8 +1884,8 @@ function listado_filtro(tipo,carpeta,materia,grupo,filtro,descripcion){
                 case 'apoyo':   titulo = "Aula de Apoyo"; break;    
                 case 'pta':   titulo = "Programa Todos a Aprender"; break;        
             }                                        
-                if(grupo==='N'){ruta="./principal/areas/"+carpeta+"/"+materia;}
-                    else{ruta="./principal/areas/"+carpeta+"/"+materia+"/"+grupo;}
+                if(grupo==='N'){ruta="./principal/areas/" + carpeta+"/" + materia;}
+                    else{ruta="./principal/areas/" + carpeta+"/" + materia+"/" + grupo;}
             break;             
         case 'raiz':
             titulo = descripcion; 
@@ -1902,8 +1928,8 @@ function listado_filtro(tipo,carpeta,materia,grupo,filtro,descripcion){
                         migas+="<ol class='breadcrumb pull-right'>";
                         migas+="<li><a href='javascript:menupri();'>Home</a></li>";
                         migas+="<li><a href='javascript:areas();'>Areas</a></li>";
-                        migas+="<li><a href='javascript:"+carpeta+"();'>"+carpeta+"</a></li>";
-                        migas+="<li><a class='active'>"+titulo+"</a></li>";
+                        migas+="<li><a href='javascript:" + carpeta+"();'>" + carpeta+"</a></li>";
+                        migas+="<li><a class='active'>" + titulo+"</a></li>";
                         migas+="</ol></div>";      
                         //$("#migas").html(migas); 
                         //$("#contenedor").html(respuesta);  
@@ -1954,7 +1980,7 @@ function cambio_clave(){
     if(user.id == user.clave){
         html+="<p style='margin-bottom:20px;'>Su número de identificación y contraseña tienen los mismos valores, es recomendable cambiar la contraseña para efectos de seguridad.</p>";
     }
-    html+="<input id='usr' name='usr' value='"+usr+"' type='hidden'>";
+    html+="<input id='usr' name='usr' value='" + usr+"' type='hidden'>";
     html+="<input id='pass' name='pass'  class='form-control input-lg' required placeholder='Ingrese Clave Actual' type='password'>";
     html+="</div> </div>";
     html+="<div class='form-group '>";    
@@ -2015,7 +2041,7 @@ function login(){
                  var registros = JSON.parse(respuesta); 
                  user = registros; 
                       if(Object.keys(registros).length>0){ 
-                               var html = '<label>Hola, '+registros.nombres+" "+registros.apellidos+'</label>';
+                               var html = '<label>Hola, '+registros.nombres+" " + registros.apellidos+'</label>';
                                html=html+'<form><input type="hidden" id="ced" name="ced" value="'+registros.id+'"/>';
                                html=html+'<input class="form-control input-sm" type="hidden" id="usr_cambio" name="usr_cambio" value="usr"/>'; 
                                html=html+'<input type="hidden" id="rol" name="rol" value="'+registros.rol+'"/></form>';
@@ -2092,7 +2118,7 @@ function cambiar_clave(){
 }
 function listar_materias(id){ 
 var rol = document.getElementById("rol").value;
-    var url = "./index.php/docente/asignacion/"+id; 
+    var url = "./index.php/docente/asignacion/" + id; 
         $.ajax({
                url:url,
                type:'POST',
@@ -2109,13 +2135,13 @@ var rol = document.getElementById("rol").value;
                             var icono=registros[i]["icomateria"];
                             html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                             html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                            html=html+"<a href='javascript:enlace_materia("+id+",\""+registros[i]["codmateria"]+"\")'>";
-                            html=html+"<img src='./img/botones/materias/"+icono+"' width='100%' height='100%'></a></div></div>"; 
+                            html=html+"<a href='javascript:enlace_materia(" + id+",\"" + registros[i]["codmateria"]+"\")'>";
+                            html=html+"<img src='./img/botones/materias/" + icono+"' width='100%' height='100%'></a></div></div>"; 
                           } 
                     if(rol!=='admin' && rol!=='apoyo'){
                          html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                          html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                         html=html+"<a href='javascript:docente_acti("+id+")'>";
+                         html=html+"<a href='javascript:docente_acti(" + id+")'>";
                          html=html+"<img src='./img/botones/actividades/actividades.png' width='100%' height='100%'></a></div></div>"; 
                      }     
                    }
@@ -2129,7 +2155,7 @@ var rol = document.getElementById("rol").value;
 }
 function listar_procesos(id){ 
 var rol = document.getElementById("rol").value;
-    var url = "./index.php/docente/asigna_procesos/"+id; 
+    var url = "./index.php/docente/asigna_procesos/" + id; 
         $.ajax({
                url:url,
                type:'POST',
@@ -2146,8 +2172,8 @@ var rol = document.getElementById("rol").value;
                             var proceso='proceso';
                             html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                             html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                            html=html+"<a href='javascript:listarproc(\""+registros[i]["nomproceso"]+"\",\""+registros[i]["nomproceso"]+"\");'>";
-                            html=html+"<img src='./img/botones/procesos/"+icono+"' width='100%' height='100%'></a></div></div>"; 
+                            html=html+"<a href='javascript:listarproc(\"" + registros[i]["nomproceso"]+"\",\"" + registros[i]["nomproceso"]+"\");'>";
+                            html=html+"<img src='./img/botones/procesos/" + icono+"' width='100%' height='100%'></a></div></div>"; 
                           }     
                    }
                      html=html+"</div></div>";
@@ -2159,7 +2185,7 @@ var rol = document.getElementById("rol").value;
                });
 }
 function listar_proyectos(id){
-    var url = "./index.php/docente/proyectos/"+id; 
+    var url = "./index.php/docente/proyectos/" + id; 
         $.ajax({
                url:url,
                type:'POST',
@@ -2175,8 +2201,8 @@ function listar_proyectos(id){
                             var icono=registros[i]["icono"].toLowerCase();
                             html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                             html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                            html=html+"<a href='javascript:listarpro(\""+registros[i]["nomproyecto"]+"\",\""+registros[i]["nomproyecto"]+"\")'>";
-                            html=html+"<img src='./img/botones/proyectos/"+icono+"' width='100%' height='100%'></a></div></div>"; 
+                            html=html+"<a href='javascript:listarpro(\"" + registros[i]["nomproyecto"]+"\",\"" + registros[i]["nomproyecto"]+"\")'>";
+                            html=html+"<img src='./img/botones/proyectos/" + icono+"' width='100%' height='100%'></a></div></div>"; 
                             titulo = registros[i]["nomproyecto"];
                           }          
                       }
@@ -2203,8 +2229,8 @@ function listar_tproyectos(){
                             var icono=registros[i]["icono"].toLowerCase();
                             html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
                             html+="<div class='mini-stat clearfix bx-shadow'>";
-                            html+="<a href='javascript:listarpro(\""+registros[i]["nomproyecto"]+"\",\""+registros[i]["nomproyecto"]+"\")'>";
-                            html+="<img src='./img/botones/proyectos/"+icono+"' width='100%' height='100%'></a></div></div>"; 
+                            html+="<a href='javascript:listarpro(\"" + registros[i]["nomproyecto"]+"\",\"" + registros[i]["nomproyecto"]+"\")'>";
+                            html+="<img src='./img/botones/proyectos/" + icono+"' width='100%' height='100%'></a></div></div>"; 
                             titulo = registros[i]["nomproyecto"];
                           }          
                       }
@@ -2230,7 +2256,7 @@ function listar_comunica(){
     $("#comunica").html(html);  
 }
 function listar_planeacion(){
-    var url = "./index.php/docente/planeacion/"; 
+    var url = base_url + "docente/planeacion";
         $.ajax({
                url:url, 
                type:'POST',
@@ -2238,26 +2264,31 @@ function listar_planeacion(){
                cache:false,
                success:function(respuesta){
                  var registros = eval(respuesta);
-                    html='<div class="panel panel-primary">';        
-                    html=html+'<div class="panel-heading text-capitalize"s><b>Planeación Institucional</b></div>';
-                    html=html+'<div class="panel-body">'; 
-                      if(registros.length>0){ 
-                          for (i=0; i<registros.length; i++) { 
-                            var icono=registros[i]["icono"].toLowerCase();
-                            html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
-                            html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                            html=html+"<a href='javascript:listardoc(\""+registros[i]["tipo"]+"\",\""+registros[i]["enlace"]+"\",\""+registros[i]["enlace"]+"\",\""+registros[i]["descripcion"]+"\")'>";
+                    if(!respuesta.hasOwnProperty("status")){
+                        html='<div class="panel panel-primary">';        
+                        html=html+'<div class="panel-heading text-capitalize"s><b>Planeación Institucional</b></div>';
+                        html=html+'<div class="panel-body">'; 
+                        if(registros.length>0){ 
+                            for (i=0; i<registros.length; i++) { 
+                                var icono=registros[i]["icono"].toLowerCase();
+                                html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
+                                html=html+"<div class='mini-stat clearfix bx-shadow'>";
+                                html=html+"<a href='javascript:listardoc(\"" + registros[i]["tipo"]+"\",\"" + registros[i]["enlace"]+"\",\"" + registros[i]["enlace"]+"\",\"" + registros[i]["descripcion"]+"\")'>";
 
-							//html=html+"<a href='javascript:listardoc(\""+tipo+"\",\""+narea+"\",\""+nmateria+grado+"\",\""+grado+grupo+"\")'>"; 
-						//	listardoc(tipo,carpeta,materia,grupo)
+                                //html=html+"<a href='javascript:listardoc(\"" + tipo+"\",\"" + narea+"\",\"" + nmateria+grado+"\",\"" + grado+grupo+"\")'>"; 
+                            //	listardoc(tipo,carpeta,materia,grupo)
 
-                            html=html+"<img src='./img/botones/menu/"+icono+"' width='100%' height='100%'></a></div></div>"; 
-                            titulo = registros[i]["descripcion"];
-                          }          
-                      }
-                    html=html+"</div></div>"; 
-                    html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
-                $("#planeacion").html(html);  
+                                html=html+"<img src='./img/botones/menu/" + icono+"' width='100%' height='100%'></a></div></div>"; 
+                                titulo = registros[i]["descripcion"];
+                            }          
+                        }
+                        html=html+"</div></div>"; 
+                        html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
+                        $("#planeacion").html(html);  
+                    }
+                    else{
+                        location.reload();
+                    }
                 },
                error:function(){ alert("Usuario o Contraseña Invalidos!");}                                   
                });
@@ -2265,7 +2296,7 @@ function listar_planeacion(){
 }
 function listar_acti(){ 
 var ced=document.getElementById("ced").value;
-    var url = "./index.php/actividades/listar_docente/"+ced; 
+    var url = "./index.php/actividades/listar_docente/" + ced; 
         $.ajax({
                url:url,
                type:'POST',
@@ -2282,8 +2313,8 @@ function cambio_menu(){
         html="<ul>";
         //html+="<li><a href='javascript:cfg_docente();'>";
         //html+="<i><img src='./img/iconos/menu.png' width='60' height='40'></i><span>Administrar</span></a></li>";  
-        html+="<li><a href='"+base_url+"Pruebas' class='waves-effect'>";
-        html+="<i><img src='./img/iconos/areas.png' width='50' height='50'></i><span>Pruebas</span></a></li>";   
+        html+="<li><a href='" + base_url+"Pruebas' class='waves-effect'>";
+        html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>";   
         html+="<li><a href='javascript:cfg_docente();' class='waves-effect'>";
         html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
         html+="<li><a href='javascript:cfg_proyectos();' class='waves-effect'>";
@@ -2309,8 +2340,8 @@ function cambio_menu(){
 
 function menuForStudents(){
 	html="<ul>";
-    html+="<li><a href='"+base_url+"Pruebas' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/areas.png' width='50' height='50'></i><span>Pruebas</span></a></li>"; 
+    html+="<li><a href='" + base_url+"Pruebas' class='waves-effect'>";
+    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>"; 
 	html+="<li><a href='javascript:StudentAreas();'>";
 	html+="<i><img src='./img/iconos/areas.png' width='50' height='50'></i><span>Areas</span></a></li>";             
 	html+="<li><a href='javascript:cfg_cambio_clave();' class='waves-effect'>";
@@ -2340,23 +2371,23 @@ function administrar(){
         html=html+'<div class="panel-body">';  
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
-        html=html+"<a href='javascript:consultas("+'"areas"'+");'>";
+        html=html+"<a href='javascript:consultas(" + '"areas"'+");'>";
         html=html+"<img src='./img/botones/menu/cons_areas.png' width='100%' height='100%'></a></div></div>";   
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
-        html=html+"<a href='javascript:consultas("+'"materias"'+");'>";
+        html=html+"<a href='javascript:consultas(" + '"materias"'+");'>";
         html=html+"<img src='./img/botones/menu/cons_materias.png' width='100%' height='100%'></a></div></div>"; 
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
-        html=html+"<a href='javascript:consultas("+'"proyectos"'+");'>";
+        html=html+"<a href='javascript:consultas(" + '"proyectos"'+");'>";
         html=html+"<img src='./img/botones/menu/cons_proyectos.png' width='100%' height='100%'></a></div></div>";   
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
-        html=html+"<a href='javascript:consultas("+'"procesos"'+");'>";
+        html=html+"<a href='javascript:consultas(" + '"procesos"'+");'>";
         html=html+"<img src='./img/botones/menu/cons_procesos.png' width='100%' height='100%'></a></div></div>";          
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
-        html=html+"<a href='javascript:consultas("+'"usuarios"'+");'>";
+        html=html+"<a href='javascript:consultas(" + '"usuarios"'+");'>";
         html=html+"<img src='./img/botones/menu/cons_usuarios.png' width='100%' height='100%'></a></div></div>";   
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
@@ -2470,7 +2501,7 @@ var html='<div class="panel panel-primary">';
     html+="<div class='col-xs-8'>";
     html+='<select class="form-control" name="materia_acti" id="materia_acti" onclick="javascript:mostrar_acti();">';
     html+='<option selected disabled>Seleccione Materia</option>';
-    var url = "./index.php/docente/asignadoc/"+id; 
+    var url = "./index.php/docente/asignadoc/" + id; 
         $.ajax({
                url:url,
                type:'POST',
@@ -2496,7 +2527,7 @@ function mostrar_materias(){
   }else{gra=grado;}
     html='<select class="form-control" name="materia" id="materia" onchange="javascript:mostrar_conte();">';
     html+='<option value="" selected disabled>Seleccione Materia</option>';
-    var url = "./index.php/actividades/materias_grupo/"+gra; 
+    var url = "./index.php/actividades/materias_grupo/" + gra; 
         $.ajax({
                url:url,
                type:'POST',
@@ -2519,7 +2550,7 @@ function mostrar_conte(){
         var materia=combo.options[combo.selectedIndex].text; 
             combo = document.getElementById("grupo");
         var grupo=combo.options[combo.selectedIndex].text; 
-        var ruta ="./principal/areas/actividades/"+materia+" "+grupo;
+        var ruta ="./principal/areas/actividades/" + materia+" " + grupo;
         document.getElementById("diract").value=ruta;
         mostrar_contenidos();
     }
@@ -2529,7 +2560,7 @@ function mostrar_contenidos(){
     var materia=combo.options[combo.selectedIndex].text; 
         combo = document.getElementById("grupo");
     var grupo=combo.options[combo.selectedIndex].text; 
-    var titulo=materia+" "+grupo;
+    var titulo=materia+" " + grupo;
   var ruta =document.getElementById("diract").value;
   $("#contenido").html('<div class="panel-body"><div id="listacon"></div></div>');
     url='./index.php/actividades/listar';
@@ -2547,7 +2578,7 @@ function mostrar_contenidos(){
 function mostrar_acti(){
   var combo = document.getElementById("materia_acti");
   var materia=combo.options[combo.selectedIndex].text; 
-  var titulo="principal/areas/actividades/"+materia;
+  var titulo="principal/areas/actividades/" + materia;
   document.getElementById("dir").value=titulo;
   document.getElementById("nomdir").value=materia;
   document.getElementById("ubica").value=materia;
@@ -2624,7 +2655,7 @@ function con_materias(){
                 $("#lista_materias").html(html);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     }); 
 }
@@ -2644,7 +2675,7 @@ function con_proyectos(){
                 $("#lista_proyectos").html(html);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     }); 
 }
@@ -2664,7 +2695,7 @@ function con_procesos(){
                 $("#lista_procesos").html(html);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     }); 
 }
@@ -2687,7 +2718,7 @@ function con_docentes(){
                 $("#lista_docentes").html(html);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });     
 }
@@ -2710,7 +2741,7 @@ function con_prodocentes(){
                 $("#lista_prodocentes").html(html);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });     
 }
@@ -2733,7 +2764,7 @@ function con_nodocentes(){
                 $("#lista_nodocentes").html(html);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });     
 }
@@ -2829,7 +2860,7 @@ function remover_asg(){
                 lista_asg();
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                      
     });    
 }
@@ -2847,7 +2878,7 @@ function in_asg(){
                 lista_asg();
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });
 } 
@@ -2864,7 +2895,7 @@ function val_asg(){
             cache:true,
             success:function(respuesta){
             if(respuesta!=='0'){                                              
-                   if(confirm("YA Asignada a"+respuesta+"Asignar de todas formas?")){                  
+                   if(confirm("YA Asignada a" + respuesta+"Asignar de todas formas?")){                  
                       $.ajax({
                               url:'<?=site_url();?>/asignacion/in_asigna',
                               type:'POST',
@@ -2894,7 +2925,7 @@ function val_asg(){
 
             },
             error:function(respuesta){
-                    alert("Error 801: "+respuesta);
+                    alert("Error 801: " + respuesta);
             }                    
     });
 ;
@@ -2910,7 +2941,7 @@ function in_asignapro(){
                 proyectos_asg();
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });
 }
@@ -2927,7 +2958,7 @@ function in_asignaproc(){
                 procesos_asg();
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });
 }
@@ -2943,7 +2974,7 @@ function remover_pro(){
                 proyectos_asg();
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });    
 }
@@ -2959,7 +2990,7 @@ function remover_proc(){
                 procesos_asg();
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });     
 }
@@ -2977,7 +3008,7 @@ function crearArea(){
                 alert(respuesta);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });    
 }
@@ -2995,7 +3026,7 @@ function crearMateria(){
                 alert(respuesta);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });    
 }
@@ -3013,7 +3044,7 @@ function crearProyecto(){
                 alert(respuesta);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     });    
 }
@@ -3028,7 +3059,7 @@ function crearProceso(){
             contentType:false,
             processData:false,              
             success:function(respuesta){alert(respuesta);},
-            error:function(respuesta){alert("Error: "+respuesta);}                    
+            error:function(respuesta){alert("Error: " + respuesta);}                    
     });    
 }
 function cfg_usuario(){$('#modal_usuario').modal('show');}
@@ -3056,7 +3087,7 @@ function cfg_materias(){
                 $("#lista_areas").html(html);
             },
             error:function(respuesta){
-                    alert("Error: "+respuesta);
+                    alert("Error: " + respuesta);
             }                    
     }); 
     $('#modal_materias').modal('show');  
@@ -3326,7 +3357,7 @@ function consu_menuad(){
                 $("#con_titulo").html('Consulta Aplicaciones Adicionales');
                 $("#con_cuerpo").html(html);
             },
-            error:function(respuesta){alert("Error: 128 "+respuesta);
+            error:function(respuesta){alert("Error: 128 " + respuesta);
             }                    
     });    
     titulo='<h4 class="modal-title">Consulta de Materias Existentes</h4> ';
@@ -3434,21 +3465,21 @@ function consu_menuad(){
             success:function(respuesta){
                var registros = eval(respuesta); 
                  for (i=0; i<registros.length; i++) { 
-                    html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>"+         
-                            "<label for='codigo'>No. Código</label>"+                
-                            "<div class='input-group'>"+  
-                            "<input class='form-control' type='text' id='ucodarea' name='ucodarea' value='"+registros[i]["codarea"]+"'  placeholder='Código de Area' maxlength='5' readonly>"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                            "<label for='desc'>Descripción</label>"+     
-                            "<div class='input-group'>"+               
-                            "<input class='form-control' type='text' id='unomarea' name='unomarea' value='"+registros[i]["nomarea"]+"' placeholder='Nombre de Area' maxlength='50'/>"+
-                            "<input class='form-control' type='hidden' id='unomareant' name='unomareant' value='"+registros[i]["nomarea"]+"' />"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                            "<label for='uicoarea'>Cambiar Imagen</label>"+                                
-                            "<input id='uicoarea' name='uicoarea' size='50' type='file'/>"+                           
-                            "<div class='modal-footer'>"+
-                            "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>"+
-                            "<button type='button' class='btn btn-primary' onclick='updateArea()'>Guardar</button>"+
+                    html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +          
+                            "<label for='codigo'>No. Código</label>" +                 
+                            "<div class='input-group'>" +   
+                            "<input class='form-control' type='text' id='ucodarea' name='ucodarea' value='" + registros[i]["codarea"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                            "<label for='desc'>Descripción</label>" +      
+                            "<div class='input-group'>" +                
+                            "<input class='form-control' type='text' id='unomarea' name='unomarea' value='" + registros[i]["nomarea"]+"' placeholder='Nombre de Area' maxlength='50'/>" + 
+                            "<input class='form-control' type='hidden' id='unomareant' name='unomareant' value='" + registros[i]["nomarea"]+"' />" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                            "<label for='uicoarea'>Cambiar Imagen</label>" +                                 
+                            "<input id='uicoarea' name='uicoarea' size='50' type='file'/>" +                            
+                            "<div class='modal-footer'>" + 
+                            "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>" + 
+                            "<button type='button' class='btn btn-primary' onclick='updateArea()'>Guardar</button>" + 
                             "</div></form>";  
                     var titulo='<h4 class="modal-title">Actualización de Areas</h4> ';
                     $("#edi_titulo").html(titulo);   
@@ -3465,32 +3496,32 @@ var nodoTr = nodoTd.parentNode; //Nodo TR
 var nodosEnTr = nodoTr.getElementsByTagName('td');
 var campo = nodosEnTr[0].textContent;
  $.ajax({
-    url:"<?=site_url();?>/docente/con_materia/"+campo,
+    url:"<?=site_url();?>/docente/con_materia/" + campo,
     type:"POST",
     success:function(respuesta){
        var registros = eval(respuesta); 
          for (i=0; i<registros.length; i++) { 
-            html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>"+         
-                    "<label for='codigo'>No. Código</label>"+                
-                    "<div class='input-group'>"+  
-                    "<input class='form-control' type='text' id='ucodmat' name='ucodmat' value='"+registros[i]["codmateria"]+"'  placeholder='Código de Area' maxlength='5' readonly>"+
-                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                    "<label for='desc'>Descripción</label>"+     
-                    "<div class='input-group'>"+               
-                    "<input class='form-control' type='text' id='unommat' name='unommat' value='"+registros[i]["nommateria"]+"' placeholder='Nombre de Area' maxlength='50'/>"+
-                    "<input class='form-control' type='hidden' id='unomarea' name='unomarea' value='"+registros[i]["nomarea"]+"'/>"+                     
-                    "<input class='form-control' type='hidden' id='unommatant' name='unommatant' value='"+registros[i]["nommateria"]+"'/>"+                    
-                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                    "<label for='desc'>Grado</label>"+
-                    "<div class='input-group'>"+               
-                    "<input class='form-control' type='text' id='ugramat' name='ugramat' value='"+registros[i]["grado"]+"' placeholder='Nombre de Area' maxlength='50'>"+
-                    "<input class='form-control' type='hidden' id='ugramatant' name='ugramatant' value='"+registros[i]["grado"]+"' placeholder='Nombre de Area' maxlength='50'>"+                    
-                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+                            
-                    "<label for='uicomat'>Cambiar Imagen</label>"+                                
-                    "<input id='uicomat' name='uicomat' size='50' value='"+registros[i]["icomat"]+"' type='file'/>"+                           
-                    "<div class='modal-footer'>"+
-                    "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>"+
-                    "<button type='button' class='btn btn-primary' onclick='updateMateria()'>Guardar</button>"+
+            html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +          
+                    "<label for='codigo'>No. Código</label>" +                 
+                    "<div class='input-group'>" +   
+                    "<input class='form-control' type='text' id='ucodmat' name='ucodmat' value='" + registros[i]["codmateria"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                    "<label for='desc'>Descripción</label>" +      
+                    "<div class='input-group'>" +                
+                    "<input class='form-control' type='text' id='unommat' name='unommat' value='" + registros[i]["nommateria"]+"' placeholder='Nombre de Area' maxlength='50'/>" + 
+                    "<input class='form-control' type='hidden' id='unomarea' name='unomarea' value='" + registros[i]["nomarea"]+"'/>" +                      
+                    "<input class='form-control' type='hidden' id='unommatant' name='unommatant' value='" + registros[i]["nommateria"]+"'/>" +                     
+                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                    "<label for='desc'>Grado</label>" + 
+                    "<div class='input-group'>" +                
+                    "<input class='form-control' type='text' id='ugramat' name='ugramat' value='" + registros[i]["grado"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                    "<input class='form-control' type='hidden' id='ugramatant' name='ugramatant' value='" + registros[i]["grado"]+"' placeholder='Nombre de Area' maxlength='50'>" +                     
+                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +                             
+                    "<label for='uicomat'>Cambiar Imagen</label>" +                                 
+                    "<input id='uicomat' name='uicomat' size='50' value='" + registros[i]["icomat"]+"' type='file'/>" +                            
+                    "<div class='modal-footer'>" + 
+                    "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>" + 
+                    "<button type='button' class='btn btn-primary' onclick='updateMateria()'>Guardar</button>" + 
                     "</div></form>";  
             titulo='<h4 class="modal-title">Actualización de Materias</h4> ';
             $("#edi_titulo").html(titulo);   
@@ -3509,26 +3540,26 @@ var campo = nodosEnTr[0].textContent;
         var campo = nodosEnTr[0].textContent;
 
          $.ajax({
-            url:"<?=site_url();?>/docente/con_proyecto/"+campo,
+            url:"<?=site_url();?>/docente/con_proyecto/" + campo,
             type:"POST",
             success:function(respuesta){
                var registros = eval(respuesta); 
                  for (i=0; i<registros.length; i++) { 
-                    html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>"+         
-                            "<label for='codigo'>No. Código</label>"+                
-                            "<div class='input-group'>"+  
-                            "<input class='form-control' type='text' id='ucodigo' name='ucodigo' value='"+registros[i]["codpro"]+"'  placeholder='Código de Area' maxlength='5' readonly>"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                            "<label for='desc'>Descripción</label>"+     
-                            "<div class='input-group'>"+               
-                            "<input class='form-control' type='text' id='unombre' name='unombre' value='"+registros[i]["nomproyecto"]+"' placeholder='Nombre de Area' maxlength='50'>"+
-                            "<input class='form-control' type='hidden' id='unombreant' name='unombreant' value='"+registros[i]["nomproyecto"]+"'>"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                            "<label for='uicoarea'>Cambiar Imagen</label>"+                                
-                            "<input id='uicono' name='uicono' size='50' type='file'/>"+                           
-                            "<div class='modal-footer'>"+
-                            "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>"+
-                            "<button type='button' class='btn btn-primary' onclick='updateProyecto()'>Guardar</button>"+
+                    html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +          
+                            "<label for='codigo'>No. Código</label>" +                 
+                            "<div class='input-group'>" +   
+                            "<input class='form-control' type='text' id='ucodigo' name='ucodigo' value='" + registros[i]["codpro"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                            "<label for='desc'>Descripción</label>" +      
+                            "<div class='input-group'>" +                
+                            "<input class='form-control' type='text' id='unombre' name='unombre' value='" + registros[i]["nomproyecto"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<input class='form-control' type='hidden' id='unombreant' name='unombreant' value='" + registros[i]["nomproyecto"]+"'>" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                            "<label for='uicoarea'>Cambiar Imagen</label>" +                                 
+                            "<input id='uicono' name='uicono' size='50' type='file'/>" +                            
+                            "<div class='modal-footer'>" + 
+                            "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>" + 
+                            "<button type='button' class='btn btn-primary' onclick='updateProyecto()'>Guardar</button>" + 
                             "</div></form>";  
                     titulo='<h4 class="modal-title">Actualización de Proyectos</h4> ';
                     $("#edi_titulo").html(titulo);   
@@ -3546,26 +3577,26 @@ var campo = nodosEnTr[0].textContent;
         var campo = nodosEnTr[0].textContent;
 
          $.ajax({
-            url:"<?=site_url();?>/docente/con_proceso/"+campo,
+            url:"<?=site_url();?>/docente/con_proceso/" + campo,
             type:"POST",
             success:function(respuesta){
                var registros = eval(respuesta); 
                  for (i=0; i<registros.length; i++) { 
-                    html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>"+         
-                            "<label for='codigo'>No. Código</label>"+                
-                            "<div class='input-group'>"+  
-                            "<input class='form-control' type='text' id='ucodigo' name='ucodigo' value='"+registros[i]["codpro"]+"'  placeholder='Código de Area' maxlength='5' readonly>"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                            "<label for='desc'>Descripción</label>"+     
-                            "<div class='input-group'>"+               
-                            "<input class='form-control' type='text' id='unombre' name='unombre' value='"+registros[i]["nomproceso"]+"' placeholder='Nombre de Area' maxlength='50'>"+
-                            "<input class='form-control' type='hidden' id='unombreant' name='unombreant' value='"+registros[i]["nomproceso"]+"'>"+                            
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                            "<label for='uicoarea'>Cambiar Imagen</label>"+                                
-                            "<input id='uicono' name='uicono' size='50' type='file'/>"+                           
-                            "<div class='modal-footer'>"+
-                            "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>"+
-                            "<button type='button' class='btn btn-primary' onclick='updateProceso()'>Guardar</button>"+
+                    html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +          
+                            "<label for='codigo'>No. Código</label>" +                 
+                            "<div class='input-group'>" +   
+                            "<input class='form-control' type='text' id='ucodigo' name='ucodigo' value='" + registros[i]["codpro"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                            "<label for='desc'>Descripción</label>" +      
+                            "<div class='input-group'>" +                
+                            "<input class='form-control' type='text' id='unombre' name='unombre' value='" + registros[i]["nomproceso"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<input class='form-control' type='hidden' id='unombreant' name='unombreant' value='" + registros[i]["nomproceso"]+"'>" +                             
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                            "<label for='uicoarea'>Cambiar Imagen</label>" +                                 
+                            "<input id='uicono' name='uicono' size='50' type='file'/>" +                            
+                            "<div class='modal-footer'>" + 
+                            "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>" + 
+                            "<button type='button' class='btn btn-primary' onclick='updateProceso()'>Guardar</button>" + 
                             "</div></form>";  
                     titulo='<h4 class="modal-title">Actualización de Proyectos</h4> ';
                     $("#edi_titulo").html(titulo);   
@@ -3582,48 +3613,48 @@ var campo = nodosEnTr[0].textContent;
         var nodosEnTr = nodoTr.getElementsByTagName('td');
         var campo = nodosEnTr[0].textContent;
          $.ajax({
-            url:"<?=site_url();?>/docente/con_usuario/"+campo,
+            url:"<?=site_url();?>/docente/con_usuario/" + campo,
             type:"POST",
             data:{buscar:campo},
             success:function(respuesta){
                var registros = eval(respuesta); 
                  for (i=0; i<registros.length; i++) { 
-                    html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>"+
-                            "<label for='codigo'>No. Código</label>"+                
-                            "<div class='input-group'>"+  
-                            "<input class='form-control' type='text' id='ucod' name='ucod' value='"+registros[i]["id"]+"'  placeholder='Código de Area' maxlength='5' readonly>"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                            "<label for='desc'>Nombres</label>"+     
-                            "<div class='input-group'>"+               
-                            "<input class='form-control' type='text' id='unom' name='unom' value='"+registros[i]["nombres"]+"' placeholder='Nombre de Area' maxlength='50'>"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                            "<label for='desc'>Apellidos</label>"+     
-                            "<div class='input-group'>"+                                
-                            "<input class='form-control' type='text' id='uape' name='uape' value='"+registros[i]["apellidos"]+"' placeholder='Nombre de Area' maxlength='50'>"+                                                    
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+   
-                            "<label for='desc'>Cargo</label>"+     
-                            "<div class='input-group'>"+               
-                            "<input class='form-control' type='text' id='unom' name='ucar' value='"+registros[i]["cargo"]+"' placeholder='Nombre de Area' maxlength='50'>"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+                            
-                            "<label for='desc'>Rol</label>"+     
-                            "<div class='input-group'>"+               
-                            "<input class='form-control' type='text' id='unom' name='urol' value='"+registros[i]["rol"]+"' placeholder='Nombre de Area' maxlength='50'>"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                            "<label for='desc'>No. Celular</label>"+     
-                            "<div class='input-group'>"+               
-                            "<input class='form-control' type='text' id='unom' name='ucel' value='"+registros[i]["nocel"]+"' placeholder='Nombre de Area' maxlength='50'>"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+                            
-                            "<label for='desc'>mail/Usuario</label>"+     
-                            "<div class='input-group'>"+               
-                            "<input class='form-control' type='text' id='unom' name='uusr' value='"+registros[i]["usuario"]+"' placeholder='Nombre de Area' maxlength='50'>"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+  
-                            "<label for='desc'>Clave</label>"+     
-                            "<div class='input-group'>"+               
-                            "<input class='form-control' type='text' id='unom' name='upas' value='"+registros[i]["clave"]+"' placeholder='Nombre de Area' maxlength='50'>"+
-                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+                                                        
-                            "<div class='modal-footer'>"+
-                            "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>"+
-                            "<button type='button' class='btn btn-primary' onclick='updateUsr()'>Guardar</button>"+
+                    html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" + 
+                            "<label for='codigo'>No. Código</label>" +                 
+                            "<div class='input-group'>" +   
+                            "<input class='form-control' type='text' id='ucod' name='ucod' value='" + registros[i]["id"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                            "<label for='desc'>Nombres</label>" +      
+                            "<div class='input-group'>" +                
+                            "<input class='form-control' type='text' id='unom' name='unom' value='" + registros[i]["nombres"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                            "<label for='desc'>Apellidos</label>" +      
+                            "<div class='input-group'>" +                                 
+                            "<input class='form-control' type='text' id='uape' name='uape' value='" + registros[i]["apellidos"]+"' placeholder='Nombre de Area' maxlength='50'>" +                                                     
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +    
+                            "<label for='desc'>Cargo</label>" +      
+                            "<div class='input-group'>" +                
+                            "<input class='form-control' type='text' id='unom' name='ucar' value='" + registros[i]["cargo"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +                             
+                            "<label for='desc'>Rol</label>" +      
+                            "<div class='input-group'>" +                
+                            "<input class='form-control' type='text' id='unom' name='urol' value='" + registros[i]["rol"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                            "<label for='desc'>No. Celular</label>" +      
+                            "<div class='input-group'>" +                
+                            "<input class='form-control' type='text' id='unom' name='ucel' value='" + registros[i]["nocel"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +                             
+                            "<label for='desc'>mail/Usuario</label>" +      
+                            "<div class='input-group'>" +                
+                            "<input class='form-control' type='text' id='unom' name='uusr' value='" + registros[i]["usuario"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +   
+                            "<label for='desc'>Clave</label>" +      
+                            "<div class='input-group'>" +                
+                            "<input class='form-control' type='text' id='unom' name='upas' value='" + registros[i]["clave"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +                                                         
+                            "<div class='modal-footer'>" + 
+                            "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>" + 
+                            "<button type='button' class='btn btn-primary' onclick='updateUsr()'>Guardar</button>" + 
                             "</div></form>";  
                     titulo='<h4 class="modal-title">Actualización de Usuarios</h4> ';
                     $("#edi_titulo").html(titulo);   
@@ -3640,26 +3671,26 @@ var nodoTr = nodoTd.parentNode; //Nodo TR
 var nodosEnTr = nodoTr.getElementsByTagName('td');
 var campo = nodosEnTr[0].textContent;
  $.ajax({
-    url:"<?=site_url();?>/consultas/con_menuad/"+campo,
+    url:"<?=site_url();?>/consultas/con_menuad/" + campo,
     type:"POST",
     success:function(respuesta){
        var registros = eval(respuesta); 
          for (i=0; i<registros.length; i++) { 
-            html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>"+         
-                    "<label for='codigo'>Id</label>"+                
-                    "<div class='input-group'>"+  
-                    "<input class='form-control' type='text' id='uid' name='uid' value='"+registros[i]["id"]+"'  placeholder='Código de Area' maxlength='5' readonly>"+
-                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+
-                    "<label for='desc'>Orden</label>"+  
-                    "<div class='input-group'>"+               
-                    "<input class='form-control' type='text' id='uorden' name='uorden' value='"+registros[i]["orden"]+"' placeholder='Orden' maxlength='50'>"+
-                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+                     
-                    "<label for='desc'>Nombre</label>"+     
-                    "<div class='input-group'>"+               
-                    "<input class='form-control' type='text' id='unombre' name='unombre' value='"+registros[i]["nombre"]+"' placeholder='Nombre' maxlength='50'>"+
-                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+ 
-                    "<label for='desc'>Tipo</label>"+  
-                    "<div class='input-group'>"+               
+            html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +          
+                    "<label for='codigo'>Id</label>" +                 
+                    "<div class='input-group'>" +   
+                    "<input class='form-control' type='text' id='uid' name='uid' value='" + registros[i]["id"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
+                    "<label for='desc'>Orden</label>" +   
+                    "<div class='input-group'>" +                
+                    "<input class='form-control' type='text' id='uorden' name='uorden' value='" + registros[i]["orden"]+"' placeholder='Orden' maxlength='50'>" + 
+                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +                      
+                    "<label for='desc'>Nombre</label>" +      
+                    "<div class='input-group'>" +                
+                    "<input class='form-control' type='text' id='unombre' name='unombre' value='" + registros[i]["nombre"]+"' placeholder='Nombre' maxlength='50'>" + 
+                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +  
+                    "<label for='desc'>Tipo</label>" +   
+                    "<div class='input-group'>" +                
                             '<select class="form-control" id="utipo" name="utipo">'+
                                 '<option value="'+registros[i]["tipo"]+'">'+registros[i]["tipo"]+'</option>'+    
                                 '<option value="Carpeta">Carpeta</option>'+ 
@@ -3667,16 +3698,16 @@ var campo = nodosEnTr[0].textContent;
                                 '<option value="funcion">Función</option>'+ 
                                 '<option value="Web">Abrir Web</option>'+ 
                                 '</select>'+
-                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+                    
-                    "<label for='desc'>Parámetro/Enlace</label>"+  
-                    "<div class='input-group'>"+               
-                    "<input class='form-control' type='text' id='ulink' name='ulink' value='"+registros[i]["enlace"]+"' placeholder='Parámetro' maxlength='50'>"+
-                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>"+                                              
-                    "<label for='uicomat'>Cambiar Imagen</label>"+                                
-                    "<input id='uicono' name='uicono' size='50' value='"+registros[i]["icono"]+"' type='file'/>"+                           
-                    "<div class='modal-footer'>"+
-                    "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>"+
-                    "<button type='button' class='btn btn-primary' onclick='updateMenu()'>Guardar</button>"+
+                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +                     
+                    "<label for='desc'>Parámetro/Enlace</label>" +   
+                    "<div class='input-group'>" +                
+                    "<input class='form-control' type='text' id='ulink' name='ulink' value='" + registros[i]["enlace"]+"' placeholder='Parámetro' maxlength='50'>" + 
+                    "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +                                               
+                    "<label for='uicomat'>Cambiar Imagen</label>" +                                 
+                    "<input id='uicono' name='uicono' size='50' value='" + registros[i]["icono"]+"' type='file'/>" +                            
+                    "<div class='modal-footer'>" + 
+                    "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>" + 
+                    "<button type='button' class='btn btn-primary' onclick='updateMenu()'>Guardar</button>" + 
                     "</div></form>";  
             titulo='<h4 class="modal-title">Actualización de Aplicaciones Adicionales</h4> ';
             $("#edi_titulo").html(titulo);   
@@ -3727,7 +3758,7 @@ var campo = nodosEnTr[0].textContent;
            $("#modal_editar").modal("hide");
            var formData = new FormData($("#frmeditar")[0]);           
            area     =  document.getElementById("unomarea").value;
-           ruta     = "./principal/areas/"+area+"/";
+           ruta     = "./principal/areas/" + area+"/";
            grado    =  document.getElementById("ugramat").value; 
            gradoant =  document.getElementById("ugramatant").value; 
            anterior =  ruta+document.getElementById("unommatant").value+gradoant;

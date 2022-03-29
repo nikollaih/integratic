@@ -153,7 +153,7 @@
                                                                                     <?php
                                                                                         if( $rp["archivo_respuesta"] &&  $rp["nombre_archivo_respuesta"]){
                                                                                     ?>
-                                                                                        <img src="<?= base_url() ?>uploads/respuestas/<?=  $rp["archivo_respuesta"] ?>" alt="" srcset="" width="200" class="m-t-3" style="margin-left:15px;">
+                                                                                        <br><img style="margin: 5px 0px 5px -1px;" src="<?= base_url() ?>uploads/respuestas/<?=  $rp["archivo_respuesta"] ?>" alt="" srcset="" width="200" class="m-t-3" style="margin-left:15px;">
                                                                                     <?php
                                                                                         }
                                                                                     ?>
@@ -179,7 +179,7 @@
                                                                             <?php
                                                                                 if( $rp["archivo_respuesta"] &&  $rp["nombre_archivo_respuesta"]){
                                                                             ?>
-                                                                                <img src="<?= base_url() ?>uploads/respuestas/<?=  $rp["archivo_respuesta"] ?>" alt="" srcset="" width="200" class="m-t-3" style="margin-left:15px;">
+                                                                                <br><img style="margin: 5px 0px 5px -1px;" src="<?= base_url() ?>uploads/respuestas/<?=  $rp["archivo_respuesta"] ?>" alt="" srcset="" width="200" class="m-t-3" style="margin-left:15px;">
                                                                             <?php
                                                                                 }
                                                                             ?>

@@ -9,10 +9,21 @@
     }
     
     public function index($id_materia = null){
-        $params["preguntas"] = $this->Preguntas_Model->get_all($id_materia);
-        $params["materias"] = $this->Consultas_Model->get_materias_diff();
-        $params["id_materia"] = $id_materia;
-        $this->load->view("pruebas/preguntas/lista_preguntas", $params);
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){ 
+                $materias = array_column($this->Materias_Model->getMateriasDocente(logged_user()["id"], true), "materia");
+                $params["id_materia"] = $id_materia;
+                $params["preguntas"] = $this->Preguntas_Model->get_all($materias, $id_materia);
+                $params["materias"] = $this->Consultas_Model->get_materias_diff_ids($materias);
+                $this->load->view("pruebas/preguntas/lista_preguntas", $params);
+            }
+            else{
+                header("Location: ".base_url()."/Pruebas");
+            }
+        }
+        else{
+            header("Location: ".base_url());
+        }
     }
 
     public function ver($id_pregunta = null){
@@ -136,13 +147,24 @@
     }
 
     function importar($id_materia = null){
-        if($this->input->post()){
-            $params["message"] = $this->procesarImportar($this->input->post(), $_FILES);
-        }
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){ 
+                $materias = array_column($this->Materias_Model->getMateriasDocente(logged_user()["id"], true), "materia");
+                if($this->input->post()){
+                    $params["message"] = $this->procesarImportar($this->input->post(), $_FILES);
+                }
 
-        $params["id_materia"] = $id_materia;
-        $params["materias"] = $this->Consultas_Model->get_materias_diff();
-        $this->load->view("pruebas/preguntas/importar_preguntas_respuestas", $params);
+                $params["id_materia"] = $id_materia;
+                $params["materias"] = $this->Consultas_Model->get_materias_diff_ids($materias);
+                $this->load->view("pruebas/preguntas/importar_preguntas_respuestas", $params);
+            }
+            else{
+                header("Location: ".base_url()."/Pruebas");
+            }
+        }
+        else{
+            header("Location: ".base_url());
+        }
     }
 
     function procesarImportar($data, $FILES){

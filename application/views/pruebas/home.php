@@ -19,8 +19,15 @@
                                                 <th>Tipo</th>
                                                 <th>Cantidad de preguntas</th>
                                                 <th>Duración</th>
-                                                <th>Fecha de creación</th>
+                                                <th>Disponibilidad</th>
                                                 <th>Estado</th>
+                                                <?php
+                                                    if(strtolower(logged_user()["rol"]) == "estudiante"){
+                                                        ?>
+                                                            <th>Calificación</th>
+                                                        <?php
+                                                    }
+                                                ?>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -35,11 +42,33 @@
                                                                 <td><?= $p["tipo_prueba"] ?></td>
                                                                 <td><?= $p["cantidad_preguntas"] ?></td>
                                                                 <td><?= $p["duracion"] ?> Minutos</td>
-                                                                <td><?= date("d F Y", strtotime($p["created_at"])) ?></td>
+                                                                <td>
+                                                                    <b>Desde:</b> <?= date("d F Y h:i a", strtotime($p["fecha_inicio"])) ?><br>
+                                                                    <b>Hasta:</b>  <?= date("d F Y h:i a", strtotime($p["fecha_finaliza"])) ?>
+                                                                </td>
                                                                 <td><?= ($p["estado"] == "1") ? "<label class='text-success'>Activa</label>" : "<label class='text-danger'>Inactiva</label>" ?></td>
+                                                                <?php
+                                                                    if(strtolower(logged_user()["rol"]) == "estudiante"){
+                                                                        ?>
+                                                                            <td><?= (info_prueba_realizada($p["id_prueba"], $p["id_participante_prueba"])["porcentaje"] != null) ? info_prueba_realizada($p["id_prueba"], $p["id_participante_prueba"])["porcentaje"]."%" : "Sin presentar" ?></td>
+                                                                        <?php
+                                                                    }
+                                                                ?>
                                                                 <td class="text-center">
-                                                                    <a class="btn btn-success" href="<?= base_url() ?>Pruebas/ver/<?= $p["id_prueba"] ?>">Ver</a>
-                                                                    <a class="btn btn-success" href="<?= base_url() ?>Pruebas/empezar/<?= $p["id_prueba"] ?>">Realizar prueba</a>
+                                                                    <?php
+                                                                        if(strtolower(logged_user()["rol"]) == "estudiante"){
+                                                                    ?>
+                                                                        <a class="btn btn-success" href="<?= base_url() ?>Pruebas/empezar/<?= $p["id_prueba"] ?>">Ver</a>
+                                                                    <?php
+                                                                        }
+                                                                    ?>
+                                                                    <?php
+                                                                        if(strtolower(logged_user()["rol"]) == "docente"){
+                                                                    ?>
+                                                                        <a class="btn btn-success" href="<?= base_url() ?>Pruebas/ver/<?= $p["id_prueba"] ?>">Ver</a>
+                                                                    <?php
+                                                                        }
+                                                                    ?>
                                                                 </td>
                                                             </tr>
                                                         <?php
