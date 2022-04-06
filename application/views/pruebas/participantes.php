@@ -100,36 +100,63 @@
                     </div>
                 </div>
                 <div class="row">
-                <div class="col-md-12 col-sm-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading text-capitalize"><b>Participantes</b></div>
-                                    <div class="panel-body">
-                                    <div class="row">
-                        <div class="col-md-12">
-                            <?php
-                            if(isset($message)){
-                            ?>
-                            <div class="alert alert-<?= $message["type"] ?> alert-dismissible show" role="alert">
-                            <?= $message["message"] ?>
-                            </div>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                    </div>
+                    <div class="col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading text-capitalize"><b>Participantes</b></div>
+                                        <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-lg-12">
-                                                <div class="m-b-2">
+                                            <div class="col-md-12">
+                                                <?php
+                                                if(isset($message)){
+                                                ?>
+                                                <div class="alert alert-<?= $message["type"] ?> alert-dismissible show" role="alert">
+                                                <?= $message["message"] ?>
+                                                </div>
+                                                <?php
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-b-2">
+                                            <div class="col-md-6 col-sm-12">
+                                                <div>
                                                     <form method="post" enctype="multipart/form-data">
                                                         <input type="hidden" name="file" value="false">
-                                                        <label for="prueba-participantes-file">Seleccionar archivo de participantes</label>
+                                                        <label for="prueba-participantes-file">Importar participantes desde archivo</label>
                                                         <input required accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" name="participantes" id="prueba-participantes-file">
                                                         <button class="btn btn-sm btn-success m-t-1" type="submit">Importar</button>
                                                     </form>
                                                 </div>
-                                                <table class="table table-bordered table-striped">
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-12">
+                                                <div>
+                                                    <form method="post">
+                                                        <label for="prueba-participantes-file">Asignar participantes desde grupo</label>
+                                                        <select required class="form-control" name="grado">
+                                                            <option value="">- Seleccionar grupo</option>
+                                                            <?php
+                                                                if($grupos_materia){
+                                                                    foreach ($grupos_materia as $gm) {
+                                                                        ?>
+                                                                            <option value="<?= $gm["grado"].$gm["grupo"] ?>"><?= $gm["nommateria"]." - ".$gm["grado"]."°".$gm["grupo"] ?></option>
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                        <button class="btn btn-sm btn-success m-t-1" type="submit">Asignar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                    
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                                <table id="tabla-participantes" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th>Identificación</th>
@@ -196,3 +223,11 @@
 <?php $this->load->view("in_footer") ?>
 <?php $this->load->view("in_script") ?>
 </html>
+
+<script>
+    $(document).ready( function () {
+    $('#tabla-participantes').DataTable({
+        order: [1, 'asc']
+    });
+} );
+</script>

@@ -84,7 +84,7 @@ function actualizar_fecha_notificaciones() {
 
 function obtener_lista_notificaciones() {
     $.ajax({
-        url: "./index.php/Notificaciones/obtener_lista_notificaciones",
+        url: base_url + "Notificaciones/obtener_lista_notificaciones",
         type: 'GET',
         success: function(data) {
             var data = JSON.parse(data);

@@ -61,7 +61,7 @@ body {
     background: #f5f5f5;
     margin: 0;
     -webkit-text-size-adjust: 100%;
-    font-family: 'Roboto', 'Nunito', sans-serif;
+    font-family: 'Roboto', 'Nunito', sans-serif !important;
 }
 
 h1,
@@ -512,7 +512,7 @@ a:focus {
 
 .btn {
     border-radius: 2px;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Roboto', 'Nunito', sans-serif;
     letter-spacing: 0.2px;
     opacity: 0.93;
     -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
@@ -2232,7 +2232,7 @@ body.fixed-left .side-menu.left {
 
 .fc-text-arrow,
 .fc-text-arrow {
-    font-family: arial;
+    font-family: 'Roboto';
     font-size: 16px;
 }
 
@@ -4029,7 +4029,7 @@ div.dataTables_info {
 }
 
 .home-text {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Roboto', 'Nunito', sans-serif;
 }
 
 .lj-countdown {
@@ -4165,7 +4165,7 @@ div.dataTables_info {
     vertical-align: top;
     text-decoration: none!important;
     line-height: 24px;
-    font-family: inherit;
+    font-family: 'Roboto';
     font-size: 12px;
     color: #333;
     cursor: pointer;
@@ -4410,6 +4410,11 @@ div.dataTables_info {
     z-index: 9;
     align-items: center;
     justify-content: center;
+}
+
+#notificaciones-container {
+    max-height: 400px;
+    overflow: auto;
 }
 
 .form-check-label {

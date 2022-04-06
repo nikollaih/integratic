@@ -96,8 +96,24 @@
             <script type="text/javascript">
                 var user = <?= json_encode($this->session->userdata("logged_in")) ?>;
                 cambio_menu();
-                cfg_docente();
             </script>
         <?php
+
+        if(strtolower(logged_user()["rol"]) == "docente"){
+            ?>
+                <script>
+                    cfg_docente();
+                </script>
+            <?php
+        }
+
+        if(strtolower(logged_user()["rol"]) == "estudiante"){
+            ?>
+                <script>
+                    StudentAreas();
+                    actualizar_notificaciones();
+                </script>
+            <?php
+        }
     }
 ?>

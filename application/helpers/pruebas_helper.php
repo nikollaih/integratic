@@ -70,7 +70,7 @@
 
             $respuesta = array(
                 "correctas" => $correctas,
-                "total" => count($preguntas),
+                "total" => (is_array($preguntas)) ? count($preguntas) : 0,
                 "parcial" => ($respuestas) ? count($respuestas) : 0,
                 "porcentaje" => ($correctas == 0 && !$respuestas) ? null : number_format((float)($correctas / count($preguntas)) * 100, 1, '.', ''),
                 "institucion" => ($realizar_prueba) ? $realizar_prueba["institucion"] : null,
