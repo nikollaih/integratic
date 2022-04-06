@@ -48,6 +48,7 @@
 <?php
     }
 ?>
+
 <!-- Ventana Modal Creditos-->
 <div class="modal fade" id="creditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">

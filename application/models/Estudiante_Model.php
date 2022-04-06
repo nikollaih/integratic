@@ -84,4 +84,14 @@ class Estudiante_Model extends CI_Model {
 
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
+
+	function getStudentsByGrado($grado){
+		$this->db->from("estudiante");
+		$this->db->where("grado", $grado);
+		$this->db->or_where("grado", strtolower($grado));
+		$this->db->or_where("grado",  strtoupper($grado));
+		$result = $this->db->get();
+
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
 }

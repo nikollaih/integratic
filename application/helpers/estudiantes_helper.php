@@ -42,4 +42,56 @@
         }
     
     }
+
+    if(!function_exists('get_students_by_grado'))
+    {
+        function get_students_by_grado($grado){
+            $CI = &get_instance();
+            $CI->load->model(['Estudiante_Model', 'Materias_Model']);
+            $estudiantes = $CI->Estudiante_Model->getStudentsByGrado($grado);
+            return $estudiantes;
+        }
+    
+    }
+
+    if(!function_exists('mover_estudiantes_participantes_prueba'))
+    {
+        function mover_estudiantes_participantes_prueba($estudiantes){
+            $participantes = [];
+            $CI = &get_instance();
+            $CI->load->model(['Estudiante_Model', 'Participantes_Prueba_Model']);
+            
+            if(is_array($estudiantes)){
+                foreach ($estudiantes as $e) {
+                    if($e["documento"] != 0 && $e["documento"] != null && $e["documento"] != ""){
+                        $temp_name = explode(" ", $e["nombre"]);
+                        $split_name = [];
+                        for ($i=0; $i < count($temp_name); $i++) { 
+                            if(trim($temp_name[$i]) != ""){
+                                array_push($split_name, $temp_name[$i]);
+                            }
+                        }
+
+                        $data["identificacion"] = $e["documento"];
+                        $data["nombres"] = (count($split_name) == 4) ? $split_name[2] . " " . $split_name[3] : $split_name[2];
+                        $data["apellidos"] = $split_name[0] . " " . $split_name[1];
+                        $data["telefono"] = "";
+                        $data["email"] = "";
+                        $data["institucion"] = "";
+                        $data["grado"] =  $e["grado"];
+
+                        $user = $CI->Participantes_Prueba_Model->get_participante_by_identificacion($e["documento"]);
+                        if(!$user){
+                            array_push($participantes, $CI->Participantes_Prueba_Model->create($data));
+                        }
+                        else{
+                            array_push($participantes, $CI->Participantes_Prueba_Model->update($data));
+                        }
+                    }
+                }
+            }
+
+            return $participantes;
+        }
+    }
 ?>

@@ -14,6 +14,15 @@ class Materias_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
+	function getGruposMateria($ids_materia){
+		$this->db->from("asg_materias am");
+		$this->db->join("cfg_materias cm", "am.materia = cm.codmateria");
+        $this->db->where_in("materia", $ids_materia);
+		$result = $this->db->get();
+
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
 	function getMateriaPrueba($array_materias_id){
 		$this->db->from("cfg_materias");
         $this->db->where_in("codmateria", $array_materias_id);

@@ -172,17 +172,39 @@
     }
 
     function participantes($id_prueba){
-        if($this->input->post()){
-            $participantes = importar_participantes_pruebas($_FILES);
-            $params["message"] = $this->asignarParticipantes($participantes, $id_prueba);
+        if(is_logged()){
+            $ids_materias = [];
+            if($this->input->post()){
+                if(isset($this->input->post()["grado"])){
+                    $estudiantes = get_students_by_grado($this->input->post()["grado"]);
+                    $participantes = mover_estudiantes_participantes_prueba($estudiantes);
+                    $params["message"] = $this->asignarParticipantes($participantes, $id_prueba);
+                }
+                else{
+                    $participantes = importar_participantes_pruebas($_FILES);
+                    $params["message"] = $this->asignarParticipantes($participantes, $id_prueba);
+                }
+            }
+            $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
+            $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
+            $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
+            $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+            $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+            $params["participantes"] = $this->Asignacion_Participantes_Prueba_Model->get_all($id_prueba);
+
+            if(is_array($params["materias"])){
+                for ($i=0; $i < count($params["materias"]); $i++) { 
+                    array_push($ids_materias, $params["materias"][$i]["codmateria"]);
+                }
+            }
+
+            $params["grupos_materia"] = $this->Materias_Model->getGruposMateria($ids_materias);
+
+            $this->load->view("pruebas/participantes", $params);
         }
-        $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
-        $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
-        $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
-        $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
-        $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
-        $params["participantes"] = $this->Asignacion_Participantes_Prueba_Model->get_all($id_prueba);
-        $this->load->view("pruebas/participantes", $params);
+        else{
+            header("Location: ".base_url());
+        }
     }
 
     function asignarParticipantes($participantes, $id_prueba){
@@ -198,7 +220,7 @@
                     }
                 }
                 else{
-                    $id_participante = $this->Participantes_Prueba_Model->create($participante);
+                    $id_participante["id_participante_prueba"] = $this->Participantes_Prueba_Model->create($participante);
                     $asignado["id_participante"] = $id_participante;
                     $asignado["id_prueba"] = $id_prueba;
                     if(!$this->Asignacion_Participantes_Prueba_Model->get($id_prueba, $id_participante)){
