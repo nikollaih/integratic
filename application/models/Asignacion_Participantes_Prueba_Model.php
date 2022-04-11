@@ -11,6 +11,7 @@ class Asignacion_Participantes_Prueba_Model extends CI_Model {
         $this->db->join("asignacion_participantes_prueba pp", "pp.id_participante = cpp.id_participante_prueba");
 		$this->db->where("pp.id_prueba", $id_prueba);
 		$this->db->group_by("cpp.id_participante_prueba");
+		$this->db->order_by("cpp.apellidos", "asc");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}

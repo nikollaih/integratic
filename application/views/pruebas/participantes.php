@@ -136,8 +136,8 @@
                                                 <div>
                                                     <form method="post">
                                                         <label for="prueba-participantes-file">Asignar participantes desde grupo</label>
-                                                        <select required class="form-control" name="grado">
-                                                            <option value="">- Seleccionar grupo</option>
+                                                        <select required class="form-control" name="grado" id="prueba-participantes-grado">
+                                                            <option value="null">- Seleccionar grupo</option>
                                                             <?php
                                                                 if($grupos_materia){
                                                                     foreach ($grupos_materia as $gm) {
@@ -147,6 +147,8 @@
                                                                     }
                                                                 }
                                                             ?>
+                                                        </select>
+                                                        <select required name="estudiantes[]" id="prueba-participantes-estudiantes" class="form-control multiple-select" multiple data-live-search="true" data-actions-box="true" data-actions-box="true">
                                                         </select>
                                                         <button class="btn btn-sm btn-success m-t-1" type="submit">Asignar</button>
                                                     </form>
@@ -176,7 +178,7 @@
                                                     ?>
                                                         <tr id="participante-<?= $participante["id_participante_prueba"] ?>">
                                                             <td><p><?= $participante["identificacion"] ?></p></td>
-                                                            <td><p><?= $participante["nombres"]." ".$participante["apellidos"] ?></p></td>
+                                                            <td><p><?= $participante["apellidos"]." ".$participante["nombres"] ?></p></td>
                                                             <td><p><?= $participante["telefono"] ?></p></td>
                                                             <td><p><?= $participante["email"] ?></p></td>
                                                             <td><p><?= ($info_prueba["porcentaje"] == null) ? $participante["institucion"] : $info_prueba["institucion"] ?></p></td>
@@ -226,8 +228,15 @@
 
 <script>
     $(document).ready( function () {
-    $('#tabla-participantes').DataTable({
-        order: [1, 'asc']
-    });
-} );
+        $('.multiple-select').selectpicker({
+            noneSelectedText: "- Seleccionar estudiantes",
+            selectAllText : "Seleccionar todos",
+            deselectAllText: "Deseleccionar todos"
+        });
+        $('#tabla-participantes').DataTable({
+            order: [1, 'asc'],
+            pageLength: 25
+        });
+        $("#prueba-participantes-estudiantes").parent().css("display", "none");
+    } );
 </script>

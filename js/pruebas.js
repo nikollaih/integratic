@@ -69,25 +69,27 @@ function cerrar_intento_prueba(id_realizar_prueba) {
 }
 
 function eliminar_participante(id_participante, id_prueba) {
-    $("#background-loading").css("display", "flex");
-    $.ajax({
-        url: base_url + "ParticipantesPrueba/delete",
-        type: 'POST',
-        data: {
-            id_prueba: id_prueba,
-            id_participante: id_participante
-        },
-        success: function(data) {
-            console.log(data);
-            var data = JSON.parse(data);
-            if (data.status) {
-                $("#participante-" + id_participante).remove();
-            }
-            $("#background-loading").css("display", "none");
-            alert(data.message);
-        },
-        error: function() { alert("Error!") }
-    });
+    if (confirm("¿Está seguro que desea eliminar el participante?") == true) {
+        $("#background-loading").css("display", "flex");
+        $.ajax({
+            url: base_url + "ParticipantesPrueba/delete",
+            type: 'POST',
+            data: {
+                id_prueba: id_prueba,
+                id_participante: id_participante
+            },
+            success: function(data) {
+                console.log(data);
+                var data = JSON.parse(data);
+                if (data.status) {
+                    $("#participante-" + id_participante).remove();
+                }
+                $("#background-loading").css("display", "none");
+                alert(data.message);
+            },
+            error: function() { alert("Error!") }
+        });
+    }
 }
 
 function generar_pregunta_DOM(proxima_respuesta) {

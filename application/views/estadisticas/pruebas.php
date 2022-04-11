@@ -56,14 +56,12 @@
                                                             if($materias){
                                                                 foreach ($materias as $materia) {
                                                                     $info_materia = get_materia_promedio($materia["codmateria"]);
-                                                                    if($info_materia["promedio"] > 0){
-                                                                        ?>
-                                                                            <tr>
-                                                                                <td><?= $materia["nommateria"]." ".$materia["grado"] ?>°</td>
-                                                                                <td class="text-center"><b><?= $info_materia["promedio"] ?>%</b></td>
-                                                                            </tr>
-                                                                        <?php
-                                                                    }
+                                                                    ?>
+                                                                        <tr>
+                                                                            <td><?= $materia["nommateria"]." ".$materia["grado"] ?>°</td>
+                                                                            <td class="text-center"><b><?= $info_materia["promedio"] ?>%</b></td>
+                                                                        </tr>
+                                                                    <?php
                                                                 }
                                                             }
                                                         ?>

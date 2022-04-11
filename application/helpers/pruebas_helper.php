@@ -75,7 +75,7 @@
                 "porcentaje" => ($correctas == 0 && !$respuestas) ? null : number_format((float)($correctas / count($preguntas)) * 100, 1, '.', ''),
                 "institucion" => ($realizar_prueba) ? $realizar_prueba["institucion"] : null,
                 "grado" => ($realizar_prueba) ? $realizar_prueba["grado"] : null,
-                "cerrada" => $realizar_prueba["is_closed"]
+                "cerrada" => ($realizar_prueba) ? $realizar_prueba["is_closed"] : 0
             );
 
             return $respuesta;

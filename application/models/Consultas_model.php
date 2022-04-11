@@ -28,7 +28,7 @@ class Consultas_Model extends CI_Model {
     else {
       if($result->row_array()){$this->registrar_ingreso($usr); }
       return $result->result();}      
-  } 
+  }
   
   	public function get_materias_diff(){
     	$this->db->from("cfg_materias");

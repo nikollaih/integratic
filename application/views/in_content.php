@@ -2105,17 +2105,20 @@ function login_estudiante(){
                });
 }
 function cambiar_clave(){
-    var url = "./index.php/principal/cambio_clave";   
-        $.ajax({
-               url:url,
-               type:'POST',
-               data:$("#frmcambio").serialize(),
-               success:function(respuesta){
-                alert("Clave Modificada!"); 
-                $("#contenedor").html('');  
-              },
-               error:function(){ alert("Error!");}                                   
-               });
+    var url = base_url + "principal/cambio_clave"; 
+    $.ajax({
+        url:url,
+        type:'POST',
+        data:$("#frmcambio").serialize(),
+        success:function(respuesta){
+            alert("aqui")
+            data = JSON.parse(respuesta);
+            console.log(data);
+            alert("Clave Modificada!"); 
+            $("#contenedor").html('');  
+        },
+        error:function(){ alert("Error!");}                                   
+    });
 }
 function listar_materias(id){ 
 var rol = document.getElementById("rol").value;
@@ -2445,6 +2448,10 @@ function administrar(){
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='javascript:reportes();'>";
         html=html+"<img src='./img/botones/menu/reporte.png' width='100%' height='100%'></a></div></div>";
+        html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
+        html=html+"<div class='mini-stat clearfix bx-shadow'>";
+        html=html+"<a href='"+base_url+"Configuracion'>";
+        html=html+"<img src='./img/botones/menu/descargar_bd.png' width='100%' height='100%'></a></div></div>"; 
         html+="</div></div>";   
         html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
         $("#contenedor").html(html);   
@@ -3945,7 +3952,7 @@ html+='<div class="panel panel-default">';
 html+='<div class="panel-body">';
 html+='<div class="clearfix">';
 html+='<div class="pull-left">';
-html+='<h4 class="text-right"><img src="./img/logo.png" alt="velonic" width="100" height="100"></h4>';                        
+html+='<h4 class="text-right"><img src="./img/<?= (configuracion()) ? configuracion()["logo_institucion"] : "" ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>" width="100" height="100"></h4>';                        
 html+='</div>';
 html+='<div class="pull-right">';
 html+='<h4>INSTITUCION EDUCATIVA GENERAL SANTANDER<br>';

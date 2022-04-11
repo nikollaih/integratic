@@ -3,7 +3,7 @@
     <div class="sidebar-inner slimscrollleft">
         <div class="user-details">
             <div class="pull-left">
-                <img src="<?= base_url() ?>img/logo.png" alt="" class="thumb-lg">
+                <img src="<?= base_url() ?>img/<?= (configuracion()) ? configuracion()["logo_institucion"] : "" ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>" class="thumb-lg">
             </div>
         </div>
         <!--- Divider -->
@@ -11,7 +11,7 @@
             <ul>
                 <li>
                     <a href="<?= base_url() ?>" class="waves-effect">
-                        <i><img src='<?= base_url() ?>img/iconos/lista_preguntas.png' width="50" height="50"></i><span>Volver</span></a>
+                        <i><img src='<?= base_url() ?>img/iconos/volver.png' width="50" height="50"></i><span>Volver</span></a>
                 </li>
                 <li>
                     <a href="<?= base_url() ?>Pruebas" class="waves-effect">
