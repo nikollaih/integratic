@@ -38,4 +38,19 @@ class Estudiante extends CI_Controller {
 	public function mover(){
 		mover_estudiantes_usuarios();
 	}
+
+	public function estudiantes_grado_grupo($grado_grupo){
+		if(is_logged()){
+			if(strtolower(logged_user()["rol"]) == "docente"){
+				$estudiantes = $this->Estudiante_Model->getStudentsByGrado($grado_grupo);
+				json_response($estudiantes, true, "Lista de estudiantes");
+			}
+			else{
+				json_response(array("error" => "permissions"), false, "No tiene los permisos necesarios para realizar esta accion");
+			}
+		}
+		else{
+			json_response(array("error" => "login"), false, "Iniciar sesion");
+		}
+	}
 }

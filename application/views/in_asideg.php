@@ -3,7 +3,7 @@
                 <div class="sidebar-inner slimscrollleft">
                     <div class="user-details">
                         <div class="pull-left">
-                            <img src="<?=base_url()?>img/logo.png" alt="" class="thumb-lg img-circle">
+                            <img src="<?=base_url()?>img/<?= (configuracion()) ? configuracion()["logo_institucion"] : "" ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Loogo" ?>" class="thumb-lg img-circle">
                         </div>
 
                     </div>

@@ -96,6 +96,14 @@ class Preguntas_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
+	function get_count_by_materias($ids_materias){
+		$this->db->select("COUNT(pp.id_pregunta_prueba) as cantidad_preguntas");
+		$this->db->from("preguntas_prueba pp");
+		$this->db->where_in("pp.id_materia", $ids_materias);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+	}
+
 	function get_cantidad_pruebas($id_pregunta){
 		$this->db->from("pruebas");
 		$this->db->like("materias", '"'.$id_pregunta.'"');

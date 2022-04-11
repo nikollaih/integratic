@@ -122,14 +122,15 @@ public function up_menu($cod,$nom,$ord,$tipo,$link,$ico){
             return true;     }
     else{   return false;    }  
   }   
-  public function con_menu(){
-    $result=$this->db->query("SELECT * FROM cfg_menu UNION ALL SELECT * FROM cfg_menuad");
-    if(!$result) {return false;}
-    else {return $result->result();}      
-  }  
-  public function con_menupri_fil($areas){
-    $result=$this->db->query("select * from cfg_menu where areas like '%$areas%' union all select * from cfg_menuad where areas like '%$areas%'");
-    if(!$result) {return false;}
-    else {return $result->result();}      
-  }    
+
+ 	public function con_menu($logged = false){
+		$where_query = ($logged) ? "" : "WHERE cm.id != 1";
+    	$result = $this->db->query("SELECT * FROM cfg_menu cm ".$where_query);
+    	return (!$result) ? false :  $result->result();  
+  	}  
+	public function con_menupri_fil($areas){
+    	$result=$this->db->query("select * from cfg_menu where areas like '%$areas%' union all select * from cfg_menuad where areas like '%$areas%'");
+    	if(!$result) {return false;}
+    	else {return $result->result();}      
+  	}    
 }

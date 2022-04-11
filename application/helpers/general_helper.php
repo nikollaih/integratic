@@ -64,6 +64,17 @@
     
     }
 
+    if(!function_exists('configuracion'))
+    {
+        function configuracion(){
+            $CI = &get_instance();
+            $CI->load->model("Configuracion_Model");
+            
+            return $CI->Configuracion_Model->getConfiguracion();
+        }
+    
+    }
+
     if(!function_exists('decrypt_string'))
     {
         function decrypt_string($string, $url_format = false){

@@ -14,6 +14,13 @@ class Estudiante_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+	function getStudentsByDocuments($documentos){
+		$this->db->from("estudiante");
+		$this->db->where_in("documento", $documentos);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
 	function getStudentGrade($student_id){
 		$student_grade = $this->db->query("select grado from estudiante where documento = $student_id");
 		$student_grade = $student_grade->result()[0]->grado;
@@ -90,6 +97,7 @@ class Estudiante_Model extends CI_Model {
 		$this->db->where("grado", $grado);
 		$this->db->or_where("grado", strtolower($grado));
 		$this->db->or_where("grado",  strtoupper($grado));
+		$this->db->order_by("nombre", "asc");
 		$result = $this->db->get();
 
 		return ($result->num_rows() > 0) ? $result->result_array() : false;

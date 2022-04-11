@@ -5,7 +5,7 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model(["Respuestas_Realizar_Prueba_Model", "Realizar_Prueba_Model", "Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model"]);
+       $this->load->model(["Estudiante_Model", "Respuestas_Realizar_Prueba_Model", "Realizar_Prueba_Model", "Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model"]);
     }
     
     public function index(){
@@ -175,8 +175,8 @@
         if(is_logged()){
             $ids_materias = [];
             if($this->input->post()){
-                if(isset($this->input->post()["grado"])){
-                    $estudiantes = get_students_by_grado($this->input->post()["grado"]);
+                if(isset($this->input->post()["estudiantes"])){
+                    $estudiantes = $this->Estudiante_Model->getStudentsByDocuments($this->input->post()["estudiantes"]);
                     $participantes = mover_estudiantes_participantes_prueba($estudiantes);
                     $params["message"] = $this->asignarParticipantes($participantes, $id_prueba);
                 }
