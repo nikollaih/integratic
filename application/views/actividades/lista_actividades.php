@@ -38,10 +38,16 @@
 
                             if(strtolower(logged_user()["rol"]) == "docente"){
                                 ?>
-                                    <a href="javascript:subir();" class="crear-respuesta-boton d-flex align-items-center cargar-respuestas-boton" data-actividad="<?= $a["id_actividad"] ?>" data-toggle="modal" data-target="#lista-respuesta-actividad"> 
-                                        <i class="fa fa-eye"></i>
-                                        <p style="margin:0px 0PX 0PX 10PX;">Ver respuestas</p>
-                                    </a>
+                                    <div class="d-flex">
+                                        <a style="margin-right: 10px;background: #2e9177;" href="<?= base_url() ?>Exports/exportarActividadNotas/<?= $a["id_actividad"] ?>" target="_blank" class="small-btn crear-respuesta-boton d-flex align-items-center cargar-respuestas-boton"> 
+                                            <i class="fa fa-file"></i>
+                                            <p style="margin:0px 0PX 0PX 7PX;">Exportar calificaciones</p>
+                                        </a>
+                                        <a style="background: #33aaff;" href="" class="small-btn crear-respuesta-boton d-flex align-items-center cargar-respuestas-boton" data-actividad="<?= $a["id_actividad"] ?>" data-toggle="modal" data-target="#lista-respuesta-actividad"> 
+                                            <i class="fa fa-eye"></i>
+                                            <p style="margin:0px 0PX 0PX 7PX;">Calificar</p>
+                                        </a>
+                                    </div>
                                 <?php
 
                             }

@@ -1,4 +1,5 @@
 <?php
+ob_start();
 date_default_timezone_set ('America/Bogota');
 setlocale(LC_ALL,"es_ES");
 /**

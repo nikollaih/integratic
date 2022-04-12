@@ -6,7 +6,7 @@ class Actividades_Model extends CI_Model {
     	$this->load->database();
  	}
 
-	 // Get the activity for a particular group
+	// Get the activity for a particular group
 	function get_all($materia, $grupo){
 		$this->db->from("actividades a");
 		$this->db->join("usuarios u", "a.created_by = u.id");
@@ -16,6 +16,14 @@ class Actividades_Model extends CI_Model {
 		$this->db->order_by("a.created_at", "desc");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
+	// Get the activity for a particular group
+	function get_actividad($id_actividad){
+		$this->db->from("actividades");
+        $this->db->where("id_actividad", $id_actividad);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
 	function get_activity_response($id_actividad, $estudiante){
