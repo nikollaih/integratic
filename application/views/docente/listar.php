@@ -48,11 +48,12 @@
                         if(logged_user()["rol"] == "Docente"){
                     ?>
                         <div class="col-md-12">
-                            <div class='add-announcement-container'>    
-                                <a href='javascript:crear();'>
+                            <div class='add-announcement-container'>  
+                                  
+                                <a href='javascript:crear("<?= $menu_materia ?>");'>
                                     <img src='./img/iconos/nueva_carpeta.png' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'>
                                 </a>&nbsp;
-                                <a href='javascript:subir();'> 
+                                <a href='javascript:subir("<?= $menu_materia ?>");'> 
                                     <img src='./img/iconos/subir_archivo.png' height='32' alt='Subir Archivo' title='Subir Archivo'>
                                 </a>&nbsp;
                                 <?php
@@ -91,7 +92,7 @@
                                                 </td>
                                                 <td><?= date("d/m/Y h:i a",filectime(utf8_decode($ruta))) ?></td>
                                                 <td style="width:5%;">
-                                                    <a href="javascript:elicar(\'<?= $ruta ?>\')" style="width:10%">
+                                                    <a href="javascript:elicar('<?= $ruta ?>', '<?= $menu_materia ?>')" style="width:10%">
                                                         <img src='./img/iconos/borrar.png' width='25' height='28' alt='Eliminar Archivo' title='Eliminar Carpeta'>
                                                     </a>
                                                 </td>

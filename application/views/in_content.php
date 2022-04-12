@@ -82,7 +82,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onclick="creadir();">Crear</button>
+        <button id="btn-creardir" type="button" class="btn btn-primary" onclick="creadir();">Crear</button>
       </div>
     </div> 
   </div>
@@ -1389,7 +1389,13 @@ function enlace_materia(doc,cod){
        });    
 }
 
-function listardoc(tipo,carpeta,materia,grupo,idmateria=null,idgrupo=null){
+let info_current_materia = {};
+function listardoc(tipo, carpeta, materia, grupo, idmateria=null, idgrupo=null){
+    info_current_materia["materia"] = materia;
+    info_current_materia["grupo"] = grupo;
+    info_current_materia["idmateria"] = idmateria;
+    info_current_materia["idgrupo"] = idgrupo;
+
     $("#nuevo-foro-materia").val(idmateria);
     $("#nuevo-foro-grupo").val(idgrupo);
 
@@ -1510,28 +1516,38 @@ function listarproc(proc,tit){
                error:function(){alert("Ocurrió un Error!");}        
        });        
 }
-function listar_arc(){
+function listar_arc(menu_materia = "false"){
+    console.log(info_current_materia);
     var ruta=document.getElementById("dir").value;
     var titulo=document.getElementById("ubica").value;
     var modulo=document.getElementById("modulo").value;
+
     //alert(modulo);
     switch(modulo){      
-      case 'DO': url='./index.php/docente/listar'; break;
-      case 'AC': url='./index.php/actividades/listar_act_doc'; break;
-      default :  url='./index.php/principal/listar'; break;
+      case 'DO': url = base_url + 'docente/listar/' + menu_materia; break;
+      case 'AC': url = base_url + 'actividades/listar_act_doc'; break;
+      default :  url = base_url + 'principal/listar'; break;
     }
-    //alert(url);
-            $.ajax({
-               url:url,
-               type:'POST',
-               data:{ruta:ruta,titulo:titulo},
-               success:function(respuesta){//alert(respuesta);
-                        $("#listacon").html(respuesta);   
-                        $("#rutas").html(titulo);                        
-               },
-               error:function(){alert("Ocurrió un Error!");}        
-       });    
-    }
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data:{
+            ruta:ruta,
+            titulo:titulo,
+            materia: info_current_materia.idmateria,
+            grupo:info_current_materia.idgrupo
+        },
+        success:function(respuesta){
+            console.log(respuesta);
+            $("#listacon").html(respuesta);
+            $("#rutas").html(titulo);                 
+        },
+        error:function(){
+            alert("Ocurrió un Error!");
+        }        
+    });    
+}
     
 function eliminar(nomarc){
     if(confirm("¿Desea Eliminar este Archivo?")){ 
@@ -1562,38 +1578,41 @@ function eliminar_acti(nomarc){
        }); 
     }
   }
-function elicar(nomarc){ 
+function elicar(nomarc, menu_materia = "false"){ 
     if(confirm("¿Desea Eliminar esta carpeta y todos los archivos internos?")){ 
-    url='./index.php/docente/eliminacar';
+    url= base_url + 'docente/eliminacar';
             $.ajax({
                url:url,
                type:'POST',
                data:{arc:nomarc},
                success:function(){ 
-                   listar_arc();                   
+                   listar_arc(menu_materia);                   
                },
                error:function(){alert("Ocurrió un Error!");}        
        }); 
     }
   }  
     
-function creadir(){
-    var ruta=document.getElementById("dir").value;
-    var nomdir=document.getElementById("nomdir").value;
-    console.log(ruta);
-    if(confirm("¿Desea crear este directorio?")){ 
-        console.log(ruta);
-    url=base_url + 'docente/crear';
-            $.ajax({
-               url:url,
-               type:'POST',
-               data:{ruta:ruta,nomdir:nomdir},
-               success:function(data){
-                   console.log(data);
-                   $("#creardir").modal("hide");
-                   listar_arc();   
-               },
-               error:function(){alert("Ocurrió un Error!");}        
+function creadir(menu_materia = "false"){
+    var ruta = document.getElementById("dir").value;
+    var nomdir = document.getElementById("nomdir").value;
+
+    if(confirm("¿Desea crear este directorio?")){
+        url  =base_url + 'docente/crear';
+        $.ajax({
+            url:url,
+            type:'POST',
+            data:{
+                ruta: ruta,
+                nomdir: nomdir
+            },
+            success:function(data){
+                $("#creardir").modal("hide");
+                listar_arc(menu_materia);   
+            },
+            error:function(){
+                alert("Ocurrió un Error!");
+            }        
        }); 
     }
   }  
@@ -1614,10 +1633,10 @@ function fsubiract(){
     $("#pie_carga_acti").html('<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" onclick="subir_actividad()">Subir Archivo</button>');       
     $("#modsubiract").modal("show");
     }
-function crear(){
-    //document.getElementById("nomdir").value='';
+function crear(menu_materia = "false"){
+    $("#btn-creardir").attr("onClick", "creadir('"+menu_materia+"')");
     $("#creardir").modal("show");
-    }
+}
 function renombrar(ruta,archivo){
     document.getElementById("nombre").value=archivo;
     document.getElementById("ruta").value=ruta;
