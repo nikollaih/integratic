@@ -24,6 +24,18 @@
                                         <input required type="text" name="data[nombre_institucion]" class="form-control" value="<?= (is_array($data)) ? $data["nombre_institucion"] : "" ?>">
                                     </div>
                                 </div>
+                                <div class="col-md-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="">Color principal *</label>
+                                        <input required type="color" name="data[color_principal]" class="form-control" value="<?= (is_array($data)) ? $data["color_principal"] : "" ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="">Color secundario *</label>
+                                        <input required type="color" name="data[color_secundario]" class="form-control" value="<?= (is_array($data)) ? $data["color_secundario"] : "" ?>">
+                                    </div>
+                                </div>
                             </div>  
                         </div>
                     </div>

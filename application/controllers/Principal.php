@@ -244,7 +244,7 @@ function cambio_clave(){
             $user = $this->Consultas_Model->login($data["usr"], $data["pass"]);
 
             if($user){
-                $new_data["id"] = $data["usr"];
+                $new_data["id"] = $user["id"];
                 $new_data["clave"] = $data["nueva"];
 
                 if($this->Usuarios_Model->update_user($new_data)){

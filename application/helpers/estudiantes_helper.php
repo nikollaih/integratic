@@ -77,7 +77,7 @@
                         $data["apellidos"] = $split_name[0] . " " . $split_name[1];
                         $data["telefono"] = "";
                         $data["email"] = "";
-                        $data["institucion"] = "";
+                        $data["institucion"] = configuracion()["nombre_institucion"];
                         $data["grado"] =  $e["grado"];
 
                         $user = $CI->Participantes_Prueba_Model->get_participante_by_identificacion($e["documento"]);

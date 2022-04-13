@@ -7,12 +7,22 @@ class Configuracion extends CI_Controller {
     }
 
     public function index(){
-        $params["data"] = $this->Configuracion_Model->getConfiguracion();
-        if($this->input->post()){
-            $params["message"] = $this->modificarConfiguracion($this->input->post()["data"], $_FILES);
-            $params["data"] = $this->Configuracion_Model->getConfiguracion();
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "super"){
+                $params["data"] = $this->Configuracion_Model->getConfiguracion();
+                if($this->input->post()){
+                    $params["message"] = $this->modificarConfiguracion($this->input->post()["data"], $_FILES);
+                    $params["data"] = $this->Configuracion_Model->getConfiguracion();
+                }
+                $this->load->view("configuracion/index", $params);
+            }
+            else{
+                header("Location: ".base_url());
+            }
         }
-        $this->load->view("configuracion/index", $params);
+        else{
+            header("Location: ".base_url());
+        }
     }
 
     function modificarConfiguracion($data, $FILES){
