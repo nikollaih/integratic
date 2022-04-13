@@ -1724,36 +1724,47 @@ function subir_actividad(){
        });     
     } 
     
-function submenu(ruta,sub){
+function submenu(ruta,sub, menu_materia = "false"){
     document.getElementById("dir").value=ruta;
     url='./index.php/principal/listar';
             $.ajax({
-               url:url,
-               type:'POST',
-               data:{ruta:ruta,titulo:sub},
-               async:false,
-               success:function(respuesta){                      
+                url:url,
+                type:'POST',
+                data:{
+                    ruta:ruta,
+                    titulo:sub,
+                    materia: info_current_materia.idmateria,
+                    grupo:info_current_materia.idgrupo
+                },
+                async:false,
+                success:function(respuesta){                      
                         $("#listacon").html(respuesta);              
-               },
+                },
                error:function(){alert("Ocurrió un Error!");}        
        });
        $("#rutas").html(sub);
 }
 
-function submenu_doc(ruta,sub){
+function submenu_doc(ruta,sub, menu_materia = "false"){
     document.getElementById("ubica").value=sub;
     document.getElementById("dir").value=ruta;
-    url='./index.php/docente/listar';
-            $.ajax({
-               url:url,
-               type:'POST',
-               data:{ruta:ruta,titulo:sub},
-               async:false,
-               success:function(respuesta){                    
-                        $("#listacon").html(respuesta); 
-               },
-               error:function(){alert("Ocurrió un Error!");}        
-       });
+
+    url= base_url + 'docente/listar/' + menu_materia;
+    $.ajax({
+        url:url,
+        type:'POST',
+        data:{
+            ruta:ruta,
+            titulo:sub,
+            materia: info_current_materia.idmateria,
+            grupo:info_current_materia.idgrupo
+        },
+        async:false,
+        success:function(respuesta){                    
+                $("#listacon").html(respuesta); 
+        },
+        error:function(){alert("Ocurrió un Error!");}        
+    });
        
        $("#rutas").html(sub);
 }
@@ -2130,13 +2141,12 @@ function cambiar_clave(){
         type:'POST',
         data:$("#frmcambio").serialize(),
         success:function(respuesta){
-            alert("aqui")
             data = JSON.parse(respuesta);
-            console.log(data);
-            alert("Clave Modificada!"); 
             $("#contenedor").html('');  
         },
-        error:function(){ alert("Error!");}                                   
+        error:function(){ 
+            alert("Error!");
+        }                                   
     });
 }
 function listar_materias(id){ 

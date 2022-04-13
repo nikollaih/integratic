@@ -86,7 +86,7 @@
                                             $ruta=$carpeta."/".$archivo; ?>
                                             <tr>
                                                 <td  style="width:50%; height:42px">
-                                                    <a href="javascript:submenu_doc('<?= $ruta ?>', '<?= $archivo ?>')">
+                                                    <a href="javascript:submenu_doc('<?= $ruta ?>', '<?= $archivo ?>', '<?= $menu_materia ?>')">
                                                         <img src='./img/iconos/carpeta.png' width='35' height='30'>&nbsp;&nbsp;<?= $archivo ?>                                                      
                                                     </a>
                                                 </td>
