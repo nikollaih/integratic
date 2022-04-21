@@ -47,15 +47,15 @@ $(document).on("click", ".agregar-respuesta-foro", function() {
 });
 
 setTimeout(() => {
-    document.getElementById('image_wrapper');
-    const imageSize = document.getElementById('image_size');
+    document.getElementById('image_wrapper_respuesta');
+    const imageSize = document.getElementById('image_size_respuesta');
     const imageRemove = document.getElementById('image_remove');
-    const imageTable = document.getElementById('image_list');
+    const imageTable = document.getElementById('image_list_respuesta');
 
     let imageList = [];
     let selectedImages = [];
 
-    editorImageRespuesta = KothingEditor.create('imageManagement', kothingParams);
+    editorImageRespuesta = KothingEditor.create('imageManagementrespuesta', kothingParams);
 
     editorImageRespuesta.onImageUpload = function(targetImgElement, index, state, imageInfo, remainingFilesCount) {
         if (state === 'delete') {
@@ -156,5 +156,33 @@ setTimeout(() => {
         })
 
         return idx;
+    }
+
+    function guardar_respuesta(foro) {
+        var url = base_url + "Foros/agregar_respuesta";
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                mensaje: editorImageRespuesta.getContents(),
+                id_foro: idForo,
+                id_respuesta: idRespuestaForo,
+                tipo: tipoRespuestaForo
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+
+                if (data.status) {
+                    $('#agregar-respuesta-foro').modal('hide');
+
+                    setTimeout(() => {
+                        ver_foro(foro);
+                    }, 1000)
+
+                }
+                alert(data.message);
+            },
+            error: function() { alert("Error!"); }
+        });
     }
 }, 1000);

@@ -27,5 +27,28 @@
             json_response(null, false, "Usuario no válido.");
         }
     }
+
+    // Eliminar anuncio
+    function delete($id_anuncio){
+        if(is_logged()){
+            $anuncio = $this->Anuncio_Model->get($id_anuncio);
+            if($anuncio){
+                if($anuncio["created_by"] == logged_user()["id"]){
+                    if($this->Anuncio_Model->delete($id_anuncio)){
+                        json_response(null, true, "Anuncio eliminado exitosamente.");
+                    }
+                }
+                else{
+                    json_response(null, false, "No tiene permisos para eliminar el anuncio.");
+                }
+            }
+            else{
+                json_response(null, false, "El anuncio no existe.");
+            }
+        }
+        else{
+            json_response(null, false, "Usuario no válido.");
+        }
+    }
      
 } 
