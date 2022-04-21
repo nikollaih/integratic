@@ -1,3 +1,4 @@
+<script>  let editorImageRespuesta;</script>
 <div class="row">
     <?php
         if($menu_materia == "true"){
@@ -82,6 +83,7 @@
                             if($dir = opendir($carpeta)){
                                 while(($archivo = readdir($dir)) !== false){
                                     if($archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                                        
                                         if (is_dir($carpeta."/".$archivo)){
                                             $ruta=$carpeta."/".$archivo; ?>
                                             <tr>
@@ -90,17 +92,23 @@
                                                         <img src='./img/iconos/carpeta.png' width='35' height='30'>&nbsp;&nbsp;<?= $archivo ?>                                                      
                                                     </a>
                                                 </td>
-                                                <td><?= date("d/m/Y h:i a",filectime(utf8_decode($ruta))) ?></td>
-                                                <td style="width:5%;">
-                                                    <a href="javascript:elicar('<?= $ruta ?>', '<?= $menu_materia ?>')" style="width:10%">
-                                                        <img src='./img/iconos/borrar.png' width='25' height='28' alt='Eliminar Archivo' title='Eliminar Carpeta'>
-                                                    </a>
-                                                </td>
-                                                <td style="width:5%;">
-                                                    <a href="javascript:renombrar('<?= $carpeta ?>','<?= $archivo ?>')" style="width:10%">
-                                                        <img src='./img/iconos/ren.png' width='25' height='28' alt='Renombrar Archivo' title='Renombrar Carpeta'>
-                                                    </a>
-                                                </td>
+                                                <td style="text-align: right;"><?= date("d/m/Y h:i a",filectime(($ruta))) ?></td>
+                                                <?php 
+                                                   if (logged_user()["rol"] == "Docente"){
+                                                ?>
+                                                    <td style="width:5%; text-align: right;">
+                                                        <a href="javascript:elicar('<?= $ruta ?>', '<?= $menu_materia ?>')" style="width:10%">
+                                                            <img src='./img/iconos/borrar.png' width='25' height='28' alt='Eliminar Archivo' title='Eliminar Carpeta'>
+                                                        </a>
+                                                    </td>
+                                                    <td style="width:5%;text-align: right;">
+                                                        <a href="javascript:renombrar('<?= $carpeta ?>','<?= $archivo ?>')" style="width:10%">
+                                                            <img src='./img/iconos/ren.png' width='25' height='28' alt='Renombrar Archivo' title='Renombrar Carpeta'>
+                                                        </a>
+                                                    </td>
+                                                <?php
+                                                    }
+                                                ?>
                                             </tr>
                                         <?php
                                         } 

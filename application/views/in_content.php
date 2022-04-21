@@ -1517,7 +1517,6 @@ function listarproc(proc,tit){
        });        
 }
 function listar_arc(menu_materia = "false"){
-    console.log(info_current_materia);
     var ruta=document.getElementById("dir").value;
     var titulo=document.getElementById("ubica").value;
     var modulo=document.getElementById("modulo").value;
@@ -1790,6 +1789,10 @@ function submenu_acti(ruta,sub){
 
 function listado(tipo, carpeta, materia, grupo, descripcion, idmateria = null, idgrupo = null){
     let menu_materia = false;
+    info_current_materia["materia"] = materia;
+    info_current_materia["grupo"] = grupo;
+    info_current_materia["idmateria"] = idmateria;
+    info_current_materia["idgrupo"] = idgrupo;
     switch(tipo){
         case 'labs':
             titulo = "Laboratorio Virtual " + materia;
@@ -1805,25 +1808,25 @@ function listado(tipo, carpeta, materia, grupo, descripcion, idmateria = null, i
             titulo = mat + " grado " + grupo;  
             menu_materia = true;
             if(grupo==='N'){
-                ruta = base_url + "principal/areas/" + carpeta + "/" + materia;
+                ruta = "principal/areas/" + carpeta + "/" + materia;
             }
             else{
-                ruta = base_url + "principal/areas/" + carpeta + "/" + materia + "/" + grupo;
+                ruta = "principal/areas/" + carpeta + "/" + materia + "/" + grupo;
             }
         break;   
         case 'areabase':
             titulo = descripcion;                                       
             if(grupo==='N'){
-                ruta = base_url + "principal/areas/" + carpeta+"/" + materia;
+                ruta = "principal/areas/" + carpeta+"/" + materia;
             }
             else{
-                ruta=base_url + "principal/areas/" + carpeta + "/" + materia + "/" + grupo;
+                ruta="principal/areas/" + carpeta + "/" + materia + "/" + grupo;
             }
             break;             
         case 'raiz':
             titulo = descripcion; 
             $("#contenedor").html('<div id="contenido" class="ir-arriba"></div><div id="listacon"></div>');
-            ruta = base_url + "principal/" + carpeta;
+            ruta = "principal/" + carpeta;
             break;            
     }  
 
