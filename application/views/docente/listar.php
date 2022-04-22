@@ -128,13 +128,13 @@
                                                     <?= document_icon($ext[1], $ext[0]) ?>         
                                                 </a>
                                             </td>
-                                            <td><?= date("d/m/Y h:i a",filectime(utf8_decode($ruta))) ?></td>     
-                                            <td style="width:5%;">
+                                            <td style="text-align: right;"><?= date("d/m/Y h:i a",filectime(utf8_decode($ruta))) ?></td>     
+                                            <td style="width:5%;text-align: right;">
                                                 <a href="javascript:eliminar('<?= $ruta ?>')" style="width:10%">
                                                     <img src='./img/iconos/borrar.png' width='25' height='28' alt='Subir Archivo' title='Eliminar Archivo'>
                                                 </a>
                                             </td>   
-                                            <td style="width:5%;">
+                                            <td style="width:5%;text-align: right;">
                                                 <a href="javascript:renombrar('<?= $carpeta ?>', '<?= $archivo ?>')" style="width:10%">
                                                     <img src='./img/iconos/ren.png' width='25' height='28' alt='Subir Archivo' title='Renombrar Archivo'>
                                                 </a>
