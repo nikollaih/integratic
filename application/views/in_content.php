@@ -2449,41 +2449,37 @@ function administrar(){
         html=html+"<a href='javascript:cfg_procesos();'>";
         html=html+"<img src='./img/botones/menu/crear_procesos.png' width='100%' height='100%'></a></div></div>";         
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
+
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='javascript:asg_procesos();'>";
         html=html+"<img src='./img/botones/menu/asg_procesos.png' width='100%' height='100%'></a></div></div>"; 
+
 
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='javascript:modasigna();'>";
         html=html+"<img src='./img/botones/menu/asg_academica.png' width='100%' height='100%'></a></div></div>";   
+
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='javascript:proasigna();'>";
         html=html+"<img src='./img/botones/menu/asg_proyectos.png' width='100%' height='100%'></a></div></div>";  
-        html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
-        html=html+"<div class='mini-stat clearfix bx-shadow'>";
-        html=html+"<a href='javascript:cfg_menupri();'>";
-        html=html+"<img src='./img/botones/menu/agregar.png' width='100%' height='100%'></a></div></div>";
-
-        html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
-        html=html+"<div class='mini-stat clearfix bx-shadow'>";
-        //html=html+"<a href='./index.php/upload/bajar_carpeta/.-principal-areas-/backup'>";
-        html=html+"<a href='javascript:bk_dir();'>";
-        html=html+"<img src='./img/botones/menu/descargar_archivos.png' width='100%' height='100%'></a></div></div>";
 
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='javascript:export_DB();'>";
-        html=html+"<img src='./img/botones/menu/descargar_bd.png' width='100%' height='100%'></a></div></div>";        
+        html=html+"<img src='./img/botones/menu/descargar_bd.png' width='100%' height='100%'></a></div></div>"; 
+
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='javascript:reportes();'>";
         html=html+"<img src='./img/botones/menu/reporte.png' width='100%' height='100%'></a></div></div>";
+
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='"+base_url+"Configuracion'>";
-        html=html+"<img src='./img/botones/menu/descargar_bd.png' width='100%' height='100%'></a></div></div>"; 
+        html=html+"<img src='./img/botones/menu/config_menu.png' width='100%' height='100%'></a></div></div>"; 
+
         html+="</div></div>";   
         html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
         $("#contenedor").html(html);   
@@ -2493,7 +2489,7 @@ function administrar(){
         html+="<i><img src='./img/iconos/menu.png' width='50' height='50'></i><span>Menú<br>Principal</span></a></li>";                       
         html+="<li><a href='./principal/manuales/manual_integra.pdf' target='_blank'>";
         html+="<i><img src='./img/iconos/manual.png' width='50' height='50'></i><span>Manual<br> Usuario</span></a></li>";          
-        html+="<li><a href='index.php'>";
+        html+="<li><a href='javascript:logout()' onclick='javascript:logout()'>";
         html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar<br> Sesión</span></a></li>";         
         html+="</ul>";
         $("#sidebar-menu").html(html); 
