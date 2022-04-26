@@ -15,6 +15,14 @@
                 <label for="">Titulo *</label>
                 <input class="form-control input-lg" type="text" name="" id="nuevo-foro-titulo">
             </div>
+			<div class="form-group">
+                <label for="">Disponible desde *</label>
+                <input class="form-control input-lg" type="datetime-local" name="" id="nuevo-foro-disponible-desde">
+            </div>
+			<div class="form-group">
+                <label for="">Disponible hasta *</label>
+                <input class="form-control input-lg" type="datetime-local" name="" id="nuevo-foro-disponible-hasta">
+            </div>
             <div class="form-group">
                 <label for="">Descripción *</label>
                 <textarea id="foroDescripcion"></textarea>

@@ -100,8 +100,19 @@ function obtener_lista_notificaciones() {
 
 function guardar_foro() {
     let titulo = $("#nuevo-foro-titulo").val();
+    let disponible_desde = $("#nuevo-foro-disponible-desde").val();
+    let disponible_hasta = $("#nuevo-foro-disponible-hasta").val();
     let materia = $("#nuevo-foro-materia").val();
     let grupo = $("#nuevo-foro-grupo").val();
+
+    console.log({
+        descripcion: editorImageForo.getContents(),
+        titulo: titulo,
+        materia: materia,
+        grupo: grupo,
+        disponible_desde: disponible_desde,
+        disponible_hasta: disponible_hasta
+    })
 
     if (titulo.trim() != "" && materia && grupo) {
         var url = "./index.php/Foros/agregar_foro";
@@ -112,7 +123,9 @@ function guardar_foro() {
                 descripcion: editorImageForo.getContents(),
                 titulo: titulo,
                 materia: materia,
-                grupo: grupo
+                grupo: grupo,
+                disponible_desde: disponible_desde,
+                disponible_hasta: disponible_hasta
             },
             success: function(data) {
                 var data = JSON.parse(data);

@@ -107,7 +107,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onclick="ren_archivo();">Renombrar</button>
+        <button id="button-modal-renombrar" type="button" class="btn btn-primary" onclick="ren_archivo();">Renombrar</button>
       </div>
     </div>
   </div>
@@ -1005,9 +1005,9 @@ function StudentAreas(){
 					}
 							html+="<img src='./img/botones/areas/" + registros[i]["icoarea"]+"' width='100%' height='100%'></a></div></div>";                             
 						}
-							html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
+							/* html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
 							html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:subir_acti()'>";
-							html+="<img src='./img/botones/actividades/actividades.png' width='100%' height='100%'></a></div></div>";                           
+							html+="<img src='./img/botones/actividades/actividades.png' width='100%' height='100%'></a></div></div>"; */                          
 					}
 					html+="</div>";    
 			var migas="<div class='col-sm-12'>";
@@ -1039,9 +1039,9 @@ function areas(){
                         }
                             html+="<img src='./img/botones/areas/" + registros[i]["icoarea"]+"' width='100%' height='100%'></a></div></div>";                             
                           }
-                            html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
+                            /* html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
                             html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:subir_acti()'>";
-                            html+="<img src='./img/botones/actividades/actividades.png' width='100%' height='100%'></a></div></div>";                           
+                            html+="<img src='./img/botones/actividades/actividades.png' width='100%' height='100%'></a></div></div>";  */                         
                         }
                         html+="</div>";    
                     var migas="<div class='col-sm-12'>";
@@ -1548,7 +1548,7 @@ function listar_arc(menu_materia = "false"){
     });    
 }
     
-function eliminar(nomarc){
+function eliminar(nomarc, menu_materia){
     if(confirm("¿Desea Eliminar este Archivo?")){ 
     url='./index.php/docente/eliminar';
             $.ajax({
@@ -1556,7 +1556,7 @@ function eliminar(nomarc){
                type:'POST',
                data:{arc:nomarc},
                success:function(){ 
-                   listar_arc();                   
+                   listar_arc(menu_materia);                   
                },
                error:function(){alert("Ocurrió un Error!");}        
        }); 
@@ -1616,10 +1616,10 @@ function creadir(menu_materia = "false"){
     }
   }  
 
-function subir(){
+function subir(menu_materia="false"){
     var ruta=document.getElementById("dir").value; 
     $("#carga").html(''); 
-    $("#pie_carga").html('<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" onclick="subir_archivo()">Subir Archivo</button>');     
+    $("#pie_carga").html('<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button><button type="button" class="btn btn-primary" onclick="subir_archivo('+menu_materia+')">Subir Archivo</button>');     
     $("#subir_archivo").modal("show");
     }
 function down(){
@@ -1636,12 +1636,13 @@ function crear(menu_materia = "false"){
     $("#btn-creardir").attr("onClick", "creadir('"+menu_materia+"')");
     $("#creardir").modal("show");
 }
-function renombrar(ruta,archivo){
+function renombrar(ruta,archivo, menu_materia){
     document.getElementById("nombre").value=archivo;
     document.getElementById("ruta").value=ruta;
+    $("#button-modal-renombrar").attr("onClick", "ren_archivo("+menu_materia+")");
     $("#renombrar").modal("show");
     }       
-function ren_archivo(){
+function ren_archivo(menu_materia="false"){
     var ruta=document.getElementById("ruta").value;
     var nuevo=ruta+'/'+document.getElementById("nuevo").value;
     var nombre=ruta+'/'+document.getElementById("nombre").value;
@@ -1653,13 +1654,13 @@ function ren_archivo(){
                data:{nombre:nombre,nuevo:nuevo},
                success:function(){                  
                   $("#renombrar").modal("hide"); 
-                   listar_arc();
+                   listar_arc(menu_materia);
                },
                error:function(){alert("Ocurrió un Error!");}        
        });    
 }
     
-function subir_archivo(){
+function subir_archivo(menu_materia="false"){
     var ruta=document.getElementById("archivo").value; 
     var formData = new FormData($("#frmsubir")[0]);
     var url = './index.php/upload/do_upload';
@@ -1675,7 +1676,7 @@ function subir_archivo(){
                     $("#pie_carga").html(""); 
                   },                                 
                 success:function(){ 
-                    listar_arc(); 
+                    listar_arc(menu_materia); 
                     $("#subir_archivo").modal("hide");
                 },
                 error:function(){alert("Ocurrió un Error!");}        
@@ -2175,10 +2176,10 @@ var rol = document.getElementById("rol").value;
                             html=html+"<img src='./img/botones/materias/" + icono+"' width='100%' height='100%'></a></div></div>"; 
                           } 
                     if(rol!=='admin' && rol!=='apoyo'){
-                         html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
+                        /* html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                          html=html+"<div class='mini-stat clearfix bx-shadow'>";
                          html=html+"<a href='javascript:docente_acti(" + id+")'>";
-                         html=html+"<img src='./img/botones/actividades/actividades.png' width='100%' height='100%'></a></div></div>"; 
+                         html=html+"<img src='./img/botones/actividades/actividades.png' width='100%' height='100%'></a></div></div>"; */
                      }     
                    }
                      html=html+"</div></div>";
