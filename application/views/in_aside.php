@@ -24,7 +24,7 @@
                         </a>
                     </li>       
                     <li>
-                        <a href='index.php'>
+                        <a href='javascript:logout()' onclick='javascript:logout()'>
                             <i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar<br> Sesión</span>
                         </a>
                     </li>   
@@ -44,7 +44,7 @@
                         <!-- <li>
                             <a href="javascript:areas();" class="waves-effect">
                                 <i><img src='./img/iconos/areas.png' width="50" height="50"></i><span>Areas</span></a>
-                        </li> -->
+                        </li>
                         <li>
                             <a href="javascript:subir_acti();" class="waves-effect">
                                 <i><img src='./img/iconos/cargar.png' width="50" height="50"></i><span>Subir<br>Actividades</span></a>
@@ -53,7 +53,7 @@
                             <a href="../moodle" class="waves-effect" target='_blank'>
                                 <i><img src='./img/iconos/moodle.png' width="50" height="50"></i><span> Moodle </span></a>
                         </li>
-                        <!--<li>
+                        <li>
                             <a href="./principal/project" class="waves-effect" target='_blank'>
                                 <i><img src='./img/iconos/claseweb.ico' width="50" height="50"></i><span>ClaseWeb</span></a>
                         </li>-->  

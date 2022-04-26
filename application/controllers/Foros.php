@@ -84,6 +84,8 @@
             $data["materia"] = $this->input->post("materia");
             $data["grupo"] = $this->input->post("grupo");
             $data["descripcion"] = $this->input->post("descripcion");
+            $data["disponible_desde"] = $this->input->post("disponible_desde");
+            $data["disponible_hasta"] = $this->input->post("disponible_hasta");
             $data["titulo"] = $this->input->post("titulo");
             $data["created_by"] = logged_user()["id"];
             $data["created_at"] = date("Y-m-d H:i:s");

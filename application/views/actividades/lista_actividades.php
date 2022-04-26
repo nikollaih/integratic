@@ -47,6 +47,10 @@
                                             <i class="fa fa-eye"></i>
                                             <p style="margin:0px 0PX 0PX 7PX;">Calificar</p>
                                         </a>
+                                        <a style="background: #ff5c5c;" href="" class="small-btn d-flex align-items-center" data-actividad="<?= $a["id_actividad"] ?>" data-toggle="modal" data-target="#lista-respuesta-actividad"> 
+                                            <i class="fa fa-trash"></i>
+                                            <p style="margin:0px 0PX 0PX 7PX;">Eliminar</p>
+                                        </a>
                                     </div>
                                 <?php
 

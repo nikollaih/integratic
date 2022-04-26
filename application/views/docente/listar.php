@@ -102,7 +102,7 @@
                                                         </a>
                                                     </td>
                                                     <td style="width:5%;text-align: right;">
-                                                        <a href="javascript:renombrar('<?= $carpeta ?>','<?= $archivo ?>')" style="width:10%">
+                                                        <a href="javascript:renombrar('<?= $carpeta ?>','<?= $archivo ?>', '<?= $menu_materia ?>')" style="width:10%">
                                                             <img src='./img/iconos/ren.png' width='25' height='28' alt='Renombrar Archivo' title='Renombrar Carpeta'>
                                                         </a>
                                                     </td>
@@ -130,12 +130,12 @@
                                             </td>
                                             <td style="text-align: right;"><?= date("d/m/Y h:i a",filectime(($ruta))) ?></td>     
                                             <td style="width:5%;text-align: right;">
-                                                <a href="javascript:eliminar('<?= $ruta ?>')" style="width:10%">
+                                                <a href="javascript:eliminar('<?= $ruta ?>', '<?= $menu_materia ?>')" style="width:10%">
                                                     <img src='./img/iconos/borrar.png' width='25' height='28' alt='Subir Archivo' title='Eliminar Archivo'>
                                                 </a>
                                             </td>   
                                             <td style="width:5%;text-align: right;">
-                                                <a href="javascript:renombrar('<?= $carpeta ?>', '<?= $archivo ?>')" style="width:10%">
+                                                <a href="javascript:renombrar('<?= $carpeta ?>', '<?= $archivo ?>', '<?= $menu_materia ?>')" style="width:10%">
                                                     <img src='./img/iconos/ren.png' width='25' height='28' alt='Subir Archivo' title='Renombrar Archivo'>
                                                 </a>
                                             </td>
