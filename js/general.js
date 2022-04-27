@@ -2,6 +2,16 @@ $(document).on("click", ".notificaciones-icon", function() {
     actualizar_fecha_notificaciones();
 });
 
+$(document).on("click", ".button-eliminar-foro", function() {
+    let id_foro = $(this).attr("data-foro");
+    eliminar_foro(id_foro);
+});
+
+$(document).on("click", ".button-eliminar-respuesta-foro", function() {
+    let id_foro_repsuesta = $(this).attr("data-respuesta-foro");
+    eliminar_foro_respuesta(id_foro_repsuesta);
+});
+
 $(document).on("click", ".open-section", function() {
     if ($(this).hasClass("fa-chevron-down")) {
         $(this).removeClass("fa-chevron-down");
@@ -145,5 +155,45 @@ function guardar_foro() {
         });
     } else {
         alert("Por favor complete todos los campos requeridos!");
+    }
+}
+
+function eliminar_foro(id_foro) {
+    if (confirm("¿Está seguro que desea eliminar el foro?") == true) {
+        $.ajax({
+            url: base_url + 'Foros/delete/' + id_foro,
+            type: 'GET',
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status) {
+                    $("#foro-" + id_foro).remove();
+                }
+
+                if (data.object.error == "auth") {
+                    prelogin();
+                }
+                alert(data.message);
+            }
+        });
+    }
+}
+
+function eliminar_foro_respuesta(id_respuesta) {
+    if (confirm("¿Está seguro que desea eliminar la respuesta?") == true) {
+        $.ajax({
+            url: base_url + 'Foros/delete_answer/' + id_respuesta,
+            type: 'GET',
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status) {
+                    $("#respuesta-foro-" + id_respuesta).remove();
+                }
+
+                if (data.object.error == "auth") {
+                    prelogin();
+                }
+                alert(data.message);
+            }
+        });
     }
 }

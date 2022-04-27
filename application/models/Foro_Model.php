@@ -51,6 +51,15 @@ class Foro_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
     }
 
+    function get_answer($id_answer){
+        $this->db->from("respuestas_foro f");
+        $this->db->join("usuarios u", "f.created_by = u.id");
+        $this->db->where("f.id_respuesta", $id_answer);
+		$result = $this->db->get();
+
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+    }
+
 
     function get_subanswers($answer){
         $this->db->from("respuestas_foro f");
@@ -61,4 +70,19 @@ class Foro_Model extends CI_Model {
 
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
     }
+
+    function delete($id_foro){
+		$this->db->where("id_foro", $id_foro);
+		return $this->db->delete("foros");
+	}
+
+	function delete_answers($id_foro){
+		$this->db->where("id_foro", $id_foro);
+		return $this->db->delete("respuestas_foro");
+	}
+
+    function delete_answer($id_respuesta){
+		$this->db->where("id_respuesta", $id_respuesta);
+		return $this->db->delete("respuestas_foro");
+	}
 }

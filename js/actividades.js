@@ -3,6 +3,11 @@ $(document).on("click", ".crear-respuesta-boton", function() {
     $("#respuesta-actividad-id").val(actividad);
 });
 
+$(document).on("click", ".button-eliminar-actividad", function() {
+    let actividad = $(this).attr("data-actividad");
+    eliminar_actividad(actividad);
+});
+
 $(document).on("click", ".cargar-respuestas-boton", function() {
     let actividad = $(this).attr("data-actividad");
     $(".items-repsuestas-estudiante").html("<tr><td colspan='7'><div class='loader'></td></div></tr>");
@@ -115,6 +120,27 @@ function calificar_respuesta(respuesta = null, calificacion = null) {
                 }
 
                 alert(response.message);
+            }
+        });
+    }
+}
+
+
+function eliminar_actividad(id_actividad) {
+    if (confirm("¿Está seguro que desea eliminar la actividad?") == true) {
+        $.ajax({
+            url: base_url + 'Actividades/delete/' + id_actividad,
+            type: 'GET',
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status) {
+                    $("#actividad-" + id_actividad).remove();
+                }
+
+                if (data.object.error == "auth") {
+                    prelogin();
+                }
+                alert(data.message);
             }
         });
     }

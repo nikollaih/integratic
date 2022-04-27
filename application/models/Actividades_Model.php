@@ -67,4 +67,14 @@ class Actividades_Model extends CI_Model {
 		$this->db->where("id_respuestas_actividades", $data["id_respuestas_actividades"]);
 		return $this->db->update("respuestas_actividades", $data);
 	}
+
+	function delete($id_actividad){
+		$this->db->where("id_actividad", $id_actividad);
+		return $this->db->delete("actividades");
+	}
+
+	function delete_responses($id_actividad){
+		$this->db->where("id_actividad", $id_actividad);
+		return $this->db->delete("respuestas_actividades");
+	}
 }

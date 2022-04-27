@@ -108,4 +108,45 @@
         }
     }
 
+
+    function delete($id_foro = null){
+        if(is_logged()){
+            if(logged_user()["rol"] == "Docente"){
+                $foro = $this->Foro_Model->get($id_foro);
+                if($foro){
+                    if($foro["created_by"] == logged_user()["id"]){
+                        if($this->Foro_Model->delete_answers($id_foro)){
+                            if($this->Foro_Model->delete($id_foro)){
+                                json_response(array("error" => false), true, "Foro eliminado correctamente");
+                            }
+                            else json_response(array("error" => "error"), false, "Ha ocurrido un error, por favor intente de nuevo más tarde");
+                        }
+                        else json_response(array("error" => "error"), false, "Ha ocurrido un error, por favor intente de nuevo más tarde");
+                    }
+                    else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+                }
+                else  json_response(array("error" => "not_found"), false, "No se ha encontrado el foro seleccionado");
+            }
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
+    }
+
+    
+    function delete_answer($id_respuesta = null){
+        if(is_logged()){
+            $answer = $this->Foro_Model->get_answer($id_respuesta);
+            if($answer){
+                if($answer["created_by"] == logged_user()["id"]){
+                    if($this->Foro_Model->delete_answer($id_respuesta)){
+                        json_response(array("error" => false), true, "Respuesta eliminada correctamente");
+                    }
+                    else json_response(array("error" => "error"), false, "Ha ocurrido un error, por favor intente de nuevo más tarde");
+                }
+                else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+            }
+            else  json_response(array("error" => "not_found"), false, "No se ha encontrado la respuesta seleccionada");
+        }
+        else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
+    }
 } 

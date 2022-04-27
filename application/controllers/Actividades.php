@@ -651,5 +651,28 @@ class Actividades extends CI_Controller {
             }  
         }   
         echo $html;
-    }              
+    }
+    
+    function delete($id_actividad = null){
+        if(is_logged()){
+            if(logged_user()["rol"] == "Docente"){
+                $actividad = $this->Actividades_Model->get_actividad($id_actividad);
+                if($actividad){
+                    if($actividad["created_by"] == logged_user()["id"]){
+                        if($this->Actividades_Model->delete_responses($id_actividad)){
+                            if($this->Actividades_Model->delete($id_actividad)){
+                                json_response(array("error" => false), true, "Actividad eliminada correctamente");
+                            }
+                            else json_response(array("error" => "error"), false, "Ha ocurrido un error, por favor intente de nuevo más tarde");
+                        }
+                        else json_response(array("error" => "error"), false, "Ha ocurrido un error, por favor intente de nuevo más tarde");
+                    }
+                    else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+                }
+                else  json_response(array("error" => "not_found"), false, "No se ha encontrado la actividad seleccionada");
+            }
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
+    }
 }
