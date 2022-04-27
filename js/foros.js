@@ -157,32 +157,4 @@ setTimeout(() => {
 
         return idx;
     }
-
-    function guardar_respuesta(foro) {
-        var url = base_url + "Foros/agregar_respuesta";
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: {
-                mensaje: editorImageRespuesta.getContents(),
-                id_foro: idForo,
-                id_respuesta: idRespuestaForo,
-                tipo: tipoRespuestaForo
-            },
-            success: function(data) {
-                var data = JSON.parse(data);
-
-                if (data.status) {
-                    $('#agregar-respuesta-foro').modal('hide');
-
-                    setTimeout(() => {
-                        ver_foro(foro);
-                    }, 1000)
-
-                }
-                alert(data.message);
-            },
-            error: function() { alert("Error!"); }
-        });
-    }
 }, 1000);

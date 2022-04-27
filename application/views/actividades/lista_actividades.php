@@ -7,7 +7,7 @@
         <?php 
         if($actividades){
             foreach ($actividades as $a) { ?>
-                <li class='item-foro'>
+                <li class='item-foro' id="actividad-<?= $a["id_actividad"] ?>">
                     <div class="d-flex justify-between align-items-center">
                         <h4 class='titulo-foro' style="border-bottom:0;"><a  style="color:#33aaff;"><?= $a["titulo_actividad"] ?></a></h4>
                         <?php
@@ -43,11 +43,11 @@
                                             <i class="fa fa-file"></i>
                                             <p style="margin:0px 0PX 0PX 7PX;">Exportar calificaciones</p>
                                         </a>
-                                        <a style="background: #33aaff;" href="" class="small-btn crear-respuesta-boton d-flex align-items-center cargar-respuestas-boton" data-actividad="<?= $a["id_actividad"] ?>" data-toggle="modal" data-target="#lista-respuesta-actividad"> 
+                                        <a style="background: #33aaff;cursor:pointer;" class="small-btn crear-respuesta-boton d-flex align-items-center cargar-respuestas-boton" data-actividad="<?= $a["id_actividad"] ?>" data-toggle="modal" data-target="#lista-respuesta-actividad"> 
                                             <i class="fa fa-eye"></i>
                                             <p style="margin:0px 0PX 0PX 7PX;">Calificar</p>
                                         </a>
-                                        <a style="background: #ff5c5c;" href="" class="small-btn d-flex align-items-center" data-actividad="<?= $a["id_actividad"] ?>" data-toggle="modal" data-target="#lista-respuesta-actividad"> 
+                                        <a style="background: #ff5c5c;cursor:pointer;" class="small-btn d-flex align-items-center button-eliminar-actividad" data-actividad="<?= $a["id_actividad"] ?>"> 
                                             <i class="fa fa-trash"></i>
                                             <p style="margin:0px 0PX 0PX 7PX;">Eliminar</p>
                                         </a>

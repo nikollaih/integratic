@@ -38,7 +38,6 @@ function eliminarAnuncio(id_anuncio) {
             url: base_url + "Anuncios/delete/" + id_anuncio,
             type: 'GET',
             success: function(data) {
-                console.log(data)
                 var data = JSON.parse(data);
                 if (data.status) {
                     $("#an-" + id_anuncio).remove();
