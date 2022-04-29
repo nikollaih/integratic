@@ -1,4 +1,4 @@
-<?php $this->load->view("in_head") ?>
+<?php $this->load->view("in_head"); echo logged_user()["id"]; ?>
 <body>
     <?php $this->load->view("in_header") ?>
     <?php $this->load->view("pruebas/templates/in_aside") ?>
@@ -36,7 +36,7 @@
                                                 if($pruebas != false){
                                                     foreach ($pruebas as $p) {
                                                         ?>
-                                                            <tr>
+                                                            <tr id="prueba-<?= $p["id_prueba"] ?>">
                                                                 <td><?= $p["nombre_prueba"] ?></td>
                                                                 <td><?= $p["alcance_prueba"] ?></td>
                                                                 <td><?= $p["tipo_prueba"] ?></td>
@@ -56,7 +56,7 @@
                                                                 ?>
                                                                 <td class="text-center">
                                                                     <?php
-                                                                        if(strtolower(logged_user()["rol"]) == "estudiante"){
+                                                                        if(strtolower(logged_user()["rol"]) == "estudiante" && $p["estado"] == 1){
                                                                     ?>
                                                                         <a class="btn btn-success" href="<?= base_url() ?>Pruebas/empezar/<?= $p["id_prueba"] ?>">Ver</a>
                                                                     <?php
@@ -66,6 +66,7 @@
                                                                         if(strtolower(logged_user()["rol"]) == "docente"){
                                                                     ?>
                                                                         <a class="btn btn-success" href="<?= base_url() ?>Pruebas/ver/<?= $p["id_prueba"] ?>">Ver</a>
+                                                                        <a class="btn btn-danger button-eliminar-prueba" class="button-eliminar-prueba" data-prueba="<?= $p["id_prueba"] ?>">Eliminar</a>
                                                                     <?php
                                                                         }
                                                                     ?>
@@ -88,12 +89,4 @@
 </body>
 <?php $this->load->view("in_footer") ?>
 <?php $this->load->view("in_script") ?>
-
-<script>
-    $(document).ready( function () {
-    $('#tabla-pruebas').DataTable({
-        order: []
-    });
-} );
-</script>
 </html>
