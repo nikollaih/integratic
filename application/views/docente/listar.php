@@ -81,6 +81,21 @@
                         $i=0;
                         if(is_dir($carpeta)){
                             if($dir = opendir($carpeta)){
+                                $carpeta_length = explode("/", $carpeta);
+                                if((count($carpeta_length) > 5 && logged_user()["rol"] == "Estudiante") || (count($carpeta_length) > 6 && logged_user()["rol"] == "Docente")){
+                                    array_pop($carpeta_length);
+                                    $title_back = $carpeta_length[count($carpeta_length) - 1];
+                                    ?>
+                                        <tr>
+                                            <td  style="width:50%; height:42px">
+                                                <a href="javascript:submenu_doc('<?= implode("/", $carpeta_length) ?>', '<?= $title_back ?>', '<?= $menu_materia ?>')">
+                                                    <img src='./img/iconos/volver.png' width='30' height='30'>&nbsp;&nbsp;Atras                                             
+                                                </a>
+                                            </td>
+                                            <td style="text-align: right;"></td>
+                                        </tr>
+                                    <?php
+                                }
                                 while(($archivo = readdir($dir)) !== false){
                                     if($archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
                                         
@@ -128,17 +143,23 @@
                                                     <?= document_icon($ext[1], $ext[0]) ?>         
                                                 </a>
                                             </td>
-                                            <td style="text-align: right;"><?= date("d/m/Y h:i a",filectime(($ruta))) ?></td>     
-                                            <td style="width:5%;text-align: right;">
-                                                <a href="javascript:eliminar('<?= $ruta ?>', '<?= $menu_materia ?>')" style="width:10%">
-                                                    <img src='./img/iconos/borrar.png' width='25' height='28' alt='Subir Archivo' title='Eliminar Archivo'>
-                                                </a>
-                                            </td>   
-                                            <td style="width:5%;text-align: right;">
-                                                <a href="javascript:renombrar('<?= $carpeta ?>', '<?= $archivo ?>', '<?= $menu_materia ?>')" style="width:10%">
-                                                    <img src='./img/iconos/ren.png' width='25' height='28' alt='Subir Archivo' title='Renombrar Archivo'>
-                                                </a>
-                                            </td>
+                                            <td style="text-align: right;"><?= date("d/m/Y h:i a",filectime(($ruta))) ?></td> 
+                                            <?php 
+                                                   if (logged_user()["rol"] == "Docente"){
+                                                ?>    
+                                                    <td style="width:5%;text-align: right;">
+                                                        <a href="javascript:eliminar('<?= $ruta ?>', '<?= $menu_materia ?>')" style="width:10%">
+                                                            <img src='./img/iconos/borrar.png' width='25' height='28' alt='Subir Archivo' title='Eliminar Archivo'>
+                                                        </a>
+                                                    </td>   
+                                                    <td style="width:5%;text-align: right;">
+                                                        <a href="javascript:renombrar('<?= $carpeta ?>', '<?= $archivo ?>', '<?= $menu_materia ?>')" style="width:10%">
+                                                            <img src='./img/iconos/ren.png' width='25' height='28' alt='Subir Archivo' title='Renombrar Archivo'>
+                                                        </a>
+                                                    </td>
+                                            <?php
+                                                }
+                                            ?>
                                         </tr>   
                                         <?php                        
                                     } 

@@ -13,7 +13,7 @@
             $params["pruebas"] = false;
             if(strtolower(logged_user()["rol"]) == "docente"){ 
                 $materias = array_column($this->Materias_Model->getMateriasDocente(logged_user()["id"], true), "materia");
-                $params["pruebas"] = $this->Pruebas_Model->get_docente_all($materias);
+                $params["pruebas"] = $this->Pruebas_Model->get_docente_all(logged_user()["id"]);
             }
             if(strtolower(logged_user()["rol"]) == "estudiante"){
                 $params["pruebas"] = $this->Pruebas_Model->get_estudiante_all(logged_user()["id"]);
@@ -51,6 +51,7 @@
         $prueba = $post["prueba"];
         $prueba["materias"] = serialize($prueba["materias"]);
         $prueba["dificultad"] = serialize($prueba["dificultad"]);
+        $prueba["created_by"] = logged_user()["id"];
 
         $id_prueba = $this->Pruebas_Model->create($prueba);
 
@@ -70,22 +71,42 @@
     }
 
     function ver($id_prueba){
-        //$id_prueba = decrypt_string($id_prueba, true);
-        $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
-        $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
-        $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
-        $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
-        $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
-        $this->load->view("pruebas/ver_prueba", $params);
+        if(is_logged()){
+            //$id_prueba = decrypt_string($id_prueba, true);
+            $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
+            if($params["prueba"]["created_by"] == logged_user()["id"]){
+                $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
+                $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
+                $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+                $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+                $this->load->view("pruebas/ver_prueba", $params);
+            }
+            else{
+                header("Location: ".base_url()."Pruebas");
+            }
+        }
+        else{
+            header("Location: ".base_url());
+        }
     }
 
     function empezar($id_prueba){
-        //$id_prueba = decrypt_string($id_prueba, true);
-        $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
-        $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
-        $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
-        $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
-        $this->load->view("pruebas/empezar_prueba", $params);
+        if(is_logged()){
+            if(logged_user()["rol"] == "Estudiante"){
+                //$id_prueba = decrypt_string($id_prueba, true);
+                $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
+                $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
+                $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
+                $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+                $this->load->view("pruebas/empezar_prueba", $params);
+            }
+            else{
+                header("Location: ".base_url()."Pruebas");
+            }
+        }
+        else{
+            header("Location: ".base_url());
+        }
     }
 
     function resumen($id_prueba, $id_participante = null){
@@ -119,55 +140,65 @@
     }
 
     function resolver($id_prueba){
-        // TODO cambiar
-        $id_participante = 1;
-        $participante = $this->Asignacion_Participantes_Prueba_Model->get_participante($id_participante);
-        $params["id_participante"] = $id_participante;
-        $iniciado = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
-        if(!$iniciado){
-            $iniciado = $this->Realizar_Prueba_Model->create(array("id_prueba" => $id_prueba, "id_participante" => $id_participante, "institucion" => $participante["institucion"], "grado" => $participante["grado"], "created_at" => date("Y-m-d H:i:s")));
-        }
-
-        if($this->input->post()){
-            if($iniciado){
-                $data = $this->input->post();
-                $this->Respuestas_Realizar_Prueba_Model->create(array("id_realizar_prueba" => $iniciado["id_realizar_prueba"], "id_pregunta" => $data["id_pregunta"], "id_respuesta" => $data["id_respuesta"]));
-            }
-        }
-
-        $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
-        $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
-        $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);;
-
-        if($params["prueba"]["fecha_inicio"] < date("Y-m-d H:i:s") && $params["prueba"]["fecha_finaliza"] > date("Y-m-d H:i:s")){
-            if(is_array($iniciado)){
-                if($iniciado["is_closed"] == 1){
-                    header("Location: ".base_url()."Pruebas/resumen/".$id_prueba);
+        if(is_logged()){
+            if(logged_user()["rol"] == "Estudiante"){
+                // TODO cambiar
+                $id_participante = 1;
+                $participante = $this->Asignacion_Participantes_Prueba_Model->get_participante($id_participante);
+                $params["id_participante"] = $id_participante;
+                $iniciado = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
+                if(!$iniciado){
+                    $iniciado = $this->Realizar_Prueba_Model->create(array("id_prueba" => $id_prueba, "id_participante" => $id_participante, "institucion" => $participante["institucion"], "grado" => $participante["grado"], "created_at" => date("Y-m-d H:i:s")));
                 }
-    
-                $siguiente = siguiente_pregunta($id_prueba, $id_participante);
-                if($siguiente == false){
-    
-                }
-                else if(is_array($siguiente)){
-                    $params["pregunta"] = $siguiente["pregunta"];
-                    $params["respuestas"] = $siguiente["respuestas"];
-    
-                    $this->load->view("pruebas/resolver_prueba", $params);
-                }
-                else{
-                    if(!$iniciado["finished_at"]){
-                        $this->Realizar_Prueba_Model->update(array("id_realizar_prueba" => $iniciado["id_realizar_prueba"], "finished_at" => date("Y-m-d H:i:s"), "is_closed" => 1));
+
+                if($this->input->post()){
+                    if($iniciado){
+                        $data = $this->input->post();
+                        $this->Respuestas_Realizar_Prueba_Model->create(array("id_realizar_prueba" => $iniciado["id_realizar_prueba"], "id_pregunta" => $data["id_pregunta"], "id_respuesta" => $data["id_respuesta"]));
                     }
+                }
+
+                $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
+                $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
+                $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);;
+
+                if($params["prueba"]["fecha_inicio"] < date("Y-m-d H:i:s") && $params["prueba"]["fecha_finaliza"] > date("Y-m-d H:i:s")){
+                    if(is_array($iniciado)){
+                        if($iniciado["is_closed"] == 1){
+                            header("Location: ".base_url()."Pruebas/resumen/".$id_prueba);
+                        }
+            
+                        $siguiente = siguiente_pregunta($id_prueba, $id_participante);
+                        if($siguiente == false){
+            
+                        }
+                        else if(is_array($siguiente)){
+                            $params["pregunta"] = $siguiente["pregunta"];
+                            $params["respuestas"] = $siguiente["respuestas"];
+            
+                            $this->load->view("pruebas/resolver_prueba", $params);
+                        }
+                        else{
+                            if(!$iniciado["finished_at"]){
+                                $this->Realizar_Prueba_Model->update(array("id_realizar_prueba" => $iniciado["id_realizar_prueba"], "finished_at" => date("Y-m-d H:i:s"), "is_closed" => 1));
+                            }
+                            header("Location: ".base_url()."Pruebas/resumen/".$id_prueba);
+                        }
+                    }
+                    else{
+                        header("Location: ".base_url()."Pruebas/empezar/".$id_prueba);
+                    }
+                }   
+                else{
                     header("Location: ".base_url()."Pruebas/resumen/".$id_prueba);
                 }
             }
             else{
-                header("Location: ".base_url()."Pruebas/empezar/".$id_prueba);
+                header("Location: " . base_url() . "Pruebas");
             }
-        }   
+        }
         else{
-            header("Location: ".base_url()."Pruebas/resumen/".$id_prueba);
+            header("Location: ".base_url());
         }
     }
 
@@ -324,5 +355,26 @@
                 json_response(null, false, "");
             }
         }
+    }
+
+    function delete(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $id_prueba = $this->input->post()["id_prueba"];
+                $prueba = $this->Pruebas_Model->get($id_prueba);
+
+                if($prueba){
+                    if($prueba["created_by"] == logged_user()["id"]){
+                        if($this->Pruebas_Model->update(array("id_prueba" => $prueba["id_prueba"], "estado" => 2))){
+                            json_response(array("error" => false), true, "Prueba eliminada correctamente");
+                        }
+                    }
+                    else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+                }
+                else json_response(array("error" => "404"), false, "No se ha encontrado la prueba");
+            }
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }
 } 

@@ -1,37 +1,50 @@
-<html>
-<head>
-<title>Import/Export using phpspreadsheet in codeigniter</title>
-</head>
+<?php $this->load->view("in_head") ?>
 <body>
-<style>
-h3
-{
-font-family: Verdana;
-font-size: 14pt;
-font-style: normal;
-font-weight: bold;
-color:red;
-text-align: center;
-}
-table.tr{
-font-family: Verdana;
-color:black;
-font-size: 12pt;
-font-style: normal;
-font-weight: bold;
-text-align:left;
-}
-</style>
-<h3><u>Import/Export using phpspreadsheet in codeigniter</u></h3>
-<form action="http://localhost/integratic/Imports/importar_estudiantes" method="post" enctype="multipart/form-data">
-<table align="center" cellpadding = "5">
-<tr>
-<td>File :</td>
-<td><input type="file" size="40px" name="upload_file" /></td>
-<td colspan="5" align="center">
-<input type="submit" value="Import Users"/></td>
-</tr>
-</table>
-</form>
+    <?php $this->load->view("in_header") ?>
+    <?php $this->load->view("in_aside") ?>
+    <div class="content-page">
+        <div class="content">  
+            <div class="container">
+                <div class="row" id="migas"></div>  
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-capitalize"><b>Importar Estudiantes</b></div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="">Archivo estudiantes</label>
+                                        <input type="file" name="upload_file" accept="*/*" class="form-control">
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            if(isset($message)){
+                            ?>
+                            <div class="alert alert-<?= $message["type"] ?> alert-dismissible show" role="alert">
+                            <?= $message["message"] ?>
+                            </div>
+                            <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="row text-end" style="text-align:right;">
+                        <div class="col-md-12 text-end">
+                            <button class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- container -->                               
+        </div> <!-- content -->
+    </div>
+</div>
 </body>
+<?php $this->load->view("in_footer") ?>
+<?php $this->load->view("in_script") ?>
 </html>

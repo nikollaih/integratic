@@ -18,7 +18,7 @@
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12 col-lg-6">
                                             <?php
-                                                if($asignadas && $prueba["cantidad_preguntas"] == count($asignadas) && $prueba["fecha_inicio"] <= date("Y-m-d H:i:s") && $prueba["fecha_finaliza"] > date("Y-m-d H:i:s")){
+                                                if($asignadas && $prueba["estado"] == 1 && $prueba["cantidad_preguntas"] == count($asignadas) && $prueba["fecha_inicio"] <= date("Y-m-d H:i:s") && $prueba["fecha_finaliza"] > date("Y-m-d H:i:s")){
                                                     ?>
                                                     <div class="subtitle-buttons">
                                                         <a href="<?= base_url() ?>Pruebas/resolver/<?= $prueba["id_prueba"] ?>" class="btn btn-info">Comenzar Prueba</a>
