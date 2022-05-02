@@ -76,7 +76,7 @@
                                                 if($preguntas != false){
                                                     foreach ($preguntas as $pregunta) {
                                                         ?>
-                                                            <tr>
+                                                            <tr id="pregunta-<?= $pregunta["id_pregunta_prueba"] ?>">
                                                                 <?php 
                                                                     if($id_materia){
                                                                         ?>
@@ -89,7 +89,16 @@
                                                                 <td><?= $pregunta["dificultad"] ?></td>
                                                                 <td><?= $pregunta["descripcion_pregunta"] ?></td>
                                                                 <td><?= date("d F Y H:i a", strtotime($pregunta["created_at"])) ?></td>
-                                                                <td class="text-center"><a target="_blank" class="btn btn-success" href="<?= base_url() ?>PreguntasPrueba/ver/<?= $pregunta["id_pregunta_prueba"] ?>">Ver</a></td>
+                                                                <td class="text-center">
+                                                                    <a target="_blank" class="btn btn-success" href="<?= base_url() ?>PreguntasPrueba/ver/<?= $pregunta["id_pregunta_prueba"] ?>">Ver</a>
+                                                                    <?php
+                                                                        if(logged_user()["id"] == $pregunta["created_by"]){
+                                                                            ?>
+                                                                                <a data-pregunta="<?= $pregunta["id_pregunta_prueba"] ?>" class="btn btn-danger btn-eliminar-pregunta">Eliminar</a>
+                                                                            <?php
+                                                                        }
+                                                                    ?>
+                                                                </td>
                                                             </tr>
                                                         <?php
                                                     }
@@ -108,12 +117,4 @@
 </body>
 <?php $this->load->view("in_footer") ?>
 <?php $this->load->view("in_script") ?>
-
-<script>
-    $(document).ready( function () {
-    $('#tabla-preguntas').DataTable({
-        order: []
-    });
-} );
-</script>
 </html>

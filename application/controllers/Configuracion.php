@@ -29,6 +29,8 @@ class Configuracion extends CI_Controller {
         if($data["id_configuracion"] != "null"){
             if($this->Configuracion_Model->updateConfiguracion($data)){
                 $this->modificarLogo($FILES, $data["id_configuracion"]);
+                $this->modificarBannerPrincipal($FILES, $data["id_configuracion"]);
+                $this->modificarModalPrincipal($FILES, $data["id_configuracion"]);
                 return array("type" => "success", "message" => "Información modificada satisfactoriamente.", "success" => true);
             }
             else{
@@ -43,6 +45,32 @@ class Configuracion extends CI_Controller {
             }
             else{
                 return array("type" => "danger", "message" => "Ha ocurrido un error al intentar guardar la información, por favor intente de nuevo más tarde.", "success" => false);
+            }
+        }
+    }
+
+    function modificarModalPrincipal($FILES, $id_configuracion){
+        if(isset($FILES["modal"])){
+            if(isset($FILES['modal']['name'])) {
+                if($FILES['modal']['size'] > 0){
+                    $file_name = $FILES['modal']['name'];
+                    $file_tmp =$FILES['modal']['tmp_name'];
+                    move_uploaded_file($file_tmp,"img/".$file_name);
+                    $this->Configuracion_Model->updateConfiguracion(array("id_configuracion" => $id_configuracion, "modal_principal" => $file_name));
+                }
+            }
+        }
+    }
+
+    function modificarBannerPrincipal($FILES, $id_configuracion){
+        if(isset($FILES["banner"])){
+            if(isset($FILES['banner']['name'])) {
+                if($FILES['banner']['size'] > 0){
+                    $file_name = $FILES['banner']['name'];
+                    $file_tmp =$FILES['banner']['tmp_name'];
+                    move_uploaded_file($file_tmp,"img/".$file_name);
+                    $this->Configuracion_Model->updateConfiguracion(array("id_configuracion" => $id_configuracion, "banner_principal" => $file_name));
+                }
             }
         }
     }

@@ -131,9 +131,9 @@ class Consultas_Model extends CI_Model {
     $result=$this->db->query("select * from cfg_materias where codmateria='$mat'");
     if(!$result) {return false;}
     else {return $result->row();}      
-  }    
-  public function lisusuario(){
-    $result=$this->db->query("select * from usuarios where estado='ac' And rol<>'super' Order By nombres,apellidos");
+  } 
+  public function lisusuario($rol = "Docente"){
+    $result=$this->db->query("select * from usuarios where estado='ac' And rol = '".$rol."' Order By nombres,apellidos");
     if(!$result) {return false;}
     else {return $result->result();}      
   } 
@@ -143,12 +143,12 @@ class Consultas_Model extends CI_Model {
     else {return $result->result();}      
   }  
   public function con_docentes(){
-    $result=$this->db->query("select * from usuarios where estado='ac' And rol<>'super' Order By nombres,apellidos");
+    $result=$this->db->query("select * from usuarios where estado='ac' And rol = 'docente' Order By nombres,apellidos");
     if(!$result) {return false;}
     else {return $result->result();}      
   } 
   public function con_nodocentes(){
-    $result=$this->db->query("select * from usuarios where estado='ac' And rol <>'Docente' Order By nombres,apellidos");
+    $result=$this->db->query("select * from usuarios where estado='ac' And rol != 'Docente' AND rol != 'Estudiante' Order By nombres,apellidos");
     if(!$result) {return false;}
     else {return $result->result();}      
   }   

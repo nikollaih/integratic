@@ -21,6 +21,13 @@
                         </div>
                     </div>
 
+                    <a href="javascript:enlace_materia(1094728060,&quot;134&quot;)">
+                        <div>
+                            <h1>Matematicas</h1>
+                            <h1>2</h1>
+                        </div>
+                    </a>
+
                     <div class="row">
                         <div class="col-md-12">
                             <?php

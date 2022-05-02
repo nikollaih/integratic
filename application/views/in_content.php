@@ -18,9 +18,9 @@
 ?>
     <div class="modal fade" id="portada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">      
+        <div class="modal-content modal-colored">      
         <div class="modal-body">
-                <img src="./videos/portada.gif"  width="100%" height="100%">            
+                <img src="./img/<?= configuracion()["modal_principal"] ?>"  width="100%" height="100%">            
         </div>
         <div class="modal-footer">
             <form id="frmpersona" name="frmpersona" role="form">
@@ -33,7 +33,7 @@
                     <!-- <input class="form-control" size="50" type="text" name="documento" id="documento">-->
                     </td>
                         
-                    <td width='10%'><button type='button' class='btn btn-primary btn-sm w-sm waves-effect waves-light' data-dismiss="modal" onclick='prelogin();'>Ingresar</button></td>  
+                    <td width='10%'><button style="margin-right: 15px;" type='button' class='btn btn-primary btn-sm w-sm waves-effect waves-light' data-dismiss="modal" onclick='prelogin();'>Ingresar</button></td>  
                     <td width='10%'></td>                              
                     <td width='10%'>
                         <button type='button' class='btn btn-dark btn-sm w-sm waves-effect waves-light' data-dismiss="modal" onclick='login_estudiante();'>Continuar como invitado</button>
@@ -52,7 +52,7 @@
 <!-- Ventana Modal Creditos-->
 <div class="modal fade" id="creditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">      
+    <div class="modal-content modal-colored">      
       <div class="modal-body">
                 <img src="./img/creditos.png"  width="100%" height="100%">
       </div>
@@ -251,7 +251,7 @@
                                     <?php 
                                     foreach($usua as $fila)
                                     { ?>
-                                    <option value="<?=$fila->id?>"><?=$fila->nombres." ".$fila->apellidos?></option>
+                                    <option value="<?=$fila->id?>"><?=$fila->nombres." ".$fila->apellidos." - ".$fila->rol?></option>
                                     <?php
                                     }?>                                    
                                 </select>
@@ -262,7 +262,7 @@
                 <div class="row"> 
                     <div class="col-md-6">
                         <div class="form-group"> 
-                            <label for="materia" class="control-label">Materias Disponibles</label>
+                            <label for="materia" class="control-label">Asignaturas Disponibles</label>
                             <div id="lista_materias">
                                 <select class="form-control" id="materia" name="materia"></select>
                             </div>
@@ -293,7 +293,7 @@
                     </div> 
                     <div class="col-md-6"> 
                         <div class="form-group"> 
-                        <label for="listado_asg" class="control-label">Materias Asignadas</label> 
+                        <label for="listado_asg" class="control-label">Asignaciones</label> 
                         <div id="lista_asignadas"></div>              
                         </div> 
                     </div>                 
@@ -348,7 +348,7 @@
         <div class="modal-content"> 
             <div class="modal-header"> 
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
-                <h4 class="modal-title">Crear Nueva Materia</h4> 
+                <h4 class="modal-title">Crear Nueva Asignatura</h4> 
             </div> 
             <div class="modal-body"> 
             <form id="frmmaterias" name="frmmaterias" enctype="multipart/form-data">                    
@@ -367,8 +367,8 @@
                 <div class="row"> 
                     <div class="col-md-12"> 
                         <div class="form-group">
-                            <label for="nommateria" class="control-label">Nombre de la Materia</label>
-                            <input id='nommateria' name='nommateria'  class='form-control input-lg' required placeholder='Nombre de la Materia' type='text'>                            
+                            <label for="nommateria" class="control-label">Nombre de la Asignatura</label>
+                            <input id='nommateria' name='nommateria'  class='form-control input-lg' required placeholder='Nombre de la Asignatura' type='text'>                            
                         </div>                
                     </div>                
                 </div> 
@@ -403,14 +403,14 @@
                         </div>                
                     </div>                      
                 </div>                                
-                <div class="row"> 
+                <!-- <div class="row"> 
                     <div class="col-md-12">
                         <div class="form-group"> 
                             <label for="archivomat" class="control-label">Seleccionar Icono/Imagen</label>
                             <input id="archivomat" name="archivomat" type="file"/>
                         </div> 
                     </div>                 
-                </div> 
+                </div> -->
             </form>    
             </div>   
             <div class="modal-footer"> 
@@ -778,7 +778,7 @@ function menupri(){
                       html+="<div class='col-md-12 col-sm-12 col-lg-12'>";
                       html+="<div class='mini-stat clearfix bx-shadow'>";
                       html+="<a href='javascript:listar_anuncios()'>";
-                      html+="<img src='./img/banner.png' width='100%' height='100%'></a></div></div></div>";                      
+                      html+="<img src='./img/"+configuracion.banner_principal+"' width='100%' height='100%'></a></div></div></div>";                      
                       for (i=0; i<registros.length; i++) {                          
                         html+="<div class='col-md-6 col-sm-6 col-lg-3'>"; 
                         html+='<div class="mini-stat clearfix bx-shadow">';
@@ -2100,8 +2100,9 @@ function login(){
                                }
 
                                if(registros.rol == "Estudiante"){
-                                StudentAreas();
-                                actualizar_notificaciones();
+                                location.reload();
+                                //StudentAreas();
+                                //actualizar_notificaciones();
                                }
 
                                if(user.id == user.clave){
@@ -2173,7 +2174,11 @@ var rol = document.getElementById("rol").value;
                             html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                             html=html+"<div class='mini-stat clearfix bx-shadow'>";
                             html=html+"<a href='javascript:enlace_materia(" + id+",\"" + registros[i]["codmateria"]+"\")'>";
-                            html=html+"<img src='./img/botones/materias/" + icono+"' width='100%' height='100%'></a></div></div>"; 
+                            html += "<div style='background:"+colors_list[Math.floor(Math.random() * colors_list.length)]+"' class='contenedor-asignacion-docente'>"
+                            html += "<h3>"+capitalizeTheFirstLetterOfEachWord(materia)+"</h3>"
+                            html += "<h1>"+grado+"</h1>"
+                            html += "</div>"
+                            html=html+"</a></div></div>"; 
                           } 
                     if(rol!=='admin' && rol!=='apoyo'){
                         /* html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
@@ -2484,7 +2489,7 @@ function administrar(){
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='"+base_url+"Imports/importar_estudiantes'>";
-        html=html+"<img src='./img/botones/menu/conf_apariencia.png' width='100%' height='100%'></a></div></div>"; 
+        html=html+"<img src='./img/botones/menu/bd_estudiantes.png' width='100%' height='100%'></a></div></div>"; 
 
         html+="</div></div>";   
         html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
@@ -2542,7 +2547,7 @@ var html='<div class="panel panel-primary">';
     html+='<div class="row">';
     html+="<div class='col-xs-8'>";
     html+='<select class="form-control" name="materia_acti" id="materia_acti" onclick="javascript:mostrar_acti();">';
-    html+='<option selected disabled>Seleccione Materia</option>';
+    html+='<option selected disabled>Seleccione Asignatura</option>';
     var url = "./index.php/docente/asignadoc/" + id; 
         $.ajax({
                url:url,
@@ -2568,7 +2573,7 @@ function mostrar_materias(){
     var gra = grado.substring(0,tam);
   }else{gra=grado;}
     html='<select class="form-control" name="materia" id="materia" onchange="javascript:mostrar_conte();">';
-    html+='<option value="" selected disabled>Seleccione Materia</option>';
+    html+='<option value="" selected disabled>Seleccione Asignatura</option>';
     var url = "./index.php/actividades/materias_grupo/" + gra; 
         $.ajax({
                url:url,
@@ -2624,7 +2629,7 @@ function mostrar_acti(){
   document.getElementById("dir").value=titulo;
   document.getElementById("nomdir").value=materia;
   document.getElementById("ubica").value=materia;
-  if(materia !== 'Seleccione Materia'){ 
+  if(materia !== 'Seleccione Asignatura'){ 
   var url='./index.php/actividades/listar_act_doc';
             $.ajax({
                url:url,
@@ -3211,7 +3216,7 @@ function consu_materias(){
                     var html='<table class="table table-bordered table-hover">';
                         html+='<thead><tr style="background-color: #229678">';
                         html+='<th class="text-white text-center" width="20%">Código</th>';
-                        html+='<th class="text-white text-center" width="60%">Materia</th>';
+                        html+='<th class="text-white text-center" width="60%">Asignatura</th>';
                         html+='<th class="text-white text-center" width="60%">Grado</th>';
                         html+='<th class="text-white text-center" width="10%">Eliminar</th>';
                         html+='<th class="text-white text-center" width="10%">Editar</th>';            
@@ -3232,10 +3237,10 @@ function consu_materias(){
                 html+='</table>'; 
                 $("#con_cuerpo").html(html);
             },
-            error:function(respuesta){alert("No hay Materias Registradas!");
+            error:function(respuesta){alert("No hay Asignaciones Registradas!");
             }                    
     });    
-    titulo='<h4 class="modal-title">Consulta de Materias Existentes</h4> ';
+    titulo='<h4 class="modal-title">Consulta de Asignaturas Existentes</h4> ';
     pie='<button type="button" class="btn btn-primary waves-effect" data-dismiss="modal">Terminar</button>';      
     $("#con_titulo").html(titulo);
     $("#con_pie").html(pie);
@@ -3402,7 +3407,7 @@ function consu_menuad(){
             error:function(respuesta){alert("Error: 128 " + respuesta);
             }                    
     });    
-    titulo='<h4 class="modal-title">Consulta de Materias Existentes</h4> ';
+    titulo='<h4 class="modal-title">Consulta de Asignaturas Existentes</h4> ';
     pie='<button type="button" class="btn btn-primary waves-effect" data-dismiss="modal">Terminar</button>';      
     $("#con_titulo").html(titulo);
     $("#con_pie").html(pie);
@@ -3565,7 +3570,7 @@ var campo = nodosEnTr[0].textContent;
                     "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>" + 
                     "<button type='button' class='btn btn-primary' onclick='updateMateria()'>Guardar</button>" + 
                     "</div></form>";  
-            titulo='<h4 class="modal-title">Actualización de Materias</h4> ';
+            titulo='<h4 class="modal-title">Actualización de Asignaturas</h4> ';
             $("#edi_titulo").html(titulo);   
             $("#edi_cuerpo").html(html);
             $("#modal_consultas").modal('hide');

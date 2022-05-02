@@ -54,4 +54,29 @@
     .navbar-default{
         background-color: <?= configuracion()["color_principal"] ?> !important;
     }
+
+    .modal-colored{
+        background-color: <?= configuracion()["color_modal"] ?> !important;
+        border-color: <?= configuracion()["color_modal"] ?> !important;
+    }
+
+    .btn-primary{
+        background-color: <?= configuracion()["color_boton_primary"] ?> !important;
+        border-color: <?= configuracion()["color_boton_primary"] ?> !important;
+    }
+
+    .btn-success{
+        background-color: <?= configuracion()["color_boton_success"] ?> !important;
+        border-color: <?= configuracion()["color_boton_success"] ?> !important;
+    }
+
+    .btn-warning{
+        background-color: <?= configuracion()["color_boton_warning"] ?> !important;
+        border-color: <?= configuracion()["color_boton_warning"] ?> !important;
+    }
+
+    .btn-danger{
+        background-color: <?= configuracion()["color_boton_danger"] ?> !important;
+        border-color: <?= configuracion()["color_boton_danger"] ?> !important;
+    }
 </style>

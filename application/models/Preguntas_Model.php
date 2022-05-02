@@ -15,6 +15,7 @@ class Preguntas_Model extends CI_Model {
 		else{
 			$this->db->where_in("pp.id_materia", $materias);
 		}
+		$this->db->where("pp.estado", 1);
 		$this->db->order_by("pp.created_at", "desc");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
@@ -25,6 +26,7 @@ class Preguntas_Model extends CI_Model {
 		$this->db->join("cfg_materias cm", "cm.codmateria = pp.id_materia");
 		$this->db->order_by("pp.created_at", "desc");
 		$this->db->where("pp.id_pregunta_prueba", $id_pregunta);
+		$this->db->where("pp.estado", 1);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	 }
@@ -50,6 +52,7 @@ class Preguntas_Model extends CI_Model {
 		$this->db->join("cfg_materias cm", "cm.codmateria = pp.id_materia");
 		$this->db->where_in("id_materia", $materias);
 		$this->db->where_in("dificultad", $dificultad);
+		$this->db->where("pp.estado", 1);
 		$this->db->order_by("pp.created_at", "desc");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
@@ -60,6 +63,7 @@ class Preguntas_Model extends CI_Model {
 		$this->db->join("preguntas_prueba pp", "app.id_pregunta = pp.id_pregunta_prueba");
 		$this->db->join("cfg_materias cm", "cm.codmateria = pp.id_materia");
 		$this->db->where("app.id_prueba", $id_prueba);
+		$this->db->where("pp.estado", 1);
 		if($id_pregunta != null){
 			$this->db->where("app.id_pregunta", $id_pregunta);
 		}
@@ -77,6 +81,7 @@ class Preguntas_Model extends CI_Model {
 	function get_preguntas_exportar($ids){
 		$this->db->from("preguntas_prueba pp");
 		$this->db->where_in("id_pregunta_prueba", $ids);
+		$this->db->where("pp.estado", 1);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
@@ -85,6 +90,7 @@ class Preguntas_Model extends CI_Model {
 	function get_preguntas_exportar_by_materia($id_materia){
 		$this->db->from("preguntas_prueba pp");
 		$this->db->where_in("id_materia", $id_materia);
+		$this->db->where("pp.estado", 1);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
@@ -92,6 +98,7 @@ class Preguntas_Model extends CI_Model {
 	function get_count(){
 		$this->db->select("COUNT(pp.id_pregunta_prueba) as cantidad_preguntas");
 		$this->db->from("preguntas_prueba pp");
+		$this->db->where("pp.estado", 1);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
@@ -100,6 +107,7 @@ class Preguntas_Model extends CI_Model {
 		$this->db->select("COUNT(pp.id_pregunta_prueba) as cantidad_preguntas");
 		$this->db->from("preguntas_prueba pp");
 		$this->db->where_in("pp.id_materia", $ids_materias);
+		$this->db->where("pp.estado", 1);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
@@ -126,6 +134,7 @@ class Preguntas_Model extends CI_Model {
 		$this->db->join("respuestas_preguntas_pruebas rpp", "rrp.id_respuesta = id_respuesta_pregunta_prueba");
 		$this->db->where("pp.id_materia", $id_materia);
 		$this->db->where("rpp.tipo_respuesta", $tipo_respuesta);
+		$this->db->where("pp.estado", 1);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}

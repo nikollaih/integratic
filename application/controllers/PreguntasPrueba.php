@@ -219,4 +219,23 @@
             return array("type" => "danger", "message" => "Es necesario cargar un archivo de preguntas.", "success" => false);
         }
     }
+
+    function delete($id_pregunta){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $pregunta = $this->Preguntas_Model->get($id_pregunta);
+                if($pregunta){
+                    if($pregunta["created_by"] == logged_user()["id"]){
+                        if($this->Preguntas_Model->update(array("id_pregunta_prueba" => $pregunta["id_pregunta_prueba"], "estado" => 0))){
+                            json_response(array("error" => false), true, "Pregunta eliminada correctamente");
+                        }
+                    }
+                    else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+                }
+                else json_response(array("error" => "404"), false, "No se ha encontrado la pregunta");
+            }
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
+    }
 } 
