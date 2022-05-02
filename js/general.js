@@ -197,3 +197,14 @@ function eliminar_foro_respuesta(id_respuesta) {
         });
     }
 }
+
+function capitalizeTheFirstLetterOfEachWord(words) {
+    var separateWord = words.toLowerCase().split(' ');
+    for (var i = 0; i < separateWord.length; i++) {
+        if (separateWord[i].length > 1) {
+            separateWord[i] = separateWord[i].charAt(0).toUpperCase() +
+                separateWord[i].substring(1);
+        }
+    }
+    return separateWord.join(' ');
+}

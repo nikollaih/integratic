@@ -34,7 +34,11 @@
                     else{
                         ?>
                         <li>
-                            <a href="javascript:menu();" class="waves-effect active">
+                            <a href="javascript:prelogin();" class="waves-effect">
+                                <i><img src='<?= base_url() ?>img/iconos/login.png' width="50" height="50"></i><span>Ingresar</span></a>
+                        </li>   
+                        <li>
+                            <a href="javascript:menu();" class="waves-effect">
                                 <i><img src='<?= base_url() ?>img/iconos/aplicativos.png' width="50" height="50"></i><span>Aplicativos</span></a>
                         </li>                         
                         <li>

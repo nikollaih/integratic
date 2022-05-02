@@ -141,10 +141,19 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"><div id="foto"><br>                                    
-                                    <a href="javascript:prelogin();" class="dropdown-toggle profile"><img src="<?= base_url() ?>img/iconos/login.png" alt="user-img" class="img-circle"></a>
-                                    </div>
-                                </li>
+                                <?php
+                                    if(is_logged()){
+                                       if(strtolower(logged_user()["rol"]) == "estudiante"){
+                                          ?>
+                                          <li class="dropdown">
+                                             <a class="dropdown-toggle profile">
+                                                <h4 id="logged_user_grade"><?= logged_user()["grado"].logged_user()["grupo"] ?></h4>
+                                             </a>
+                                          </li>
+                                          <?php
+                                       }
+                                    }
+                                ?>
                                 <!--<li class="dropdown"><div id="foto"><br>                                    
                                     <a href="javascript:prelogin();" class="dropdown-toggle profile"><img src="./images/user.png" alt="user-img" class="img-circle"></a>
                                     </div>
@@ -158,4 +167,5 @@
             <!-- Top Bar End -->
             <script>
                let base_url = "<?= base_url() ?>";
+               let configuracion = JSON.parse('<?= json_encode(configuracion()) ?>');
             </script>

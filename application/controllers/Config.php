@@ -54,31 +54,42 @@
     
     public function nuevoMateria(){
         date_default_timezone_set ('America/Bogota');
-         if (!empty($_FILES['archivomat']['name'])){
-             
-             $nom        = $this->input->post("nommateria");
-             $area       = $this->input->post("areasmat");
-             $grado       = $this->input->post("grado");
-             $fecha      = date('Y-m-d');
-             $ico        = $_FILES["archivomat"]['name'];
+        $nom = $this->input->post("nommateria");
+        $area = $this->input->post("areasmat");
+        $grado = $this->input->post("grado");
+        $fecha = date('Y-m-d');
+        $ico = "";
 
-            $datos = array(
-                "area"          => $area,
-                "nommateria"    => $nom,
-                "grado"         => $grado,
-                "icomateria"    => $ico,
-                "fecha"         => $fecha
-             );            
-            $nomarea=$this->General_Model->co_nomarea($area);
-            foreach($nomarea as $row){$narea=$row->nomarea;}            
-            if($this->General_Model->insertar("cfg_materias",$datos)==true){
-                //$dir=utf8_decode('./principal/areas/'.$narea.'/'.$nom.$grado);
-                $dir='./principal/areas/'.$narea.'/'.$nom.$grado;
-                if(!is_dir($dir)){mkdir($dir,0777);}
-                 echo json_encode("Materia creada!");}
-            else { echo ("No se pudo guardar los datos");} 
-         }else { echo json_encode("Nada");}
+        $datos = array(
+            "area"          => $area,
+            "nommateria"    => $nom,
+            "grado"         => $grado,
+            "icomateria"    => $ico,
+            "fecha"         => $fecha
+        );
+
+        $nomarea=$this->General_Model->co_nomarea($area);
+        foreach($nomarea as $row){
+            $narea=$row->nomarea;
+        }            
+        if($this->General_Model->insertar("cfg_materias",$datos)==true){
+            //$dir=utf8_decode('./principal/areas/'.$narea.'/'.$nom.$grado);
+            $dir='./principal/areas/'.$narea;
+            if(!is_dir($dir)){
+                mkdir($dir,0777);
+            }
+
+            $dir .= '/'.$nom.$grado;
+            if(!is_dir($dir)){
+                mkdir($dir,0777);
+            }
+                echo json_encode("Asignatura creada!");
+            }
+        else { 
+            echo ("No se pudo guardar los datos");
+        } 
     } 
+
     public function nuevoProyecto(){
         date_default_timezone_set ('America/Bogota');
          if (!empty($_FILES['icopro']['name'])){
