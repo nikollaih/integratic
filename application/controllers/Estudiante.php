@@ -12,6 +12,15 @@ class Estudiante extends CI_Controller {
          $this->load->model('Estudiante_Model');
     }
 
+	public function verTodos(){
+		if(is_logged() && strtolower(logged_user()['rol']) == 'super'){
+			$params["estudiantes"] = $this->Estudiante_Model->getAll();
+			$this->load->view("estudiantes/ver_todos", $params);
+		}
+		else{
+			header("Location: ".base_url());
+		}
+	}
       
     public function areas(){
       	if(is_logged() && logged_user()['rol'] === 'Estudiante'){
@@ -52,5 +61,36 @@ class Estudiante extends CI_Controller {
 		else{
 			json_response(array("error" => "login"), false, "Iniciar sesion");
 		}
+	}
+
+	public function importar(){
+		if(is_logged()){
+			if(strtolower(logged_user()["rol"]) == "super"){
+				$params = [];
+				if(isset($_FILES["estudiantes"])){
+					$estudiantes = (importar_estudiantes($_FILES));
+
+					if($estudiantes){
+						if ($this->Estudiante_Model->setImportedStudents($estudiantes)){
+							mover_estudiantes_usuarios();
+							$params["message"]["message"] = "Estudiantes importados correctamente";
+							$params["message"]["type"] = "success";
+						}
+						else{
+							$params["message"]["message"] = "No se han podido importar los estudiantes";
+							$params["message"]["type"] = "error";
+						}
+					}
+					else{
+						$params["message"]["message"] = "No se han podido importar los estudiantes";
+						$params["message"]["type"] = "error";
+					}
+				}
+
+				$this->load->view('estudiantes/import', $params);
+			}
+			else header("Location: ".base_url());
+		}
+		else header("Location: ".base_url());
 	}
 }

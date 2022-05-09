@@ -2165,13 +2165,14 @@ var rol = document.getElementById("rol").value;
                     html='<div class="panel panel-primary">';        
                     html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica</b></div>';
                     html=html+'<div class="panel-body">';  
+                    html=html+'<div class="row">';  
                       if(registros.length>0){ 
                           for (i=0; i<registros.length; i++) {
                             var area=registros[i]["nomarea"];
                             var materia=registros[i]["nommateria"];
                             var grado=registros[i]["grado"];
                             var icono=registros[i]["icomateria"];
-                            html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
+                            html=html+"<div class='col-md-6 col-sm-6 col-lg-4 col-xl-3'>";
                             html=html+"<div class='mini-stat clearfix bx-shadow'>";
                             html=html+"<a href='javascript:enlace_materia(" + id+",\"" + registros[i]["codmateria"]+"\")'>";
                             html += "<div style='background:"+colors_list[Math.floor(Math.random() * colors_list.length)]+"' class='contenedor-asignacion-docente'>"
@@ -2187,7 +2188,7 @@ var rol = document.getElementById("rol").value;
                          html=html+"<img src='./img/botones/actividades/actividades.png' width='100%' height='100%'></a></div></div>"; */
                      }     
                    }
-                     html=html+"</div></div>";
+                     html=html+"</div></div></div>";
                      html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
                 $("#materias").html(html);
                 $("#rutas").html(materia);
@@ -2488,7 +2489,7 @@ function administrar(){
 
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
-        html=html+"<a href='"+base_url+"Imports/importar_estudiantes'>";
+        html=html+"<a href='"+base_url+"Estudiante/verTodos'>";
         html=html+"<img src='./img/botones/menu/bd_estudiantes.png' width='100%' height='100%'></a></div></div>"; 
 
         html+="</div></div>";   

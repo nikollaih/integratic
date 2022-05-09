@@ -101,7 +101,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row m-t-2">
+                                    <!-- <div class="row m-t-2">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div style="flex: 1;margin-right: 20px;">
@@ -111,7 +111,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div> 
                         </div>

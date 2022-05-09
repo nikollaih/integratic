@@ -24,4 +24,9 @@ class Usuarios_Model extends CI_Model {
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
+
+	public function delete_all_users_rol($rol){
+		$this->db->where("rol", $rol);
+		return $this->db->delete("usuarios");
+	}
 }
