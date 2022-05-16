@@ -20,7 +20,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button onclick="guardar_anuncio()" type="button" class="btn btn-primary">Guardar</button>
+        <button onclick="guardar_anuncio('true')" type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>

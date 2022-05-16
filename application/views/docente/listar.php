@@ -82,7 +82,7 @@
                         if(is_dir($carpeta)){
                             if($dir = opendir($carpeta)){
                                 $carpeta_length = explode("/", $carpeta);
-                                if((((count($carpeta_length) > 5 && logged_user()["rol"] == "Estudiante") || (count($carpeta_length) > 6 && logged_user()["rol"] == "Docente")) && $menu_materia) || (!$menu_materia && (count($carpeta_length) > 2 && logged_user()["rol"] == "Docente"))){
+                                if(((count($carpeta_length) > 6) && $menu_materia) || ($menu_materia != "true" && (count($carpeta_length) > 2 && logged_user()["rol"] == "Docente"))){
                                     array_pop($carpeta_length);
                                     $title_back = $carpeta_length[count($carpeta_length) - 1];
                                     ?>
