@@ -17,8 +17,25 @@
                         }
                     }
 
-                    $data["nombres"] = (count($split_name) == 4) ? $split_name[2] . " " . $split_name[3] : $split_name[2];
-                    $data["apellidos"] = $split_name[0] . " " . $split_name[1];
+                    $nombres = "";
+                    $apellidos = "";
+                    if(count($split_name) == 4){
+                        $nombres = $split_name[2] . " " . $split_name[3];
+                        $apellidos = $split_name[0] . " " . $split_name[1];
+                    }
+
+                    if(count($split_name) == 3){
+                        $nombres = $split_name[2];
+                        $apellidos = $split_name[0] . " " . $split_name[1];
+                    }
+
+                    if(count($split_name) == 2){
+                        $nombres = $split_name[1];
+                        $apellidos = $split_name[0];
+                    }
+
+                    $data["nombres"] = $nombres;
+                    $data["apellidos"] = $apellidos;
                     $data["id"] = $e["documento"];
                     $data["cargo"] = "Estudiante";
                     $data["rol"] = "Estudiante";

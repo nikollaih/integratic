@@ -10,7 +10,7 @@ class Principal extends CI_Controller {
          $this->load->helper('html');
          $this->load->helper('url');
          $this->load->library(["session"]);
-         $this->load->model(['Consultas_Model', 'Usuarios_Model', 'Participantes_Prueba_Model']);
+         $this->load->model(['Consultas_Model', 'Usuarios_Model', 'Participantes_Prueba_Model', 'Estudiante_Model']);
     }
 
     public function index()
@@ -268,5 +268,12 @@ function cambio_clave(){
         json_response(null, false, "Usuario no válido");
     }
 }
+
+    function eliminarEstudiantes(){
+        if(is_logged() && strtolower(logged_user()["rol"]) == "super"){
+            $this->Usuarios_Model->delete_all_users_rol("Estudiante");
+            $this->Estudiante_Model->delete_all_estudents();
+        }
+    }
 
 }

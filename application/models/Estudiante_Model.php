@@ -9,6 +9,8 @@ class Estudiante_Model extends CI_Model {
 	function getAll(){
 		$this->db->from("estudiante e");
 		$this->db->join("usuarios u", "e.documento = u.id", "left");
+		$this->db->order_by("e.grado", "asc");
+		$this->db->order_by("e.nombre", "asc");
 		$result = $this->db->get();
 
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
@@ -101,5 +103,14 @@ class Estudiante_Model extends CI_Model {
 		$result = $this->db->get();
 
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
+	function setImportedStudents($estudiantes){
+		return $this->db->insert_batch("estudiante", $estudiantes);
+	}
+
+	function delete_all_estudents(){
+		$this->db->where("documento !=", "-99");
+		return $this->db->delete("estudiante");
 	}
 }

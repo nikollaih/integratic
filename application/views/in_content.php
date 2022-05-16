@@ -1068,7 +1068,12 @@ function StudentMaterias(area){
 								html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
 								// html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:listado(" + '"areas"'+",\"" + registros[i]["nomarea"]+"\",\"" + registros[i]["nommateria"]+registros[i]["grado"]+"\")'>";
 								html+="<div class='mini-stat clearfix bx-shadow'><a href='javascript:enlace_mat_est(" + registros[i]["codmateria"]+")'>";
-								html+="<img src='./img/botones/materias/" + registros[i]["icomateria"]+"' width='100%' height='100%'></a></div></div>";                             
+								//html+="<img src='./img/botones/materias/" + registros[i]["icomateria"]+"' width='100%' height='100%'>"
+                                html += "<div style='background:"+colors_list[Math.floor(Math.random() * colors_list.length)]+"' class='contenedor-asignacion-docente'>"
+                                html += "<h3>"+capitalizeTheFirstLetterOfEachWord(registros[i]["nommateria"])+"</h3>"
+                                html += "<h1>"+registros[i]["grado"]+"</h1>"
+                                html += "</div>"
+                                "</a></div></div>";                             
 							}                              
 						}
 						html+="</div>";    
@@ -1111,7 +1116,7 @@ function materias(area){
                error:function(){ alert("Error 400!");}                                   
                });      
 }
-function enlace_mat_est(cod){
+function enlace_mat_est(cod, menu_materia = "false"){
      url='./index.php/docente/cop_materias_gen/'+cod;
             $.ajax({
                url:url,
@@ -1131,11 +1136,11 @@ function enlace_mat_est(cod){
                             var grupo=registros[i]["grupo"];
                             var idmateria=registros[i]["materia"];
                             if(grupo==='N'){
-                                listardoc(tipo,narea,nmateria+grado,'N');
+                                listardoc(tipo,narea,nmateria+grado,'N', menu_materia);
                             }else{
                                 html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                                 html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                                html=html+"<a href='javascript:listado(\"" + tipo+"\",\"" + narea+"\",\"" + nmateria+grado+"\",\"" + grado+grupo+"\",\"\",\"" + idmateria+"\",\"" + grupo+"\")'>";                                
+                                html=html+"<a href='javascript:listardoc(\"" + tipo+"\",\"" + narea+"\",\"" + nmateria+grado+"\",\"" + grado+grupo+"\",\"" + idmateria+"\",\"" + grupo+"\")'>";                                
                                 html=html+"<img src='./img/botones/grupos/" + grado+grupo+".png' width='100%' height='100%'></a></div></div>";                               
                             }
                           }                              
@@ -1390,7 +1395,7 @@ function enlace_materia(doc,cod){
 }
 
 let info_current_materia = {};
-function listardoc(tipo, carpeta, materia, grupo, idmateria=null, idgrupo=null){
+function listardoc(tipo, carpeta, materia, grupo, idmateria=null, idgrupo=null, menu_materia = false){
     info_current_materia["materia"] = materia;
     info_current_materia["grupo"] = grupo;
     info_current_materia["idmateria"] = idmateria;
@@ -1399,7 +1404,6 @@ function listardoc(tipo, carpeta, materia, grupo, idmateria=null, idgrupo=null){
     $("#nuevo-foro-materia").val(idmateria);
     $("#nuevo-foro-grupo").val(idgrupo);
 
-    let menu_materia = false;
     switch(tipo){
         case 'labs':
             titulo = "Laboratoria Virtual " + materia;
@@ -2165,13 +2169,14 @@ var rol = document.getElementById("rol").value;
                     html='<div class="panel panel-primary">';        
                     html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica</b></div>';
                     html=html+'<div class="panel-body">';  
+                    html=html+'<div class="row">';  
                       if(registros.length>0){ 
                           for (i=0; i<registros.length; i++) {
                             var area=registros[i]["nomarea"];
                             var materia=registros[i]["nommateria"];
                             var grado=registros[i]["grado"];
                             var icono=registros[i]["icomateria"];
-                            html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
+                            html=html+"<div class='col-md-6 col-sm-6 col-lg-4 col-xl-3'>";
                             html=html+"<div class='mini-stat clearfix bx-shadow'>";
                             html=html+"<a href='javascript:enlace_materia(" + id+",\"" + registros[i]["codmateria"]+"\")'>";
                             html += "<div style='background:"+colors_list[Math.floor(Math.random() * colors_list.length)]+"' class='contenedor-asignacion-docente'>"
@@ -2187,7 +2192,7 @@ var rol = document.getElementById("rol").value;
                          html=html+"<img src='./img/botones/actividades/actividades.png' width='100%' height='100%'></a></div></div>"; */
                      }     
                    }
-                     html=html+"</div></div>";
+                     html=html+"</div></div></div>";
                      html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
                 $("#materias").html(html);
                 $("#rutas").html(materia);
@@ -2488,7 +2493,7 @@ function administrar(){
 
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
-        html=html+"<a href='"+base_url+"Imports/importar_estudiantes'>";
+        html=html+"<a href='"+base_url+"Estudiante/verTodos'>";
         html=html+"<img src='./img/botones/menu/bd_estudiantes.png' width='100%' height='100%'></a></div></div>"; 
 
         html+="</div></div>";   

@@ -3,7 +3,7 @@ $(document).on("click", ".btn-eliminar-anuncio", function() {
     eliminarAnuncio(anuncio);
 });
 
-function guardar_anuncio() {
+function guardar_anuncio(menu_materia = "true") {
     let titulo = $("#nuevo-anuncio-titulo").val();
     let descripcion = $("#nuevo-anuncio-descripcion").val();
 
@@ -20,7 +20,7 @@ function guardar_anuncio() {
 
                 if (data.status) {
                     $('#agregar-nuevo-anuncio').modal('hide');
-                    enlace_mat_est(data.object.materia);
+                    enlace_mat_est(data.object.materia, menu_materia);
                 }
 
                 alert(data.message);

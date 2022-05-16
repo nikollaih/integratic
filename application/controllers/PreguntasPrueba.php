@@ -89,7 +89,6 @@
         else{
             return array("type" => "danger", "message" => "Error al guardar la pregunta, intente de nuevo más tarde.", "success" => false);
         }
-        print_r($data);
     }
 
     // Guardar respuesta

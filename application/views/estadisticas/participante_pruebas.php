@@ -96,9 +96,9 @@
 
 <script>
     $(document).ready( function () {
-    $('#tabla-pruebas').DataTable({
-        order: []
-    });
-} );
+        $('#tabla-pruebas').DataTable({
+            order: []
+        });
+    } );
 </script>
 </html>

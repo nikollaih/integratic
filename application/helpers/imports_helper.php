@@ -43,3 +43,41 @@ function importar_participantes_pruebas($FILES){
         }
     }
 }
+
+function importar_estudiantes($FILES){
+    $file_mimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    if(isset($FILES['estudiantes']['name']) && in_array($FILES['estudiantes']['type'], $file_mimes)) {
+        $estudiantes = [];
+        $arr_file = explode('.', $FILES['estudiantes']['name']);
+        $extension = end($arr_file);
+        
+        if('csv' == $extension){
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+        } else {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+
+        $spreadsheet = $reader->load($FILES['estudiantes']['tmp_name']);
+        $sheetData = $spreadsheet->getActiveSheet()->toArray();
+
+        if(is_array($sheetData)){
+            if(count($sheetData) > 1){
+                for ($i=2; $i < count($sheetData); $i++) { 
+                    $estudiante = $sheetData[$i];
+
+                    $nuevo_estudiante["documento"] = $estudiante[2];
+                    $nuevo_estudiante["nombre"] = $estudiante[1];
+                    $nuevo_estudiante["grado"] = $estudiante[4];
+                    array_push($estudiantes, $nuevo_estudiante);
+                }
+            }
+        }
+
+        if(count($estudiantes)){
+            return $estudiantes;
+        }
+        else{
+            return false;
+        }
+    }
+}
