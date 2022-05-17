@@ -418,7 +418,7 @@ class Actividades extends CI_Controller {
         $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
         $html=$html."<div class='col-lg-2' style='float:right;'>";        
         $html=$html."<a href='javascript:crear();' style='width:10%'>";
-        $html=$html."<img src='./img/iconos/crear.png' width='40' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
+        $html=$html."<img src='./img/iconos/nueva_carpeta.png' width='32' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
         $html=$html.'<a href="./index.php/upload/bajar_carpeta/'.$ref; 
         $html=$html.'-/'.$nombre.'" style="width:10%">';
         $html=$html."<img src='./img/iconos/bajar.png' width='25' height='28' alt='Descargar Carpeta' title='Descargar Carpeta'></a>";        
