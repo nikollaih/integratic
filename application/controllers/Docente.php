@@ -169,9 +169,9 @@ class Docente extends CI_Controller {
         $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
         $html=$html."<div class='col-lg-2' style='float:right;'>";        
         $html=$html."<a href='javascript:crear();' style='width:10%'>";
-        $html=$html."<img src='./img/iconos/crear.png' width='40' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
+        $html=$html."<img src='./img/iconos/nueva_carpeta.png' width='32' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
         $html=$html."<a href='javascript:subir();' style='width:10%'>";
-        $html=$html."<img src='./img/iconos/subir.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'></a>&nbsp;"; 
+        $html=$html."<img src='./img/iconos/subir_archivo.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'></a>&nbsp;"; 
         //$html=$html."<a href='javascript:descargar();' style='width:10%'>";
         //$html=$html."<img src='./img/iconos/down.png' width='40' height='32' alt='Descargar' title='Descargar'></a>&nbsp;";        
         $html=$html."</div></div>";         
@@ -307,9 +307,9 @@ class Docente extends CI_Controller {
         $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
         $html=$html."<div class='col-lg-2' style='float:right;'>";        
         $html=$html."<a href='javascript:crear();' style='width:10%'>";
-        $html=$html."<img src='./img/iconos/crear.png' width='40' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
+        $html=$html."<img src='./img/iconos/nueva_carpeta.png' width='32' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
         $html=$html."<a href='javascript:subir();' style='width:10%'>";
-        $html=$html."<img src='./img/iconos/subir.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'></a>&nbsp;"; 
+        $html=$html."<img src='./img/iconos/subir_archivo.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'></a>&nbsp;"; 
         $html=$html."</div></div>";         
         $html=$html."<table style='width:80%;'><tbody><tr>";
         $i=0;
@@ -453,9 +453,9 @@ public function listar_filtro(){
     $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
     $html=$html."<div class='col-lg-2' style='float:right;'>";        
     $html=$html."<a href='javascript:crear();' style='width:10%'>";
-    $html=$html."<img src='./img/iconos/crear.png' width='40' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
+    $html=$html."<img src='./img/iconos/nueva_carpeta.png' width='32' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
     $html=$html."<a href='javascript:subir();' style='width:10%'>";
-    $html=$html."<img src='./img/iconos/subir.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'></a>&nbsp;"; 
+    $html=$html."<img src='./img/iconos/subir_archivo.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'></a>&nbsp;"; 
     $html=$html."</div></div>";         
     $html=$html."<table style='width:80%;'><tbody><tr>";
     $i=0;

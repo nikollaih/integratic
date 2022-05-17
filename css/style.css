@@ -1787,7 +1787,7 @@ body.fixed-left .side-menu.left {
 .content-page>.content {
     margin-top: 70px;
     margin-bottom: 60px;
-    padding: 40px 20px;
+    padding: 20px 10px;
     position: relative;
 }
 
@@ -1934,12 +1934,12 @@ body.fixed-left .side-menu.left {
 }
 
 #wrapper.enlarged .left.side-menu {
-    width: 50px;
+    width: 80px;
     z-index: 5;
 }
 
 #wrapper.enlarged .content-page {
-    margin-left: 50px;
+    margin-left: 80px;
 }
 
 #wrapper.enlarged .topbar .topbar-left {
@@ -3414,11 +3414,16 @@ div.dataTables_info {
 /************* 17.PAGES ****************/
 
 .bg-img {
-    background: url(../images/small/sesion.png) center;
+    /*background: url(../images/small/sesion.png) center;*/
 }
 
 .bg-img2 {
-    background: url(../images/small/clave.png) center;
+    /*background: url(../images/small/clave.png) center;*/
+}
+
+.text-modal-login{
+    font-size: 35px;
+    font-weight: 300 !important;
 }
 
 .bg-overlay {

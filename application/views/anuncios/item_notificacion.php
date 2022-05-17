@@ -1,5 +1,5 @@
 <li class="list-group list-notificacion-anuncio">
-    <a href="javascript:onPressNotificacion();" class="list-group-item">
+    <a href="javascript:enlace_mat_est('<?= $codmateria ?>');listado('areas','<?= $nommateria ?>','<?= $nommateria.$grado ?>','<?= $grado.$grupo ?>','','<?= $codmateria ?>','<?= $grupo ?>');" class="list-group-item">
         <div class="media">
             <div class="media-body clearfix">
                 <div>
@@ -12,10 +12,3 @@
         </div>
     </a>   
 </li>
-
-<script>
-    function onPressNotificacion(){
-        enlace_mat_est('<?= $codmateria ?>');
-        listado('areas','<?= $nommateria ?>','<?= $nommateria.$grado ?>','<?= $grado.$grupo ?>','','<?= $codmateria ?>','<?= $grupo ?>');
-    }
-</script>

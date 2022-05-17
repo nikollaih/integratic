@@ -17,7 +17,7 @@
                                     if($respuesta_actividad == false) {
                                         ?>
                                         <a href="javascript:subir();" class="crear-respuesta-boton d-flex align-items-center" data-actividad="<?= $a["id_actividad"] ?>" data-toggle="modal" data-target="#agregar-respuesta-actividad"> 
-                                            <img src="./img/iconos/subir.png" width="32" height="32" alt="Subir Archivo" title="Subir Archivo">
+                                            <img src="./img/iconos/subir_archivo.png" width="32" height="32" alt="Subir Archivo" title="Subir Archivo">
                                             <p style="margin:0px 0PX 0PX 10PX;">Subir respuesta</p>
                                         </a>
                             <?php

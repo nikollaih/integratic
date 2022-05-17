@@ -142,7 +142,7 @@
                                     </ul>
                                 </li>
                                 <?php
-                                    if(is_logged()){
+                                    /*if(is_logged()){
                                        if(strtolower(logged_user()["rol"]) == "estudiante"){
                                           ?>
                                           <li class="dropdown">
@@ -152,7 +152,7 @@
                                           </li>
                                           <?php
                                        }
-                                    }
+                                    }*/
                                 ?>
                                 <!--<li class="dropdown"><div id="foto"><br>                                    
                                     <a href="javascript:prelogin();" class="dropdown-toggle profile"><img src="./images/user.png" alt="user-img" class="img-circle"></a>
