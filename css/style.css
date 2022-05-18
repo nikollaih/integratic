@@ -1934,8 +1934,12 @@ body.fixed-left .side-menu.left {
 }
 
 #wrapper.enlarged .left.side-menu {
-    width: 80px;
+    width: 77px;
     z-index: 5;
+}
+
+#sidebar-menu ul li a span{
+    margin-left: 20px;
 }
 
 #wrapper.enlarged .content-page {
