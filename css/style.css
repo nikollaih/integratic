@@ -1938,10 +1938,6 @@ body.fixed-left .side-menu.left {
     z-index: 5;
 }
 
-#sidebar-menu ul li a span{
-    margin-left: 20px;
-}
-
 #wrapper.enlarged .content-page {
     margin-left: 80px;
 }
@@ -3418,12 +3414,17 @@ div.dataTables_info {
 /************* 17.PAGES ****************/
 
 .bg-img {
-    /*background: url(../images/small/sesion.png) center;*/
+    background: url(../images/small/sesion.png) center;
+    background-size: 80%;
+    background-repeat: no-repeat;
 }
 
 .bg-img2 {
-    /*background: url(../images/small/clave.png) center;*/
+    background: url(../images/small/clave.png) center;
+    background-size: 80%;
+    background-repeat: no-repeat;
 }
+
 
 .text-modal-login{
     font-size: 35px;
@@ -4499,6 +4500,12 @@ div.dataTables_info {
 @media (min-width: 768px) and (max-width: 991px) {
     body {
         overflow-x: hidden;
+    }
+}
+
+@media (max-width: 990px) {
+    #sidebar-menu ul li a span{
+        margin-left: 20px;
     }
 }
 

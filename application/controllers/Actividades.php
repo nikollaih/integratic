@@ -416,14 +416,14 @@ class Actividades extends CI_Controller {
         $html=$html."<div class='panel-body'>";         
         $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value=".htmlentities($carpeta)." type='hidden'/>";
         $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
-        $html=$html."<div class='col-lg-2' style='float:right;'>";        
+        $html=$html."<div class='col-lg-12' style='float:right;'>";        
         $html=$html."<a href='javascript:crear();' style='width:10%'>";
         $html=$html."<img src='./img/iconos/nueva_carpeta.png' width='32' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
         $html=$html.'<a href="./index.php/upload/bajar_carpeta/'.$ref; 
         $html=$html.'-/'.$nombre.'" style="width:10%">';
         $html=$html."<img src='./img/iconos/bajar.png' width='25' height='28' alt='Descargar Carpeta' title='Descargar Carpeta'></a>";        
         $html=$html."</div></div>";         
-        $html=$html."<table style='width:80%;'><tbody>";
+        $html=$html."<table style='width:100%;'><tbody>";
         if (!is_dir($carpeta)) {mkdir($carpeta, 0777);}
         if(is_dir($carpeta)){
             if($dir = opendir($carpeta)){

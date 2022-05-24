@@ -113,4 +113,9 @@ class Estudiante_Model extends CI_Model {
 		$this->db->where("documento !=", "-99");
 		return $this->db->delete("estudiante");
 	}
+
+	function delete($documento){
+		$this->db->where("documento", $documento);
+		return $this->db->delete("estudiante");
+	}
 }

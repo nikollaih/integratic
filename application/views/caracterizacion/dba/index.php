@@ -8,33 +8,36 @@
                 <div class="row" id="migas"></div>
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="<?= base_url() ?>Estudiante/importar" class="btn btn-primary m-b-2">Importar estudiantes</a>
+                        <a href="<?= base_url() ?>Caracterizacion/addDBA" class="btn btn-primary m-b-2">Agregar DBA</a>
                     </div>
                 </div>
                 <div class="panel panel-primary">
-                    <div class="panel-heading text-capitalize"><b>Estudiantes</b></div>
+                    <div class="panel-heading text-capitalize"><b>DBA's</b></div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-12 col-sm-12">
-                                <table id="tabla-estudiantes" class="table table-bordered table-striped">
+                            <div class="col-sm-12">
+                                <table id="tabla-dba" class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <td>Identificación</td>
-                                            <td>Nombre completo</td>
-                                            <td>Grado</td>
-                                            <td></td>
+                                            <th>Área</th>
+                                            <th>Grado</th>
+                                            <th>Descripción</th>
+                                            <th style="width:150px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            if($estudiantes){
-                                                foreach ($estudiantes as $e) {
+                                            if($dbas){
+                                                foreach ($dbas as $dba) {
                                                     ?>
-                                                        <tr id="estudiante-<?= $e["documento"] ?>">
-                                                            <td><?= $e["documento"] ?></td>
-                                                            <td><?= $e["nombre"] ?></td>
-                                                            <td><?= $e["grado"] ?></td>
-                                                            <td class="text-center"><button data-id="<?= $e["documento"] ?>" class="btn btn-danger btn-sm btn-eliminar-estudiante">Eliminar</button></td>
+                                                        <tr id="dba-<?= $dba["id_dba"] ?>">
+                                                            <td><?= $dba["descripcion_area"] ?></td>
+                                                            <td><?= $dba["grado"] ?>°</td>
+                                                            <td><?= $dba["descripcion_dba"] ?></td>
+                                                            <td style="width:150px;">
+                                                                <a data-dba="<?= $dba["id_dba"] ?>" href="<?= base_url() ?>Caracterizacion/addDBA/<?= $dba["id_dba"] ?>" class="btn btn-warning btn-sm m-b-2">Modificar</a>
+                                                                <button data-dba="<?= $dba["id_dba"] ?>" class="button-eliminar-dba btn btn-danger btn-sm m-b-2">Eliminar</button>
+                                                            </td>
                                                         </tr>
                                                     <?php
                                                 }
@@ -43,7 +46,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>  
+                        </div> 
                     </div>
                 </div>
 

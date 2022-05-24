@@ -167,7 +167,7 @@ class Docente extends CI_Controller {
         $html=$html.'<div class="panel-body">';         
         $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value=".$carpeta." type='hidden'/>";
         $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
-        $html=$html."<div class='col-lg-2' style='float:right;'>";        
+        $html=$html."<div class='col-lg-12' style='float:right;'>";        
         $html=$html."<a href='javascript:crear();' style='width:10%'>";
         $html=$html."<img src='./img/iconos/nueva_carpeta.png' width='32' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
         $html=$html."<a href='javascript:subir();' style='width:10%'>";
@@ -175,7 +175,7 @@ class Docente extends CI_Controller {
         //$html=$html."<a href='javascript:descargar();' style='width:10%'>";
         //$html=$html."<img src='./img/iconos/down.png' width='40' height='32' alt='Descargar' title='Descargar'></a>&nbsp;";        
         $html=$html."</div></div>";         
-        $html=$html."<table style='width:80%;'><tbody><tr>";
+        $html=$html."<table style='width:100%;'><tbody><tr>";
         $i=0;
         if(is_dir($carpeta)){
             if($dir = opendir($carpeta)){
@@ -305,13 +305,13 @@ class Docente extends CI_Controller {
         $html=$html.'<div class="panel-body">';         
         $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value='$carpeta' type='hidden'/>";
         $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
-        $html=$html."<div class='col-lg-2' style='float:right;'>";        
+        $html=$html."<div class='col-lg-12' style='float:right;'>";        
         $html=$html."<a href='javascript:crear();' style='width:10%'>";
         $html=$html."<img src='./img/iconos/nueva_carpeta.png' width='32' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
         $html=$html."<a href='javascript:subir();' style='width:10%'>";
         $html=$html."<img src='./img/iconos/subir_archivo.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'></a>&nbsp;"; 
         $html=$html."</div></div>";         
-        $html=$html."<table style='width:80%;'><tbody><tr>";
+        $html=$html."<table style='width:100%;'><tbody><tr>";
         $i=0;
         if(is_dir($carpeta)){
             if($dir = opendir($carpeta)){
@@ -320,16 +320,16 @@ class Docente extends CI_Controller {
                        if (is_dir($carpeta."/".$archivo)){
                            $ruta=$carpeta."/".$archivo;
                             $html=$html.'<td  style="width:50%; height:42px"><a href="javascript:submenu_doc(\''.$ruta.'\',\''.$archivo.'\')">';
-                            $html=$html."<img src='./img/iconos/carpeta.png' width='25' height='28'>&nbsp;&nbsp;$archivo";                                                        
+                            $html=$html."<img src='./img/iconos/carpeta.png' height='28'>&nbsp;&nbsp;$archivo";                                                        
                             $html=$html."</a></td>";  
                             $ruta=$carpeta."/".$archivo;
                             date_default_timezone_set ('America/Bogota');
                             setlocale(LC_ALL,"es_ES");
-                            $html.="<td>".date("d/m/Y h:i a",filectime(utf8_decode($ruta)))."</td>";                                                        
+                            $html.="<td>".date("d/m/Y h:i a",filectime(utf8_decode($ruta)))."</td>";                                                     
                             $html=$html.'<td style="width:5%;"><a href="javascript:elicar(\''.$ruta.'\');" style="width:10%">';
-                            $html=$html."<img src='./img/iconos/borrar.png' width='25' height='28' alt='Eliminar Carpeta' title='Eliminar Carpeta'></a></td>";  
-                            $html=$html.'<td style="width:5%;"><a href="javascript:rencar(\''.$carpeta.'\',\''.$archivo.'\');" style="width:10%">';
-                            $html=$html."<img src='./img/iconos/ren.png' width='25' height='28' alt='Renombrar Carpeta' title='Renombrar Carpeta'></a></td></tr>";                             
+                            $html=$html."<img src='./img/iconos/borrar.png' height='28' alt='Eliminar Carpeta' title='Eliminar Carpeta'></a></td>";  
+                            $html=$html.'<td style="width:5%;"><a href="javascript:renombrar(\''.$carpeta.'\',\''.$archivo.'\');" style="width:10%">';
+                            $html=$html."<img src='./img/iconos/ren.png' height='28' alt='Renombrar Carpeta' title='Renombrar Carpeta'></a></td></tr>";                             
                         } 
                     } 
                 }
@@ -451,13 +451,13 @@ public function listar_filtro(){
     $html=$html.'<div class="panel-body">';         
     $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value=".htmlentities($carpeta)." type='hidden'/>";
     $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
-    $html=$html."<div class='col-lg-2' style='float:right;'>";        
+    $html=$html."<div class='col-lg-12' style='float:right;'>";        
     $html=$html."<a href='javascript:crear();' style='width:10%'>";
     $html=$html."<img src='./img/iconos/nueva_carpeta.png' width='32' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'></a>&nbsp;";
     $html=$html."<a href='javascript:subir();' style='width:10%'>";
     $html=$html."<img src='./img/iconos/subir_archivo.png' width='32' height='32' alt='Subir Archivo' title='Subir Archivo'></a>&nbsp;"; 
     $html=$html."</div></div>";         
-    $html=$html."<table style='width:80%;'><tbody><tr>";
+    $html=$html."<table style='width:100%;'><tbody><tr>";
     $i=0;
     if(is_dir($carpeta)){
         if($dir = opendir($carpeta)){
