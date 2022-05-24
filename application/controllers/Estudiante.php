@@ -9,7 +9,7 @@ class Estudiante extends CI_Controller {
          $this->load->helper('form');
          $this->load->helper('html');
          $this->load->helper('url');
-         $this->load->model('Estudiante_Model');
+         $this->load->model(['Estudiante_Model', 'Usuarios_Model']);
     }
 
 	public function verTodos(){
@@ -92,5 +92,29 @@ class Estudiante extends CI_Controller {
 			else header("Location: ".base_url());
 		}
 		else header("Location: ".base_url());
+	}
+
+	public function eliminar($documento){
+		if(is_logged()){
+			if(strtolower(logged_user()["rol"]) == "super"){
+				$estudiante = $this->Estudiante_Model->getStudentsByDocuments([$documento]);
+				if($estudiante){
+					if($this->Usuarios_Model->delete($documento)){
+						if($this->Estudiante_Model->delete($documento))
+							json_response(array("error" => false), true, "Estudiante eliminado exitosamente");
+						else
+							json_response(array("error" => "general"), false, "No se ha podido eliminar el estudiante, por favor intente de nuevo más tarde");
+					}
+					else
+						json_response(array("error" => "general"), false, "No se ha podido eliminar el estudiante, por favor intente de nuevo más tarde");
+				}
+				else
+					json_response(array("error" => "404"), false, "No se ha encontrado un estudiante con número identificación: ".$documento);
+			}
+			else
+				json_response(array("error" => "permissions"), false, "No tiene los permisos necesarios para realizar esta accion");
+		}
+		else
+			json_response(array("error" => "login"), false, "Iniciar sesion");
 	}
 }

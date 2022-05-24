@@ -1984,7 +1984,7 @@ function prelogin(){
     html=html+"<div class='panel panel-color panel-primary panel-pages'>";
     html=html+"<div class='panel-heading bg-img modal-colored'>";
     html=html+"<div class='bg-overlay'></div>";
-    html=html+"<h3 class='text-center m-t-10 text-white text-modal-login'>Inicio de sesion</h3></div>";
+    html=html+"<h3 class='text-center m-t-10 text-white'><strong></strong></h3></div>";
     html=html+"<div class='panel-body'>";
     html=html+"<form id='frmlogin' class='form-horizontal m-t-20'>";                    
     html=html+"<div class='form-group '>";
@@ -2011,7 +2011,7 @@ function cambio_clave(){
     html+="<div class='panel panel-color panel-primary panel-pages'>";
     html+="<div class='panel-heading bg-img2'>";
     html+="<div class='bg-overlay'></div>";
-    html+="<h3 class='text-center m-t-10 text-white text-modal-login'>Cambiar clave</h3></div>";
+    html+="<h3 class='text-center m-t-10 text-white'><strong></strong></h3></div>";
     html+="<div class='panel-body'>";
     html+="<form id='frmcambio' class='form-horizontal m-t-20'>";                    
     html+="<div class='form-group '>";

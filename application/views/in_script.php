@@ -54,6 +54,9 @@
         <!-- Actividades -->
         <script src="<?= base_url() ?>js/actividades.js"></script>
 
+        <!-- Caracterizacion -->
+        <script src="<?= base_url() ?>js/caracterizacion.js"></script>
+
         <!-- Pruebas -->
         <script src="<?= base_url() ?>js/pruebas.js"></script>
 

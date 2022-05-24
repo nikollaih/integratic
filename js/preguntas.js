@@ -74,7 +74,6 @@ $(document).ready(function() {
                 url: base_url + "PreguntasPrueba/delete/" + id_pregunta,
                 type: 'GET',
                 success: function(data) {
-                    console.log(data);
                     var data = JSON.parse(data);
                     if (data.status) {
                         tabla_preguntas

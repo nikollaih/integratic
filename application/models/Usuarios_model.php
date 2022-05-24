@@ -29,4 +29,9 @@ class Usuarios_Model extends CI_Model {
 		$this->db->where("rol", $rol);
 		return $this->db->delete("usuarios");
 	}
+
+	function delete($id){
+		$this->db->where("id", $id);
+		return $this->db->delete("usuarios");
+	}
 }
