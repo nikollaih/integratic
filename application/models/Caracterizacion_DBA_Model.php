@@ -24,6 +24,18 @@ class Caracterizacion_DBA_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+	function get_all_area_grado($id_area, $grado){
+		$this->db->from("caracterizacion_dba cd");
+		$this->db->join("caracterizacion_area ca", "cd.id_area = ca.id_caracterizacion_area");
+		$this->db->order_by("ca.id_caracterizacion_area", "asc");
+        $this->db->order_by("cd.descripcion_dba", "asc");
+		$this->db->where("cd.estado", 1);
+		$this->db->where("cd.id_area", $id_area);
+		$this->db->where("cd.grado", $grado);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
     function create($data){
         return $this->db->insert("caracterizacion_dba", $data);
     }

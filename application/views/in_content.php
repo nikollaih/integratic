@@ -777,8 +777,7 @@ function menupri(){
                       html+="<div class='row'>";
                       html+="<div class='col-md-12 col-sm-12 col-lg-12'>";
                       html+="<div class='mini-stat clearfix bx-shadow'>";
-                      html+="<a href='javascript:listar_anuncios()'>";
-                      html+="<img src='./img/"+configuracion.banner_principal+"' width='100%' height='100%'></a></div></div></div>";                      
+                      html+="<img src='./img/"+configuracion.banner_principal+"' width='100%' height='100%'></div></div></div>";                      
                       for (i=0; i<registros.length; i++) {                          
                         html+="<div class='col-md-6 col-sm-6 col-lg-3'>"; 
                         html+='<div class="mini-stat clearfix bx-shadow">';
@@ -1221,11 +1220,11 @@ function descartes(){
     html+='<a href="./principal/descartes/geografica/index.htm" target="_blank">';
     html+='<img src="./img/botones/geografica.png"  width="100%" height="100%"></a>';
     html+='</div></div>';     
-    html+='<div class="col-md-6 col-sm-6 col-lg-3">';
+    /*html+='<div class="col-md-6 col-sm-6 col-lg-3">';
     html+='<div class="mini-stat clearfix bx-shadow">';
     html+='<a href="./principal/descartes/eecl/index.htm" target="_blank">';
     html+='<img src="./img/botones/eecl.png"  width="100%" height="100%"></a>';
-    html+='</div></div>';     
+    html+='</div></div>';     */
     html+='<div class="col-md-6 col-sm-6 col-lg-3">';
     html+='<div class="mini-stat clearfix bx-shadow">';
     html+='<a href="./principal/descartes/competencias/index.htm" target="_blank">';
@@ -2494,6 +2493,11 @@ function administrar(){
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='"+base_url+"Estudiante/verTodos'>";
+        html=html+"<img src='./img/botones/menu/bd_estudiantes.png' width='100%' height='100%'></a></div></div>"; 
+
+        html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
+        html=html+"<div class='mini-stat clearfix bx-shadow'>";
+        html=html+"<a href='"+base_url+"Caracterizacion'>";
         html=html+"<img src='./img/botones/menu/bd_estudiantes.png' width='100%' height='100%'></a></div></div>"; 
 
         html+="</div></div>";   
