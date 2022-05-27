@@ -41,10 +41,10 @@
                             <a href="javascript:menu();" class="waves-effect">
                                 <i><img src='<?= base_url() ?>img/iconos/aplicativos.png' width="50" height="50"></i><span>Aplicativos</span></a>
                         </li>                         
-                        <li>
+                        <!--<li>
                             <a href="./principal/aprender" target='_blank'>
                                 <i><img src='<?= base_url() ?>img/iconos/aprender.png' width="50" height="50"></i><span>Aprender</span></a>
-                        </li>
+                        </li>-->
                         <!-- <li>
                             <a href="javascript:areas();" class="waves-effect">
                                 <i><img src='<?= base_url() ?>img/iconos/areas.png' width="50" height="50"></i><span>Areas</span></a>
