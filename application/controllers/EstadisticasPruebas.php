@@ -32,7 +32,6 @@ class EstadisticasPruebas extends CI_Controller {
     }
 
     public function participante($identificacion){
-        $identificacion = decrypt_string($identificacion, true);
         $params["participante"] = $this->Participantes_Prueba_Model->get($identificacion);
 
         if($params["participante"]){

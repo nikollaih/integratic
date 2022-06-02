@@ -12,23 +12,33 @@
                 <?php
                     if(is_logged()){
                         if(strtolower(logged_user()["rol"]) == "super"){
-                ?>
-                     <li>
-                         <a href='<?= base_url() ?>'>
-                            <i><img src='<?= base_url() ?>img/iconos/menu.png' width='50' height='50'></i><span>Menú<br>Principal</span>
-                        </a>
-                    </li>                      
-                    <li>
-                        <a href='./principal/manuales/manual_integra.pdf' target='_blank'>
-                            <i><img src='<?= base_url() ?>img/iconos/manual.png' width='50' height='50'></i><span>Manual<br> Usuario</span>
-                        </a>
-                    </li>       
-                    <li>
-                        <a href='javascript:logout()' onclick='javascript:logout()'>
-                            <i><img src='<?= base_url() ?>img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar<br> Sesión</span>
-                        </a>
-                    </li>   
-                <?php
+                            ?>
+                                <li>
+                                    <a href='<?= base_url() ?>'>
+                                        <i><img src='<?= base_url() ?>img/iconos/menu.png' width='50' height='50'></i><span>Menú<br>Principal</span>
+                                    </a>
+                                </li>                      
+                                <li>
+                                    <a href='./principal/manuales/manual_integra.pdf' target='_blank'>
+                                        <i><img src='<?= base_url() ?>img/iconos/manual.png' width='50' height='50'></i><span>Manual<br> Usuario</span>
+                                    </a>
+                                </li>       
+                                <li>
+                                    <a href='<?= base_url() ?>Usuarios/logout' onclick='javascript:logout()'>
+                                        <i><img src='<?= base_url() ?>img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar<br> Sesión</span>
+                                    </a>
+                                </li>   
+                            <?php
+                        }
+
+                        if(strtolower(logged_user()["rol"]) == "docente"){
+                            ?>
+                                <li>
+                                    <a href='<?= base_url() ?>'>
+                                        <i><img src='<?= base_url() ?>img/iconos/volver.png' width='50' height='50'></i><span>Volver</span>
+                                    </a>
+                                </li>  
+                            <?php
                         }
                     }
                     else{

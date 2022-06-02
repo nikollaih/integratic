@@ -58,4 +58,9 @@
 			json_response(null, false, "Usuario no válido");
 		}
 	}
+
+    public function logout(){
+        $this->session->sess_destroy();
+        header("Location: ".base_url());
+    }
 } 

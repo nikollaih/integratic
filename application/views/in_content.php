@@ -2096,7 +2096,7 @@ function login(){
                                $("#foto").html(html);
                                $("#contenedor").html('');
                                document.getElementById("usr_cambio").value=nomusr;
-
+                               location.reload();
                                cambio_menu();
                                if(registros.rol == "Docente"){
                                 cfg_docente();

@@ -1,6 +1,9 @@
 $(document).ready(function() {
     let tabla_pruebas = $('#tabla-pruebas').DataTable({
-        order: []
+        order: [],
+        "language": {
+            "url": base_url + "js/json/datatable_spanish.json"
+        }
     });
 
     $(document).on("click", ".agregar-respuesta-pregunta", function() {

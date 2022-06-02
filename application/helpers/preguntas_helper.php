@@ -10,6 +10,27 @@
     
     }
 
+    if(!function_exists('get_pregunta_dificultad'))
+    {
+        function get_pregunta_dificultad($dificultad){
+            switch ($dificultad) {
+                case '1':
+                    return "fácil";
+                    break;
+                case '2':
+                    return "intermedia";
+                    break;
+                case '3':
+                    return "avanzada";
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
+    
+    }
+
     if(!function_exists('obtener_preguntas_asignadas_prueba'))
     {
         function obtener_preguntas_asignadas_prueba($preguntas, $cantidad_preguntas){
