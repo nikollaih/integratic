@@ -122,7 +122,7 @@
       </div>
       <div class="modal-body">
           <form id="frmsubir" name="frmsubir" enctype="multipart/form-data">
-              <input id="archivo" name="archivo" type="file"/>
+              <input id="archivo" name="archivo[]" multiple type="file"/>
               <input id="dir" name="dir" type="hidden"/>
           </form>
       </div>
