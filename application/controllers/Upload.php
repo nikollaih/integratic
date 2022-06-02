@@ -14,15 +14,22 @@ function do_upload(){
     $this->load->library('upload');
     //$ruta=utf8_encode($this->input->post("dir"));
     $ruta=utf8_decode($this->input->post("dir"));
-    echo "111";
-    echo $ruta;
+    $split_ruta = explode("/", $ruta);
+
+    if(is_array($split_ruta)){
+        $temp_ruta = "";
+        for ($i=0; $i < count($split_ruta); $i++) { 
+            $temp_ruta.= $split_ruta[$i]."/";
+            if (!is_dir($temp_ruta)) {
+                mkdir($temp_ruta, 0644);
+            }
+        }
+    }
     /*
         * Revisamos si el archivo fue subido
         * Comprobamos si existen errores en el archivo subido
         */
-        echo "0";
     if (!empty($_FILES['archivo']['name'])){
-        echo "1";
         // Configuración para el Archivo 1
         $config['upload_path'] = $ruta;
         $config['allowed_types'] = '*';
@@ -30,25 +37,22 @@ function do_upload(){
         $config['max_input_time'] = '1000';
         $config['post_max_size'] = '10M';
         $config['upload_max_filesize'] = '10M';
-        echo "2";
 
         // Cargamos la configuración del Archivo 1
         $this->upload->initialize($config);
-        echo "3";
-        // Subimos archivo 1
-        if ($this->upload->do_upload('archivo'))
-        {
-            echo "4";
-            $data = $this->upload->data();
-            json_response($data, true, "Documento cargado");
+
+        $files = $_FILES;
+        $cpt = count($_FILES ['archivo'] ['name']);
+
+        for ($i = 0; $i < $cpt; $i ++) {
+            $name = $files ['archivo'] ['name'] [$i];
+            $_FILES ['archivo'] ['name'] = $name;
+            $_FILES ['archivo'] ['type'] = $files ['archivo'] ['type'] [$i];
+            $_FILES ['archivo'] ['tmp_name'] = $files ['archivo'] ['tmp_name'] [$i];
+            $_FILES ['archivo'] ['error'] = $files ['archivo'] ['error'] [$i];
+            $_FILES ['archivo'] ['size'] = $files ['archivo'] ['size'] [$i];
+            $this->upload->do_upload('archivo');
         }
-        else
-        {
-            echo "5";
-            $this->upload->display_errors();
-            json_response($this->upload->display_errors(), true, "Documento no cargado");
-        }
-        echo "6";
     }
     else{
         echo "vacio";
