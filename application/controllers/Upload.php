@@ -21,7 +21,7 @@ function do_upload(){
         for ($i=0; $i < count($split_ruta); $i++) { 
             $temp_ruta.= $split_ruta[$i]."/";
             if (!is_dir($temp_ruta)) {
-                mkdir($temp_ruta, 0644);
+                mkdir($temp_ruta, 0755);
             }
         }
     }

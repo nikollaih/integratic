@@ -105,13 +105,13 @@ class Docente extends CI_Controller {
             for ($i=0; $i < count($split_ruta); $i++) { 
                 $temp_ruta.= $split_ruta[$i]."/";
                 if (!is_dir($temp_ruta)) {
-                    mkdir($temp_ruta, 0644);
+                    mkdir($temp_ruta, 0755);
                 }
             }
         }
         
         if (!is_dir($dir)) {
-            mkdir($dir, 0644);
+            mkdir($dir, 0755);
             echo('Hecho! '.$dir);
         }else{echo('Error!');}    
 }
