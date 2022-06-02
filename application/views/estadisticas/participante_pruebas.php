@@ -73,8 +73,8 @@
                                                             <td><?= $prueba["nombre_prueba"] ?></td>
                                                             <td><?= $prueba["institucion"] ?></td>
                                                             <td><?= $prueba["grado"] ?></td>
-                                                            <td><?= $prueba["calificacion"] ?>%</td>
-                                                            <td class="text-center"><a href="<?= base_url() ?>Pruebas/ver/<?= encrypt_string($prueba["id_prueba"], true) ?>"><button class="btn btn-success">Ver prueba</button></a></td>
+                                                            <td><?= $prueba["nota"] ?></td>
+                                                            <td class="text-center"><a href="<?= base_url() ?>Pruebas/ver/<?= $prueba["id_prueba"] ?>"><button class="btn btn-success">Ver prueba</button></a></td>
                                                         </tr>
                                             <?php
                                                     }

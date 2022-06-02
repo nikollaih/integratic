@@ -62,6 +62,7 @@
 
     function guardarPregunta($data){
         $pregunta = $data["pregunta"];
+        $pregunta["created_by"] = logged_user()["id"];
         $id_pregunta = $this->Preguntas_Model->create($pregunta);
 
         if($id_pregunta){

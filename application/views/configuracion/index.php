@@ -24,6 +24,14 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
+                                                <label for="">Calificación sobre *</label>
+                                                <input required type="text" name="data[calificacion_sobre]" class="form-control" value="<?= (is_array($data)) ? $data["calificacion_sobre"] : "" ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
                                                 <label for="">Color principal *</label>
                                                 <input required type="color" name="data[color_principal]" class="form-control" value="<?= (is_array($data)) ? $data["color_principal"] : "" ?>">
                                             </div>

@@ -195,7 +195,7 @@
                                                                         <a href="<?= base_url() ?>Pruebas/resumen/<?= $prueba["id_prueba"] ?>/<?= $participante["id_participante_prueba"] ?>">
                                                                             <button class="btn btn-success btn-sm">Ver Resumen</button>
                                                                         </a>
-                                                                        <a href="<?= base_url() ?>EstadisticasPruebas/participante/<?= encrypt_string($participante["identificacion"], true) ?>/<?= $participante["id_participante_prueba"] ?>">
+                                                                        <a href="<?= base_url() ?>EstadisticasPruebas/participante/<?= $participante["identificacion"] ?>/<?= $participante["id_participante_prueba"] ?>">
                                                                             <button class="btn btn-info btn-sm">Ver estadisticas</button>
                                                                         </a>
                                                                         <?php

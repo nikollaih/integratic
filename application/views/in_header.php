@@ -60,6 +60,17 @@
                                         </div>
                                     </ul>
                                 </li>
+                                <?php
+                                       if(is_logged() && strtolower(logged_user()["rol"]) == "docente"){
+                                          ?>
+                                          <li>
+                                             <a href="<?= base_url() ?>Caracterizacion" class=" waves-effect waves-light" aria-expanded="true">
+                                                <i class="fa fa-search"></i>
+                                             </a>
+                                          </li>
+                                          <?php
+                                       }
+                                    ?>
                                 <li class="dropdown hidden-xs">
                                     <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
                                         <i class="fa fa-th"></i>

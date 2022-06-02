@@ -10,7 +10,7 @@
     // ========== CARACTERIZACION ========== //
     public function index(){
         if(is_logged()){
-            if(strtolower(logged_user()["rol"]) == "super"){
+            if(strtolower(logged_user()["rol"]) != "estudiante"){
                 $params["areas"] = $this->Caracterizacion_Areas_Model->get_all();
                 $this->load->view("caracterizacion/index", $params);
             }
@@ -57,9 +57,13 @@
         else header("Location: ".base_url());
     }
 
+   /**
+    * It gets the data from the database and returns it in a json format.
+    * </code>
+    */
     public function getSelectsData(){
         if(is_logged()){
-            if(strtolower(logged_user()["rol"]) == "super"){
+            if(strtolower(logged_user()["rol"]) != "estudiante"){
                 $id_area = $this->input->post()["area"];
                 $grado = $this->input->post()["grado"];
                 $params["dbas"] = $this->Caracterizacion_DBA_Model->get_all_area_grado($id_area, $grado);
@@ -74,7 +78,7 @@
 
     public function getContenidoData(){
         if(is_logged()){
-            if(strtolower(logged_user()["rol"]) == "super"){
+            if(strtolower(logged_user()["rol"]) != "estudiante"){
                 $id_area = $this->input->post()["area"];
                 $grado = $this->input->post()["grado"];
                 $params["contenido"] = $this->Caracterizacion_Model->get_all_area_grado($id_area, $grado);

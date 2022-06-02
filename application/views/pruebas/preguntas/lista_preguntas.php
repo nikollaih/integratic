@@ -68,7 +68,7 @@
                                                 <th>Dificultad</th>
                                                 <th>Pregunta</th>
                                                 <th>Fecha de creación</th>
-                                                <th></th>
+                                                <th style="width:150px;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -86,7 +86,7 @@
                                                                 ?>
                                                                 <td><?= $pregunta["id_pregunta_prueba"] ?></td>
                                                                 <td><?= $pregunta["nommateria"]." - ".$pregunta["grado"]."°" ?></td>
-                                                                <td><?= $pregunta["dificultad"] ?></td>
+                                                                <td><?= get_pregunta_dificultad($pregunta["dificultad"]) ?></td>
                                                                 <td><?= $pregunta["descripcion_pregunta"] ?></td>
                                                                 <td><?= date("d F Y H:i a", strtotime($pregunta["created_at"])) ?></td>
                                                                 <td class="text-center">

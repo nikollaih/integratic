@@ -50,7 +50,7 @@
                                                                 <?php
                                                                     if(strtolower(logged_user()["rol"]) == "estudiante"){
                                                                         ?>
-                                                                            <td><?= (info_prueba_realizada($p["id_prueba"], $p["id_participante_prueba"])["porcentaje"] != null) ? info_prueba_realizada($p["id_prueba"], $p["id_participante_prueba"])["porcentaje"]."%" : "Sin presentar" ?></td>
+                                                                            <td><?= (info_prueba_realizada($p["id_prueba"], $p["id_participante_prueba"])["porcentaje"] != null) ? info_prueba_realizada($p["id_prueba"], $p["id_participante_prueba"])["calificacion"] : "Sin presentar" ?></td>
                                                                         <?php
                                                                     }
                                                                 ?>

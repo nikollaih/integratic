@@ -1,7 +1,10 @@
 $(document).ready( function () {
     let tabla_estudiantes = $('#tabla-estudiantes').DataTable({
         "pageLength": 50,
-        order: []
+        order: [],
+        "language": {
+            "url": base_url + "js/json/datatable_spanish.json"
+        }
     });
 
     $(document).on("change", "#prueba-participantes-grado", function() {

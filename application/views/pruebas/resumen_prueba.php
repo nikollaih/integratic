@@ -19,7 +19,7 @@
                                             <div class="col-md-12 col-sm-12 col-lg-12">
                                                 <div class="subtitle-buttons">
                                                     <div class="d-flex">
-                                                        <h4><?= $prueba_realizada["calificacion"] ?>%</h4>
+                                                        <h4><?= $prueba_realizada["nota"] ?></h4>
                                                     </div>
                                                 </div>
                                                 <?php
@@ -43,7 +43,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td><b>Calificación</b></td>
-                                                            <td><?= $prueba_realizada["calificacion"] ?>%</td>
+                                                            <td><?= $prueba_realizada["nota"] ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td><b>Tipo</b></td>

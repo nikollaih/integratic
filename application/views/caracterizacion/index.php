@@ -6,14 +6,20 @@
         <div class="content">  
             <div class="container">
                 <div class="row" id="migas"></div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <a href="<?= base_url() ?>Caracterizacion/add" class="btn btn-success m-b-2">Agregar Contenido</a>
-                        <a href="<?= base_url() ?>Caracterizacion/DBA" class="btn btn-primary m-b-2">Ver DBAs</a>
-                        <a href="<?= base_url() ?>Caracterizacion/lineamientoCurricular" class="btn btn-primary m-b-2">Ver Lineamientos Curriculares</a>
-                        <a href="<?= base_url() ?>Caracterizacion/estandarCompetencia" class="btn btn-primary m-b-2">Ver Estandares de competencia</a>
-                    </div>
-                </div>
+                <?php
+                    if(strtolower(logged_user()["rol"]) == "super"){
+                        ?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="<?= base_url() ?>Caracterizacion/add" class="btn btn-success m-b-2">Agregar Contenido</a>
+                                    <a href="<?= base_url() ?>Caracterizacion/DBA" class="btn btn-primary m-b-2">Ver DBAs</a>
+                                    <a href="<?= base_url() ?>Caracterizacion/lineamientoCurricular" class="btn btn-primary m-b-2">Ver Lineamientos Curriculares</a>
+                                    <a href="<?= base_url() ?>Caracterizacion/estandarCompetencia" class="btn btn-primary m-b-2">Ver Estandares de competencia</a>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                ?>
                 <div class="panel panel-primary">
                     <div class="panel-heading text-capitalize"><b>Contenido</b></div>
                     <div class="panel-body">
@@ -59,9 +65,15 @@
                                             <th>DBA</th>
                                             <th>Lineamiento Curricular</th>
                                             <th>Estandar de competencias</th>
-                                            <th>Descripción</th>
+                                            <th>Tema</th>
                                             <th>Ruta</th>
-                                            <th style="width:150px;"></th>
+                                            <?php
+                                                if(strtolower(logged_user()["rol"]) == "super"){
+                                                    ?>
+                                                    <th style="width:150px;"></th>
+                                                    <?php
+                                                }
+                                            ?>
                                         </tr>
                                     </thead>
                                     <tbody>

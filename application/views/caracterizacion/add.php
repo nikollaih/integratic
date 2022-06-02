@@ -113,7 +113,7 @@
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label for="">Descripción *</label>
+                                        <label for="">Tema *</label>
                                         <textarea required class="form-control" name="descripcion" id="" cols="30" rows="5"><?= (is_array($data)) ? $data["descripcion"] : "" ?></textarea>
                                     </div>
                                 </div>

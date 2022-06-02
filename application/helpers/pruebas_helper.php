@@ -67,12 +67,15 @@
                 }
             }
 
+            $porcentaje = ($correctas == 0 && !$respuestas) ? null : number_format((float)($correctas / count($preguntas)) * 100, 1, '.', '');
+            $calificacion = ($porcentaje) ? ($porcentaje/100) * configuracion()["calificacion_sobre"] : 0;
 
             $respuesta = array(
                 "correctas" => $correctas,
                 "total" => (is_array($preguntas)) ? count($preguntas) : 0,
                 "parcial" => ($respuestas) ? count($respuestas) : 0,
-                "porcentaje" => ($correctas == 0 && !$respuestas) ? null : number_format((float)($correctas / count($preguntas)) * 100, 1, '.', ''),
+                "calificacion" => number_format($calificacion, 1, '.', ""),
+                "porcentaje" => $porcentaje,
                 "institucion" => ($realizar_prueba) ? $realizar_prueba["institucion"] : null,
                 "grado" => ($realizar_prueba) ? $realizar_prueba["grado"] : null,
                 "cerrada" => ($realizar_prueba) ? $realizar_prueba["is_closed"] : 0

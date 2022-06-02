@@ -2,7 +2,10 @@ let preguntas_seleccionadas = [];
 
 $(document).ready(function() {
     let tabla_preguntas = $('#tabla-preguntas').DataTable({
-        order: []
+        order: [],
+        "language": {
+            "url": base_url + "js/json/datatable_spanish.json"
+        }
     });
 
     $(document).on("click", "#btn-exportar-preguntas", function() {

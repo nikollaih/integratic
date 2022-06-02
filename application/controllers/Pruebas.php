@@ -111,15 +111,14 @@
 
     function resumen($id_prueba, $id_participante = null){
         if(is_logged()){
-            // TODO cambiar
             if($id_participante == null){
-                $id_participante = 1;
+                $usuario = $this->Participantes_Prueba_Model->get(logged_user()["id"]);
+                $id_participante = $usuario["id_participante_prueba"];
             }
             $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
-            if($params["prueba_realizada"]["calificacion"] == null){
-                $this->Realizar_Prueba_Model->update(array("id_realizar_prueba" => $params["prueba_realizada"]["id_realizar_prueba"], "calificacion" => info_prueba_realizada($id_prueba, $id_participante)["porcentaje"]));
-                $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
-            }
+            $prueba_realizada = info_prueba_realizada($id_prueba, $id_participante);
+            $this->Realizar_Prueba_Model->update(array("id_realizar_prueba" => $params["prueba_realizada"]["id_realizar_prueba"], "calificacion" => $prueba_realizada["porcentaje"], "nota" => $prueba_realizada["calificacion"]));
+            $params["prueba_realizada"] = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
             $params["id_participante"] = $id_participante;
             $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
             $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
@@ -143,7 +142,8 @@
         if(is_logged()){
             if(logged_user()["rol"] == "Estudiante"){
                 // TODO cambiar
-                $id_participante = 1;
+                $usuario = $this->Participantes_Prueba_Model->get(logged_user()["id"]);
+                $id_participante = $usuario["id_participante_prueba"];
                 $participante = $this->Asignacion_Participantes_Prueba_Model->get_participante($id_participante);
                 $params["id_participante"] = $id_participante;
                 $iniciado = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
