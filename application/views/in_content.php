@@ -1541,7 +1541,6 @@ function listar_arc(menu_materia = "false"){
             grupo:info_current_materia.idgrupo
         },
         success:function(respuesta){
-            console.log(respuesta);
             $("#listacon").html(respuesta);
             $("#rutas").html(titulo);                 
         },
@@ -1666,7 +1665,7 @@ function ren_archivo(menu_materia="false"){
 function subir_archivo(menu_materia="false"){
     var ruta=document.getElementById("archivo").value; 
     var formData = new FormData($("#frmsubir")[0]);
-    var url = './index.php/upload/do_upload';
+    var url = base_url + 'upload/do_upload';
             $.ajax({
                 url:url,
                 type:'POST',
@@ -1678,7 +1677,8 @@ function subir_archivo(menu_materia="false"){
                     $("#carga").html("<img src='img/cargando.gif' width='100' height='100'>"); 
                     $("#pie_carga").html(""); 
                   },                                 
-                success:function(){ 
+                success:function(data){
+                    console.log(data);
                     listar_arc(menu_materia); 
                     $("#subir_archivo").modal("hide");
                 },
@@ -2096,7 +2096,7 @@ function login(){
                                $("#foto").html(html);
                                $("#contenedor").html('');
                                document.getElementById("usr_cambio").value=nomusr;
-                               location.reload();
+
                                cambio_menu();
                                if(registros.rol == "Docente"){
                                 cfg_docente();
