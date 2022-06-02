@@ -10,41 +10,50 @@
 
 function do_upload(){
     // Revisamos si se ha subido algo
-        // Cargamos la libreria Upload
-        $this->load->library('upload');
-        //$ruta=utf8_encode($this->input->post("dir"));
-        $ruta=utf8_decode($this->input->post("dir"));
-        /*
-         * Revisamos si el archivo fue subido
-         * Comprobamos si existen errores en el archivo subido
-         */
-        if (!empty($_FILES['archivo']['name']))
+    // Cargamos la libreria Upload
+    $this->load->library('upload');
+    //$ruta=utf8_encode($this->input->post("dir"));
+    $ruta=utf8_decode($this->input->post("dir"));
+    echo "111";
+    echo $ruta;
+    /*
+        * Revisamos si el archivo fue subido
+        * Comprobamos si existen errores en el archivo subido
+        */
+        echo "0";
+    if (!empty($_FILES['archivo']['name'])){
+        echo "1";
+        // Configuración para el Archivo 1
+        $config['upload_path'] = $ruta;
+        $config['allowed_types'] = '*';
+        $config['max_execution_time'] = '1000';
+        $config['max_input_time'] = '1000';
+        $config['post_max_size'] = '10M';
+        $config['upload_max_filesize'] = '10M';
+        echo "2";
+
+        // Cargamos la configuración del Archivo 1
+        $this->upload->initialize($config);
+        echo "3";
+        // Subimos archivo 1
+        if ($this->upload->do_upload('archivo'))
         {
-            // Configuración para el Archivo 1
-            $config['upload_path'] = $ruta;
-            $config['allowed_types'] = '*'; 
-            //$config['max_size'] = '4000000';
-            $config['max_execution_time'] = '1000';
-            $config['max_input_time'] = '1000';
-            $config['post_max_size'] = '10M';
-            $config['upload_max_filesize'] = '10M';
-      
-
-            // Cargamos la configuración del Archivo 1
-            $this->upload->initialize($config);
-
-            // Subimos archivo 1
-            if ($this->upload->do_upload('archivo'))
-            {
-                $data = $this->upload->data();
-                echo json_encode($ruta);
-            }
-            else
-            {echo json_encode($ruta);
-                //echo $this->upload->display_errors();
-            }
+            echo "4";
+            $data = $this->upload->data();
+            json_response($data, true, "Documento cargado");
         }
-    }    
+        else
+        {
+            echo "5";
+            $this->upload->display_errors();
+            json_response($this->upload->display_errors(), true, "Documento no cargado");
+        }
+        echo "6";
+    }
+    else{
+        echo "vacio";
+    }
+}    
     
 function do_upload_act(){
     // Revisamos si se ha subido algo
