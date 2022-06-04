@@ -2097,20 +2097,23 @@ function login(){
                                $("#contenedor").html('');
                                document.getElementById("usr_cambio").value=nomusr;
 
-                               cambio_menu();
-                               if(registros.rol == "Docente"){
-                                cfg_docente();
+                                cambio_menu();
+                                if(user.id == user.clave){
+                                    cambio_clave();
+                                }
+                                else{
+                                    location.reload();
+                                }
+                               /*if(registros.rol == "Docente"){
+                                location.reload();
+                                //cfg_docente();
                                }
 
                                if(registros.rol == "Estudiante"){
                                 location.reload();
                                 //StudentAreas();
                                 //actualizar_notificaciones();
-                               }
-
-                               if(user.id == user.clave){
-                                   cambio_clave();
-                               }
+                               }*/
                                 }          
                       
                     } 
