@@ -20,6 +20,7 @@ class Caracterizacion_DBA_Model extends CI_Model {
 		$this->db->order_by("ca.id_caracterizacion_area", "asc");
         $this->db->order_by("cd.descripcion_dba", "asc");
 		$this->db->where("cd.estado", 1);
+		$this->db->where("ca.is_dba", 1);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
@@ -32,6 +33,7 @@ class Caracterizacion_DBA_Model extends CI_Model {
 		$this->db->where("cd.estado", 1);
 		$this->db->where("cd.id_area", $id_area);
 		$this->db->where("cd.grado", $grado);
+		$this->db->where("ca.is_dba", 1);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}

@@ -105,7 +105,7 @@
     public function addDBA($id_dba = null){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "super"){
-                $params["areas"] = $this->Caracterizacion_Areas_Model->get_all();
+                $params["areas"] = $this->Caracterizacion_Areas_Model->get_all("dba");
                 $params["data"] = $this->Caracterizacion_DBA_Model->get($id_dba);
                 if($this->input->post()){
                     $data = $this->input->post();
@@ -172,7 +172,7 @@
     public function addLineamientoCurricular($id_lineamiento_curricular = null){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "super"){
-                $params["areas"] = $this->Caracterizacion_Areas_Model->get_all();
+                $params["areas"] = $this->Caracterizacion_Areas_Model->get_all("lc");
                 $params["data"] = $this->Caracterizacion_Lineamientos_Model->get($id_lineamiento_curricular);
                 if($this->input->post()){
                     $data = $this->input->post();
@@ -239,7 +239,7 @@
     public function addEstandarCompetencia($id_estandar = null){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "super"){
-                $params["areas"] = $this->Caracterizacion_Areas_Model->get_all();
+                $params["areas"] = $this->Caracterizacion_Areas_Model->get_all("ec");
                 $params["data"] = $this->Caracterizacion_Estandar_Competencia_Model->get($id_estandar);
                 if($this->input->post()){
                     $data = $this->input->post();
