@@ -13,10 +13,19 @@ class Caracterizacion_Areas_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
-	function get_all(){
+	function get_all($type = null){
 		$this->db->from("caracterizacion_area");
         $this->db->order_by("descripcion_area", "asc");
 		$this->db->where("estado", 1);
+		if($type == "dba"){
+			$this->db->where("is_dba", 1);
+		}
+		if($type == "lc"){
+			$this->db->where("is_lc", 1);
+		}
+		if($type == "ec"){
+			$this->db->where("is_ec", 1);
+		}
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
