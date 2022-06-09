@@ -293,5 +293,24 @@
         }
         else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }
+
+    public function updateDB(){
+        $estandares = $this->Caracterizacion_Estandar_Competencia_Model->get_all();
+        $dbas = $this->Caracterizacion_DBA_Model->get_all();
+
+        if($estandares){
+            foreach ($estandares as $estandar) {
+                $estandar["grado"] = serialize($estandar["grado"]);
+                $this->Caracterizacion_Estandar_Competencia_Model->update($estandar);
+            }
+        }
+
+        if($dbas){
+            foreach ($dbas as $dba) {
+                $dba["grado"] = serialize($dba["grado"]);
+                $this->Caracterizacion_DBA_Model->update($dba);
+            }
+        }
+    }
 }
 ?>
