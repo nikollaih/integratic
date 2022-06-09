@@ -180,7 +180,7 @@ $(document).ready(function() {
                     if(data.object.contenido != false){
                         for (let i = 0; i < data.object.contenido.length; i++) {
                             const contenido = data.object.contenido[i];
-                            tabla_contenido.row.add([contenido.descripcion_dba, contenido.descripcion_lineamiento_curricular, contenido.descripcion_estandar, contenido.descripcion, '<a  href="'+contenido.ruta_contenido+'" target="_blank" style="text-decoration:underline;">'+contenido.ruta_contenido+'</a>', '<a  href="'+base_url+'Caracterizacion/add/'+contenido.id_caracterizacion+'" class="btn btn-warning btn-sm m-b-2">Modificar</a>']);
+                            tabla_contenido.row.add([contenido.descripcion_dba, contenido.descripcion_estandar, contenido.descripcion, '<a  href="'+contenido.ruta_contenido+'" target="_blank" style="text-decoration:underline;">'+contenido.ruta_contenido+'</a>', '<a  href="'+base_url+'Caracterizacion/add/'+contenido.id_caracterizacion+'" class="btn btn-warning btn-sm m-b-2">Modificar</a>']);
                         }
                     }
                     tabla_contenido.draw(false);

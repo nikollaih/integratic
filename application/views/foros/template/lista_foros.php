@@ -6,7 +6,7 @@
     <div>
         <ul style="padding:0" class="section-foros">
             <?php foreach ($foros as $foro) { 
-                    $disponible = ((date("Y-m-d H:i") >= date("Y-m-d H:i", strtotime($foro["disponible_desde"]))) && (date("Y-m-d H:i") <= date("Y-m-d H:i", strtotime($foro["disponible_hasta"])))) ? true : false;
+                    $disponible = ((strtolower(logged_user()["rol"] != "estudiante") || (date("Y-m-d H:i") >= date("Y-m-d H:i", strtotime($foro["disponible_desde"]))) && (date("Y-m-d H:i") <= date("Y-m-d H:i", strtotime($foro["disponible_hasta"]))))) ? true : false;
                 ?>
                 <li class='item-foro' id="foro-<?= $foro["id_foro"] ?>">
                     <div style="border-bottom: 1px solid #efefef;" class="d-flex justify-between align-items-center">

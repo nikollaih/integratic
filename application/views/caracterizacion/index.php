@@ -13,7 +13,6 @@
                                 <div class="col-md-12">
                                     <a href="<?= base_url() ?>Caracterizacion/add" class="btn btn-success m-b-2">Agregar Contenido</a>
                                     <a href="<?= base_url() ?>Caracterizacion/DBA" class="btn btn-primary m-b-2">Ver DBAs</a>
-                                    <a href="<?= base_url() ?>Caracterizacion/lineamientoCurricular" class="btn btn-primary m-b-2">Ver Lineamientos Curriculares</a>
                                     <a href="<?= base_url() ?>Caracterizacion/estandarCompetencia" class="btn btn-primary m-b-2">Ver Estandares de competencia</a>
                                 </div>
                             </div>
@@ -63,7 +62,6 @@
                                     <thead>
                                         <tr>
                                             <th>DBA</th>
-                                            <th>Lineamiento Curricular</th>
                                             <th>Estandar de competencias</th>
                                             <th>Tema</th>
                                             <th>Ruta</th>

@@ -3412,6 +3412,16 @@ div.dataTables_info {
 
 
 /************* 17.PAGES ****************/
+.set-imagen-area{
+    opacity: 0.4;
+    margin-top: 5px;
+    width: 32.5%;
+    cursor: pointer;
+}
+
+.set-imagen-area.selected{
+    opacity: 1;
+}
 
 .bg-img {
     background: url(../images/small/sesion.png) center;

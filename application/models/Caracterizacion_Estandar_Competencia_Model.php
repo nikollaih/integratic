@@ -31,7 +31,7 @@ class Caracterizacion_Estandar_Competencia_Model extends CI_Model {
         $this->db->order_by("ce.descripcion_estandar", "asc");
 		$this->db->where("ce.estado", 1);
 		$this->db->where("ce.id_area", $id_area);
-		$this->db->where("ce.grado", $grado);
+		$this->db->like("grado", '"'.$grado.'"', "both");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}

@@ -110,6 +110,7 @@
                 if($this->input->post()){
                     $data = $this->input->post();
                     if($this->Caracterizacion_DBA_Model->get($data["id_dba"])){
+                        $data["grado"] = serialize($data["grado"]);
                         if($this->Caracterizacion_DBA_Model->update($data)){
                             $params["message"]["message"] = "DBA modificado exitosamente.";
                             $params["message"]["type"] = "success";
@@ -120,6 +121,7 @@
                         }
                     }
                     else{
+                        $data["grado"] = serialize($data["grado"]);
                         if($this->Caracterizacion_DBA_Model->create($data)){
                             $params["message"]["message"] = "DBA creado exitosamente.";
                             $params["message"]["type"] = "success";
@@ -244,6 +246,7 @@
                 if($this->input->post()){
                     $data = $this->input->post();
                     if($this->Caracterizacion_Estandar_Competencia_Model->get($data["id_estandar"])){
+                        $data["grado"] = serialize($data["grado"]);
                         if($this->Caracterizacion_Estandar_Competencia_Model->update($data)){
                             $params["message"]["message"] = "Estandar de competencia modificado exitosamente.";
                             $params["message"]["type"] = "success";
@@ -254,6 +257,7 @@
                         }
                     }
                     else{
+                        $data["grado"] = serialize($data["grado"]);
                         if($this->Caracterizacion_Estandar_Competencia_Model->create($data)){
                             $params["message"]["message"] = "Estandar de competencia creado exitosamente.";
                             $params["message"]["type"] = "success";

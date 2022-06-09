@@ -2,6 +2,38 @@ $(document).on("click", ".notificaciones-icon", function() {
     actualizar_fecha_notificaciones();
 });
 
+$(document).on("click", ".set-imagen-area", function() {
+    if($(this).hasClass("selected")){
+        $("#icoarea-nueva-imagen").val(null);
+        $(".set-imagen-area").removeClass("selected");
+        $("#selected-imagen-area").attr("src", "");
+        $("#selected-imagen-area").css("display", "none");
+    }
+    else{
+        $("#icoarea-nueva-imagen").val($(this).attr("data-imagen"));
+        $(".set-imagen-area").removeClass("selected");
+        $("#selected-imagen-area").attr("src", $(this).attr("data-url"));
+        $("#selected-imagen-area").css("display", "block");
+        $(this).addClass("selected");
+        $(".open-contenedor-imagenes-area").attr("data-open", "false");
+        $(".open-contenedor-imagenes-area").html("Ver Imagenes");
+        $("#contenedor-imagenes-area").css("display", "none");
+    }
+});
+
+$(document).on("click", ".open-contenedor-imagenes-area", function() {
+    if($(this).attr("data-open") == "false"){
+        $("#contenedor-imagenes-area").css("display", "inline-block");
+        $(this).attr("data-open", "true");
+        $(this).html("Ocultar Imagenes");
+    }
+    else{
+        $("#contenedor-imagenes-area").css("display", "none");
+        $(this).attr("data-open", "false");
+        $(this).html("Ver Imagenes");
+    }
+});
+
 $(document).on("click", ".button-eliminar-foro", function() {
     let id_foro = $(this).attr("data-foro");
     eliminar_foro(id_foro);

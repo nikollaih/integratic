@@ -1,6 +1,6 @@
 <!-- Modal -->
 <?php
-    if((date("Y-m-d H:i") >= date("Y-m-d H:i", strtotime($foro["disponible_desde"]))) && (date("Y-m-d H:i") <= date("Y-m-d H:i", strtotime($foro["disponible_hasta"])))){
+    if(strtolower(logged_user()["rol"] != "estudiante") || ((date("Y-m-d H:i") >= date("Y-m-d H:i", strtotime($foro["disponible_desde"]))) && (date("Y-m-d H:i") <= date("Y-m-d H:i", strtotime($foro["disponible_hasta"]))))){
 ?>
         <div class="modal fade bd-example-modal-lg" id="agregar-respuesta-foro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">

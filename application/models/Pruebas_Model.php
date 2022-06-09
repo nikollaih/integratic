@@ -51,7 +51,6 @@ class Pruebas_Model extends CI_Model {
 		$this->db->where("cpp.identificacion", $identificacion_estudiante);
 		$this->db->where("p.estado !=", 2);
 		$result = $this->db->get();
-		echo $this->db->last_query();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 

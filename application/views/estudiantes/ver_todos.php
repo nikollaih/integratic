@@ -9,6 +9,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <a href="<?= base_url() ?>Estudiante/importar" class="btn btn-primary m-b-2">Importar estudiantes</a>
+                        <button class="btn btn-danger m-b-2 btn-eliminar-todos-estudiantes">Eliminar Todos</button>
                     </div>
                 </div>
                 <div class="panel panel-primary">
@@ -22,6 +23,7 @@
                                             <td>Identificación</td>
                                             <td>Nombre completo</td>
                                             <td>Grado</td>
+                                            <td>Clave</td>
                                             <td></td>
                                         </tr>
                                     </thead>
@@ -34,6 +36,7 @@
                                                             <td><?= $e["documento"] ?></td>
                                                             <td><?= $e["nombre"] ?></td>
                                                             <td><?= $e["grado"] ?></td>
+                                                            <td><?= $e["clave"] ?></td>
                                                             <td class="text-center"><button data-id="<?= $e["documento"] ?>" class="btn btn-danger btn-sm btn-eliminar-estudiante">Eliminar</button></td>
                                                         </tr>
                                                     <?php
