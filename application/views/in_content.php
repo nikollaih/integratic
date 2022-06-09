@@ -308,7 +308,7 @@
 
 <!-- Modal Ingreso de Areas -->
 <div class="modal fade" id="modal_areas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-md"> 
+    <div class="modal-dialog modal-lg"> 
         <div class="modal-content"> 
             <div class="modal-header"> 
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
@@ -316,7 +316,7 @@
             </div> 
             <div class="modal-body"> 
             <form id="frmareas" name="frmareas" enctype="multipart/form-data">  
-               
+                <input id="icoarea-nueva-imagen" type="hidden" name="icoarea" value="null">
                 <div class="row"> 
                     <div class="col-md-12"> 
                         <div class="form-group">
@@ -328,8 +328,33 @@
                 <div class="row"> 
                     <div class="col-md-12">
                         <div class="form-group"> 
-                            <label for="archivo" class="control-label">Seleccionar Icono/Imagen</label>
+                            <label for="archivo" class="control-label">Subir Icono/Imagen</label>
                             <input id="archivo" name="archivo" size="50" type="file"/>
+                        </div> 
+                    </div>                 
+                </div> 
+                <div class="row"> 
+                    <div class="col-md-12">
+                        <div class="form-group"> 
+                            <label for="archivo" class="control-label">Elegir Icono/Imagen</label><br>
+                            <a data-open="false" class="btn btn-sm btn-primary open-contenedor-imagenes-area">Ver imagenes</a>
+                            <img id="selected-imagen-area" src="set-imagen-area selected" class="" alt="" style="display-none;margin-top:10px;">
+                            <div id="contenedor-imagenes-area" style="display:none;">
+                                <?php
+                                $carpeta = './img/botones/areas';
+                                if($dir = opendir($carpeta)){
+                                    while(($archivo = readdir($dir)) !== false){ 
+                                        if($archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                                            $ruta=$carpeta."/".$archivo;
+                                            ?>
+                                                <img data-url="<?= $ruta ?>" data-imagen="<?= $archivo ?>" class="set-imagen-area" src="<?= $carpeta ?>/<?= $archivo ?>" alt="<?= $archivo ?>">
+                                            <?php                        
+                                        } 
+                                    }
+                                    closedir($dir);
+                                }
+                                ?>
+                            </div>
                         </div> 
                     </div>                 
                 </div> 
@@ -1123,6 +1148,8 @@ function enlace_mat_est(cod, menu_materia = "false"){
                async:false,
                success:function(respuesta){                         
                  var registros = eval(respuesta);
+                 console.log(registros)
+                 console.log(info_current_materia["grupo"])
                     html='<div class="panel panel-primary">';        
                     html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica ..:  '+registros[0]["nommateria"]+'</b></div>';
                     html=html+'<div class="panel-body">';  
@@ -1141,12 +1168,16 @@ function enlace_mat_est(cod, menu_materia = "false"){
                                 html=html+"<div class='mini-stat clearfix bx-shadow'>";
                                 html=html+"<a href='javascript:listardoc(\"" + tipo+"\",\"" + narea+"\",\"" + nmateria+grado+"\",\"" + grado+grupo+"\",\"" + idmateria+"\",\"" + grupo+"\")'>";                                
                                 html=html+"<img src='./img/botones/grupos/" + grado+grupo+".png' width='100%' height='100%'></a></div></div>";                               
+                                if(menu_materia == "true" && (grado+grupo) == info_current_materia["grupo"]){
+                                    listardoc(tipo,narea,nmateria+grado,grado+grupo,idmateria,grupo,"true");
+                                }
                             }
                           }                              
                      html=html+"</div></div>";
                      html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
                     $("#contenedor").html(html);
-                    $("#rutas").html(materia);                             
+                    $("#rutas").html(materia);
+            
                    }                      
                },
                error:function(){alert("Ocurrió un Error!");}        
@@ -1478,11 +1509,13 @@ function listardoc(tipo, carpeta, materia, grupo, idmateria=null, idgrupo=null, 
         type:'POST',
         async:false,
         data:{ruta:ruta,titulo:titulo,materia:idmateria,grupo:idgrupo},
-        success:function(respuesta){                     
-                $("#listacon").html(respuesta);  
-                $("#rutas").html(titulo);                          
+        success:function(respuesta){       
+            $("#listacon").html(respuesta);
+            $("#rutas").html(titulo);
         },
-        error:function(){alert("Ocurrió un Error!");}        
+        error:function(e){
+            alert("Ocurrió un Error!");
+        }        
     });         
 }
 
@@ -3064,6 +3097,10 @@ function crearArea(){
             contentType:false,
             processData:false,              
             success:function(respuesta){
+                $("#icoarea-nueva-imagen").val(null);
+                $(".set-imagen-area").removeClass("selected");
+                $("#selected-imagen-area").attr("src", "");
+                $("#selected-imagen-area").css("display", "none");
                 alert(respuesta);
             },
             error:function(respuesta){

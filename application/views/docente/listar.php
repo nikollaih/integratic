@@ -50,7 +50,6 @@
                     ?>
                         <div class="col-md-12">
                             <div class='add-announcement-container'>  
-                                  
                                 <a href='javascript:crear("<?= $menu_materia ?>");'>
                                     <img src='./img/iconos/nueva_carpeta.png' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'>
                                 </a>&nbsp;
@@ -82,14 +81,14 @@
                         if(is_dir($carpeta)){
                             if($dir = opendir($carpeta)){
                                 $carpeta_length = explode("/", $carpeta);
-                                if(((count($carpeta_length) > 6) && $menu_materia) || ($menu_materia != "true" && (count($carpeta_length) > 2 && logged_user()["rol"] != "Estudiante"))){
+                                if(((count($carpeta_length) > 6) && $menu_materia) || ($menu_materia != "true" && (isset($carpeta_length[2]) && $carpeta_length[2] == "proyectos") && (count($carpeta_length) > 4 && logged_user()["rol"] != "Estudiante")) || ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[2] != "proyectos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 2 && logged_user()["rol"] != "Estudiante"))){
                                     array_pop($carpeta_length);
                                     $title_back = $carpeta_length[count($carpeta_length) - 1];
                                     ?>
                                         <tr>
                                             <td  style="width:50%; height:42px">
                                                 <a href="javascript:submenu_doc('<?= implode("/", $carpeta_length) ?>', '<?= $title_back ?>', '<?= $menu_materia ?>')">
-                                                    <img src='./img/iconos/volver.png' width='30' height='30'>&nbsp;&nbsp;Atras                                             
+                                                    <img src='./img/iconos/volver.png' width='30' height='30'>&nbsp;&nbsp;Atras                                            
                                                 </a>
                                             </td>
                                             <td style="text-align: right;"></td>

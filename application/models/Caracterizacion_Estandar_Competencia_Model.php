@@ -15,6 +15,7 @@ class Caracterizacion_Estandar_Competencia_Model extends CI_Model {
 	}
 
 	function get_all(){
+		$this->db->select("ce.*");
 		$this->db->from("caracterizacion_estandar ce");
 		$this->db->join("caracterizacion_area ca", "ce.id_area = ca.id_caracterizacion_area");
 		$this->db->order_by("ca.id_caracterizacion_area", "asc");
@@ -31,7 +32,7 @@ class Caracterizacion_Estandar_Competencia_Model extends CI_Model {
         $this->db->order_by("ce.descripcion_estandar", "asc");
 		$this->db->where("ce.estado", 1);
 		$this->db->where("ce.id_area", $id_area);
-		$this->db->where("ce.grado", $grado);
+		$this->db->like("grado", '"'.$grado.'"', "both");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}

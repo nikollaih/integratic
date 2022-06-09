@@ -269,11 +269,4 @@ function cambio_clave(){
     }
 }
 
-    function eliminarEstudiantes(){
-        if(is_logged() && strtolower(logged_user()["rol"]) == "super"){
-            $this->Usuarios_Model->delete_all_users_rol("Estudiante");
-            $this->Estudiante_Model->delete_all_estudents();
-        }
-    }
-
 }

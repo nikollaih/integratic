@@ -37,10 +37,10 @@
                                 <div class="col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="">Grado *</label>
-                                        <select name="grado" id="" class="form-control">
+                                        <select name="grado[]" multiple id="" class="form-control multiple-select">
                                             <option value="null">- Seleccionar</option>
                                             <?php
-                                                for ($i=1; $i < 12; $i++) { 
+                                                for ($i=0; $i < 12; $i++) { 
                                                     ?>
                                                         <option <?= (is_array($data) && $data["grado"] == $i) ? "selected" : "" ?> value="<?= $i ?>"><?= $i ?>°</option>
                                                     <?php
@@ -87,4 +87,13 @@
 </body>
 <?php $this->load->view("in_footer") ?>
 <?php $this->load->view("in_script") ?>
+<script>
+    $(document).ready( function () {
+        $('.multiple-select').selectpicker({
+            noneSelectedText: "- Seleccionar grados",
+            selectAllText : "Seleccionar todos",
+            deselectAllText: "Deseleccionar todos"
+        });
+    } );
+</script>
 </html>

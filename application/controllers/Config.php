@@ -30,26 +30,49 @@
          }else { echo json_encode("Nada");}
     }
     public function nuevoArea(){
-        date_default_timezone_set ('America/Bogota');        
-         if (!empty($_FILES['archivo']['name'])){
-            $nom        = $this->input->post("nomarea");
-            $tipo       = $this->input->post("tipo");
-            $fecha      = date('Y-m-d');
-            $ico        = $_FILES["archivo"]['name'];
+        date_default_timezone_set ('America/Bogota');
+        $nom = $this->input->post("nomarea");
+        $tipo = $this->input->post("tipo");
+        $fecha = date('Y-m-d');
+
+
+        if (!empty($_FILES['archivo']['name'])){
+            $ico = $_FILES["archivo"]['name'];
 
             $datos = array(
                 "nomarea"   => $nom,
                 "tipo"      => 'areas',
                 "icoarea"   => $ico,
                 "fecha"     => $fecha
-             );
+            );
 
             if($this->General_Model->insertar("cfg_areas",$datos)==true){
                 $dir=utf8_decode('./principal/areas/'.$nom);
                 if (!is_dir($dir)) { mkdir($dir, 0777); } 
                  echo json_encode("Area creada!");}
             else { echo ("No se pudo guardar los datos");} 
-         }else { echo json_encode("Nada");}
+        }
+        else {
+            $ico = $this->input->post("icoarea");
+            if($ico != null){
+                $datos = array(
+                    "nomarea"   => $nom,
+                    "tipo"      => 'areas',
+                    "icoarea"   => $ico,
+                    "fecha"     => $fecha
+                );
+
+                if($this->General_Model->insertar("cfg_areas",$datos)==true){
+                    echo json_encode("Area creada!");
+                }
+                else { 
+                    echo ("No se pudo guardar los datos");
+                } 
+            }
+            else{
+                echo json_encode("Nada");
+            }
+        }
     }
     
     public function nuevoMateria(){

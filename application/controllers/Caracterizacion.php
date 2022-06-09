@@ -110,6 +110,7 @@
                 if($this->input->post()){
                     $data = $this->input->post();
                     if($this->Caracterizacion_DBA_Model->get($data["id_dba"])){
+                        $data["grado"] = serialize($data["grado"]);
                         if($this->Caracterizacion_DBA_Model->update($data)){
                             $params["message"]["message"] = "DBA modificado exitosamente.";
                             $params["message"]["type"] = "success";
@@ -120,6 +121,7 @@
                         }
                     }
                     else{
+                        $data["grado"] = serialize($data["grado"]);
                         if($this->Caracterizacion_DBA_Model->create($data)){
                             $params["message"]["message"] = "DBA creado exitosamente.";
                             $params["message"]["type"] = "success";
@@ -244,6 +246,7 @@
                 if($this->input->post()){
                     $data = $this->input->post();
                     if($this->Caracterizacion_Estandar_Competencia_Model->get($data["id_estandar"])){
+                        $data["grado"] = serialize($data["grado"]);
                         if($this->Caracterizacion_Estandar_Competencia_Model->update($data)){
                             $params["message"]["message"] = "Estandar de competencia modificado exitosamente.";
                             $params["message"]["type"] = "success";
@@ -254,6 +257,7 @@
                         }
                     }
                     else{
+                        $data["grado"] = serialize($data["grado"]);
                         if($this->Caracterizacion_Estandar_Competencia_Model->create($data)){
                             $params["message"]["message"] = "Estandar de competencia creado exitosamente.";
                             $params["message"]["type"] = "success";
@@ -288,6 +292,25 @@
             else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
         }
         else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
+    }
+
+    public function updateDB(){
+        $estandares = $this->Caracterizacion_Estandar_Competencia_Model->get_all();
+        $dbas = $this->Caracterizacion_DBA_Model->get_all();
+
+        if($estandares){
+            foreach ($estandares as $estandar) {
+                $estandar["grado"] = serialize($estandar["grado"]);
+                $this->Caracterizacion_Estandar_Competencia_Model->update($estandar);
+            }
+        }
+
+        if($dbas){
+            foreach ($dbas as $dba) {
+                $dba["grado"] = serialize($dba["grado"]);
+                $this->Caracterizacion_DBA_Model->update($dba);
+            }
+        }
     }
 }
 ?>

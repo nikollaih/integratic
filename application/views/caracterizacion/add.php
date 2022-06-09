@@ -40,7 +40,7 @@
                                         <select required name="grado" id="grado" class="form-control get-selects-data">
                                             <option value="null">- Seleccionar</option>
                                             <?php
-                                                for ($i=1; $i < 12; $i++) { 
+                                                for ($i=0; $i < 12; $i++) { 
                                                     ?>
                                                         <option <?= (is_array($data) && $data["grado"] == $i) ? "selected" : "" ?> value="<?= $i ?>"><?= $i ?>°</option>
                                                     <?php
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md-12 col-sm-12">
                                     <div class="form-group">
                                         <label for="">Lineamiento curricular</label>
@@ -88,7 +88,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">

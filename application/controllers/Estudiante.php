@@ -94,6 +94,17 @@ class Estudiante extends CI_Controller {
 		else header("Location: ".base_url());
 	}
 
+	function eliminarTodos(){
+        if(is_logged() && strtolower(logged_user()["rol"]) == "super"){
+            $this->Usuarios_Model->delete_all_users_rol("Estudiante");
+            $this->Estudiante_Model->delete_all_estudents();
+			json_response(array("error" => false), true, "Estudiantes eliminados exitosamente");
+        }
+		else{
+			json_response(array("error" => "permissions"), false, "No tiene los permisos necesarios para realizar esta accion");
+		}
+    }
+
 	public function eliminar($documento){
 		if(is_logged()){
 			if(strtolower(logged_user()["rol"]) == "super"){

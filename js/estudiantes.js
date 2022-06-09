@@ -20,6 +20,10 @@ $(document).ready( function () {
         let documento = $(this).attr("data-id");
         eliminarEstudiante(documento);
     });
+
+    $(document).on("click", ".btn-eliminar-todos-estudiantes", function() {
+        eliminarTodosEstudiantes();
+    });
     
     function eliminarEstudiante(documento = null){
         if (confirm("¿Está seguro que desea eliminar el estudiante?") == true) {
@@ -34,6 +38,28 @@ $(document).ready( function () {
                             .row($("#estudiante-" + documento))
                             .remove()
                             .draw();
+                    }
+                    $("#background-loading").css("display", "none");
+                    alert(data.message);
+                },
+                error: function() { 
+                    $("#background-loading").css("display", "none");
+                    alert("Error!"); 
+                }
+            });
+        }
+    }
+
+    function eliminarTodosEstudiantes(documento = null){
+        if (confirm("¿Está seguro que desea eliminar todos los estudiantes?") == true) {
+            $("#background-loading").css("display", "flex");
+            $.ajax({
+                url: base_url + "Estudiante/eliminarTodos",
+                type: 'GET',
+                success: function(data) {
+                    var data = JSON.parse(data);
+                    if(data.status){
+                        location.reload();
                     }
                     $("#background-loading").css("display", "none");
                     alert(data.message);

@@ -158,6 +158,7 @@
                     
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12 col-lg-12">
+                                                <a class="btn btn-primary" href="<?= base_url() ?>Exports/exportarPruebaNotas/<?= $prueba["id_prueba"] ?>" target="_blank" rel="noopener noreferrer">Exportar Excel de Notas</a>
                                                 <table id="tabla-participantes" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
@@ -167,6 +168,7 @@
                                                             <th>Email</th>
                                                             <th>Institución</th>
                                                             <th>Grado</th>
+                                                            <th>Nota</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -183,6 +185,7 @@
                                                             <td><p><?= $participante["email"] ?></p></td>
                                                             <td><p><?= ($info_prueba["porcentaje"] == null) ? $participante["institucion"] : $info_prueba["institucion"] ?></p></td>
                                                             <td><p><?= ($info_prueba["porcentaje"] == null) ? $participante["grado"] : $info_prueba["grado"] ?></p></td>
+                                                            <td class="text-center"><p><?= ($info_prueba["porcentaje"] == null) ? "" : $info_prueba["calificacion"] ?></p></td>
                                                             <td class="text-center">
                                                                 <?php
                                                                     if($info_prueba["porcentaje"] == null){
