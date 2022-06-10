@@ -338,7 +338,7 @@
                         <div class="form-group"> 
                             <label for="archivo" class="control-label">Elegir Icono/Imagen</label><br>
                             <a data-open="false" class="btn btn-sm btn-primary open-contenedor-imagenes-area">Ver imagenes</a>
-                            <img id="selected-imagen-area" src="set-imagen-area selected" class="" alt="" style="display-none;margin-top:10px;">
+                            <img id="selected-imagen-area" src="" class="" alt="" style="display-none;margin-top:10px;" width="250px">
                             <div id="contenedor-imagenes-area" style="display:none;">
                                 <?php
                                 $carpeta = './img/botones/areas';
@@ -481,14 +481,15 @@
 </div>
 <!-- Modal Ingreso de Proyectos -->
 <div class="modal fade" id="modal_proyectos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-md"> 
+    <div class="modal-dialog modal-lg"> 
         <div class="modal-content"> 
             <div class="modal-header"> 
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
                 <h4 class="modal-title">Crear Nuevo Proyecto Pedagógico</h4> 
             </div> 
             <div class="modal-body"> 
-            <form id="frmProyecto" name="frmproyecto" enctype="multipart/form-data">              
+            <form id="frmProyecto" name="frmproyecto" enctype="multipart/form-data">
+                <input id="icoproyecto-nueva-imagen" type="hidden" name="icoproyecto" value="null">      
                 <div class="row"> 
                     <div class="col-md-12"> 
                         <div class="form-group">
@@ -497,11 +498,36 @@
                         </div>                
                     </div>                
                 </div> 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group"> 
+                            <label for="icopro" class="control-label">Subir Icono/Imagen</label>
+                            <input id="icopro" name="icopro" size="50" type="file"/>
+                        </div> 
+                    </div>                 
+                </div> 
                 <div class="row"> 
                     <div class="col-md-12">
                         <div class="form-group"> 
-                            <label for="icopro" class="control-label">Seleccionar Icono/Imagen</label>
-                            <input id="icopro" name="icopro" size="50" type="file"/>
+                            <label for="archivo" class="control-label">Elegir Icono/Imagen</label><br>
+                            <a data-open="false" class="btn btn-sm btn-primary open-contenedor-imagenes-proyecto">Ver imagenes</a>
+                            <img id="selected-imagen-proyecto" src="" class="" alt="" style="display-none;margin-top:10px;" width="250px">
+                            <div id="contenedor-imagenes-proyecto" style="display:none;">
+                                <?php
+                                $carpeta = './img/botones/proyectos';
+                                if($dir = opendir($carpeta)){
+                                    while(($archivo = readdir($dir)) !== false){ 
+                                        if($archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                                            $ruta=$carpeta."/".$archivo;
+                                            ?>
+                                                <img data-url="<?= $ruta ?>" data-imagen="<?= $archivo ?>" class="set-imagen-proyecto" src="<?= $carpeta ?>/<?= $archivo ?>" alt="<?= $archivo ?>">
+                                            <?php                        
+                                        } 
+                                    }
+                                    closedir($dir);
+                                }
+                                ?>
+                            </div>
                         </div> 
                     </div>                 
                 </div> 
@@ -516,14 +542,15 @@
 </div>
 <!-- Modal Ingreso de Procesos -->
 <div class="modal fade" id="modal_procesos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-md"> 
+    <div class="modal-dialog modal-lg"> 
         <div class="modal-content"> 
             <div class="modal-header"> 
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
                 <h4 class="modal-title">Crear Nuevo Proceso Administrativo</h4> 
             </div> 
             <div class="modal-body"> 
-            <form id="frmproceso" name="frmproceso" enctype="multipart/form-data">              
+            <form id="frmproceso" name="frmproceso" enctype="multipart/form-data">
+            <input id="icoproceso-nueva-imagen" type="hidden" name="icoproceso" value="null">          
                 <div class="row"> 
                     <div class="col-md-12"> 
                         <div class="form-group">
@@ -535,8 +562,33 @@
                 <div class="row"> 
                     <div class="col-md-12">
                         <div class="form-group"> 
-                            <label for="icoproc" class="control-label">Seleccionar Icono/Imagen</label>
+                            <label for="icoproc" class="control-label">Subir Icono/Imagen</label>
                             <input id="icoproc" name="icoproc" size="50" type="file"/>
+                        </div> 
+                    </div>                 
+                </div>
+                <div class="row"> 
+                    <div class="col-md-12">
+                        <div class="form-group"> 
+                            <label for="archivo" class="control-label">Elegir Icono/Imagen</label><br>
+                            <a data-open="false" class="btn btn-sm btn-primary open-contenedor-imagenes-proceso">Ver imagenes</a>
+                            <img id="selected-imagen-proceso" src="" class="" alt="" style="display-none;margin-top:10px;" width="250px">
+                            <div id="contenedor-imagenes-proceso" style="display:none;">
+                                <?php
+                                $carpeta = './img/botones/procesos';
+                                if($dir = opendir($carpeta)){
+                                    while(($archivo = readdir($dir)) !== false){ 
+                                        if($archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                                            $ruta=$carpeta."/".$archivo;
+                                            ?>
+                                                <img data-url="<?= $ruta ?>" data-imagen="<?= $archivo ?>" class="set-imagen-proceso" src="<?= $carpeta ?>/<?= $archivo ?>" alt="<?= $archivo ?>">
+                                            <?php                        
+                                        } 
+                                    }
+                                    closedir($dir);
+                                }
+                                ?>
+                            </div>
                         </div> 
                     </div>                 
                 </div> 
@@ -3101,6 +3153,7 @@ function crearArea(){
                 $(".set-imagen-area").removeClass("selected");
                 $("#selected-imagen-area").attr("src", "");
                 $("#selected-imagen-area").css("display", "none");
+                $("#frmareas").trigger("reset");
                 alert(respuesta);
             },
             error:function(respuesta){
@@ -3128,7 +3181,7 @@ function crearMateria(){
 }
 function crearProyecto(){
  var formData = new FormData($("#frmProyecto")[0]);
- var url='<?=site_url();?>/config/nuevoProyecto';
+ var url= base_url + 'config/nuevoProyecto';
     $.ajax({
             url:url,
             type:'POST',
@@ -3138,6 +3191,7 @@ function crearProyecto(){
             processData:false,              
             success:function(respuesta){
                 alert(respuesta);
+                $("#frmProyecto").trigger("reset");
             },
             error:function(respuesta){
                     alert("Error: " + respuesta);
@@ -3154,7 +3208,10 @@ function crearProceso(){
             cache:false,
             contentType:false,
             processData:false,              
-            success:function(respuesta){alert(respuesta);},
+            success:function(respuesta){
+                alert(respuesta);
+                $("#frmproceso").trigger("reset");
+            },
             error:function(respuesta){alert("Error: " + respuesta);}                    
     });    
 }

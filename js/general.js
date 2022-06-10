@@ -34,6 +34,70 @@ $(document).on("click", ".open-contenedor-imagenes-area", function() {
     }
 });
 
+$(document).on("click", ".set-imagen-proyecto", function() {
+    if($(this).hasClass("selected")){
+        $("#icoproyecto-nueva-imagen").val(null);
+        $(".set-imagen-proyecto").removeClass("selected");
+        $("#selected-imagen-proyecto").attr("src", "");
+        $("#selected-imagen-proyecto").css("display", "none");
+    }
+    else{
+        $("#icoproyecto-nueva-imagen").val($(this).attr("data-imagen"));
+        $(".set-imagen-proyecto").removeClass("selected");
+        $("#selected-imagen-proyecto").attr("src", $(this).attr("data-url"));
+        $("#selected-imagen-proyecto").css("display", "block");
+        $(this).addClass("selected");
+        $(".open-contenedor-imagenes-proyecto").attr("data-open", "false");
+        $(".open-contenedor-imagenes-proyecto").html("Ver Imagenes");
+        $("#contenedor-imagenes-proyecto").css("display", "none");
+    }
+});
+
+$(document).on("click", ".open-contenedor-imagenes-proyecto", function() {
+    if($(this).attr("data-open") == "false"){
+        $("#contenedor-imagenes-proyecto").css("display", "inline-block");
+        $(this).attr("data-open", "true");
+        $(this).html("Ocultar Imagenes");
+    }
+    else{
+        $("#contenedor-imagenes-proyecto").css("display", "none");
+        $(this).attr("data-open", "false");
+        $(this).html("Ver Imagenes");
+    }
+});
+
+$(document).on("click", ".set-imagen-proceso", function() {
+    if($(this).hasClass("selected")){
+        $("#icoproceso-nueva-imagen").val(null);
+        $(".set-imagen-proceso").removeClass("selected");
+        $("#selected-imagen-proceso").attr("src", "");
+        $("#selected-imagen-proceso").css("display", "none");
+    }
+    else{
+        $("#icoproceso-nueva-imagen").val($(this).attr("data-imagen"));
+        $(".set-imagen-proceso").removeClass("selected");
+        $("#selected-imagen-proceso").attr("src", $(this).attr("data-url"));
+        $("#selected-imagen-proceso").css("display", "block");
+        $(this).addClass("selected");
+        $(".open-contenedor-imagenes-proceso").attr("data-open", "false");
+        $(".open-contenedor-imagenes-proceso").html("Ver Imagenes");
+        $("#contenedor-imagenes-proceso").css("display", "none");
+    }
+});
+
+$(document).on("click", ".open-contenedor-imagenes-proceso", function() {
+    if($(this).attr("data-open") == "false"){
+        $("#contenedor-imagenes-proceso").css("display", "inline-block");
+        $(this).attr("data-open", "true");
+        $(this).html("Ocultar Imagenes");
+    }
+    else{
+        $("#contenedor-imagenes-proceso").css("display", "none");
+        $(this).attr("data-open", "false");
+        $(this).html("Ver Imagenes");
+    }
+});
+
 $(document).on("click", ".button-eliminar-foro", function() {
     let id_foro = $(this).attr("data-foro");
     eliminar_foro(id_foro);

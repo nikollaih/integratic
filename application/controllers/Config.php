@@ -115,38 +115,90 @@
 
     public function nuevoProyecto(){
         date_default_timezone_set ('America/Bogota');
-         if (!empty($_FILES['icopro']['name'])){
-            $nom        = $this->input->post("nomproyecto");
-            $ico        = $_FILES["icopro"]['name'];
+        $nom = $this->input->post("nomproyecto");
+
+        if (!empty($_FILES['icopro']['name'])){
+            $ico = $_FILES["icopro"]['name'];
 
             $datos = array(
-                "nomproyecto"   => $nom,
-                "icono"         => $ico
-             );
+                "nomproyecto" => $nom,
+                "icono" => $ico,
+            );
 
-            if($this->General_Model->insertar("cfg_proyectos",$datos)==true){
+            if($this->General_Model->insertar("cfg_proyectos", $datos)==true){
                 $dir=utf8_decode('./principal/proyectos/'.$nom);
-                if (!is_dir($dir)) { mkdir($dir, 0777); } 
-                 echo json_encode($ico);}
+                if (!is_dir($dir)) { 
+                    mkdir($dir, 0777); 
+                }
+                move_uploaded_file($_FILES['icopro']['tmp_name'], "img/botones/proyectos/".$_FILES['icopro']['name']);
+                echo "Proyecto creado!";
+            }
             else { echo ("No se pudo guardar los datos");} 
-         }else { echo json_encode("Nada");}
+        }
+        else {
+            $ico = $this->input->post("icoproyecto");
+            if($ico != null){
+                $datos = array(
+                    "nomproyecto" => $nom,
+                    "icono" => $ico,
+                );
+
+                if($this->General_Model->insertar("cfg_proyectos",$datos)==true){
+                    echo "Proyecto creado!";
+                }
+                else { 
+                    echo ("No se pudo guardar los datos");
+                } 
+            }
+            else{
+                echo json_encode("Nada");
+            }
+        }
     }    
     public function nuevoProceso(){
         date_default_timezone_set ('America/Bogota');
-         if (!empty($_FILES['icoproc']['name'])){
-            $nom        = $this->input->post("nomproc");
-            $ico        = $_FILES["icoproc"]['name'];
+        $nom = $this->input->post("nomproc");
+
+        if (!empty($_FILES['icoproc']['name'])){
+            $ico = $_FILES["icoproc"]['name'];
+
             $datos = array(
-                "nomproceso"   => $nom,
-                "icono"        => $ico
-             );
-            if($this->General_Model->insertar("cfg_procesos",$datos)==true){
+                "nomproceso" => $nom,
+                "icono" => $ico,
+            );
+
+            if($this->General_Model->insertar("cfg_procesos", $datos)==true){
                 $dir=utf8_decode('./principal/procesos/'.$nom);
-                if (!is_dir($dir)) { mkdir($dir, 0777); } 
-                 echo json_encode($ico);}
+                if (!is_dir($dir)) { 
+                    mkdir($dir, 0777); 
+                }
+                move_uploaded_file($_FILES['icoproc']['tmp_name'], "img/botones/procesos/".$_FILES['icoproc']['name']);
+                echo "Proceso creado!";
+            }
             else { echo ("No se pudo guardar los datos");} 
-         }else { echo json_encode("Nada");}
-    }     
+        }
+        else {
+            $ico = $this->input->post("icoproceso");
+            if($ico != null){
+                $datos = array(
+                    "nomproceso" => $nom,
+                    "icono" => $ico,
+                );
+
+                if($this->General_Model->insertar("cfg_procesos",$datos)==true){
+                    echo "Proceso creado!";
+                }
+                else { 
+                    echo ("No se pudo guardar los datos");
+                } 
+            }
+            else{
+                echo json_encode("Nada");
+            }
+        }
+    }    
+    
+    
 public function bo_area(){ 
 $conta=0; 
          if ($this->input->is_ajax_request()) {
