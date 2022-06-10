@@ -300,14 +300,14 @@
 
         if($estandares){
             foreach ($estandares as $estandar) {
-                $estandar["grado"] = serialize($estandar["grado"]);
+                $estandar["grado"] = serialize([trim($estandar["grado"])]);
                 $this->Caracterizacion_Estandar_Competencia_Model->update($estandar);
             }
         }
 
         if($dbas){
             foreach ($dbas as $dba) {
-                $dba["grado"] = serialize($dba["grado"]);
+                $dba["grado"] = serialize([trim($dba["grado"])]);
                 $this->Caracterizacion_DBA_Model->update($dba);
             }
         }

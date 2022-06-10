@@ -32,7 +32,14 @@
                                                     ?>
                                                         <tr id="estandar-<?= $ec["id_estandar"] ?>">
                                                             <td><?= $ec["descripcion_area"] ?></td>
-                                                            <td><?= $ec["grado"] ?>°</td>
+                                                            <td><?php
+                                                                $grados = unserialize($ec["grado"]);
+                                                                if(count($grados) > 0){
+                                                                    for ($i=0; $i < count($grados); $i++) { 
+                                                                        echo $grados[$i]."°";
+                                                                    }
+                                                                }
+                                                            ?></td>
                                                             <td><?= $ec["descripcion_estandar"] ?></td>
                                                             <td style="width:200px;" class="text-center">
                                                                 <a data-ec="<?= $ec["id_estandar"] ?>" href="<?= base_url() ?>Caracterizacion/addEstandarCompetencia/<?= $ec["id_estandar"] ?>" class="btn btn-warning btn-sm m-b-2">Modificar</a>

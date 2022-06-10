@@ -32,7 +32,14 @@
                                                     ?>
                                                         <tr id="dba-<?= $dba["id_dba"] ?>">
                                                             <td><?= $dba["descripcion_area"] ?></td>
-                                                            <td><?= $dba["grado"] ?>°</td>
+                                                            <td><?php
+                                                                $grados = unserialize($dba["grado"]);
+                                                                if(count($grados) > 0){
+                                                                    for ($i=0; $i < count($grados); $i++) { 
+                                                                        echo $grados[$i]."°";
+                                                                    }
+                                                                }
+                                                            ?></td>
                                                             <td><?= $dba["descripcion_dba"] ?></td>
                                                             <td style="width:150px;">
                                                                 <a data-dba="<?= $dba["id_dba"] ?>" href="<?= base_url() ?>Caracterizacion/addDBA/<?= $dba["id_dba"] ?>" class="btn btn-warning btn-sm m-b-2">Modificar</a>
