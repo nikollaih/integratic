@@ -15,7 +15,6 @@ class Caracterizacion_DBA_Model extends CI_Model {
 	}
 
 	function get_all(){
-		$this->db->select("cd.*");
 		$this->db->from("caracterizacion_dba cd");
 		$this->db->join("caracterizacion_area ca", "cd.id_area = ca.id_caracterizacion_area");
 		$this->db->order_by("ca.id_caracterizacion_area", "asc");
