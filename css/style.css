@@ -3412,14 +3412,14 @@ div.dataTables_info {
 
 
 /************* 17.PAGES ****************/
-.set-imagen-area{
+.set-imagen-area, .set-imagen-proyecto, .set-imagen-proceso{
     opacity: 0.4;
     margin-top: 5px;
     width: 32.5%;
     cursor: pointer;
 }
 
-.set-imagen-area.selected{
+.set-imagen-area.selected, .set-imagen-proyecto.selected, .set-imagen-proceso.selected{
     opacity: 1;
 }
 
