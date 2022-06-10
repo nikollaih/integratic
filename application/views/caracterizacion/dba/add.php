@@ -40,9 +40,13 @@
                                         <select name="grado[]" multiple id="" class="form-control multiple-select">
                                             <option value="null">- Seleccionar</option>
                                             <?php
-                                                for ($i=0; $i < 12; $i++) { 
+                                                for ($i=0; $i < 12; $i++) {
+                                                    $temp_grado = [];
+                                                    if(is_array($data)){
+                                                        $temp_grado = unserialize($data["grado"]);
+                                                    }
                                                     ?>
-                                                        <option <?= (is_array($data) && $data["grado"] == $i) ? "selected" : "" ?> value="<?= $i ?>"><?= $i ?>°</option>
+                                                        <option <?= (is_array($data) && in_array($i, $temp_grado)) ? "selected" : "" ?> value="<?= $i ?>"><?= $i ?>°</option>
                                                     <?php
                                                 }
                                             ?>
