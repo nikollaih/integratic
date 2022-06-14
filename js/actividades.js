@@ -44,14 +44,12 @@ function guardar_actividad() {
             contentType: false,
             type: 'POST',
             success: function(data) {
-                console.log(data);
                 var response = JSON.parse(data);
-
                 if (response.status) {
+                    enlace_mat_est(response.object.materia, "true");
                     $('#actividad-form').trigger("reset");
                     $("#agregar-nueva-actividad").modal("hide");
                 }
-
                 alert(response.message);
             }
         });

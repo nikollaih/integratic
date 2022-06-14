@@ -53,9 +53,11 @@ function do_upload(){
             $_FILES ['archivo'] ['size'] = $files ['archivo'] ['size'] [$i];
             $this->upload->do_upload('archivo');
         }
+
+        json_response(null, true, "Archivo subidos exitosamente");
     }
     else{
-        echo "vacio";
+        json_response(null, false, "No se ha selecionado ningun archivo");
     }
 }    
     
