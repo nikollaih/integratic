@@ -40,7 +40,7 @@ class Actividades extends CI_Controller {
                 }
     
                 if($inserted_id){
-                    json_response(true, true, "Actividad creada exitosamente.");
+                    json_response($actividad, true, "Actividad creada exitosamente.");
                 }
                 else{
                     json_response(false, false, "Ha ocurrido un error, por favor intente de nuevo");

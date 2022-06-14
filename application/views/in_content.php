@@ -1200,8 +1200,6 @@ function enlace_mat_est(cod, menu_materia = "false"){
                async:false,
                success:function(respuesta){                         
                  var registros = eval(respuesta);
-                 console.log(registros)
-                 console.log(info_current_materia["grupo"])
                     html='<div class="panel panel-primary">';        
                     html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica ..:  '+registros[0]["nommateria"]+'</b></div>';
                     html=html+'<div class="panel-body">';  
@@ -1561,8 +1559,10 @@ function listardoc(tipo, carpeta, materia, grupo, idmateria=null, idgrupo=null, 
         type:'POST',
         async:false,
         data:{ruta:ruta,titulo:titulo,materia:idmateria,grupo:idgrupo},
-        success:function(respuesta){       
-            $("#listacon").html(respuesta);
+        success:function(respuesta){
+            setTimeout(() => {
+                $("#listacon").html(respuesta);
+            }, 500); 
             $("#rutas").html(titulo);
         },
         error:function(e){
@@ -1607,8 +1607,8 @@ function listarproc(proc,tit){
 function listar_arc(menu_materia = "false"){
     var ruta=document.getElementById("dir").value;
     var titulo=document.getElementById("ubica").value;
-    var modulo=document.getElementById("modulo").value;
-
+    //var modulo=document.getElementById("modulo").value;
+    let modulo = 'DO';
     //alert(modulo);
     switch(modulo){      
       case 'DO': url = base_url + 'docente/listar/' + menu_materia; break;
@@ -1763,9 +1763,12 @@ function subir_archivo(menu_materia="false"){
                     $("#pie_carga").html(""); 
                   },                                 
                 success:function(data){
-                    console.log(data);
-                    listar_arc(menu_materia); 
+                    data = JSON.parse(data);
                     $("#subir_archivo").modal("hide");
+                    alert(data.message);
+                    if(data.status){
+                        listar_arc(menu_materia); 
+                    } 
                 },
                 error:function(){alert("Ocurrió un Error!");}        
        });     
