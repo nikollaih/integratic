@@ -3434,13 +3434,14 @@ function consu_procesos(){
 }
 function con_usuarios(){
     $.ajax({
-            url:'<?=site_url();?>/docente/co_docentes',
+            url:'<?=site_url();?>/docente/co_docentes/all',
             type:'POST',
             cache:false,
             async:false,
             dataType:'json',
             success:function(respuesta){
                 var registros = eval(respuesta);
+                console.log(registros);
                     var html='<table class="table table-bordered table-hover">';
                         html+='<thead><tr style="background-color: #229678">';
                         html+='<th class="text-white text-center" width="20%">Código</th>';
