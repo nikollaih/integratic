@@ -588,8 +588,8 @@ public function listar_filtro(){
         } 
         else{echo ("Error en consulta");}
     }       
-    public function co_docentes(){  
-        if($datos  = $this->Consultas_Model->con_docentes()){                   
+    public function co_docentes($filter = null){  
+        if($datos  = $this->Consultas_Model->con_docentes($filter)){                   
             echo json_encode($datos);
         } 
         else{echo ("Error en consulta");}

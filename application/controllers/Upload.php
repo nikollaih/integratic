@@ -45,16 +45,17 @@ function do_upload(){
         $cpt = count($_FILES ['archivo'] ['name']);
 
         for ($i = 0; $i < $cpt; $i ++) {
-            $name = $files ['archivo'] ['name'] [$i];
-            $_FILES ['archivo'] ['name'] = $name;
+            $_FILES ['archivo'] ['name'] = $files ['archivo'] ['name'] [$i];;
             $_FILES ['archivo'] ['type'] = $files ['archivo'] ['type'] [$i];
             $_FILES ['archivo'] ['tmp_name'] = $files ['archivo'] ['tmp_name'] [$i];
             $_FILES ['archivo'] ['error'] = $files ['archivo'] ['error'] [$i];
             $_FILES ['archivo'] ['size'] = $files ['archivo'] ['size'] [$i];
+            print_r($_FILES);
+            die();
             $this->upload->do_upload('archivo');
         }
 
-        json_response(null, true, "Archivo subidos exitosamente");
+        json_response(null, true, "Archivo subido exitosamente");
     }
     else{
         json_response(null, false, "No se ha selecionado ningun archivo");

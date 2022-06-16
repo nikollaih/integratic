@@ -142,8 +142,11 @@ class Consultas_Model extends CI_Model {
     if(!$result) {return false;}
     else {return $result->result();}      
   }  
-  public function con_docentes(){
+  public function con_docentes($filter){
+    if($filter == null)
     $result=$this->db->query("select * from usuarios where estado='ac' And rol = 'docente' Order By nombres,apellidos");
+    else
+    $result=$this->db->query("select * from usuarios where estado='ac' And rol != 'estudiante' Order By nombres,apellidos");
     if(!$result) {return false;}
     else {return $result->result();}      
   } 
