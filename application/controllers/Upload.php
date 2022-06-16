@@ -50,8 +50,6 @@ function do_upload(){
             $_FILES ['archivo'] ['tmp_name'] = $files ['archivo'] ['tmp_name'] [$i];
             $_FILES ['archivo'] ['error'] = $files ['archivo'] ['error'] [$i];
             $_FILES ['archivo'] ['size'] = $files ['archivo'] ['size'] [$i];
-            print_r($_FILES);
-            die();
             $this->upload->do_upload('archivo');
         }
 
