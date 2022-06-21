@@ -43,10 +43,26 @@
                                                                 <td><?= $p["cantidad_preguntas"] ?></td>
                                                                 <td><?= $p["duracion"] ?> Minutos</td>
                                                                 <td>
-                                                                    <b>Desde:</b> <?= date("d F Y h:i a", strtotime($p["fecha_inicio"])) ?><br>
-                                                                    <b>Hasta:</b>  <?= date("d F Y h:i a", strtotime($p["fecha_finaliza"])) ?>
+                                                                    <b>Desde:</b> <?= $fechaHoraDesde = date("d F Y h:i a", strtotime($p["fecha_inicio"])) ?><br>
+                                                                    <b>Hasta:</b>  <?= $fechaHoraHasta = date("d F Y h:i a", strtotime($p["fecha_finaliza"])) ?>
+                                                                </td>   
+                                                                <td>  
+                                                                <?php     
+                                                                    //Se obtiene la fecha del equipo                          
+                                                                    $fechaHoraActual = date('d F Y h:i a', time());  
+
+                                                                    
+                                                                    //Comparamos si la fecha y hora estan en el rango de tiempo de la fecha y hora actual
+                                                                    if($fechaHoraActual > $fechaHoraDesde && $fechaHoraActual < $fechaHoraHasta) {
+                                                                        
+                                                                        echo "<label class='text-success'>Disponible</label>";
+                                                                    }   
+                                                                    else{
+                                                                        echo "<label class='text-danger'>No Disponible</label>";
+                                                                    }                                                          
+                                                                ?>
                                                                 </td>
-                                                                <td><?= ($p["estado"] == "1") ? "<label class='text-success'>Activa</label>" : "<label class='text-danger'>Inactiva</label>" ?></td>
+
                                                                 <?php
                                                                     if(strtolower(logged_user()["rol"]) == "estudiante"){
                                                                         ?>
