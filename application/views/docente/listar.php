@@ -46,7 +46,7 @@
                     <input id='ruta' name='ruta' value=".htmlentities($carpeta)." type='hidden'/>
                     <input id='nombre' name='nombre' type='hidden'/>
                     <?php
-                        if(logged_user()["rol"] == "Docente"){
+                        if(logged_user()["rol"] != "Estudiante"){
                     ?>
                         <div class="col-md-12">
                             <div class='add-announcement-container'>  
@@ -81,7 +81,7 @@
                         if(is_dir($carpeta)){
                             if($dir = opendir($carpeta)){
                                 $carpeta_length = explode("/", $carpeta);
-                                if(((count($carpeta_length) > 6) && $menu_materia) || ($menu_materia != "true" && (isset($carpeta_length[2]) && $carpeta_length[2] == "proyectos") && (count($carpeta_length) > 4 && logged_user()["rol"] != "Estudiante")) || ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[2] != "proyectos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 2 && logged_user()["rol"] != "Estudiante"))){
+                                if(((count($carpeta_length) > 6) && $menu_materia) || ($menu_materia != "true" && (isset($carpeta_length[2]) && $carpeta_length[2] == "proyectos") && (count($carpeta_length) > 4 && logged_user()["rol"] != "Estudiante")) || ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[2] != "proyectos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 2 && logged_user()["rol"] != "Estudiante" && logged_user()["rol"] != "Administrativo")) || ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[2] != "proyectos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 4 && logged_user()["rol"] == "Administrativo"))){
                                     array_pop($carpeta_length);
                                     $title_back = $carpeta_length[count($carpeta_length) - 1];
                                     ?>
@@ -108,7 +108,7 @@
                                                 </td>
                                                 <td style="text-align: right;"><?= date("d/m/Y h:i a",filectime(($ruta))) ?></td>
                                                 <?php 
-                                                   if (logged_user()["rol"] == "Docente"){
+                                                   if (logged_user()["rol"] != "Estudiante"){
                                                 ?>
                                                     <td style="width:5%; text-align: right;">
                                                         <a href="javascript:elicar('<?= $ruta ?>', '<?= $menu_materia ?>')" style="width:10%">
@@ -144,7 +144,7 @@
                                             </td>
                                             <td style="text-align: right;"><?= date("d/m/Y h:i a",filectime(($ruta))) ?></td> 
                                             <?php 
-                                                   if (logged_user()["rol"] == "Docente"){
+                                                   if (logged_user()["rol"] != "Estudiante"){
                                                 ?>    
                                                     <td style="width:5%;text-align: right;">
                                                         <a href="javascript:eliminar('<?= $ruta ?>', '<?= $menu_materia ?>')" style="width:10%">
