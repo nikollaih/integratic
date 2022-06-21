@@ -6,7 +6,7 @@
         <div class="content">  
             <div class="container">
                 <div class="row" id="migas"></div>  
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post" enctype="">
                     <div class="panel panel-primary">
                         <div class="panel-heading text-capitalize"><b>Nueva prueba</b></div>
                         <div class="panel-body">
@@ -92,30 +92,8 @@
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Cantidad de preguntas *</label>
-                                            <input required type="number" name="prueba[cantidad_preguntas]" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-4">
-                                        <div class="form-group">
-                                            <label for="">Estado</label>
-                                            <select required name="prueba[estado]" id="" class="form-control">
-                                                <option value="1">Activo</option>
-                                                <option value="0">Inactivo</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12 col-lg-4">
-                                        <div class="form-group">
-                                            <label for="">Fecha y hora Inicio *</label>
-                                            <input required type="datetime-local" name="prueba[fecha_inicio]" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-4">
-                                        <div class="form-group">
-                                            <label for="">Fecha y hora Finalización *</label>
-                                            <input required type="datetime-local" name="prueba[fecha_finaliza]" class="form-control">
+                                            <!-- Que el campo no sea menor a 1-->
+                                            <input required type="number" name="prueba[cantidad_preguntas]" class="form-control" min="1">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-lg-4">
@@ -124,9 +102,10 @@
                                             <select required name="prueba[duracion]" id="" class="form-control">
                                                 <option value="">- Seleccionar</option>
                                                 <?php
-                                                    for ($i=5; $i <= 300 ; $i+=5) { 
+                                                // Estaba de 5 en 5 a llegar 300 minutos  
+                                                    for ($i=10; $i <= 180 ; $i+=10) {
                                                 ?>
-                                                    <option value="<?= $i ?>"><?= $i ?> Minutos</option>
+                                                    <option value="<?= $i ?>"><?= $i ?> Minutos</option>                                                  
                                                 <?php
                                                     }
                                                 ?>
@@ -135,7 +114,20 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12 mt-4">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="">Fecha y hora Inicio *</label>
+                                            <input required type="datetime-local"  name="prueba[fecha_inicio]" class="form-control">                              
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="">Fecha y hora Finalización *</label>
+                                            <input required type="datetime-local" name="prueba[fecha_finaliza]" class="form-control">
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="custom-control custom-radio">
                                             <input type="radio" class="custom-control-input" id="asignacion-preguntas-1" name="asignacion_preguntas" value="1" checked>
                                             <label class="custom-control-label" for="asignacion-preguntas-1">Asignacion de preguntas automatica</label>
@@ -143,9 +135,9 @@
                                         <div class="custom-control custom-radio">
                                             <input type="radio" class="custom-control-input" id="asignacion-preguntas-2" name="asignacion_preguntas" value="2">
                                             <label class="custom-control-label" for="asignacion-preguntas-2">Asignacion de preguntas manual</label>
-                                        </div>
+                                        </div>                                   
                                     </div>
-                                </div>
+                                </div>                      
                         </div>
                     </div>
 
