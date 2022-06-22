@@ -29,10 +29,12 @@
         else{echo ("Error en consulta");}
     } 
     public function ingresos(){  
-        $fecha    = $_POST['fecha'];      
-        if($datos  = $this->Consultas_Model->ingresos($fecha)){                   
-            echo json_encode($datos);
+        $fecha = $this->input->post('fecha');
+        if($datos = $this->Consultas_Model->ingresos($fecha)){                   
+            json_response($datos, true, "");
         } 
-        else{echo ("Error en consulta");}
+        else{
+            json_response(null, false, "No se han encontrado registros");
+        }
     }              
 } 

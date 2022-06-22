@@ -10,7 +10,7 @@
                     <input type="hidden" name="data[id_configuracion]" value="<?= (is_array($data)) ? $data["id_configuracion"] : "null" ?>">
                     <div class="panel panel-primary">
                         <div class="panel-heading text-capitalize"><b>Configuración</b></div>
-                        <div class="panel-body">
+                        <div class="panel-body p-b-4">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <div class="row">
@@ -18,6 +18,14 @@
                                             <div class="form-group">
                                                 <label for="">Nombre institución *</label>
                                                 <input required type="text" name="data[nombre_institucion]" class="form-control" value="<?= (is_array($data)) ? $data["nombre_institucion"] : "" ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="">Ciudad *</label>
+                                                <input required type="text" name="data[ciudad]" class="form-control" value="<?= (is_array($data)) ? $data["ciudad"] : "" ?>">
                                             </div>
                                         </div>
                                     </div>

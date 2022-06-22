@@ -40,7 +40,7 @@ class Principal extends CI_Controller {
         echo json_encode('ok');
     }
     
-    public function login(){  
+    public function login(){
         $usr = $this->input->post()['usr'];
         $pass = $this->input->post()['pass'];
         $datos = $this->Consultas_Model->login($usr,$pass);

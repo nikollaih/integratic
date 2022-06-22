@@ -790,10 +790,10 @@
       </div>
       <div class="modal-body">
           <form id="frmreportes" name="frmreportes" role="form">
-              <table>               
-                  <tr><td width='10%'></td><td width='80%'>
+              <table class="table">               
+                  <td width='100%'>
                         <h6>Ingrese Fecha a Procesar (aaaa-mm-dd)</h6>                    
-                    <input class="form-control" size="50" name="ifecha" id="ifecha" required>
+                    <input type="date" class="form-control" size="50" name="ifecha" id="ifecha" required>
                     </td></tr>               
                 </table>
           </form>
@@ -2163,7 +2163,8 @@ function login(){
                type:'POST',
                data:$("#frmlogin").serialize(),
                success:function(respuesta){
-               if(respuesta!=0){ 
+                console.log(respuesta);
+               if(respuesta!=0){
                  var registros = JSON.parse(respuesta); 
                  user = registros; 
                       if(Object.keys(registros).length>0){ 
@@ -4104,8 +4105,8 @@ html+='<div class="pull-left">';
 html+='<h4 class="text-right"><img src="./img/<?= (configuracion()) ? configuracion()["logo_institucion"] : "" ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>" width="100" height="100"></h4>';                        
 html+='</div>';
 html+='<div class="pull-right">';
-html+='<h4>INSTITUCION EDUCATIVA GENERAL SANTANDER<br>';
-html+='<strong>Calarcá Quindío</strong>';
+html+='<h4><?= strtoupper(configuracion()["nombre_institucion"]) ?><br>';
+html+='<strong><?= strtoupper(configuracion()["ciudad"]) ?></strong>';
 html+='</h4>';
 html+='</div>';
 html+='</div>';
@@ -4128,17 +4129,23 @@ html+='<tbody>';
             data:{fecha:ifecha},
             async:false,
             success:function(respuesta){
-               var registros = eval(respuesta); 
-                 for (i=0; i<registros.length; i++) { 
-                      html+='<tr>';
-                      html+='<td></td>';
-                      html+='<td>'+registros[i]["grado"]+'</td>';
-                      html+='<td>'+registros[i]["documento"]+'</td>';
-                      html+='<td>'+registros[i]["nombre"]+'</td>';
-                      html+='<td>'+registros[i]["hora"]+'</td>';
-                      html+='</tr>';                           
-                   }
-                }   
+               var registros = JSON.parse(respuesta);
+               if(registros.status){
+                    $("#modreportes").modal("hide");
+                    for (i=0; i<registros.object.length; i++) { 
+                        html+='<tr>';
+                        html+='<td></td>';
+                        html+='<td>'+registros.object[i]["grado"]+'</td>';
+                        html+='<td>'+registros.object[i]["documento"]+'</td>';
+                        html+='<td>'+registros.object[i]["nombre"]+'</td>';
+                        html+='<td>'+registros.object[i]["hora"]+'</td>';
+                        html+='</tr>';                           
+                    }
+               }
+               else{
+                alert(registros.message);
+               }
+            }   
            }); 
 html+='</tbody>';
 html+='</table>';
