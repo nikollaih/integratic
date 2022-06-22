@@ -9,7 +9,7 @@ class Consultas_Model extends CI_Model {
     $result=$this->db->query("Select * From usuarios where usuario='$usr' And clave='$pass'");
     if(!$result){return false;}
     else{
-      if($result->row_array()){$this->registrar_ingreso($usr); }
+      if($result->row_array()){$this->registrar_ingreso($result->row_array()["id"]); }
       return $result->row_array();
     }      
   }
@@ -205,10 +205,20 @@ class Consultas_Model extends CI_Model {
     if(!$result) {return false;}
     else {return $result->result();}      
   }  
+
+  /**
+   * Get all the rows from the table 'ingresos' where the column 'fecha' is equal to the value of the
+   * variable .
+   * 
+   * @param fecha is the date that I want to search in the database
+   * 
+   * @return An array of arrays.
+   */
   public function ingresos($fecha){
-    $result=$this->db->query("Select grado,ingresos.documento,nombre,hora From ingresos,estudiante 
-where fecha='$fecha' and estudiante.documento=ingresos.documento order by grado,nombre,hora");
-    if(!$result) {return false;}
-    else {return $result->result();}      
+    $this->db->from("ingresos i");
+    $this->db->join("estudiante e", "i.documento = e.documento");
+    $this->db->where("i.fecha", $fecha);
+    $result = $this->db->get();
+    return ($result->num_rows() > 0) ? $result->result_array() : false;
   }    
 }

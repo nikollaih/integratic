@@ -4404,6 +4404,10 @@ div.dataTables_info {
     margin-bottom: 30px;
 }
 
+.p-b-4 {
+    padding-bottom: 40px !important;
+}
+
 .no-calificar {
     background: transparent;
     border: 0;
