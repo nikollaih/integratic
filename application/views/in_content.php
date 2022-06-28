@@ -3042,34 +3042,36 @@ function val_asg(){
             async:false,
             cache:true,
             success:function(respuesta){
-            if(respuesta!=='0'){                                              
-                   if(confirm("YA Asignada a" + respuesta+"Asignar de todas formas?")){                  
-                      $.ajax({
-                              url:'<?=site_url();?>/asignacion/in_asigna',
-                              type:'POST',
-                              data:{ced:ced,mat:cmat,gru:gru},
-                              success:function(){
-                                  lista_asg();
-                              },
-                              error:function(respuesta){
-                                      alert("Error: No hay Registros!");
-                              }                    
-                      });
-                  }
-              }
-              else{
-                      $.ajax({
-                              url:'<?=site_url();?>/asignacion/in_asigna',
-                              type:'POST',
-                              data:{ced:ced,mat:cmat,gru:gru},
-                              success:function(){
-                                  lista_asg();
-                              },
-                              error:function(respuesta){
-                                      alert("Error: No hay Registros!");
-                              }                    
-                      });                
-              }
+                console.log(respuesta)
+                respuesta = JSON.parse(respuesta);
+                if(respuesta.status){                                              
+                    if(confirm("Ya asignada a: " + respuesta.message + "Asignar de todas formas?")){                  
+                        $.ajax({
+                                url:'<?=site_url();?>/asignacion/in_asigna',
+                                type:'POST',
+                                data:{ced:ced,mat:cmat,gru:gru},
+                                success:function(){
+                                    lista_asg();
+                                },
+                                error:function(respuesta){
+                                        alert("Error: No hay Registros!");
+                                }                    
+                        });
+                    }
+                }
+                else{
+                        $.ajax({
+                                url:'<?=site_url();?>/asignacion/in_asigna',
+                                type:'POST',
+                                data:{ced:ced,mat:cmat,gru:gru},
+                                success:function(){
+                                    lista_asg();
+                                },
+                                error:function(respuesta){
+                                        alert("Error: No hay Registros!");
+                                }                    
+                        });                
+                }
 
             },
             error:function(respuesta){

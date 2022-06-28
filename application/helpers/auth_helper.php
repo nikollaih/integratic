@@ -16,6 +16,5 @@
             $CI->load->library('session');
             return ($CI->session->userdata('logged_in')) ? true : false;
         }
-    
     }
 ?>

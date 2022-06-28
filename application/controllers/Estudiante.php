@@ -21,6 +21,42 @@ class Estudiante extends CI_Controller {
 			header("Location: ".base_url());
 		}
 	}
+
+	function modificar($documento = null){
+		if(is_logged() && strtolower(logged_user()['rol']) == 'super'){
+			if($this->input->post()){
+				$data = $this->input->post();
+				$data["documento"] = $documento;
+				$params["message"] = $this->procesoModificar($data);
+			}
+
+			$params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($documento);
+			$this->load->view("estudiantes/modificar", $params);
+		}
+		else{
+			header("Location: ".base_url());
+		}
+	}
+
+	function procesoModificar($data){
+		$dataEstudiante = array(
+			"documento" => $data["documento"],
+			"grado" => $data["grado"]
+		);
+
+		$dataUsuario = array(
+			"id" => $data["documento"],
+			"clave" => $data["clave"]
+		);
+
+		if($this->Estudiante_Model->update($dataEstudiante))
+			if($this->Usuarios_Model->update_user($dataUsuario))
+				return array("success" => true, "message" => "Estudiante y usuario modificado exitosamente.", "type" => "success");
+			else 
+				return array("success" => false, "message" => "Estudiante modificado exitosamente, no se ha podido modificar el usuario.", "type" => "warning");
+		else
+			return array("success" => false, "message" => "No se ha podido modificar el estudiante.", "type" => "danger");
+	}
       
     public function areas(){
       	if(is_logged() && logged_user()['rol'] === 'Estudiante'){
