@@ -11,7 +11,7 @@
         if(isset ($_POST["mat"])){ 
             $mat      = $_POST["mat"];                     
             $gru      = $_POST["gru"]; 
-            $datos = $this->General_Model->val_asg($mat,$gru); 
+            $datos = $this->General_Model->val_asg($mat,$gru);
             $res="";
             foreach($datos as $row){
                 $id=$row->docente;
@@ -20,7 +20,7 @@
                     $res.= $col->nombres." ".$col->apellidos."\n";                         
                 }    
             }     
-            if ($res!==""){
+            if ($res!=""){
                 json_response(null, true, $res);
             }  else{
                 json_response(null, false, "");

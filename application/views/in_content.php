@@ -2163,7 +2163,6 @@ function login(){
                type:'POST',
                data:$("#frmlogin").serialize(),
                success:function(respuesta){
-                console.log(respuesta);
                if(respuesta!=0){
                  var registros = JSON.parse(respuesta); 
                  user = registros; 
@@ -3450,7 +3449,6 @@ function con_usuarios(){
             dataType:'json',
             success:function(respuesta){
                 var registros = eval(respuesta);
-                console.log(registros);
                     var html='<table class="table table-bordered table-hover">';
                         html+='<thead><tr style="background-color: #229678">';
                         html+='<th class="text-white text-center" width="20%">Código</th>';
