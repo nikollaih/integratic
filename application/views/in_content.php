@@ -2654,16 +2654,18 @@ var html='<div class="panel panel-primary">';
                url:url,
                type:'POST',
                success:function(respuesta){
-                 var registros = eval(respuesta);
-                      if(registros.length>0){ 
-                          for (i=0; i<registros.length; i++) {
-                            html+='<option value="">'+registros[i]["nommateria"]+' '+registros[i]["grado"]+registros[i]["grupo"]+'</option>';
+                    var registros = JSON.parse(respuesta);
+                    if(registros.status){
+                        if(registros.object.length>0){ 
+                          for (i=0; i<registros.object.length; i++) {
+                            html+='<option value="">'+registros.object[i]["nommateria"]+' '+registros.object[i]["grado"]+registros.object[i]["grupo"]+'</option>';
                           }   
                           html+='</select>';
                           html=html+'</div><div class="col-xs-2"></div></div></div></div></div>';
                           html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
                           $("#contenedor").html(html);     
-                      }                 
+                        }       
+                    }          
                 }                              
                });            
     }   
@@ -2922,18 +2924,23 @@ function lista_asg(){
         $.ajax({
                url:'<?=site_url();?>/docente/asignadoc/'+id,
                type:'POST',
-               success:function(respuesta){ 
-                 var registros = eval(respuesta);
-                      html='<select multiple class="form-control" id="listado_asg" name ="listado_asg" size="10">'; 
-                      if(registros.length>0){ 
-                          for (i=0; i<registros.length; i++) { 
-                            var gru=registros[i]["grupo"];  
+               success:function(respuesta){
+                    let registros = JSON.parse(respuesta);
+                    html='<select multiple class="form-control" id="listado_asg" name ="listado_asg" size="10">'; 
+                    if(registros.status){
+                        if(registros.object.length>0){ 
+                          for (i=0; i<registros.object.length; i++) { 
+                            var gru=registros.object[i]["grupo"];  
                             if(gru==='N'){gru='';}
-                            html+='<option value="'+registros[i]["codmateria"]+'">'+registros[i]["nommateria"]+' '+registros[i]["grado"]+gru+'</option>';
-                          }     
-                   }
-                      html+='</select></form>'; 
-                $("#lista_asignadas").html(html);
+                            html+='<option value="'+registros.object[i]["codmateria"]+'">'+registros.object[i]["nommateria"]+' '+registros.object[i]["grado"]+gru+'</option>';
+                          }    
+                        } 
+                    }
+                    else{
+                        alert(registros.message);
+                    }
+                    html+='</select></form>'; 
+                    $("#lista_asignadas").html(html);
                 },
                error:function(){ alert("Error!");}                                   
                });
@@ -3042,7 +3049,6 @@ function val_asg(){
             async:false,
             cache:true,
             success:function(respuesta){
-                console.log(respuesta)
                 respuesta = JSON.parse(respuesta);
                 if(respuesta.status){                                              
                     if(confirm("Ya asignada a: " + respuesta.message + "Asignar de todas formas?")){                  

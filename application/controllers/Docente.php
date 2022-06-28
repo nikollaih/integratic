@@ -34,9 +34,9 @@ class Docente extends CI_Controller {
     }    
     public function asignadoc($id){  
         if($datos  = $this->Consultas_Model->asignadoc($id)){                   
-            echo json_encode($datos);
+            json_response($datos, true, "Asignación docente");
         } 
-        else{echo ("Error en asignacion");}
+        else{json_response(null, false, "El docente no tiene una asignación academica.");}
     }   
     public function asignapro($id){  
         if($datos  = $this->Consultas_Model->asignapro($id)){                   
