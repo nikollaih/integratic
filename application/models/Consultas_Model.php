@@ -58,7 +58,7 @@ class Consultas_Model extends CI_Model {
     else {return $result->result();}      
   }   
   public function asignacion($id){
-    $result=$this->db->query("select distinct codmateria,nomarea,nommateria,grado,icomateria from asg_materias,cfg_materias,cfg_areas Where docente='$id' And codmateria=materia And codarea=area");
+    $result=$this->db->query("select codmateria, nomarea, nommateria, grado, grupo from asg_materias am join cfg_materias cm on am.materia = cm.codmateria join cfg_areas ca on cm.area = ca.codarea Where am.docente='".$id."'");
     if(!$result) {return false;}
     else {return $result->result();}      
   }  
