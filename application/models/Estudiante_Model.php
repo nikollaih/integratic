@@ -53,7 +53,8 @@ class Estudiante_Model extends CI_Model {
 
 	function getAreas($student_id){
 		$grade = $this->getStudentGrade($student_id);
-		$result = $this->db->query("Select * from cfg_areas a left join cfg_materias m on a.codarea = m.area where a.tipo<>'gestion' and m.grado = $grade");
+		$grupo = $this->session->userdata()["logged_in"]["grupo"];
+		$result = $this->db->query("Select * from cfg_areas a left join cfg_materias m on a.codarea = m.area join asg_materias am on am.materia = m.codmateria where a.tipo<>'gestion' and m.grado = ".$grade." and am.grupo = '".$grupo."'");
 		if(!$result){
 			return false;
 		}else{
