@@ -5,7 +5,7 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model(['General_Model', "Usuarios_Model"]);
+       $this->load->model(['General_Model', "Usuarios_Model", "Estudiante_Model"]);
     }
     
     public function nuevo()
@@ -74,6 +74,17 @@
                     $usuarios[$i]["clave"] = trim($usuarios[$i]["clave"]);
                     $usuarios[$i]["usuario"] = trim($usuarios[$i]["usuario"]);
                     $this->Usuarios_Model->update_old_user($usuario_id, $usuarios[$i]);
+                }
+            }
+        }
+
+        $estudiantes = $this->Estudiante_Model->getAllStudents();
+        if($estudiantes){
+            for ($i=0; $i < count($estudiantes) ; $i++) {
+                $estudiante_id = $estudiantes[$i]["documento"];
+                if($estudiantes[$i]["documento"] != trim($estudiantes[$i]["documento"])){
+                    $estudiantes[$i]["documento"] = trim($estudiantes[$i]["documento"]);
+                    $this->Estudiante_Model->update_old($estudiante_id, $estudiantes[$i]);
                 }
             }
         }
