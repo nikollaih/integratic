@@ -16,6 +16,13 @@ class Estudiante_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+	function getAllStudents(){
+		$this->db->from("estudiante e");
+		$result = $this->db->get();
+
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
 	function getStudentsByDocuments($documentos){
 		$this->db->from("estudiante");
 		$this->db->where_in("documento", $documentos);
@@ -130,6 +137,11 @@ class Estudiante_Model extends CI_Model {
 
 	function update($data){
 		$this->db->where("documento", $data["documento"]);
+		return $this->db->update("estudiante", $data);
+	}
+
+	function update_old($id, $data){
+		$this->db->where("documento", $id);
 		return $this->db->update("estudiante", $data);
 	}
 }
