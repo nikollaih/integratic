@@ -650,17 +650,17 @@ public function listar_filtro(){
         else{echo ("Error en consulta");}
     }      
     public function cop_materias_gen($mat){
-			if(is_logged() && logged_user()['rol'] === 'Estudiante'){
-                $datos  = $this->Estudiante_Model->groupGradeAsignature(logged_user()['id'], $mat);
-              
-				if($datos){                   
-					echo json_encode($datos);
-				}else{echo ("Error en consulta 1");}
-			}else{
-        if($datos  = $this->Consultas_Model->conp_materias_gen($mat)){                   
-            echo json_encode($datos);
-        } 
-        else{echo ("Error en consulta 2");}
-			}
+        if(is_logged() && logged_user()['rol'] === 'Estudiante'){
+            $datos  = $this->Estudiante_Model->groupGradeAsignature(logged_user()['id'], $mat);
+            
+            if($datos){                   
+                echo json_encode($datos);
+            }else{echo ("Error en consulta 1");}
+        }else{
+            if($datos  = $this->Consultas_Model->conp_materias_gen($mat)){                   
+                echo json_encode($datos);
+            } 
+            else{echo ("Error en consulta 2");}
+		}
     }    
 }

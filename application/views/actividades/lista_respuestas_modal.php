@@ -15,7 +15,7 @@
                             <td>Documento</td>
                             <td>Estudiante</td>
                             <td>Fecha de carga</td>
-                            <td>Notas</td>
+                            <td>Descripción</td>
                             <td>Archivo</td>
                             <td>Calificacion</td>
                             <td></td>

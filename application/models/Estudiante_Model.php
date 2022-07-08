@@ -52,7 +52,7 @@ class Estudiante_Model extends CI_Model {
 
 	public function groupGradeAsignature($student_id, $mat){
 		$group = $this->getStudentGroupGrade($student_id);
-    $result = $this->db->query("Select * from asg_materias,cfg_materias,cfg_areas where materia=$mat and codarea=area and codmateria=materia and grupo='$group'");
+    $result = $this->db->query("Select u.nombres, u.apellidos, am.*, cm.*, ca.* from asg_materias am join cfg_materias cm on am.materia = cm.codmateria join cfg_areas ca on cm.area = ca.codarea join usuarios u on u.id = am.docente where materia='".$mat."' and codarea=area and codmateria=materia and grupo='".$group."'");
 
     if(!$result) {return false;}
     else {return $result->result();}      
