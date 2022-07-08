@@ -2188,6 +2188,7 @@ function login(){
                                 cambio_menu();
                                 if(user.id == user.clave){
                                     cambio_clave();
+                                    actualizar_notificaciones();
                                 }
                                 else{
                                     location.reload();
