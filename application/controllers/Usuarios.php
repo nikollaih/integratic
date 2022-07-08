@@ -69,9 +69,10 @@
         if($usuarios){
             for ($i=0; $i < count($usuarios) ; $i++) {
                 $usuario_id = $usuarios[$i]["id"];
-                if($usuarios[$i]["id"] != trim($usuarios[$i]["id"]) || $usuarios[$i]["clave"] != trim($usuarios[0]["clave"])){
+                if($usuarios[$i]["id"] != trim($usuarios[$i]["id"]) || $usuarios[$i]["clave"] != trim($usuarios[0]["clave"]) || $usuarios[$i]["usuario"] != trim($usuarios[0]["usuario"])){
                     $usuarios[$i]["id"] = trim($usuarios[$i]["id"]);
                     $usuarios[$i]["clave"] = trim($usuarios[$i]["clave"]);
+                    $usuarios[$i]["usuario"] = trim($usuarios[$i]["usuario"]);
                     $this->Usuarios_Model->update_old_user($usuario_id, $usuarios[$i]);
                 }
             }
