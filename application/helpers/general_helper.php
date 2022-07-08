@@ -36,11 +36,11 @@
 
                     $data["nombres"] = $nombres;
                     $data["apellidos"] = $apellidos;
-                    $data["id"] = $e["documento"];
+                    $data["id"] = trim($e["documento"]);
                     $data["cargo"] = "Estudiante";
                     $data["rol"] = "Estudiante";
                     $data["usuario"] = $e["documento"];
-                    $data["clave"] =  $e["documento"];
+                    $data["clave"] =  trim($e["documento"]);
                     $data["estado"] = "ac";
 
                     $user = $CI->Usuarios_Model->get_user($e["documento"]);

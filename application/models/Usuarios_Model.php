@@ -18,11 +18,22 @@ class Usuarios_Model extends CI_Model {
 		return $this->db->update("usuarios", $data);
   	}
 
+	  public function update_old_user($id, $data){
+    	$this->db->where("id", $id);
+		return $this->db->update("usuarios", $data);
+  	}
+
 	public function get_user($id){
 		$this->db->from("usuarios");
 		$this->db->where("id", $id);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
+	}
+
+	public function get_all(){
+		$this->db->from("usuarios");
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
 	public function delete_all_users_rol($rol){
