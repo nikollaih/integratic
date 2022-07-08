@@ -63,4 +63,18 @@
         $this->session->sess_destroy();
         header("Location: ".base_url());
     }
+
+    public function remover_espacios_blanco(){
+        $usuarios = $this->Usuarios_Model->get_all();
+        if($usuarios){
+            for ($i=0; $i < count($usuarios) ; $i++) {
+                $usuario_id = $usuarios[$i]["id"];
+                if($usuarios[$i]["id"] != trim($usuarios[$i]["id"]) || $usuarios[$i]["clave"] != trim($usuarios[0]["clave"])){
+                    $usuarios[$i]["id"] = trim($usuarios[$i]["id"]);
+                    $usuarios[$i]["clave"] = trim($usuarios[$i]["clave"]);
+                    $this->Usuarios_Model->update_old_user($usuario_id, $usuarios[$i]);
+                }
+            }
+        }
+    }
 } 
