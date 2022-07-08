@@ -37,6 +37,7 @@ function do_upload(){
         $config['max_input_time'] = '1000';
         $config['post_max_size'] = '10M';
         $config['upload_max_filesize'] = '10M';
+        $config['remove_spaces'] = FALSE;
 
         // Cargamos la configuración del Archivo 1
         $this->upload->initialize($config);
@@ -75,7 +76,8 @@ function do_upload_act(){
             // Configuración para el Archivo 1
             $config['upload_path'] = $ruta;
             $config['allowed_types'] = '*';
-            $config['max_size'] = '20000000';    
+            $config['max_size'] = '20000000';   
+            $config['remove_spaces'] = FALSE;    
 
             // Cargamos la configuración del Archivo 1
             $this->upload->initialize($config);

@@ -1201,7 +1201,7 @@ function enlace_mat_est(cod, menu_materia = "false"){
                success:function(respuesta){                         
                  var registros = eval(respuesta);
                     html='<div class="panel panel-primary">';        
-                    html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica ..:  '+registros[0]["nommateria"]+'</b></div>';
+                    html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica: '+registros[0]["nommateria"]+' <label style="float:right;">  Docente: ' + registros[0]["nombres"] + ' ' +registros[0]["apellidos"] +'</label></b></div>';
                     html=html+'<div class="panel-body">';  
                       if(registros.length>0){ 
                           for (i=0; i<registros.length; i++) {                             
