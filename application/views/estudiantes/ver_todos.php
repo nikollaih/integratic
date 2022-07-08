@@ -38,7 +38,7 @@
                                                             <td><?= $e["grado"] ?></td>
                                                             <td><?= $e["clave"] ?></td>
                                                             <td class="text-center">
-                                                                <a class="btn btn-warning btn-sm" href="<?= base_url() ?>Estudiante/modificar/<?= $e["documento"] ?>">Modificar</a>
+                                                                <a class="btn btn-warning btn-sm" href="<?= base_url() ?>Estudiante/modificar/<?= trim($e["documento"]) ?>">Modificar</a>
                                                                 <button data-id="<?= $e["documento"] ?>" class="btn btn-danger btn-sm btn-eliminar-estudiante">Eliminar</button>
                                                             </td>
                                                         </tr>
