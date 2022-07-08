@@ -32,13 +32,13 @@ class Estudiante_Model extends CI_Model {
 	}
 
 	function getStudentGrade($student_id){
-		$student_grade = $this->db->query("select grado from estudiante where documento = $student_id");
+		$student_grade = $this->db->query("select grado from estudiante where documento = '".$student_id."'");
 		$student_grade = $student_grade->result()[0]->grado;
 		return preg_replace('~\D~', '', $student_grade);
 	}
 
 	function getStudentGroupGrade($student_id){
-		$student_grade = $this->db->query("select grado from estudiante where documento = $student_id");
+		$student_grade = $this->db->query("select grado from estudiante where documento = '".$student_id."'");
 		$student_grade = $student_grade->result()[0]->grado;
 		return preg_replace('/[0-9]+/', '', $student_grade);
 	}
