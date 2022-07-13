@@ -127,7 +127,7 @@
                                         </div>
                                     </div>
                                    
-                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                    <div class="col-md-12 col-sm-12 col-lg-12">
                                         <div class="custom-control custom-radio">
                                             <input type="radio" class="custom-control-input" id="asignacion-preguntas-1" name="asignacion_preguntas" value="1" checked>
                                             <label class="custom-control-label" for="asignacion-preguntas-1">Asignacion de preguntas automatica</label>

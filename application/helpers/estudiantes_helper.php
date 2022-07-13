@@ -63,7 +63,7 @@
             
             if(is_array($estudiantes)){
                 foreach ($estudiantes as $e) {
-                    if($e["documento"] != 0 && $e["documento"] != null && $e["documento"] != ""){
+                    if($e["documento"]){
                         $temp_name = explode(" ", $e["nombre"]);
                         $split_name = [];
                         for ($i=0; $i < count($temp_name); $i++) { 
@@ -71,7 +71,6 @@
                                 array_push($split_name, $temp_name[$i]);
                             }
                         }
-
                         $data["identificacion"] = $e["documento"];
                         $data["nombres"] = (count($split_name) == 4) ? $split_name[2] . " " . $split_name[3] : $split_name[2];
                         $data["apellidos"] = $split_name[0] . " " . $split_name[1];
