@@ -60,18 +60,31 @@ class Actividades extends CI_Controller {
     
                 if(isset($_FILES["userfile"])){
                     if(isset($_FILES['userfile']['name'])) {
-                        $file_name = md5($inserted_id).".".get_file_format($_FILES['userfile']['name']);
-                        $file_tmp =$_FILES['userfile']['tmp_name'];
-                        move_uploaded_file($file_tmp,"uploads/actividades/respuestas/".$file_name);
-
                         if($data["id_actividad"]){
-                            $respuesta["id_actividad"] = $data["id_actividad"];
-                            $respuesta["url_archivo"] = $file_name;
-                            $respuesta["created_at"] = date("Y-m-d H:i:s");
-                            $respuesta["estudiante_notas"] = $data["notas"];
-                            $respuesta["created_by"] = logged_user()["id"];
-                            $inserted_id = $this->Actividades_Model->create_response($respuesta);
-                            json_response(true, true, "Respuesta creada exitosamente.");
+                            $respuesta_previa = $this->Actividades_Model->get_activity_response($data["id_actividad"], logged_user()["id"]);
+                            if($respuesta_previa){
+                                json_response(false, false, "Error, No puede subir más de un archivo por actividad");
+                            }
+                            else{
+                                $respuesta["id_actividad"] = $data["id_actividad"];
+                                $respuesta["url_archivo"] = "";
+                                $respuesta["created_at"] = date("Y-m-d H:i:s");
+                                $respuesta["estudiante_notas"] = $data["notas"];
+                                $respuesta["created_by"] = logged_user()["id"];
+                                $inserted_id = $this->Actividades_Model->create_response($respuesta);
+                                if($inserted_id){
+                                    $file_name = md5($inserted_id).".".get_file_format($_FILES['userfile']['name']);
+                                    $file_tmp =$_FILES['userfile']['tmp_name'];
+                                    move_uploaded_file($file_tmp,"uploads/actividades/respuestas/".$file_name);
+                                    $respuesta["id_respuestas_actividades"] = $inserted_id;
+                                    $respuesta["url_archivo"] = $file_name;
+                                    $this->Actividades_Model->update_response($respuesta);
+                                    json_response(true, true, "Respuesta creada exitosamente.");
+                                }
+                                else{
+                                    json_response(false, false, "Error, Ha ocurrido un error intente de nuevo más tarde");
+                                }
+                            }
                         }
                         else{
                             json_response(false, false, "Error, No se ha seleccionado una actividad");
