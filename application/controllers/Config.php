@@ -49,6 +49,7 @@
             if($this->General_Model->insertar("cfg_areas",$datos)==true){
                 $dir=utf8_decode('./principal/areas/'.$nom);
                 if (!is_dir($dir)) { mkdir($dir, 0777); } 
+                move_uploaded_file($_FILES['archivo']['tmp_name'], "img/botones/areas/".$_FILES['archivo']['name']);
                  echo json_encode("Area creada!");}
             else { echo ("No se pudo guardar los datos");} 
         }
