@@ -688,4 +688,18 @@ class Actividades extends CI_Controller {
         }
         else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }
+
+    function deleteRespuesta($id_respuesta = null){
+        if(is_logged()){
+            if(logged_user()["rol"] == "Docente"){
+                $actividad = $this->Actividades_Model->delete_response($id_respuesta);
+                if($actividad){
+                    json_response(array("error" => false), true, "Respuesta eliminada correctamente");
+                }
+                else  json_response(array("error" => "not_found"), false, "No se ha encontrado la actividad seleccionada");
+            }
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
+    }
 }

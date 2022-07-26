@@ -194,7 +194,6 @@ function obtener_lista_notificaciones() {
         type: 'GET',
         success: function(data) {
             var data = JSON.parse(data);
-            console.log(data);
             if (data.status) {
                 $('#notificaciones-container').html(data.object);
             }
@@ -210,15 +209,6 @@ function guardar_foro() {
     let disponible_hasta = $("#nuevo-foro-disponible-hasta").val();
     let materia = $("#nuevo-foro-materia").val();
     let grupo = $("#nuevo-foro-grupo").val();
-
-    console.log({
-        descripcion: editorImageForo.getContents(),
-        titulo: titulo,
-        materia: materia,
-        grupo: grupo,
-        disponible_desde: disponible_desde,
-        disponible_hasta: disponible_hasta
-    })
 
     if (titulo.trim() != "" && materia && grupo) {
         var url = "./index.php/Foros/agregar_foro";
