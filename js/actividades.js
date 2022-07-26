@@ -8,6 +8,12 @@ $(document).on("click", ".button-eliminar-actividad", function() {
     eliminar_actividad(actividad);
 });
 
+$(document).on("click", ".btn-eliminar-respuesta-actividad", function() {
+    let actividad = $(this).attr("data-actividad");
+    let respuesta = $(this).attr("data-id");
+    eliminar_respuesta_actividad(actividad, respuesta);
+});
+
 $(document).on("click", ".cargar-respuestas-boton", function() {
     let actividad = $(this).attr("data-actividad");
     $(".items-repsuestas-estudiante").html("<tr><td colspan='7'><div class='loader'></td></div></tr>");
@@ -133,6 +139,26 @@ function eliminar_actividad(id_actividad) {
                 var data = JSON.parse(data);
                 if (data.status) {
                     $("#actividad-" + id_actividad).remove();
+                }
+
+                if (data.object.error == "auth") {
+                    prelogin();
+                }
+                alert(data.message);
+            }
+        });
+    }
+}
+
+function eliminar_respuesta_actividad(id_actividad, id_respuesta) {
+    if (confirm("¿Está seguro que desea eliminar la respuesta?") == true) {
+        $.ajax({
+            url: base_url + 'Actividades/deleteRespuesta/' + id_respuesta,
+            type: 'GET',
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status) {
+                    obtener_actividad_respuestas(id_actividad);
                 }
 
                 if (data.object.error == "auth") {

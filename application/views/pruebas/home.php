@@ -51,10 +51,8 @@
                                                                     //Se obtiene la fecha del equipo                          
                                                                     $fechaHoraActual = date('d F Y h:i a', time());  
 
-                                                                    
                                                                     //Comparamos si la fecha y hora estan en el rango de tiempo de la fecha y hora actual
-                                                                    if($fechaHoraActual > $fechaHoraDesde && $fechaHoraActual < $fechaHoraHasta) {
-                                                                        
+                                                                    if(strtotime($fechaHoraActual) > strtotime($fechaHoraDesde) && strtotime($fechaHoraActual) < strtotime($fechaHoraHasta)) {
                                                                         echo "<label class='text-success'>Disponible</label>";
                                                                     }   
                                                                     else{

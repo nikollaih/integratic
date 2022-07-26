@@ -92,7 +92,6 @@ $(document).ready(function() {
                     id_participante: id_participante
                 },
                 success: function(data) {
-                    console.log(data);
                     var data = JSON.parse(data);
                     if (data.status) {
                         $("#participante-" + id_participante).remove();
@@ -115,7 +114,6 @@ $(document).ready(function() {
                     id_prueba: id_prueba
                 },
                 success: function(data) {
-                    console.log(data);
                     var data = JSON.parse(data);
                     if (data.status) {
                         tabla_pruebas
