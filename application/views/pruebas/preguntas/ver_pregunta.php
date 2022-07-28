@@ -20,7 +20,7 @@
                                                 <?php
                                                     if($pregunta["archivo"] && $pregunta["nombre_archivo"]){
                                                 ?>
-                                                    <img src="<?= base_url() ?>uploads/preguntas/<?= $pregunta["archivo"] ?>" alt="" srcset="" width="200">
+                                                    <img src="<?= base_url() ?>uploads/preguntas/<?= $pregunta["archivo"] ?>" alt="" srcset="" width="500">
                                                 <?php
                                                     }
                                                 ?>
@@ -48,7 +48,7 @@
                                                             <?php
                                                                 if($r["archivo_respuesta"] && $r["nombre_archivo_respuesta"]){
                                                             ?>
-                                                                <img src="<?= base_url() ?>uploads/respuestas/<?= $r["archivo_respuesta"] ?>" alt="" srcset="" width="200">
+                                                                <img src="<?= base_url() ?>uploads/respuestas/<?= $r["archivo_respuesta"] ?>" alt="" srcset="" width="500">
                                                             <?php
                                                                 }
                                                             ?>

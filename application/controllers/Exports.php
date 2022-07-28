@@ -39,7 +39,7 @@
 
                 if($estudiantes){
                     foreach ($estudiantes as $e) {
-                        $calificacion = "0";
+                        $calificacion = "1";
                         if(is_array($e["respuesta"])){
                             $calificacion = $e["respuesta"]["calificacion"];
                         }
