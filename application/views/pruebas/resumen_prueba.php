@@ -125,7 +125,7 @@
                                                             <?php
                                                                 if($asignadas[$i]["archivo"] && $asignadas[$i]["nombre_archivo"]){
                                                             ?>
-                                                                <img src="<?= base_url() ?>uploads/preguntas/<?= $asignadas[$i]["archivo"] ?>" alt="" srcset="" width="200" class="m-t-1 m-b-3">
+                                                                <img src="<?= base_url() ?>uploads/preguntas/<?= $asignadas[$i]["archivo"] ?>" alt="" srcset="" width="400" class="m-t-1 m-b-3">
                                                             <?php
                                                                 }
                                                             ?>
@@ -149,15 +149,16 @@
                                                                             if($asignadas[$i]["id_pregunta"] == $respuestas[$r]["id_pregunta"]){
                                                                                 $validada = 1;
                                                                                 ?>
+                                                                                <div class="form-check prueba-respuesta">
                                                                                     <input disabled <?= ($rp["id_respuesta_pregunta_prueba"] == $respuestas[$r]["id_respuesta"]) ? "checked" : "" ?> type="radio" name="" id=""> <span class="<?= ($rp["id_respuesta_pregunta_prueba"] == $respuestas[$r]["id_respuesta"] || $rp["tipo_respuesta"] == 1) ? ($rp["tipo_respuesta"] == 1) ? 'text-success' : 'text-danger' : '' ?>"><?= ($rp["id_respuesta_pregunta_prueba"] == $respuestas[$r]["id_respuesta"] || $rp["tipo_respuesta"] == 1) ? ($rp["tipo_respuesta"] == 1) ? 'Correcta: ' : '' : '' ?><?= $rp["descripcion_respuesta"] ?></span>
                                                                                     <?php
                                                                                         if( $rp["archivo_respuesta"] &&  $rp["nombre_archivo_respuesta"]){
                                                                                     ?>
-                                                                                        <br><img style="margin: 5px 0px 5px -1px;" src="<?= base_url() ?>uploads/respuestas/<?=  $rp["archivo_respuesta"] ?>" alt="" srcset="" width="200" class="m-t-3" style="margin-left:15px;">
+                                                                                        <br><img style="margin: 5px 0px 5px -1px;" src="<?= base_url() ?>uploads/respuestas/<?=  $rp["archivo_respuesta"] ?>" alt="" srcset="" width="400" class="m-t-3" style="margin-left:15px;">
                                                                                     <?php
                                                                                         }
                                                                                     ?>
-                                                                                    <br>
+                                                                                </div>
                                                                                 <?php
                                                                             }
                                                                             /*else{
@@ -175,15 +176,16 @@
                                                                     }
                                                                     else{
                                                                         ?>
-                                                                            <input disabled type="radio" name="" id=""> <span class=""><?= $rp["descripcion_respuesta"] ?></span>
-                                                                            <?php
-                                                                                if( $rp["archivo_respuesta"] &&  $rp["nombre_archivo_respuesta"]){
-                                                                            ?>
-                                                                                <br><img style="margin: 5px 0px 5px -1px;" src="<?= base_url() ?>uploads/respuestas/<?=  $rp["archivo_respuesta"] ?>" alt="" srcset="" width="200" class="m-t-3" style="margin-left:15px;">
-                                                                            <?php
-                                                                                }
-                                                                            ?>
-                                                                            <br>
+                                                                            <div class="form-check prueba-respuesta">
+                                                                                <input disabled type="radio" name="" id=""> <span class=""><?= $rp["descripcion_respuesta"] ?></span>
+                                                                                <?php
+                                                                                    if( $rp["archivo_respuesta"] &&  $rp["nombre_archivo_respuesta"]){
+                                                                                ?>
+                                                                                    <br><img style="margin: 5px 0px 5px -1px;" src="<?= base_url() ?>uploads/respuestas/<?=  $rp["archivo_respuesta"] ?>" alt="" srcset="" width="200" class="m-t-3" style="margin-left:15px;">
+                                                                                <?php
+                                                                                    }
+                                                                                ?>
+                                                                            </div>
                                                                         <?php
                                                                     }
                                                                 }

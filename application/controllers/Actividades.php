@@ -61,30 +61,33 @@ class Actividades extends CI_Controller {
                 if(isset($_FILES["userfile"])){
                     if(isset($_FILES['userfile']['name'])) {
                         if($data["id_actividad"]){
+                            $actividad = $this->Actividades_Model->get_actividad($data["id_actividad"]);
                             $respuesta_previa = $this->Actividades_Model->get_activity_response($data["id_actividad"], logged_user()["id"]);
-                            if($respuesta_previa){
-                                json_response(false, false, "Error, No puede subir más de un archivo por actividad");
-                            }
-                            else{
-                                $respuesta["id_actividad"] = $data["id_actividad"];
-                                $respuesta["url_archivo"] = "";
-                                $respuesta["created_at"] = date("Y-m-d H:i:s");
-                                $respuesta["estudiante_notas"] = $data["notas"];
-                                $respuesta["created_by"] = logged_user()["id"];
-                                $inserted_id = $this->Actividades_Model->create_response($respuesta);
-                                if($inserted_id){
-                                    $file_name = md5($inserted_id).".".get_file_format($_FILES['userfile']['name']);
-                                    $file_tmp =$_FILES['userfile']['tmp_name'];
-                                    move_uploaded_file($file_tmp,"uploads/actividades/respuestas/".$file_name);
-                                    $respuesta["id_respuestas_actividades"] = $inserted_id;
-                                    $respuesta["url_archivo"] = $file_name;
-                                    $this->Actividades_Model->update_response($respuesta);
-                                    json_response(true, true, "Respuesta creada exitosamente.");
+                            $estudiantes_habilitados = ($actividad["estudiantes_habilitados"]) ? unserialize($actividad["estudiantes_habilitados"]) : [];
+                            if(strtotime(date("Y-m-d H:i:s")) < strtotime($actividad["disponible_hasta"]) || in_array(logged_user()["id"], $estudiantes_habilitados)){
+                                if($respuesta_previa){
+                                    json_response(false, false, "Error, No puede subir más de un archivo por actividad");
                                 }
                                 else{
-                                    json_response(false, false, "Error, Ha ocurrido un error intente de nuevo más tarde");
+                                    $respuesta["id_actividad"] = $data["id_actividad"];
+                                    $respuesta["url_archivo"] = "";
+                                    $respuesta["created_at"] = date("Y-m-d H:i:s");
+                                    $respuesta["estudiante_notas"] = $data["notas"];
+                                    $respuesta["created_by"] = logged_user()["id"];
+                                    $inserted_id = $this->Actividades_Model->create_response($respuesta);
+                                    if($inserted_id){
+                                        $file_name = md5($inserted_id).".".get_file_format($_FILES['userfile']['name']);
+                                        $file_tmp =$_FILES['userfile']['tmp_name'];
+                                        move_uploaded_file($file_tmp,"uploads/actividades/respuestas/".$file_name);
+                                        $respuesta["id_respuestas_actividades"] = $inserted_id;
+                                        $respuesta["url_archivo"] = $file_name;
+                                        $this->Actividades_Model->update_response($respuesta);
+                                        json_response(true, true, "Respuesta creada exitosamente.");
+                                    }
+                                    else json_response(false, false, "Error, Ha ocurrido un error intente de nuevo más tarde");
                                 }
                             }
+                            else json_response(false, false, "Error, No es posible subir una respuesta en este momento");
                         }
                         else{
                             json_response(false, false, "Error, No se ha seleccionado una actividad");
@@ -105,6 +108,7 @@ class Actividades extends CI_Controller {
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "docente"){
                 $actividad = $this->input->post()["id_actividad"];
+                $data_actividad = $this->Actividades_Model->get_actividad($actividad);
                 $grupo_materia = $this->session->userdata("materia_grupo");
                 $estudiantes = get_students_by_materia($grupo_materia["materia"], $grupo_materia["grupo"]);
 
@@ -112,7 +116,7 @@ class Actividades extends CI_Controller {
                     $estudiantes[$i]["respuesta"] = $this->Actividades_Model->get_activity_response($actividad, $estudiantes[$i]["documento"]);
                 }
 
-                json_response($this->load->view("actividades/lista_estudiantes_respuestas", array("estudiantes" => $estudiantes), true), true, "Lista de estudiantes");
+                json_response($this->load->view("actividades/lista_estudiantes_respuestas", array("estudiantes" => $estudiantes, 'actividad' => $data_actividad), true), true, "Lista de estudiantes");
             }
         }
     }
@@ -137,6 +141,56 @@ class Actividades extends CI_Controller {
         else{
             json_response(null, false, "Por favor inicie sesion");
         }
+    }
+
+    public function habilitar(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $id_actividad = $this->input->post()["id_actividad"];
+                $id_estudiante = $this->input->post()["id_estudiante"];
+                $actividad = $this->Actividades_Model->get_actividad($id_actividad);
+                if($actividad){
+                    $estudiantes_habilitados = ($actividad["estudiantes_habilitados"]) ? unserialize($actividad["estudiantes_habilitados"]) : [];
+                    if(!in_array($id_estudiante, $estudiantes_habilitados)){
+                        array_push($estudiantes_habilitados, $id_estudiante);
+                        $actividad["estudiantes_habilitados"] = serialize($estudiantes_habilitados);
+                        if($this->Actividades_Model->update($actividad)){
+                            json_response(null, true, "Estudiante habilitado exitosamente");
+                        }
+                        else json_response(null, false, "Ha ocurrido un error, por favor intente de nuevo más tarde");
+                    }
+                    else json_response(null, false, "El estudiante ya se encuentra habilitado para esta actividad");
+                }
+                else json_response(null, false, "La actividad seleccionada no existe");
+            }
+            else json_response(null, false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(null, false, "Por favor inicie sesion");
+    }
+
+    public function inhabilitar(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $id_actividad = $this->input->post()["id_actividad"];
+                $id_estudiante = $this->input->post()["id_estudiante"];
+                $actividad = $this->Actividades_Model->get_actividad($id_actividad);
+                if($actividad){
+                    $estudiantes_habilitados = ($actividad["estudiantes_habilitados"]) ? unserialize($actividad["estudiantes_habilitados"]) : [];
+                    if(in_array($id_estudiante, $estudiantes_habilitados)){
+                        array_splice($estudiantes_habilitados, array_search($id_estudiante, $estudiantes_habilitados), 1);
+                        $actividad["estudiantes_habilitados"] = serialize($estudiantes_habilitados);
+                        if($this->Actividades_Model->update($actividad)){
+                            json_response(null, true, "Estudiante inhabilitado exitosamente");
+                        }
+                        else json_response(null, false, "Ha ocurrido un error, por favor intente de nuevo más tarde");
+                    }
+                    else json_response(null, false, "El estudiante ya se encuentra inhabilitado para esta actividad");
+                }
+                else json_response(null, false, "La actividad seleccionada no existe");
+            }
+            else json_response(null, false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(null, false, "Por favor inicie sesion");
     }
     
     public function asignacion($id){  

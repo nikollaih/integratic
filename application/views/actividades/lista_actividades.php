@@ -12,9 +12,10 @@
                         <h4 class='titulo-foro' style="border-bottom:0;"><a  style="color:#33aaff;"><?= $a["titulo_actividad"] ?></a></h4>
                         <?php
                             $respuesta_actividad = respuestas_actividad($a["id_actividad"], logged_user()["id"]);
+                            $estudiantes_habilitados = ($a["estudiantes_habilitados"]) ? unserialize($a["estudiantes_habilitados"]) : [];
                             if(strtolower(logged_user()["rol"]) == "estudiante"){
-                                if($a["disponible_hasta"] > date("Y-m-d H:i:s")){
-                                    if($respuesta_actividad == false) {
+                                if(($a["disponible_hasta"] > date("Y-m-d H:i:s")) || in_array(logged_user()["id"], $estudiantes_habilitados)){
+                                    if($respuesta_actividad == false || ($respuesta_actividad == false && in_array(logged_user()["id"], $estudiantes_habilitados))) {
                                         ?>
                                         <a href="javascript:subir();" class="crear-respuesta-boton d-flex align-items-center" data-actividad="<?= $a["id_actividad"] ?>" data-toggle="modal" data-target="#agregar-respuesta-actividad"> 
                                             <img src="./img/iconos/subir_archivo.png" width="32" height="32" alt="Subir Archivo" title="Subir Archivo">

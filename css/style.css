@@ -4668,3 +4668,10 @@ div.dataTables_info {
     margin: 12px 0px;
     color: #585443;
 }
+
+.form-check.prueba-respuesta {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}

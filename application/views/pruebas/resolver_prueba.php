@@ -30,7 +30,7 @@
                                                     <?php
                                                         if($pregunta["archivo"] && $pregunta["nombre_archivo"]){
                                                     ?>
-                                                        <img src="<?= base_url() ?>uploads/preguntas/<?= $pregunta["archivo"] ?>" alt="" srcset="" width="200" class="m-t-2">
+                                                        <img src="<?= base_url() ?>uploads/preguntas/<?= $pregunta["archivo"] ?>" alt="" srcset="" width="500" class="m-t-2">
                                                     <?php
                                                         }
                                                     ?>
@@ -41,13 +41,13 @@
                                                             shuffle($respuestas);
                                                             foreach ($respuestas as $respuesta) {
                                                     ?>
-                                                                <div class="form-check">
+                                                                <div class="form-check prueba-respuesta">
                                                                     <label class="form-check-label">
                                                                         <input required type="radio" class="form-check-input" name="id_respuesta" value="<?= $respuesta['id_respuesta_pregunta_prueba'] ?>"> <?= $respuesta["descripcion_respuesta"] ?>
                                                                         <?php
                                                                             if($respuesta["archivo_respuesta"] && $respuesta["nombre_archivo_respuesta"]){
                                                                         ?>
-                                                                            <img src="<?= base_url() ?>uploads/respuestas/<?= $respuesta["archivo_respuesta"] ?>" alt="" srcset="" width="200" class="m-t-3" style="margin-left:15px;">
+                                                                            <br><br><img src="<?= base_url() ?>uploads/respuestas/<?= $respuesta["archivo_respuesta"] ?>" alt="" srcset="" width="500" class="m-t-3" style="margin-left:15px;">
                                                                         <?php
                                                                             }
                                                                         ?>

@@ -3,6 +3,18 @@ $(document).on("click", ".crear-respuesta-boton", function() {
     $("#respuesta-actividad-id").val(actividad);
 });
 
+$(document).on("click", ".btn-habilitar-actividad", function() {
+    let actividad = $(this).attr("data-actividad");
+    let estudiante = $(this).attr("data-estudiante");
+    habilitar_estudiante_actividad(actividad, estudiante);
+});
+
+$(document).on("click", ".btn-inhabilitar-actividad", function() {
+    let actividad = $(this).attr("data-actividad");
+    let estudiante = $(this).attr("data-estudiante");
+    inhabilitar_estudiante_actividad(actividad, estudiante);
+});
+
 $(document).on("click", ".button-eliminar-actividad", function() {
     let actividad = $(this).attr("data-actividad");
     eliminar_actividad(actividad);
@@ -143,6 +155,46 @@ function eliminar_actividad(id_actividad) {
 
                 if (data.object.error == "auth") {
                     prelogin();
+                }
+                alert(data.message);
+            }
+        });
+    }
+}
+
+function habilitar_estudiante_actividad(id_actividad, id_estudiante) {
+    if (confirm("¿Está seguro que desea habilitar la actividad para este estudiante?") == true) {
+        $.ajax({
+            url: base_url + 'Actividades/habilitar',
+            data: {
+                id_actividad: id_actividad,
+                id_estudiante: id_estudiante
+            },
+            type: 'POST',
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status) {
+                    obtener_actividad_respuestas(id_actividad);
+                }
+                alert(data.message);
+            }
+        });
+    }
+}
+
+function inhabilitar_estudiante_actividad(id_actividad, id_estudiante) {
+    if (confirm("¿Está seguro que desea inhabilitar la actividad para este estudiante?") == true) {
+        $.ajax({
+            url: base_url + 'Actividades/inhabilitar',
+            data: {
+                id_actividad: id_actividad,
+                id_estudiante: id_estudiante
+            },
+            type: 'POST',
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status) {
+                    obtener_actividad_respuestas(id_actividad);
                 }
                 alert(data.message);
             }
