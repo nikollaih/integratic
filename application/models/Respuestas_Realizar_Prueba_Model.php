@@ -28,4 +28,9 @@ class Respuestas_Realizar_Prueba_Model extends CI_Model {
 		$this->db->insert("respuestas_realizar_prueba", $data);
 		return $this->db->insert_id();
 	}
+
+	function deleteRespuestas($id_realizar_prueba){
+		$this->db->where("id_realizar_prueba", $id_realizar_prueba);
+		return $this->db->delete("respuestas_realizar_prueba");
+	}
 }

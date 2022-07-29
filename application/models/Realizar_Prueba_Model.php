@@ -31,12 +31,17 @@ class Realizar_Prueba_Model extends CI_Model {
 
     function create($data){
         $this->db->insert("realizar_prueba", $data);
-        return $this->db->insert_id();
+        return $this->get_by_id($this->db->insert_id());
     }
 
 	function update($data){
 		$this->db->where("id_realizar_prueba", $data["id_realizar_prueba"]);
 		return $this->db->update("realizar_prueba", $data);
+	}
+
+	function delete($id_realizar_prueba){
+		$this->db->where("id_realizar_prueba", $id_realizar_prueba);
+		return $this->db->delete("realizar_prueba");
 	}
 
 	function get_aprobadas($ids_materias, $tipo = true, $value = 60){

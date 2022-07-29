@@ -24,6 +24,12 @@ $(document).ready(function() {
         eliminar_participante(id_participante, id_prueba);
     });
 
+    $(document).on("click", ".btn-eliminar-intento-prueba", function() {
+        let id_participante = $(this).attr("data-participante");
+        let id_prueba = $(this).attr("data-prueba");
+        eliminar_prueba_intento(id_prueba, id_participante);
+    });
+
     $(document).on("click", ".button-eliminar-prueba", function() {
         let id_prueba = $(this).attr("data-prueba");
         eliminar_prueba(id_prueba);
@@ -120,6 +126,32 @@ $(document).ready(function() {
                             .row($("#prueba-" + id_prueba))
                             .remove()
                             .draw();
+                    }
+                    $("#background-loading").css("display", "none");
+                    alert(data.message);
+                },
+                error: function() {
+                    $("#background-loading").css("display", "none");
+                    alert("Error!")
+                }
+            });
+        }
+    }
+
+    function eliminar_prueba_intento(id_prueba, id_participante) {
+        if (confirm("¿Está seguro que desea eliminar el registro de esta prueba?") == true) {
+            $("#background-loading").css("display", "flex");
+            $.ajax({
+                url: base_url + "Pruebas/deleteIntento",
+                type: 'POST',
+                data: {
+                    id_prueba: id_prueba,
+                    id_participante: id_participante
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+                    if (data.status) {
+                        location.reload();
                     }
                     $("#background-loading").css("display", "none");
                     alert(data.message);

@@ -169,16 +169,12 @@
                         }
             
                         $siguiente = siguiente_pregunta($id_prueba, $id_participante);
-                        if($siguiente == false){
-            
-                        }
-                        else if(is_array($siguiente)){
+                        if(is_array($siguiente)){
                             $params["pregunta"] = $siguiente["pregunta"];
                             $params["respuestas"] = $siguiente["respuestas"];
-            
                             $this->load->view("pruebas/resolver_prueba", $params);
                         }
-                        else{
+                        else if($siguiente != false){
                             if(!$iniciado["finished_at"]){
                                 $this->Realizar_Prueba_Model->update(array("id_realizar_prueba" => $iniciado["id_realizar_prueba"], "finished_at" => date("Y-m-d H:i:s"), "is_closed" => 1));
                             }
@@ -370,6 +366,29 @@
                         }
                     }
                     else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+                }
+                else json_response(array("error" => "404"), false, "No se ha encontrado la prueba");
+            }
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
+    }
+
+    function deleteIntento(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $id_prueba = $this->input->post()["id_prueba"];
+                $id_participante = $this->input->post()["id_participante"];
+                $prueba = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
+
+                if($prueba){
+                    if($this->Respuestas_Realizar_Prueba_Model->deleteRespuestas($prueba["id_realizar_prueba"])){
+                        if($this->Realizar_Prueba_Model->delete($prueba["id_realizar_prueba"])){
+                            json_response(array("error" => false), true, "Registro eliminado correctamente");
+                        }
+                        else json_response(array("error" => "general"), false, "Ha ocurrido un error, por favor intente de nuevo más tarde");
+                    }
+                    else json_response(array("error" => "general"), false, "Ha ocurrido un error, por favor intente de nuevo más tarde");
                 }
                 else json_response(array("error" => "404"), false, "No se ha encontrado la prueba");
             }
