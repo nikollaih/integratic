@@ -190,7 +190,7 @@
                                                                 <?php
                                                                     if($info_prueba["porcentaje"] == null){
                                                                         ?>
-                                                                            <button data-prueba="<?= $prueba["id_prueba"] ?>" data-participante="<?= $participante["id_participante_prueba"] ?>" class="btn btn-danger btn-sm btn-eliminar-participante">Eliminar</button>
+                                                                            <button data-prueba="<?= $prueba["id_prueba"] ?>" data-participante="<?= $participante["id_participante_prueba"] ?>" class="btn btn-danger btn-sm btn-eliminar-participante">Eliminar participante</button>
                                                                         <?php
                                                                     }
                                                                     else{
@@ -201,6 +201,7 @@
                                                                         <a href="<?= base_url() ?>EstadisticasPruebas/participante/<?= $participante["identificacion"] ?>/<?= $participante["id_participante_prueba"] ?>">
                                                                             <button class="btn btn-info btn-sm">Ver estadisticas</button>
                                                                         </a>
+                                                                        <button data-prueba="<?= $prueba["id_prueba"] ?>" data-participante="<?= $participante["id_participante_prueba"] ?>" class="btn btn-danger btn-sm btn-eliminar-intento-prueba">Eliminar intento</button>
                                                                         <?php
                                                                     }
                                                                 ?>
