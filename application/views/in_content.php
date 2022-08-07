@@ -1445,7 +1445,7 @@ function enlace_materia(doc,cod){
                success:function(respuesta){                         
                  var registros = eval(respuesta);
                     html='<div class="panel panel-primary">';        
-                    html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica ..:  '+registros[0]["nommateria"]+'</b></div>';
+                    html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica:  '+registros[0]["nommateria"]+'</b></div>';
                     html=html+'<div class="panel-body">'; 
                       if(registros.length>0){  
                           for (i=0; i<registros.length; i++) {                             
