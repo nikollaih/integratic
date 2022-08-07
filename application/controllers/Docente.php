@@ -657,7 +657,7 @@ public function listar_filtro(){
                 echo json_encode($datos);
             }else{echo ("Error en consulta 1");}
         }else{
-            if($datos  = $this->Consultas_Model->conp_materias_gen($mat)){                   
+            if($datos  = $this->Consultas_Model->conp_materias_gen($mat)){                
                 echo json_encode($datos);
             } 
             else{echo ("Error en consulta 2");}

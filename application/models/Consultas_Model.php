@@ -191,7 +191,7 @@ class Consultas_Model extends CI_Model {
     else {return $result->result();}      
   }   
   public function conp_materias_gen($mat){
-    $result=$this->db->query("Select u.nombres, u.apellidos, am.*, cm.*, ca.* from asg_materias am join cfg_materias cm on am.materia = cm.codmateria join cfg_areas ca on cm.area = ca.codarea join usuarios u on u.id = am.docente where materia='".$mat."' and codarea=area and codmateria=materia");
+    $result=$this->db->query("Select u.nombres, u.apellidos, am.*, cm.*, ca.* from asg_materias am join cfg_materias cm on am.materia = cm.codmateria join cfg_areas ca on cm.area = ca.codarea join usuarios u on u.id = am.docente where materia='".$mat."' and codarea=area and codmateria=materia and u.id = '".logged_user()['id']."'");
     if(!$result) {return false;}
     else {return $result->result();}      
   }      
