@@ -10,18 +10,18 @@
         <div id="sidebar-menu">
             <ul>
                 <li>
-                    <a href="<?= base_url() ?>" class="waves-effect">
+                    <a href="<?= base_url() ?>" class=" ">
                         <i><img src='<?= base_url() ?>img/iconos/volver.png' width="50" height="50"></i><span>Volver</span></a>
                 </li>
                 <li>
-                    <a href="<?= base_url() ?>Pruebas" class="waves-effect">
+                    <a href="<?= base_url() ?>Pruebas" class=" ">
                         <i><img src='<?= base_url() ?>img/iconos/lista_pruebas.png' width="50" height="50"></i><span>Lista pruebas</span></a>
                 </li>   
                 <?php
                     if(strtolower(logged_user()["rol"]) == "docente"){ 
                         ?>
                             <li>
-                                <a href="<?= base_url() ?>PreguntasPrueba" class="waves-effect">
+                                <a href="<?= base_url() ?>PreguntasPrueba" class=" ">
                                     <i><img src='<?= base_url() ?>img/iconos/lista_preguntas.png' width="50" height="50"></i><span>Lista preguntas</span></a>
                             </li>
                             <li>

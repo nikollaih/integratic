@@ -32,7 +32,7 @@
                             <ul class="nav navbar-nav navbar-right pull-right">
                                 <li class="dropdown hidden-xs">                                    
                                     <a href="javascript:void(0);" class="logo"><div id="nomusuario">
-                                        <span><?= ($this->session->userdata('logged_in')) ? "Hola, " . $this->session->userdata("logged_in")["nombres"]. " ".$this->session->userdata("logged_in")["apellidos"] : ""?>
+                                        <span><?= ($this->session->userdata('logged_in')) ? "Hola, " . $this->session->userdata("logged_in")["nombres"] : ""?>
                                         </span></div></a>  
                                        <?php
                                           if(($this->session->userdata('logged_in'))){
