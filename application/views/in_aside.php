@@ -44,11 +44,11 @@
                     else{
                         ?>
                         <li>
-                            <a href="javascript:prelogin();" class="waves-effect">
+                            <a href="javascript:prelogin();" class=" ">
                                 <i><img src='<?= base_url() ?>img/iconos/login.png' width="50" height="50"></i><span>Ingresar</span></a>
                         </li>   
                         <li>
-                            <a href="javascript:menu();" class="waves-effect">
+                            <a href="javascript:menu();" class=" ">
                                 <i><img src='<?= base_url() ?>img/iconos/aplicativos.png' width="50" height="50"></i><span>Aplicativos</span></a>
                         </li>                         
                         <!--<li>
@@ -56,19 +56,19 @@
                                 <i><img src='<?= base_url() ?>img/iconos/aprender.png' width="50" height="50"></i><span>Aprender</span></a>
                         </li>-->
                         <!-- <li>
-                            <a href="javascript:areas();" class="waves-effect">
+                            <a href="javascript:areas();" class=" ">
                                 <i><img src='<?= base_url() ?>img/iconos/areas.png' width="50" height="50"></i><span>Areas</span></a>
                         </li>
                         <li>
-                            <a href="javascript:subir_acti();" class="waves-effect">
+                            <a href="javascript:subir_acti();" class=" ">
                                 <i><img src='<?= base_url() ?>img/iconos/cargar.png' width="50" height="50"></i><span>Subir<br>Actividades</span></a>
                         </li>               
                         <li>
-                            <a href="../moodle" class="waves-effect" target='_blank'>
+                            <a href="../moodle" class=" " target='_blank'>
                                 <i><img src='<?= base_url() ?>img/iconos/moodle.png' width="50" height="50"></i><span> Moodle </span></a>
                         </li>
                         <li>
-                            <a href="./principal/project" class="waves-effect" target='_blank'>
+                            <a href="./principal/project" class=" " target='_blank'>
                                 <i><img src='<?= base_url() ?>img/iconos/claseweb.ico' width="50" height="50"></i><span>ClaseWeb</span></a>
                         </li>-->  
                         <?php

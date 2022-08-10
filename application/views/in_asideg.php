@@ -11,10 +11,10 @@
                     <div id="sidebar-menu">
                         <ul>
                             <li>
-                                <a href="index.php" class="waves-effect active"><i class="md md-home"></i><span> Dashboard </span></a>
+                                <a href="index.php" class="  active"><i class="md md-home"></i><span> Dashboard </span></a>
                             </li>
                             <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="md md-mail"></i><span> Mail </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="#" class=" "><i class="md md-mail"></i><span> Mail </span><span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="inbox.html">Inbox</a></li>
                                     <li><a href="email-compose.html">Compose Mail</a></li>
@@ -22,10 +22,10 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="calendar.html" class="waves-effect"><i class="md md-event"></i><span> Calendar </span></a>
+                                <a href="calendar.html" class=" "><i class="md md-event"></i><span> Calendar </span></a>
                             </li>
                             <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="md md-palette"></i> <span> Elements </span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="#" class=" "><i class="md md-palette"></i> <span> Elements </span> <span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="typography.html">Typography</a></li>
                                     <li><a href="buttons.html">Buttons</a></li>
@@ -40,7 +40,7 @@
                                 </ul>
                             </li>
                             <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="md md-invert-colors-on"></i><span> Components </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="#" class=" "><i class="md md-invert-colors-on"></i><span> Components </span><span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="grid.html">Grid</a></li>
                                     <li><a href="portlets.html">Portlets</a></li>
@@ -52,7 +52,7 @@
                                 </ul>
                             </li>
                             <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="md md-redeem"></i> <span> Icons </span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="#" class=" "><i class="md md-redeem"></i> <span> Icons </span> <span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="material-icon.html">Material Design</a></li>
                                     <li><a href="ion-icons.html">Ion Icons</a></li>
@@ -61,7 +61,7 @@
                             </li>
                             
                             <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="md md-now-widgets"></i><span> Forms </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="#" class=" "><i class="md md-now-widgets"></i><span> Forms </span><span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="form-elements.html">General Elements</a></li>
                                     <li><a href="form-validation.html">Form Validation</a></li>
@@ -75,7 +75,7 @@
                             </li>
 
                             <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="md md-view-list"></i><span> Data Tables </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="#" class=" "><i class="md md-view-list"></i><span> Data Tables </span><span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="tables.html">Basic Tables</a></li>
                                     <li><a href="table-datatable.html">Data Table</a></li>
@@ -85,7 +85,7 @@
                             </li>
 
                             <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="md md-poll"></i><span> Charts </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="#" class=" "><i class="md md-poll"></i><span> Charts </span><span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="morris-chart.html">Morris Chart</a></li>
                                     <li><a href="chartjs.html">Chartjs</a></li>
@@ -98,7 +98,7 @@
                             </li>
 
                             <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="md md-place"></i><span> Maps </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="#" class=" "><i class="md md-place"></i><span> Maps </span><span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="gmap.html"> Google Map</a></li>
                                     <li><a href="vector-map.html"> Vector Map</a></li>
@@ -106,7 +106,7 @@
                             </li>
 
                             <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="md md-pages"></i><span> Pages </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="#" class=" "><i class="md md-pages"></i><span> Pages </span><span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="profile.html">Profile</a></li>
                                     <li><a href="timeline.html">Timeline</a></li>
@@ -127,10 +127,10 @@
                             </li>
 
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="md md-share"></i><span>Multi Level </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                <a href="javascript:void(0);" class=" "><i class="md md-share"></i><span>Multi Level </span><span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul>
                                     <li class="has_sub">
-                                        <a href="javascript:void(0);" class="waves-effect"><span>Menu Level 1.1</span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                                        <a href="javascript:void(0);" class=" "><span>Menu Level 1.1</span> <span class="pull-right"><i class="md md-add"></i></span></a>
                                         <ul style="">
                                             <li><a href="javascript:void(0);"><span>Menu Level 2.1</span></a></li>
                                             <li><a href="javascript:void(0);"><span>Menu Level 2.2</span></a></li>

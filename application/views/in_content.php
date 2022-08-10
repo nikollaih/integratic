@@ -2167,7 +2167,7 @@ function login(){
                  var registros = JSON.parse(respuesta); 
                  user = registros; 
                       if(Object.keys(registros).length>0){ 
-                               var html = '<label>Hola, '+registros.nombres+" " + registros.apellidos+'</label>';
+                               var html = '<label>Hola, '+registros.nombres+'</label>';
                                html=html+'<form><input type="hidden" id="ced" name="ced" value="'+registros.id+'"/>';
                                html=html+'<input class="form-control input-sm" type="hidden" id="usr_cambio" name="usr_cambio" value="usr"/>'; 
                                html=html+'<input type="hidden" id="rol" name="rol" value="'+registros.rol+'"/></form>';
@@ -2451,17 +2451,17 @@ function cambio_menu(){
         html="<ul>";
         //html+="<li><a href='javascript:cfg_docente();'>";
         //html+="<i><img src='./img/iconos/menu.png' width='60' height='40'></i><span>Administrar</span></a></li>";  
-        html+="<li><a href='" + base_url+"Pruebas' class='waves-effect'>";
+        html+="<li><a href='" + base_url+"Pruebas' class=' '>";
         html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>";   
-        html+="<li><a href='javascript:cfg_docente();' class='waves-effect'>";
+        html+="<li><a href='javascript:cfg_docente();' class=' '>";
         html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
-        html+="<li><a href='javascript:cfg_proyectos();' class='waves-effect'>";
+        html+="<li><a href='javascript:cfg_proyectos();' class=' '>";
         html+="<i><img src='./img/iconos/proyectos.png' width='50' height='50'></i><span>Proyectos</span></a></li>";    
-        html+="<li><a href='javascript:cfg_comunicacion();' class='waves-effect'>";
+        html+="<li><a href='javascript:cfg_comunicacion();' class=' '>";
         html+="<i><img src='./img/iconos/comunicacion.png' width='50' height='50'></i><span>Comunicación</span></a></li>";    
-        html+="<li><a href='javascript:cfg_planeacion();' class='waves-effect'>";
+        html+="<li><a href='javascript:cfg_planeacion();' class=' '>";
         html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Planeación</span></a></li>"; 
-        html+="<li><a href='javascript:cfg_cambio_clave();' class='waves-effect'>";
+        html+="<li><a href='javascript:cfg_cambio_clave();' class=' '>";
         html+="<i><img src='./img/iconos/clave.png' width='50' height='50'></i><span>Cambio Clave</span></a></li>";             
         html+="<li><a href='javascript:logout();'>";
         html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar Sesión</span></a></li>";  
