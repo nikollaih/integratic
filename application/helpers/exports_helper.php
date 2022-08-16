@@ -54,12 +54,12 @@ function exportarPreguntasExcel($questions, $materia){
 
             $writer = new Xlsx($spreadsheet); // instantiate Xlsx
     
-            $filename = 'Preguntas_'.$materia["nommateria"]."_".$materia["grado"]."_".date("Y-m-d"); // set filename for excel file to be exported
+            $filename = 'Preguntas_'.$materia["nommateria"]."_".$materia["grado"]."_".date("Y_m_d"); // set filename for excel file to be exported
          
-            header('Content-Type: application/vnd.ms-excel'); // generate excel file
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); // generate excel file
             header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
             header('Cache-Control: max-age=0');
-            
+            ob_end_clean();
             $writer->save('php://output');	// download file
         }
         else{
@@ -123,7 +123,7 @@ function exportarRespuestasExcel($answers, $materia){
             header('Content-Type: application/vnd.ms-excel'); // generate excel file
             header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
             header('Cache-Control: max-age=0');
-            
+            ob_end_clean();
             $writer->save('php://output');	// download file
         }
         else{
