@@ -26,10 +26,9 @@ class Estudiante extends CI_Controller {
 		if(is_logged() && strtolower(logged_user()['rol']) == 'super'){
 			if($this->input->post()){
 				$data = $this->input->post();
-				$data["documento"] = $documento;
-				$params["message"] = $this->procesoModificar($data);
+				$params["message"] = $this->procesoModificar($data, $documento);
 			}
-
+			$params["documento"] = $documento;
 			$params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($documento);
 			$this->load->view("estudiantes/modificar", $params);
 		}
@@ -38,24 +37,44 @@ class Estudiante extends CI_Controller {
 		}
 	}
 
-	function procesoModificar($data){
+	function procesoModificar($data, $documento){
 		$dataEstudiante = array(
 			"documento" => $data["documento"],
+			"nombre" => $data["nombre"],
 			"grado" => $data["grado"]
 		);
 
 		$dataUsuario = array(
 			"id" => $data["documento"],
-			"clave" => $data["clave"]
+			"clave" => $data["clave"],
+			"rol" => "Estudiante",
+			"cargo" => "Estudiante"
 		);
 
-		if($this->Estudiante_Model->update($dataEstudiante))
-			if($this->Usuarios_Model->update_user($dataUsuario))
-				return array("success" => true, "message" => "Estudiante y usuario modificado exitosamente.", "type" => "success");
-			else 
-				return array("success" => false, "message" => "Estudiante modificado exitosamente, no se ha podido modificar el usuario.", "type" => "warning");
-		else
-			return array("success" => false, "message" => "No se ha podido modificar el estudiante.", "type" => "danger");
+		if($documento){
+			if($this->Estudiante_Model->update($dataEstudiante))
+				if($this->Usuarios_Model->update_user($dataUsuario))
+					return array("success" => true, "message" => "Estudiante y usuario modificado exitosamente.", "type" => "success");
+				else 
+					return array("success" => false, "message" => "Estudiante modificado exitosamente, no se ha podido modificar el usuario.", "type" => "warning");
+			else
+				return array("success" => false, "message" => "No se ha podido modificar el estudiante.", "type" => "danger");
+		}
+		else{
+			$dataUsuario["usuario"] = $data["documento"];
+			$dataUsuario["fecha"] = date("Y-m-d H:i:s");
+			$dataUsuario["estado"] = "ac";
+			$dataUsuario["nombres"] = getNombresApellidos($data["nombre"])["nombres"];
+			$dataUsuario["apellidos"] = getNombresApellidos($data["nombre"])["apellidos"];
+
+			if($this->Estudiante_Model->add($dataEstudiante))
+				if($this->Usuarios_Model->add($dataUsuario))
+					return array("success" => true, "message" => "Estudiante creado exitosamente.", "type" => "success");
+				else 
+					return array("success" => false, "message" => "Estudiante creado exitosamente, no se ha podido crear el usuario.", "type" => "warning");
+			else
+				return array("success" => false, "message" => "No se ha podido crear el estudiante.", "type" => "danger");
+		}
 	}
       
     public function areas(){

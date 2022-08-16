@@ -140,6 +140,10 @@ class Estudiante_Model extends CI_Model {
 		return $this->db->update("estudiante", $data);
 	}
 
+	function add($data){
+		return $this->db->insert("estudiante", $data);
+	}
+
 	function update_old($id, $data){
 		$this->db->where("documento", $id);
 		return $this->db->update("estudiante", $data);
