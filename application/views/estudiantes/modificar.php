@@ -13,19 +13,19 @@
                 </div> 
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b>Nueva pregunta</b></div>
+                        <div class="panel-heading text-capitalize"><b><?= ($documento) ? "Modificar" : "Nuevo" ?> Estudiante</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <dic class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Documento</label>
-                                        <input class="form-control" readonly type="text" id="" value="<?= ($estudiante) ? $estudiante["documento"] : "" ?>">
+                                        <input name="documento" class="form-control" <?= ($documento) ? "readonly" : "" ?> type="text" id="" value="<?= ($estudiante) ? $estudiante["documento"] : "" ?>">
                                     </div>
                                 </dic>
                                 <dic class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Nombre</label>
-                                        <input class="form-control" readonly type="text" id="" value="<?= ($estudiante) ? $estudiante["nombres"]." ".$estudiante["apellidos"] : "" ?>">
+                                        <label for="">Apellidos - Nombres</label>
+                                        <input name="nombre" class="form-control" <?= ($documento) ? "readonly" : "" ?> type="text" id="" value="<?= ($estudiante) ? $estudiante["nombres"]." ".$estudiante["apellidos"] : "" ?>">
                                     </div>
                                 </dic>
                                 <dic class="col-md-6">

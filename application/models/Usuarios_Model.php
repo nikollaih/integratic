@@ -10,7 +10,11 @@ class Usuarios_Model extends CI_Model {
     	$result=$this->db->query("Select * From usuarios where usuario='$usr' And clave='$pass' ");
     	if(!$result) {return false;}
     	else {return $result->result();}      
-  	}   
+  	}  
+	
+	function add($data){
+		return $this->db->insert("usuarios", $data);
+	}
 
 	// Update the user information
   	public function update_user($data){
