@@ -56,7 +56,7 @@ setlocale(LC_ALL,"es_ES");
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-if ($_SERVER['SERVER_NAME']=='23.81.180.247/~iegscintegratice')
+if ($_SERVER['SERVER_NAME']=='23.81.180.247')
    define('ENVIRONMENT', 'production');
 else if ($_SERVER['HTTP_HOST'] == 'localhost:8888' || $_SERVER['HTTP_HOST'] == 'localhost')
    define('ENVIRONMENT', 'development');
