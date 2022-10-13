@@ -73,8 +73,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-if($_SERVER['HTTP_HOST'] == 'localhost:8888' || $_SERVER['HTTP_HOST'] == 'localhost'){
-	#staging
+if(ENVIRONMENT == 'development')
+  	#development
 	$db['default'] = array(
 		'dsn'	=> '',
 		'hostname' => 'localhost',
@@ -96,8 +96,7 @@ if($_SERVER['HTTP_HOST'] == 'localhost:8888' || $_SERVER['HTTP_HOST'] == 'localh
 		'failover' => array(),
 		'save_queries' => TRUE
 	);
-}
-else{
+else if(ENVIRONMENT == 'testing')
 	#staging
 	$db['default'] = array(
 		'dsn'	=> '',
@@ -120,4 +119,26 @@ else{
 		'failover' => array(),
 		'save_queries' => TRUE
 	);
-}
+else 
+  	#prod
+	$db['default'] = array(
+		'dsn'	=> '',
+		'hostname' => 'localhost',
+		'username' => 'iegscintegratice_integra_v3',
+		'password' => 'K^os[j_(MX=$',
+		'database' => 'iegscintegratice_integra_v3',
+		'dbdriver' => 'mysqli',
+		'dbprefix' => '',
+		'pconnect' => FALSE,
+		'db_debug' => (ENVIRONMENT !== 'production'),
+		'cache_on' => FALSE,
+		'cachedir' => '',
+		'char_set' => 'utf8',
+		'dbcollat' => 'utf8_general_ci',
+		'swap_pre' => '',
+		'encrypt' => FALSE,
+		'compress' => FALSE,
+		'stricton' => FALSE,
+		'failover' => array(),
+		'save_queries' => TRUE
+	);
