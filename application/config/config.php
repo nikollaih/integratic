@@ -28,10 +28,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 if(ENVIRONMENT == 'development')
   $config['base_url'] = "http://".$_SERVER['HTTP_HOST']."/integratic";
-else if(ENVIRONMENT == 'testing')
-  $config['base_url'] = "http://".$_SERVER['HTTP_HOST'];
 else 
-  $config['base_url'] = "http://".$_SERVER['HTTP_HOST']."/~iegscintegratice";
+  $config['base_url'] = "https://".$_SERVER['HTTP_HOST'];
 
 //$config['base_url'] = 'http://100.100.0.2/Integra/';
 
