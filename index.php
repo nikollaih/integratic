@@ -2,6 +2,7 @@
 ob_start();
 date_default_timezone_set ('America/Bogota');
 setlocale(LC_ALL,"es_ES");
+
 /**
  * CodeIgniter
  *
@@ -56,7 +57,7 @@ setlocale(LC_ALL,"es_ES");
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-if ($_SERVER['SERVER_NAME']=='23.81.180.247')
+if ($_SERVER['SERVER_NAME']=='23.81.180.247' || $_SERVER['SERVER_NAME'] == 'http://iegsc-integratic.edu.co/')
    define('ENVIRONMENT', 'production');
 else if ($_SERVER['HTTP_HOST'] == 'localhost:8888' || $_SERVER['HTTP_HOST'] == 'localhost')
    define('ENVIRONMENT', 'development');

@@ -229,8 +229,8 @@ class Actividades extends CI_Controller {
         $nomdir     = $_POST['nomdir'];
         $dir=$ruta.'/'.$nomdir;
         
-        if (!is_dir($dir)) {
-            mkdir($dir, 0777);
+        if (string_to_folder_name($dir)) {
+            mkdir(string_to_folder_name($dir), 0777);
             echo('Hecho! '.$dir);
         }else{echo('Error!');}    
 }
@@ -271,9 +271,10 @@ class Actividades extends CI_Controller {
         $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
         $html=$html."</div>";         
         $html=$html."<table style='width:80%;'><tbody><tr>";
-        if (!is_dir($carpeta)) {
-            mkdir($carpeta, 0777);
+        if (string_to_folder_name($carpeta)) {
+            mkdir(string_to_folder_name($carpeta), 0777);
         }
+        $carpeta = string_to_folder_name($carpeta);
         if(is_dir($carpeta)){
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){
@@ -292,7 +293,7 @@ class Actividades extends CI_Controller {
             $html=$html."<tr>";
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){ 
-                    if(!is_dir($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                    if(string_to_folder_name($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess' && !is_dir($carpeta."/".$archivo) && !is_dir($carpeta."/".$archivo)){
                         $ext = explode(".", $archivo);
                         $html=$html."<td  style='width:60%; height:42px'>";                                               
                             switch($ext[1]){
@@ -346,7 +347,8 @@ class Actividades extends CI_Controller {
             $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value='$carpeta' type='hidden'/>";
             $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
             $html=$html."</div>";         
-            $html=$html."<table style='width:80%;'><tbody><tr>";            
+            $html=$html."<table style='width:80%;'><tbody><tr>";     
+            $carpeta = string_to_folder_name($carpeta);       
         if(is_dir($carpeta)){
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){
@@ -371,7 +373,7 @@ class Actividades extends CI_Controller {
             $html=$html."<tr>";
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){ 
-                    if(!is_dir($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                    if(string_to_folder_name($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess' && !is_dir($carpeta."/".$archivo)){
                         $ext = explode(".", $archivo);
                         $html=$html."<td  style='width:60%; height:42px'><a target='_blank' href='$carpeta/$archivo'>";                                               
                             switch($ext[1]){
@@ -491,7 +493,8 @@ class Actividades extends CI_Controller {
         $html=$html."<img src='./img/iconos/bajar.png' width='25' height='28' alt='Descargar Carpeta' title='Descargar Carpeta'></a>";        
         $html=$html."</div></div>";         
         $html=$html."<table style='width:100%;'><tbody>";
-        if (!is_dir($carpeta)) {mkdir($carpeta, 0777);}
+        if (string_to_folder_name($carpeta)) {mkdir(string_to_folder_name($carpeta), 0777);}
+        $carpeta = string_to_folder_name($carpeta);
         if(is_dir($carpeta)){
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){
@@ -523,7 +526,7 @@ class Actividades extends CI_Controller {
             $html=$html."<tr>";
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){ 
-                    if(!is_dir($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                    if(string_to_folder_name($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess' && !is_dir($carpeta."/".$archivo)){
                         $ext = explode(".", $archivo);
                         $html=$html."<td  style='width:40%; height:42px'><a target='_blank' href='$carpeta/$archivo'>";                                               
                             switch($ext[1]){
@@ -636,7 +639,8 @@ class Actividades extends CI_Controller {
             $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
             $html=$html."</div>";         
             $html=$html."<table style='width:80%;'><tbody><tr>";            
-            if (!is_dir($carpeta)) {mkdir($carpeta, 0777);}
+            if (!is_dir(string_to_folder_name($carpeta))) {mkdir(string_to_folder_name($carpeta), 0777);}
+            $carpeta = string_to_folder_name($carpeta);
             if(is_dir($carpeta)){
                 if($dir = opendir($carpeta)){
                     while(($archivo = readdir($dir)) !== false){
@@ -655,7 +659,7 @@ class Actividades extends CI_Controller {
                 $html=$html."<tr>";
                 if($dir = opendir($carpeta)){
                     while(($archivo = readdir($dir)) !== false){ 
-                        if(!is_dir($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                        if(string_to_folder_name($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess' && !is_dir($carpeta."/".$archivo)){
                             $ext = explode(".", $archivo);
                             $html=$html."<td  style='width:60%; height:42px'><a target='_blank' href='$carpeta/$archivo'>";                                               
                                 switch($ext[1]){

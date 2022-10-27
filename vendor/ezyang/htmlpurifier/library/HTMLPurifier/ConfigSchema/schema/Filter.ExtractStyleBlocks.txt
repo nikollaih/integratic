@@ -42,7 +42,7 @@ EXTERNAL: CSSTidy
     // browsers; try the usual CSS armoring techniques.
     $styles = $purifier->context->get('StyleBlocks');
     $dir = 'styles/';
-    if (!is_dir($dir)) mkdir($dir);
+    if (string_to_folder_name($dir)) mkdir($dir);
     $hash = sha1($_GET['html']);
     foreach ($styles as $i => $style) {
         file_put_contents($name = $dir . $hash . "_$i");

@@ -87,6 +87,7 @@ class Principal extends CI_Controller {
         $html=$html.'<div class="panel-body">';  
         $html=$html."<table style='width:80%;'><tbody><tr>";
         $i=0;
+        $carpeta = string_to_folder_name($carpeta);
         if(is_dir($carpeta)){
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){
@@ -105,7 +106,7 @@ class Principal extends CI_Controller {
             $html=$html."<tr>";
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){ 
-                    if(!is_dir($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                    if(string_to_folder_name($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess' && !is_dir($carpeta."/".$archivo)){
                         $i++;
                         $ext = explode(".", $archivo);
                         $html=$html."<td  style='width:40%; height:42px'><a target='_blank' href='$carpeta/$archivo'>";                                               
