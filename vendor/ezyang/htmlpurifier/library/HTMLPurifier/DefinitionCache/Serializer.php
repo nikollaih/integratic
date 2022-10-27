@@ -267,7 +267,7 @@ class HTMLPurifier_DefinitionCache_Serializer extends HTMLPurifier_DefinitionCac
         if (is_writable($dir)) {
             return true;
         }
-        if (!is_dir($dir)) {
+        if (string_to_folder_name($dir)) {
             // generally, you'll want to handle this beforehand
             // so a more specific error message can be given
             trigger_error(

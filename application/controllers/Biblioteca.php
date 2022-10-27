@@ -16,6 +16,7 @@ function listar_filtro(){
         $html=$html.'<div class="panel-body">';  
         $html=$html."<table style='width:80%;'><tbody><tr>";
         $i=0;
+        $carpeta = string_to_folder_name($carpeta);
         if(is_dir($carpeta)){
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){
@@ -33,7 +34,7 @@ function listar_filtro(){
             $html=$html."<tr>";
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){ 
-                    if(!is_dir($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){                        
+                    if(string_to_folder_name($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess' && !is_dir($carpeta."/".$archivo)){                        
                         $tfiltro = strtolower($filtro);
                         $tarchivo= strtolower($archivo);
                         if (fnmatch("*".$tfiltro."*", $tarchivo)) {

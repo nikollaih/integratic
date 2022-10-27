@@ -78,6 +78,7 @@
                 <tbody>
                     <?php
                         $i=0;
+                        $carpeta = string_to_folder_name($carpeta);
                         if(is_dir($carpeta)){
                             if($dir = opendir($carpeta)){
                                 $carpeta_length = explode("/", $carpeta);
@@ -132,7 +133,7 @@
                             }
                             if($dir = opendir($carpeta)){
                                 while(($archivo = readdir($dir)) !== false){ 
-                                    if(!is_dir($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                                    if(($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess' && !is_dir($carpeta."/".$archivo) && !is_dir($carpeta."/".$archivo)){
                                         $ext = explode(".", $archivo);
                                         $ruta=$carpeta."/".$archivo;
                                         ?>

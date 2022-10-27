@@ -48,7 +48,7 @@
 
             if($this->General_Model->insertar("cfg_areas",$datos)==true){
                 $dir=utf8_decode('./principal/areas/'.$nom);
-                if (!is_dir($dir)) { mkdir($dir, 0777); } 
+                if (string_to_folder_name($dir)) { mkdir(string_to_folder_name($dir), 0777); } 
                 move_uploaded_file($_FILES['archivo']['tmp_name'], "img/botones/areas/".$_FILES['archivo']['name']);
                  echo json_encode("Area creada!");}
             else { echo ("No se pudo guardar los datos");} 
@@ -99,13 +99,13 @@
         if($this->General_Model->insertar("cfg_materias",$datos)==true){
             //$dir=utf8_decode('./principal/areas/'.$narea.'/'.$nom.$grado);
             $dir='./principal/areas/'.$narea;
-            if(!is_dir($dir)){
-                mkdir($dir,0777);
+            if(!is_dir(string_to_folder_name($dir))){
+                mkdir(string_to_folder_name($dir),0777);
             }
 
             $dir .= '/'.$nom.$grado;
-            if(!is_dir($dir)){
-                mkdir($dir,0777);
+            if(!is_dir(string_to_folder_name($dir))){
+                mkdir(string_to_folder_name($dir),0777);
             }
                 echo json_encode("Asignatura creada!");
             }
@@ -128,8 +128,8 @@
 
             if($this->General_Model->insertar("cfg_proyectos", $datos)==true){
                 $dir=utf8_decode('./principal/proyectos/'.$nom);
-                if (!is_dir($dir)) { 
-                    mkdir($dir, 0777); 
+                if (string_to_folder_name($dir)) { 
+                    mkdir(string_to_folder_name($dir), 0777); 
                 }
                 move_uploaded_file($_FILES['icopro']['tmp_name'], "img/botones/proyectos/".$_FILES['icopro']['name']);
                 echo "Proyecto creado!";
@@ -170,8 +170,8 @@
 
             if($this->General_Model->insertar("cfg_procesos", $datos)==true){
                 $dir=utf8_decode('./principal/procesos/'.$nom);
-                if (!is_dir($dir)) { 
-                    mkdir($dir, 0777); 
+                if (string_to_folder_name($dir)) { 
+                    mkdir(string_to_folder_name($dir), 0777); 
                 }
                 move_uploaded_file($_FILES['icoproc']['tmp_name'], "img/botones/procesos/".$_FILES['icoproc']['name']);
                 echo "Proceso creado!";

@@ -48,8 +48,8 @@
                 if($this->General_Model->insertar("asg_materias",$datos)==true){
                     //$dir=utf8_decode(base_url().'principal/areas/'.$narea.'/'.$nmate.'/'.$grado);
                     $dir=utf8_decode('./principal/areas/'.$narea.'/'.$nmate.$grado.'/'.$grado.$gru);
-                    if (!is_dir($dir)) {
-                        mkdir($dir, 0777);
+                    if (string_to_folder_name($dir)) {
+                        mkdir(string_to_folder_name($dir), 0777);
                         echo('Hecho! '.$dir);
                     }else{echo('Error!');}                       
                     echo ("Materia Asignada!");}

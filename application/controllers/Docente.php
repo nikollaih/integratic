@@ -104,14 +104,14 @@ class Docente extends CI_Controller {
             $temp_ruta = "";
             for ($i=0; $i < count($split_ruta); $i++) { 
                 $temp_ruta.= $split_ruta[$i]."/";
-                if (!is_dir($temp_ruta)) {
-                    mkdir($temp_ruta, 0755);
+                if (string_to_folder_name($temp_ruta)) {
+                    mkdir(string_to_folder_name($temp_ruta), 0755);
                 }
             }
         }
         
-        if (!is_dir($dir)) {
-            mkdir($dir, 0755);
+        if (string_to_folder_name($dir)) {
+            mkdir(string_to_folder_name($dir), 0755);
             echo('Hecho! '.$dir);
         }else{echo('Error!');}    
 }
@@ -177,6 +177,7 @@ class Docente extends CI_Controller {
         $html=$html."</div></div>";         
         $html=$html."<table style='width:100%;'><tbody><tr>";
         $i=0;
+        $carpeta = string_to_folder_name($carpeta);
         if(is_dir($carpeta)){
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){
@@ -199,7 +200,7 @@ class Docente extends CI_Controller {
             $html=$html."<tr>";
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){ 
-                    if(!is_dir($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                    if(string_to_folder_name($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess' && !is_dir($carpeta."/".$archivo)){
                         $ext = explode(".", $archivo);
                         $html=$html."<td  style='width:60%; height:42px'><a target='_blank' href='$carpeta/$archivo'>";                                               
                             switch($ext[1]){
@@ -314,6 +315,7 @@ class Docente extends CI_Controller {
         $html=$html."</div></div></div>";  
         $html=$html."<table style='width:100%;'><tbody><tr>";
         $i=0;
+        $carpeta = string_to_folder_name($carpeta);
         if(is_dir($carpeta)){
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){
@@ -339,7 +341,7 @@ class Docente extends CI_Controller {
             $html=$html."<tr>";
             if($dir = opendir($carpeta)){
                 while(($archivo = readdir($dir)) !== false){ 
-                    if(!is_dir($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                    if(string_to_folder_name($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess' && !is_dir($carpeta."/".$archivo)){
                         $ext = explode(".", $archivo);
                         $html=$html."<td  style='width:60%; height:42px'><a target='_blank' href='$carpeta/$archivo'>";                                               
                             switch($ext[1]){
@@ -458,6 +460,7 @@ public function listar_filtro(){
     $html=$html."</div></div>";         
     $html=$html."<table style='width:100%;'><tbody><tr>";
     $i=0;
+    $carpeta = string_to_folder_name($carpeta);
     if(is_dir($carpeta)){
         if($dir = opendir($carpeta)){
             while(($archivo = readdir($dir)) !== false){
@@ -480,7 +483,7 @@ public function listar_filtro(){
         $html=$html."<tr>";
         if($dir = opendir($carpeta)){
             while(($archivo = readdir($dir)) !== false){ 
-                if(!is_dir($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                if(string_to_folder_name($carpeta."/".$archivo) && $archivo != '.' && $archivo != '..' && $archivo != '.htaccess' && !is_dir($carpeta."/".$archivo)){
 
                 foreach (glob("{".filtro."}") as $fichero) {
 

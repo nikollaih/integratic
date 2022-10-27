@@ -20,8 +20,8 @@ function do_upload(){
         $temp_ruta = "";
         for ($i=0; $i < count($split_ruta); $i++) { 
             $temp_ruta.= $split_ruta[$i]."/";
-            if (!is_dir($temp_ruta)) {
-                mkdir($temp_ruta, 0755);
+            if (string_to_folder_name($temp_ruta) && !is_dir($temp_ruta)) {
+                mkdir(string_to_folder_name($temp_ruta), 0755);
             }
         }
     }
@@ -130,7 +130,7 @@ function backup_bd()
     $this->load->dbutil();
     date_default_timezone_set ('America/Bogota');
     $carpeta    = 'principal/backup/';
-    if (!is_dir($carpeta)) {mkdir($carpeta, 0777);}
+    if (string_to_folder_name($carpeta)) {mkdir(string_to_folder_name($carpeta), 0777);}
 
     $db_format=array('format'=>'zip','filename'=>'my_db_backup.sql');
     $backup=& $this->dbutil->backup($db_format);

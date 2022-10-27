@@ -65,6 +65,15 @@
      
      }
 
+    // Print a json response for ajax calls
+    if(!function_exists('string_to_folder_name'))
+    {
+        function string_to_folder_name($stringName){
+            return strtr(utf8_decode($stringName), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+        }
+    
+    }
+
     if(!function_exists('encrypt_string'))
     {
         function encrypt_string($string, $url_format = false){
