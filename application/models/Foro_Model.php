@@ -27,6 +27,7 @@ class Foro_Model extends CI_Model {
     }
 
     function add($data){
+        $data["created_at"] = date("Y-m-d H:i:s");
         $this->db->insert("foros", $data);
         return $this->get($this->db->insert_id());
     }

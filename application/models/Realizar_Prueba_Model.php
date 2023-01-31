@@ -30,6 +30,7 @@ class Realizar_Prueba_Model extends CI_Model {
 	}
 
     function create($data){
+		$data["created_at"] = date("Y-m-d H:i:s");
         $this->db->insert("realizar_prueba", $data);
         return $this->get_by_id($this->db->insert_id());
     }

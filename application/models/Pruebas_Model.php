@@ -67,6 +67,7 @@ class Pruebas_Model extends CI_Model {
 
 	// Create a new test
 	function create($data){
+		$data["created_at"] = date("Y-m-d H:i:s");
 		$this->db->insert("pruebas", $data);
 		return $this->db->insert_id(); 
 	}
