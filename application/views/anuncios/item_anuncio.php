@@ -1,3 +1,4 @@
+<?php setlocale(LC_ALL, 'es_CO'); ?>
 <div class="row" id="an-<?= $anuncio["id_anuncio"] ?>">
     <div class="col-md-12">
         <div class="card card-anuncio">

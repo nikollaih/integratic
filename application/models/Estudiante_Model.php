@@ -41,13 +41,13 @@ class Estudiante_Model extends CI_Model {
 	function getStudentGrade($student_id){
 		$student_grade = $this->db->query("select grado from estudiante where documento = '".$student_id."'");
 		$student_grade = $student_grade->result()[0]->grado;
-		return preg_replace('~\D~', '', $student_grade);
+		return substr($student_grade, 0, strlen($student_grade) - 1);
 	}
 
 	function getStudentGroupGrade($student_id){
 		$student_grade = $this->db->query("select grado from estudiante where documento = '".$student_id."'");
 		$student_grade = $student_grade->result()[0]->grado;
-		return preg_replace('/[0-9]+/', '', $student_grade);
+		return substr($student_grade, strlen($student_grade) - 1, strlen($student_grade));
 	}
 
 	public function groupGradeAsignature($student_id, $mat){
@@ -59,9 +59,9 @@ class Estudiante_Model extends CI_Model {
   }  
 
 	function getAreas($student_id){
-		$grade = $this->getStudentGrade($student_id);
+		$grade = $this->session->userdata()["logged_in"]["grado"];
 		$grupo = $this->session->userdata()["logged_in"]["grupo"];
-		$result = $this->db->query("Select * from cfg_areas a left join cfg_materias m on a.codarea = m.area join asg_materias am on am.materia = m.codmateria where a.tipo<>'gestion' and m.grado = ".$grade." and am.grupo = '".$grupo."'");
+		$result = $this->db->query("Select * from cfg_areas a left join cfg_materias m on a.codarea = m.area join asg_materias am on am.materia = m.codmateria where m.grado = '".$grade."' and am.grupo = '".$grupo."'");
 		if(!$result){
 			return false;
 		}else{
@@ -71,7 +71,7 @@ class Estudiante_Model extends CI_Model {
 
 	function getMaterias($student_id, $area_id){
 		$grade = $this->getStudentGrade($student_id);
-		$result = $this->db->query("Select * from cfg_materias,cfg_areas where area=$area_id and codarea=area and grado=$grade");
+		$result = $this->db->query("Select * from cfg_materias,cfg_areas where area=$area_id and codarea=area and grado='".$grade."'");
 		if(!$result){
 			return false;
 		}else{
