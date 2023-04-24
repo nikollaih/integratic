@@ -1212,11 +1212,11 @@ function enlace_mat_est(cod, menu_materia = "false"){
                             var grupo=registros[i]["grupo"];
                             var idmateria=registros[i]["materia"];
                             if(grupo==='N'){
-                                listardoc(tipo,narea,nmateria+grado,'N', menu_materia);
+                                listardoc(tipo,narea,nmateria,'N', menu_materia);
                             }else{
                                 html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                                 html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                                html=html+"<a href='javascript:listardoc(\"" + tipo+"\",\"" + narea+"\",\"" + nmateria+grado+"\",\"" + grado+grupo+"\",\"" + idmateria+"\",\"" + grupo+"\")'>";                                
+                                html=html+"<a href='javascript:listardoc(\"" + tipo+"\",\"" + narea+"\",\"" + nmateria+"\",\"" + grado+grupo+"\",\"" + idmateria+"\",\"" + grupo+"\")'>";                                
                                 html=html+"<img src='./img/botones/grupos/" + grado+grupo+".png' width='100%' height='100%'></a></div></div>";                               
                                 if(menu_materia == "true" && (grado+grupo) == info_current_materia["grupo"]){
                                     listardoc(tipo,narea,nmateria+grado,grado+grupo,idmateria,grupo,"true");
@@ -1456,11 +1456,11 @@ function enlace_materia(doc,cod){
                             var grupo=registros[i]["grupo"];
                             var idmateria=registros[i]["materia"];
                             if(grupo==='N'){
-                                listardoc(tipo,narea,nmateria+grado,'N',$idmateria,grupo);
+                                listardoc(tipo,narea,nmateria,'N',$idmateria,grupo);
                             }else{
                                 html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                                 html=html+"<div class='mini-stat clearfix bx-shadow'>";
-                                html=html+"<a href='javascript:listardoc(\"" + tipo+"\",\"" + narea+"\",\"" + nmateria+grado+"\",\"" + grado+grupo+"\",\"" + idmateria+"\",\"" + grupo+"\")'>";                                
+                                html=html+"<a href='javascript:listardoc(\"" + tipo+"\",\"" + narea+"\",\"" + nmateria+"\",\"" + grado+grupo+"\",\"" + idmateria+"\",\"" + grupo+"\")'>";                                
                                 html=html+"<img src='./img/botones/grupos/" + grado+grupo+".png' width='100%' height='100%'></a></div></div>";                               
                             }
                           }                              
