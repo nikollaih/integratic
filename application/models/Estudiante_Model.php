@@ -40,14 +40,14 @@ class Estudiante_Model extends CI_Model {
 
 	function getStudentGrade($student_id){
 		$student_grade = $this->db->query("select grado from estudiante where documento = '".$student_id."'");
-		$student_grade = $student_grade->result()[0]->grado;
-		return substr($student_grade, 0, strlen($student_grade) - 1);
+		$student_grade = trim($student_grade->result()[0]->grado);
+		return substr($student_grade, 0, intval(strlen($student_grade)) - 1);
 	}
 
 	function getStudentGroupGrade($student_id){
 		$student_grade = $this->db->query("select grado from estudiante where documento = '".$student_id."'");
-		$student_grade = $student_grade->result()[0]->grado;
-		return substr($student_grade, strlen($student_grade) - 1, strlen($student_grade));
+		$student_grade = trim($student_grade->result()[0]->grado);
+		return trim(substr($student_grade, intval(strlen($student_grade)) - 1, intval(strlen($student_grade))));
 	}
 
 	public function groupGradeAsignature($student_id, $mat){
