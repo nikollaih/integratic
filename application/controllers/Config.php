@@ -29,50 +29,26 @@
             else { echo ("No se pudo guardar los datos");} 
          }else { echo json_encode("Nada");}
     }
+
     public function nuevoArea(){
-        date_default_timezone_set ('America/Bogota');
-        $nom = $this->input->post("nomarea");
-        $tipo = $this->input->post("tipo");
+        date_default_timezone_set('America/Bogota');
+        $nomarea = $this->input->post("nomarea");
+        $tipo = "areas";
+        $caracterizacion_area = $this->input->post("caracterizacion_area");
         $fecha = date('Y-m-d');
+        $icoarea = (trim($this->input->post("icoarea")) != "") ? $this->input->post("icoarea") : $_FILES['archivo']['name'];
 
-
-        if (!empty($_FILES['archivo']['name'])){
-            $ico = $_FILES["archivo"]['name'];
-
-            $datos = array(
-                "nomarea"   => $nom,
-                "tipo"      => 'areas',
-                "icoarea"   => $ico,
-                "fecha"     => $fecha
-            );
-
-            if($this->General_Model->insertar("cfg_areas",$datos)==true){
-                $dir=utf8_decode('./principal/areas/'.$nom);
-                if (string_to_folder_name($dir)) { mkdir(string_to_folder_name($dir), 0777); } 
-                move_uploaded_file($_FILES['archivo']['tmp_name'], "img/botones/areas/".$_FILES['archivo']['name']);
-                 echo json_encode("Area creada!");}
-            else { echo ("No se pudo guardar los datos");} 
-        }
-        else {
-            $ico = $this->input->post("icoarea");
-            if($ico != null){
-                $datos = array(
-                    "nomarea"   => $nom,
-                    "tipo"      => 'areas',
-                    "icoarea"   => $ico,
-                    "fecha"     => $fecha
-                );
-
-                if($this->General_Model->insertar("cfg_areas",$datos)==true){
-                    echo json_encode("Area creada!");
-                }
-                else { 
-                    echo ("No se pudo guardar los datos");
-                } 
+        print_r($this->input->post());
+        echo "Ico: ".$icoarea;
+        if ($icoarea !== null && $this->General_Model->insertar("cfg_areas", compact('nomarea', 'tipo', 'icoarea', 'fecha', 'caracterizacion_area'))) {
+            $dir = utf8_decode('./principal/areas/' . $nomarea);
+            if (string_to_folder_name($dir) && !empty($_FILES['archivo']['name'])) {
+                mkdir(string_to_folder_name($dir), 0777);
+                move_uploaded_file($_FILES['archivo']['tmp_name'], "img/botones/areas/$icoarea");
             }
-            else{
-                echo json_encode("Nada");
-            }
+            echo json_encode("Area creada!");
+        } else {
+            echo json_encode("Nada");
         }
     }
     

@@ -28,8 +28,9 @@
         <link href="<?= base_url() ?>css/helper.css" rel="stylesheet" type="text/css" />
         <link href="<?= base_url() ?>css/anuncios.css" rel="stylesheet" type="text/css" />
         <link href="<?= base_url() ?>css/foros.css" rel="stylesheet" type="text/css" />
-        <link href="https://kothing.github.io/editor/dist/css/kothing-editor.min.css" rel="stylesheet">
+        <!--<link href="https://kothing.github.io/editor/dist/css/kothing-editor.min.css" rel="stylesheet">-->
         <link href="<?= base_url() ?>css/style.css" rel="stylesheet" type="text/css" />
+        <link href="<?= base_url() ?>css/kothing.min.css" rel="stylesheet" type="text/css" />
         <!--HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -37,11 +38,12 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
         <script src="<?= base_url() ?>js/jquery.min.js"></script>
-        <script src="<?= base_url() ?>js/modernizr.min.js"></script>   
+        <script src="<?= base_url() ?>js/modernizr.min.js"></script> 
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+        <link href="<?= base_url() ?>css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>  
+        <script src="<?= base_url() ?>js/bootstrap-select.min.js"></script>   
+        <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script> --> 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">   

@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$dotenv = \Dotenv\Dotenv::createImmutable(FCPATH);
+$dotenv->safeLoad();
 
 /*
 | -------------------------------------------------------------------
@@ -73,72 +75,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-if(ENVIRONMENT == 'development')
-  	#development
-	$db['default'] = array(
-		'dsn'	=> '',
-		'hostname' => 'localhost',
-		'username' => 'root',
-		'password' => '',
-		'database' => 'integratic',
-		'dbdriver' => 'mysqli',
-		'dbprefix' => '',
-		'pconnect' => FALSE,
-		'db_debug' => (ENVIRONMENT !== 'production'),
-		'cache_on' => FALSE,
-		'cachedir' => '',
-		'char_set' => 'utf8',
-		'dbcollat' => 'utf8_general_ci',
-		'swap_pre' => '',
-		'encrypt' => FALSE,
-		'compress' => FALSE,
-		'stricton' => FALSE,
-		'failover' => array(),
-		'save_queries' => TRUE
-	);
-else if(ENVIRONMENT == 'testing')
-	#staging
-	$db['default'] = array(
-		'dsn'	=> '',
-		'hostname' => 'localhost',
-		'username' => 'integratic_database',
-		'password' => 'K^os[j_(MX=$',
-		'database' => 'integratic',
-		'dbdriver' => 'mysqli',
-		'dbprefix' => '',
-		'pconnect' => FALSE,
-		'db_debug' => (ENVIRONMENT !== 'production'),
-		'cache_on' => FALSE,
-		'cachedir' => '',
-		'char_set' => 'utf8',
-		'dbcollat' => 'utf8_general_ci',
-		'swap_pre' => '',
-		'encrypt' => FALSE,
-		'compress' => FALSE,
-		'stricton' => FALSE,
-		'failover' => array(),
-		'save_queries' => TRUE
-	);
-else 
-  	#prod
-	$db['default'] = array(
-		'dsn'	=> '',
-		'hostname' => 'localhost',
-		'username' => 'iegscintegratice_integra_v3',
-		'password' => 'K^os[j_(MX=$',
-		'database' => 'iegscintegratice_integra_v3',
-		'dbdriver' => 'mysqli',
-		'dbprefix' => '',
-		'pconnect' => FALSE,
-		'db_debug' => (ENVIRONMENT !== 'production'),
-		'cache_on' => FALSE,
-		'cachedir' => '',
-		'char_set' => 'utf8',
-		'dbcollat' => 'utf8_general_ci',
-		'swap_pre' => '',
-		'encrypt' => FALSE,
-		'compress' => FALSE,
-		'stricton' => FALSE,
-		'failover' => array(),
-		'save_queries' => TRUE
-	);
+$db['default'] = array(
+	'dsn'	=> '',
+	'hostname' => $_ENV['DB_HOST'],
+	'username' => $_ENV['DB_USER'],
+	'password' => $_ENV['DB_PASSWORD'],
+	'database' => $_ENV['DB_NAME'],
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);

@@ -14,15 +14,25 @@
                                     <div class="col-md-12 col-sm-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="descripcion_pregunta">Descripción *</label>
-                                            <textarea required name="pregunta[descripcion_pregunta]" id="descripcion_pregunta" cols="30" rows="5" class="form-control"></textarea>
+                                            <textarea name="pregunta[descripcion_pregunta]" id="textarea_richtext" cols="30" rows="5" class="form-control" style="display: none"></textarea>
+                                        </div>
+                                        <div id="image_wrapper_richtext" class="image-list">
+                                            <div class="file-list-info">
+                                                <input type="file" id="files_upload" accept="image/*" multiple="multiple" class="files-text files-input files_upload"/>
+                                                <span id="image_size_richtext" class="total-size text-small-2">0KB</span>
+                                            </div>
+                                            <div class="file-list">
+                                                <ul id="image_list_richtext">
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row m-t-2">
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Materia *</label>
-                                            <select required name="pregunta[id_materia]" id="" class="form-control">
+                                            <select required name="pregunta[id_materia]" id="crear-prueba-materia" class="form-control select-materia">
                                                 <option value="">- Seleccionar</option>
                                                 <?php
                                                     if($materias != false){
@@ -39,9 +49,8 @@
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Dificultad *</label>
-                                            <select required name="pregunta[dificultad]" id="" class="form-control">
-                                                <option value="">- Seleccionar</option>
-                                                <option value="1">Fácil</option>
+                                            <select required name="pregunta[dificultad][]" id="" class="form-control multiple-select" multiple data-live-search="true" data-actions-box="true" data-actions-box="true">
+                                                <option value="1">Facil</option>
                                                 <option value="2">Intermedia</option>
                                                 <option value="3">Avanzada</option>
                                             </select>
@@ -49,24 +58,31 @@
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
-                                            <label for="">Agregar Imagen </label>
-                                            <input type="file" name="pregunta_archivo" accept="image/*" class="form-control">
+                                            <label for="">Tema</label>
+                                            <select required name="pregunta[id_tema]" id="crear-prueba-tema" class="form-control select-tema">
+                                                <option value="">- Seleccionar</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="">Agregar Imagen </label>
+                                            <input type="file" name="pregunta_archivo" accept="image/*" class="form-control">
+                                        </div>
+                                    </div>
                                     <div class="col-md-6 col-sm-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="">Nombre Autor </label>
                                             <input type="text" name="pregunta[nombre_author]" class="form-control">
                                         </div>
                                     </div>
-                                    
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-lg-12">
                                         <div class="form-group">
-                                            <label for="descripcion_pregunta">Comentarios</label>
+                                            <label for="">Comentarios</label>
                                             <p><b>Nota: </b>Los comentarios serán mostrados a los participantes déspues de finalizar la prueba.</p>
                                             <textarea name="pregunta[comentarios_pregunta]" id="comentarios_pregunta" cols="30" rows="5" class="form-control"></textarea>
                                         </div>
@@ -110,4 +126,8 @@
 </body>
 <?php $this->load->view("in_footer") ?>
 <?php $this->load->view("in_script") ?>
+<script src="<?= base_url() ?>js/richtext.js"></script>
+<script>
+    $('.multiple-select').selectpicker();
+</script>
 </html>

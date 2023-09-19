@@ -124,7 +124,6 @@ class Estudiante extends CI_Controller {
 				$params = [];
 				if(isset($_FILES["estudiantes"])){
 					$estudiantes = (importar_estudiantes($_FILES));
-
 					if($estudiantes){
 						if ($this->Estudiante_Model->setImportedStudents($estudiantes)){
 							mover_estudiantes_usuarios();

@@ -7,7 +7,8 @@ class Materias_Model extends CI_Model {
  	}
 
 	function getMateria($id_materia){
-		$this->db->from("cfg_materias");
+		$this->db->from("cfg_materias cm");
+		$this->db->join("cfg_areas ca", "cm.area = ca.codarea");
         $this->db->where("codmateria", $id_materia);
 		$result = $this->db->get();
 

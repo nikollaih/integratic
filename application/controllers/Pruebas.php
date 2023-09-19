@@ -12,7 +12,7 @@
         if(is_logged()){
             $params["pruebas"] = false;
             if(strtolower(logged_user()["rol"]) == "docente"){ 
-                $materias = array_column($this->Materias_Model->getMateriasDocente(logged_user()["id"], true), "materia");
+                //$materias = array_column($this->Materias_Model->getMateriasDocente(logged_user()["id"], true), "materia");
                 $params["pruebas"] = $this->Pruebas_Model->get_docente_all(logged_user()["id"]);
             }
             if(strtolower(logged_user()["rol"]) == "estudiante"){

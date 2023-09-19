@@ -14,6 +14,10 @@
                         <i><img src='<?= base_url() ?>img/iconos/volver.png' width="50" height="50"></i><span>Volver</span></a>
                 </li>
                 <li>
+                    <a href="<?= base_url() ?>Temas" class=" ">
+                        <i><img src='<?= base_url() ?>img/iconos/lista_pruebas.png' width="50" height="50"></i><span>Temas</span></a>
+                </li>
+                <li>
                     <a href="<?= base_url() ?>Pruebas" class=" ">
                         <i><img src='<?= base_url() ?>img/iconos/lista_pruebas.png' width="50" height="50"></i><span>Lista pruebas</span></a>
                 </li>   

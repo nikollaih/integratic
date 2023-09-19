@@ -320,6 +320,18 @@
                 <div class="row"> 
                     <div class="col-md-12"> 
                         <div class="form-group">
+                            <label for="areasmat" class="control-label">Área de caracterización</label>
+                            <div id="lista_areas">
+                                <select class="form-control" id="caracterizacion_area_select" name="caracterizacion_area">
+                                <option>Seleccione</option>    
+                                </select>
+                            </div>
+                        </div>                
+                    </div>                
+                </div> 
+                <div class="row"> 
+                    <div class="col-md-12"> 
+                        <div class="form-group">
                             <label for="nomarea" class="control-label">Nombre del Area</label>
                             <input id='nomarea' name='nomarea'  class='form-control input-lg' required placeholder='Nombre del Area' type='text'>                            
                         </div>                
