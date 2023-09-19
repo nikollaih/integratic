@@ -46,6 +46,7 @@
                 $params = [];
                 $params["materias"] = $this->Materias_Model->getMateriasDocente(logged_user()["id"]);
                 if($this->input->post()){
+                    print_r($this->input->post());
                     $params["message"] = $this->guardarPregunta($this->input->post());
                 }
 
@@ -63,6 +64,7 @@
     function guardarPregunta($data){
         $pregunta = $data["pregunta"];
         $pregunta["created_by"] = logged_user()["id"];
+        $pregunta["dificultad"] = serialize($pregunta["dificultad"]);
         $id_pregunta = $this->Preguntas_Model->create($pregunta);
 
         if($id_pregunta){

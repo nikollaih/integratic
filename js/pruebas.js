@@ -39,6 +39,11 @@ $(document).ready(function() {
         $("#prueba-extra-info").slideDown();
     });
 
+    $(document).on("change", "#crear-prueba-materia", function() {
+        let id_materia = jQuery(this).val();
+        getTemasMateria(id_materia);
+    });
+
     function asignar_pregunta(id_pregunta, id_prueba) {
         $("#background-loading").css("display", "flex");
         $.ajax({
@@ -198,5 +203,38 @@ function cerrar_intento_prueba(id_realizar_prueba) {
             //$("#background-loading").css("display", "none");
         },
         error: function() { alert("Error!") }
+    });
+}
+
+function getTemasMateria(id_materia) {
+    $("#background-loading").css("display", "flex");
+    $.ajax({
+        url: base_url + "Temas/getTemasMateria/" + id_materia,
+        type: 'GET',
+        success: function(data) {
+            var data = JSON.parse(data);
+            let object = data.object;
+            if (data.status) setTemasMateria(object);
+            $("#background-loading").css("display", "none");
+        },
+        error: function() { 
+            $("#background-loading").css("display", "none");
+            alert("Error!") 
+        }
+    });
+}
+
+function setTemasMateria(temas){
+    // Obtén una referencia al elemento select por su ID
+    const selectElement = document.getElementById('crear-prueba-tema');
+
+    // Limpia el select eliminando todas las opciones existentes
+    selectElement.innerHTML = '<option>- Seleccionar</option>';
+    // Itera sobre el arreglo y agrega nuevas opciones al select
+    temas.forEach((tema) => {
+        const option = document.createElement('option');
+        option.value = tema.id_tema;
+        option.textContent = tema.nombre_tema;
+        selectElement.appendChild(option);
     });
 }

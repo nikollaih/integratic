@@ -51,6 +51,9 @@
         <!-- Anuncios -->
         <script src="<?= base_url() ?>js/anuncios.js"></script>
 
+        <!-- Temas -->
+        <script src="<?= base_url() ?>js/temas.js"></script>
+
         <!-- Actividades -->
         <script src="<?= base_url() ?>js/actividades.js"></script>
 
@@ -80,7 +83,8 @@
         <script src="<?= base_url() ?>assets/dataTables/dataTables.select.min.js"></script>
         
         <!-- Foros -->
-        <script src="https://kothing.github.io/editor/dist/kothing-editor.min.js"></script>
+        <!--<script src="https://kothing.github.io/editor/dist/kothing-editor.min.js"></script>-->
+        <script src="<?= base_url() ?>js/kothing.min.js"></script>  
 
         <script type="text/javascript">
             /* ==============================================

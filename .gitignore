@@ -1,3 +1,5 @@
 principal/
 uploads/
 img/
+.env
+vendor/

@@ -95,6 +95,8 @@
     }
 
     function getNombresApellidos($nombre){
+        $nombres = "";
+        $apellidos = "";
         $temp_name = explode(" ", $nombre);
         $split_name = [];
         for ($i=0; $i < count($temp_name); $i++) { 
@@ -103,9 +105,22 @@
             }
         }
 
+        if(count($split_name) == 4){
+            $nombres = $split_name[2] . " " . $split_name[3];
+            $apellidos = $split_name[0] . " " . $split_name[1];
+        }
+        else if(count($split_name) == 3){
+            $nombres = $split_name[2];
+            $apellidos = $split_name[0] . " " . $split_name[1];
+        }
+        else {
+            $nombres = $split_name[1];
+            $apellidos = $split_name[0];
+        }
+
         return array(
-            "nombres" => (count($split_name) == 4) ? $split_name[2] . " " . $split_name[3] : $split_name[2],
-            "apellidos" => $split_name[0] . " " . $split_name[1]
+            "nombres" => $nombres,
+            "apellidos" => $apellidos
         );
     }
 ?>
