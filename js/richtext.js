@@ -28,29 +28,33 @@ let kothingParamsForo = {
     charCounter: true,
 }
 
-$( document ).ready(function() {   
-    document.getElementById('image_wrapper_richtext');
-    const imageSize = document.getElementById('image_size_richtext');
-    const imageRemove = document.getElementById('image_remove_richtext');
-    const imageTable = document.getElementById('image_list_richtext');
+$( document ).ready(function() {  
+    let textarea = document.getElementById('textarea_richtext'); 
 
-    let imageList = [];
-    let selectedImages = [];
-
-    editorRich = KothingEditor.create('textarea_richtext', kothingParamsForo);
-
-    editorRich.onImageUpload = function (targetImgElement, index, state, imageInfo, remainingFilesCount) {
-        if (state === 'delete') {
-            imageList.splice(findIndex(imageList, index), 1)
-        } else {
-            if (state === 'create') {
-                const image = editorRich.getImagesInfo()[findIndex(editorRich.getImagesInfo(), index)]
-                imageList.push(image)
-            } else { }
-        }
-
-        if (remainingFilesCount === 0) {
-            setImageList(imageList)
+    if(textarea){
+        document.getElementById('image_wrapper_richtext');
+        const imageSize = document.getElementById('image_size_richtext');
+        const imageRemove = document.getElementById('image_remove_richtext');
+        const imageTable = document.getElementById('image_list_richtext');
+    
+        let imageList = [];
+        let selectedImages = [];
+    
+        editorRich = KothingEditor.create('textarea_richtext', kothingParamsForo);
+    
+        editorRich.onImageUpload = function (targetImgElement, index, state, imageInfo, remainingFilesCount) {
+            if (state === 'delete') {
+                imageList.splice(findIndex(imageList, index), 1)
+            } else {
+                if (state === 'create') {
+                    const image = editorRich.getImagesInfo()[findIndex(editorRich.getImagesInfo(), index)]
+                    imageList.push(image)
+                } else { }
+            }
+    
+            if (remainingFilesCount === 0) {
+                setImageList(imageList)
+            }
         }
     }
 

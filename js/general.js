@@ -301,35 +301,40 @@ function capitalizeTheFirstLetterOfEachWord(words) {
 }
 
 function setAreasCaracterizacion(){
-    $.ajax({
-        url: base_url + "caracterizacion/getCaracterizacionAreas",
-        type: 'GET',
-        success: function(data) {
-            var data = JSON.parse(data);
-            if (data.status) {
-                // Obtén una referencia al elemento select por su ID
-                const selectElement = document.getElementById('caracterizacion_area_select');
+    // Obtén una referencia al elemento select por su ID
+    const selectElement = document.getElementById('caracterizacion_area_select');
 
-                // Limpia el select eliminando todas las opciones existentes
-                selectElement.innerHTML = '';
-
-                // Itera sobre el arreglo y agrega nuevas opciones al select
-                data.object.forEach((dba) => {
-                    console.log(dba)
-                    const option = document.createElement('option');
-                    option.value = dba.id_caracterizacion_area;
-                    option.textContent = dba.descripcion_area;
-                    selectElement.appendChild(option);
-                });
+    if(selectElement){
+        $.ajax({
+            url: base_url + "caracterizacion/getCaracterizacionAreas",
+            type: 'GET',
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status) {
+    
+                    if(selectElement){
+                        // Limpia el select eliminando todas las opciones existentes
+                        selectElement.innerHTML = '';
+    
+                        // Itera sobre el arreglo y agrega nuevas opciones al select
+                        data.object.forEach((dba) => {
+                            console.log(dba)
+                            const option = document.createElement('option');
+                            option.value = dba.id_caracterizacion_area;
+                            option.textContent = dba.descripcion_area;
+                            selectElement.appendChild(option);
+                        });
+                    }
+                }
+                else{
+                    alert(data.message);
+                }
+                $("#background-loading").css("display", "none");
+            },
+            error: function() {
+                $("#background-loading").css("display", "none");
+                alert("Error!")
             }
-            else{
-                alert(data.message);
-            }
-            $("#background-loading").css("display", "none");
-        },
-        error: function() {
-            $("#background-loading").css("display", "none");
-            alert("Error!")
-        }
-    });
+        });
+    }
 }

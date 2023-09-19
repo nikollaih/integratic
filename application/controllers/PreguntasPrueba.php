@@ -231,11 +231,11 @@
                             json_response(array("error" => false), true, "Pregunta eliminada correctamente");
                         }
                     }
-                    else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+                    else json_response(array("error" => "permissions"), false, "No tiene permisos para eliminar la pregunta");
                 }
                 else json_response(array("error" => "404"), false, "No se ha encontrado la pregunta");
             }
-            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para eliminar la pregunta");
         }
         else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }

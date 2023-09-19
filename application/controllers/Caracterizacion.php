@@ -12,7 +12,7 @@
                 $areas = $this->Caracterizacion_Areas_Model->get_all();
                 json_response($areas, true, "Lista de items.");
             }
-            else json_response(null, false, "No tiene permiso para realizar esta acción.");
+            //else json_response(null, false, "No tiene permiso para realizar esta acción.");
         }
         else json_response(null, false, "Inicie sesión para continuar.");
     }

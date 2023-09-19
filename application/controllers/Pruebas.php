@@ -52,6 +52,8 @@
         $prueba["materias"] = serialize($prueba["materias"]);
         $prueba["dificultad"] = serialize($prueba["dificultad"]);
         $prueba["created_by"] = logged_user()["id"];
+        if(isset($prueba["mostrar_respuestas"]))
+            $prueba["mostrar_respuestas"] = ($prueba["mostrar_respuestas"] == "on") ? 1 : 0;
 
         $id_prueba = $this->Pruebas_Model->create($prueba);
 
@@ -365,11 +367,11 @@
                             json_response(array("error" => false), true, "Prueba eliminada correctamente");
                         }
                     }
-                    else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+                    else json_response(array("error" => "permissions"), false, "No tiene permisos para eliminar la prueba");
                 }
                 else json_response(array("error" => "404"), false, "No se ha encontrado la prueba");
             }
-            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para eliminar la prueba");
         }
         else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }

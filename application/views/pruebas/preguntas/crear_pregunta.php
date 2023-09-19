@@ -126,7 +126,6 @@
 </body>
 <?php $this->load->view("in_footer") ?>
 <?php $this->load->view("in_script") ?>
-<script src="<?= base_url() ?>js/richtext.js"></script>
 <script>
     $('.multiple-select').selectpicker();
 </script>

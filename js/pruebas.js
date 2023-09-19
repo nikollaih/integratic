@@ -44,6 +44,10 @@ $(document).ready(function() {
         getTemasMateria(id_materia);
     });
 
+    $("#form-prueba").on('submit', function(e) {
+        jQuery("#textarea_richtext").html(editorRich.getContents());
+    });
+
     function asignar_pregunta(id_pregunta, id_prueba) {
         $("#background-loading").css("display", "flex");
         $.ajax({

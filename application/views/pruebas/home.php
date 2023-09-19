@@ -1,4 +1,4 @@
-<?php $this->load->view("in_head"); echo logged_user()["id"]; ?>
+<?php $this->load->view("in_head"); ?>
 <body>
     <?php $this->load->view("in_header") ?>
     <?php $this->load->view("pruebas/templates/in_aside") ?>

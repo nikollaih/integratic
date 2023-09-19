@@ -6,7 +6,20 @@
         <div class="content">  
             <div class="container">
                 <div class="row" id="migas"></div>  
-                <form action="" method="post" enctype="">
+                <form action="" method="post" enctype="multipart/form-data" id="form-prueba">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            if(isset($message)){
+                                ?>
+                                <div class="alert alert-<?= $message["type"] ?> alert-dismissible show" role="alert">
+                                    <?= $message["message"] ?>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
                     <div class="panel panel-primary">
                         <div class="panel-heading text-capitalize"><b>Nueva prueba</b></div>
                         <div class="panel-body">
@@ -22,11 +35,21 @@
                                     <div class="col-md-12 col-sm-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="descripcion_pregunta">Descripción</label>
-                                            <textarea name="prueba[descripcion_prueba]" id="descripcion_pregunta" cols="30" rows="5" class="form-control"></textarea>
+                                            <textarea name="prueba[descripcion_prueba]" id="textarea_richtext" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                        <div id="image_wrapper_richtext" class="image-list">
+                                            <div class="file-list-info">
+                                                <input type="file" id="files_upload" accept="image/*" multiple="multiple" class="files-text files-input files_upload"/>
+                                                <span id="image_size_richtext" class="total-size text-small-2">0KB</span>
+                                            </div>
+                                            <div class="file-list">
+                                                <ul id="image_list_richtext">
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row m-t-2">
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Alcance Prueba *</label>
@@ -78,7 +101,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row m-t-2">
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Dificultad *</label>
@@ -113,7 +136,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row m-t-2">
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Fecha y hora Inicio *</label>
@@ -124,6 +147,16 @@
                                         <div class="form-group">
                                             <label for="">Fecha y hora Finalización *</label>
                                             <input required type="datetime-local" name="prueba[fecha_finaliza]" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="">Mostrar respuestas</label>
+                                            <div class="custom-control custom-switch m-t-1">
+                                                <input type="checkbox" name="prueba[mostrar_respuestas]" class="custom-control-input" id="customSwitch1">
+                                                <label class="custom-control-label" for="customSwitch1">Mostrar respuestas correctas al finalizar prueba</label>
+                                            </div>
                                         </div>
                                     </div>
                                    
@@ -145,11 +178,11 @@
                         <div class="col-md-12">
                             <?php
                             if(isset($message)){
-                            ?>
-                            <div class="alert alert-<?= $message["type"] ?> alert-dismissible show" role="alert">
-                            <?= $message["message"] ?>
-                            </div>
-                            <?php
+                                ?>
+                                <div class="alert alert-<?= $message["type"] ?> alert-dismissible show" role="alert">
+                                    <?= $message["message"] ?>
+                                </div>
+                                <?php
                             }
                             ?>
                         </div>
