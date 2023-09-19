@@ -6,7 +6,7 @@
         <div class="content">  
             <div class="container">
                 <div class="row" id="migas"></div>  
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post" enctype="multipart/form-data" id="form-pregunta">
                     <div class="panel panel-primary">
                         <div class="panel-heading text-capitalize"><b>Nueva pregunta</b></div>
                         <div class="panel-body">

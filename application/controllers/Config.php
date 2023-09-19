@@ -38,8 +38,6 @@
         $fecha = date('Y-m-d');
         $icoarea = (trim($this->input->post("icoarea")) != "") ? $this->input->post("icoarea") : $_FILES['archivo']['name'];
 
-        print_r($this->input->post());
-        echo "Ico: ".$icoarea;
         if ($icoarea !== null && $this->General_Model->insertar("cfg_areas", compact('nomarea', 'tipo', 'icoarea', 'fecha', 'caracterizacion_area'))) {
             $dir = utf8_decode('./principal/areas/' . $nomarea);
             if (string_to_folder_name($dir) && !empty($_FILES['archivo']['name'])) {

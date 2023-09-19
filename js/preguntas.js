@@ -29,6 +29,10 @@ $(document).ready(function() {
         $(".btn-guardar-importar").attr("disabled", "disabled");
     });
 
+    $("#form-pregunta").on('submit', function(e) {
+        jQuery("#textarea_richtext").html(editorRich.getContents());
+    });
+
     $(document).on("click", ".check-exportar-pregunta", function() {
         if (preguntas_seleccionadas.length == 1) {
             if (preguntas_seleccionadas[0] == "-1") {

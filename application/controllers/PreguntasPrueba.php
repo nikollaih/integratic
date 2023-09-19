@@ -46,7 +46,6 @@
                 $params = [];
                 $params["materias"] = $this->Materias_Model->getMateriasDocente(logged_user()["id"]);
                 if($this->input->post()){
-                    print_r($this->input->post());
                     $params["message"] = $this->guardarPregunta($this->input->post());
                 }
 

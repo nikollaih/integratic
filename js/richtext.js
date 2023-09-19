@@ -1,4 +1,4 @@
-let editorImageForo;
+let editorRich;
 let kothingParamsForo = {
     width: '100%',
     height: 'auto',
@@ -37,14 +37,14 @@ $( document ).ready(function() {
     let imageList = [];
     let selectedImages = [];
 
-    editorImageForo = KothingEditor.create('textarea_richtext', kothingParamsForo);
+    editorRich = KothingEditor.create('textarea_richtext', kothingParamsForo);
 
-    editorImageForo.onImageUpload = function (targetImgElement, index, state, imageInfo, remainingFilesCount) {
+    editorRich.onImageUpload = function (targetImgElement, index, state, imageInfo, remainingFilesCount) {
         if (state === 'delete') {
             imageList.splice(findIndex(imageList, index), 1)
         } else {
             if (state === 'create') {
-                const image = editorImageForo.getImagesInfo()[findIndex(editorImageForo.getImagesInfo(), index)]
+                const image = editorRich.getImagesInfo()[findIndex(editorRich.getImagesInfo(), index)]
                 imageList.push(image)
             } else { }
         }
@@ -56,7 +56,7 @@ $( document ).ready(function() {
 
     $(document).on( "change", ".files_upload", function(e) {
         if (e.target.files) {
-            editorImageForo.insertImage(e.target.files)
+            editorRich.insertImage(e.target.files)
             e.target.value = ''
         }
     });
@@ -128,7 +128,7 @@ $( document ).ready(function() {
 
     // Click the remove button
     function deleteCheckedImages() {
-        const iamgesInfo = editorImageForo.getImagesInfo();
+        const iamgesInfo = editorRich.getImagesInfo();
 
         for (let i = 0; i < iamgesInfo.length; i++) {
             if (selectedImages.indexOf(iamgesInfo[i].index) > -1) {
