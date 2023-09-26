@@ -7,6 +7,22 @@
             <div class="container">
                 <div class="row" id="migas"></div>
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">Alcance</label>
+                                <select name="" id="select-alcance-estadistica" class="form-control">
+                                    <option value="all">Todos</option>
+                                    <?php
+                                        if($alcances){
+                                            for ($i=0; $i < count($alcances); $i++) { 
+                                                $selected = ($alcance == $alcances[$i]["id_alcance_prueba"]) ? "selected" : "";
+                                                echo '<option '.$selected.' value="'.$alcances[$i]["id_alcance_prueba"].'">'.$alcances[$i]["descripcion"].'</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
                         <dic class="col-md-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading text-capitalize"><b>Estadisticas</b></div>
@@ -55,7 +71,7 @@
                                                         <?php
                                                             if($materias){
                                                                 foreach ($materias as $materia) {
-                                                                    $info_materia = get_materia_promedio($materia["codmateria"]);
+                                                                    $info_materia = get_materia_promedio($materia["codmateria"], $alcance);
                                                                     ?>
                                                                         <tr>
                                                                             <td><?= $materia["nommateria"]." ".$materia["grado"] ?>°</td>

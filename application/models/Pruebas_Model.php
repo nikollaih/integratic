@@ -85,18 +85,23 @@ class Pruebas_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
-	function get_count_by_materias($ids_materias){
+	function get_count_by_materias($ids_materias, $alcance = "all"){
 		$query = "";
 		if(is_array($ids_materias)){
+			$query = "(";
 			for ($i=0; $i < count($ids_materias) ; $i++) { 
 				$query.= "p.materias LIKE '%".$ids_materias[$i]."%' OR ";
 			}
+			$query = substr($query, 0, -4);
+			$query.= ")";
 		}
-		$query = substr($query, 0, -4);
         $this->db->select("COUNT(p.id_prueba) as cantidad_pruebas");
 		$this->db->from("pruebas p");
 		$this->db->where($query, NULL, FALSE);
 		$this->db->where("p.estado !=", 2);
+		if($alcance != "all"){
+			$this->db->where("p.alcance_prueba", $alcance);
+		}
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}

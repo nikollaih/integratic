@@ -45,22 +45,26 @@ class Realizar_Prueba_Model extends CI_Model {
 		return $this->db->delete("realizar_prueba");
 	}
 
-	function get_aprobadas($ids_materias, $tipo = true, $value = 60){
+	function get_aprobadas($ids_materias, $tipo = true, $alcance = "all", $value = 60){
 		$query = "";
 		if(is_array($ids_materias)){
+			$query = "(";
 			for ($i=0; $i < count($ids_materias) ; $i++) { 
 				$query.= "p.materias LIKE '%".$ids_materias[$i]."%' OR ";
 			}
+			$query = substr($query, 0, -4);
+			$query.= ")";
 		}
-		$query = substr($query, 0, -4);
-
 		$this->db->from("realizar_prueba rp");
 		$this->db->join("pruebas p", "p.id_prueba = rp.id_prueba");
 		if($tipo){
 			$this->db->where("rp.calificacion >= ", $value);
 		}
 		else{
-			$this->db->where("rp.calificacion <= ", $value);
+			$this->db->where("rp.calificacion < ", $value);
+		}
+		if($alcance != "all"){
+			$this->db->where("p.alcance_prueba", $alcance);
 		}
 		$this->db->where($query, NULL, FALSE);
 		$result = $this->db->get();

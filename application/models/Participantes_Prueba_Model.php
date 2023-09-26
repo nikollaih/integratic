@@ -26,18 +26,23 @@ class Participantes_Prueba_Model extends CI_Model {
 		return $this->get($data["identificacion"]); 
 	}
 
-	function get_count_by_materias($ids_materias){
+	function get_count_by_materias($ids_materias, $alcance = "all"){
 		$query = "";
 		if(is_array($ids_materias)){
+			$query = "(";
 			for ($i=0; $i < count($ids_materias) ; $i++) { 
 				$query.= "p.materias LIKE '%".$ids_materias[$i]."%' OR ";
 			}
+			$query = substr($query, 0, -4);
+			$query.= ")";
 		}
-		$query = substr($query, 0, -4);
 		$this->db->select("COUNT(cpp.identificacion) as cantidad_participantes");
 		$this->db->from("core_participantes_pruebas cpp");
 		$this->db->join("asignacion_participantes_prueba app", "cpp.id_participante_prueba = app.id_participante");
 		$this->db->join("pruebas p", "p.id_prueba = app.id_prueba");
+		if($alcance != "all"){
+			$this->db->where("p.alcance_prueba", $alcance);
+		}
 		$this->db->where($query, NULL, FALSE);
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;

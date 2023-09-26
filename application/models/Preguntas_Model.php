@@ -137,13 +137,18 @@ class Preguntas_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
-	function get_cantidad_correctas_incorrectas_by_materia($id_materia, $tipo_respuesta = 1){
+	function get_cantidad_correctas_incorrectas_by_materia($id_materia, $tipo_respuesta = 1, $alcance = "all"){
 		$this->db->from("preguntas_prueba pp");
 		$this->db->join("respuestas_realizar_prueba rrp", "rrp.id_pregunta = pp.id_pregunta_prueba");
 		$this->db->join("respuestas_preguntas_pruebas rpp", "rrp.id_respuesta = id_respuesta_pregunta_prueba");
+		$this->db->join("realizar_prueba rp", "rrp.id_realizar_prueba = rp.id_realizar_prueba");
+		$this->db->join("pruebas p", "rp.id_prueba = p.id_prueba");
 		$this->db->where("pp.id_materia", $id_materia);
 		$this->db->where("rpp.tipo_respuesta", $tipo_respuesta);
 		$this->db->where("pp.estado", 1);
+		if($alcance != "all"){
+			$this->db->where("p.alcance_prueba", $alcance);
+		}
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}

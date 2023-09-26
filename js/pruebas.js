@@ -48,6 +48,12 @@ $(document).ready(function() {
         jQuery("#textarea_richtext").html(editorRich.getContents());
     });
 
+    $("#select-alcance-estadistica").on('change', function(e) {
+        let alcance = jQuery(this).val();
+        window.location = base_url + "EstadisticasPruebas/ver/" + alcance;
+    });
+
+
     function asignar_pregunta(id_pregunta, id_prueba) {
         $("#background-loading").css("display", "flex");
         $.ajax({
