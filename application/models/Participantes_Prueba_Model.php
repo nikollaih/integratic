@@ -36,7 +36,7 @@ class Participantes_Prueba_Model extends CI_Model {
 			$query = substr($query, 0, -4);
 			$query.= ")";
 		}
-		$this->db->select("COUNT(cpp.identificacion) as cantidad_participantes");
+		$this->db->select("COUNT(DISTINCT(cpp.identificacion)) as cantidad_participantes");
 		$this->db->from("core_participantes_pruebas cpp");
 		$this->db->join("asignacion_participantes_prueba app", "cpp.id_participante_prueba = app.id_participante");
 		$this->db->join("pruebas p", "p.id_prueba = app.id_prueba");
@@ -44,7 +44,9 @@ class Participantes_Prueba_Model extends CI_Model {
 			$this->db->where("p.alcance_prueba", $alcance);
 		}
 		$this->db->where($query, NULL, FALSE);
+		$this->db->group_by("cpp.identificacion");
 		$result = $this->db->get();
+		echo $this->db->last_query();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
