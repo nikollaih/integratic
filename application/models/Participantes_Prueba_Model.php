@@ -46,7 +46,6 @@ class Participantes_Prueba_Model extends CI_Model {
 		$this->db->where($query, NULL, FALSE);
 		$this->db->group_by("cpp.identificacion");
 		$result = $this->db->get();
-		echo $this->db->last_query();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
