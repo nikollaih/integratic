@@ -41,5 +41,40 @@ class EstadisticasPruebas extends CI_Controller {
             $this->load->view("estadisticas/participante_pruebas", $params);
         }
     }
+
+    function municipios(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $this->load->view("estadisticas/municipios");
+            }
+        }
+        else{
+            header("Location: ".base_url());
+        }
+    }
+
+    function instituciones($municipio){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $params["municipio"] = $municipio;
+                $this->load->view("estadisticas/instituciones", $params);
+            }
+        }
+        else{
+            header("Location: ".base_url());
+        }
+    }
+
+    function areas($institucion){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $params["institucion"] = $institucion;
+                $this->load->view("estadisticas/areas", $params);
+            }
+        }
+        else{
+            header("Location: ".base_url());
+        }
+    }
 }
 ?>

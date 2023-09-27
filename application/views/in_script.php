@@ -54,6 +54,9 @@
         <!-- Rich text -->
         <script src="<?= base_url() ?>js/richtext.js"></script>
 
+        <!-- Charts https://www.chartjs.org/ -->
+        <script src="<?= base_url() ?>js/charts.js"></script>
+
         <!-- Temas -->
         <script src="<?= base_url() ?>js/temas.js"></script>
 
