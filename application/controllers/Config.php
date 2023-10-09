@@ -71,6 +71,10 @@
             $narea=$row->nomarea;
         }            
         if($this->General_Model->insertar("cfg_materias",$datos)==true){
+            $dir='./principal/areas';
+            if(!is_dir(string_to_folder_name($dir))){
+                mkdir(string_to_folder_name($dir),0777);
+            }
             //$dir=utf8_decode('./principal/areas/'.$narea.'/'.$nom.$grado);
             $dir='./principal/areas/'.$narea;
             if(!is_dir(string_to_folder_name($dir))){

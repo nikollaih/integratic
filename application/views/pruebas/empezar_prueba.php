@@ -29,17 +29,15 @@
                                             ?>
 
                                             <?php
-                                                if(logged_user()["participante_prueba"]){
-                                                    if(logged_user()["participante_prueba"]){
-                                                        $info_prueba = info_prueba_realizada($prueba["id_prueba"], logged_user()["participante_prueba"]["id_participante_prueba"]);
-                                                        if($info_prueba["cerrada"] == 1){
-                                                            ?>
-                                                                <div class="subtitle-buttons">
-                                                                    <a href="<?= base_url() ?>Pruebas/resumen/<?= $prueba["id_prueba"] ?>" class="btn btn-info">Ver Resumen</a>
-                                                                </div>
-                                                                <hr>
-                                                            <?php
-                                                        }
+                                                if(isset(logged_user()["participante_prueba"])){
+                                                    $info_prueba = info_prueba_realizada($prueba["id_prueba"], logged_user()["participante_prueba"]["id_participante_prueba"]);
+                                                    if($info_prueba["cerrada"] == 1){
+                                                        ?>
+                                                            <div class="subtitle-buttons">
+                                                                <a href="<?= base_url() ?>Pruebas/resumen/<?= $prueba["id_prueba"] ?>" class="btn btn-info">Ver Resumen</a>
+                                                            </div>
+                                                            <hr>
+                                                        <?php
                                                     }
                                                 }
                                             ?>

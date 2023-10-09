@@ -272,16 +272,23 @@
                         <div class="form-group"> 
                             <label for="grupo" class="control-label">Grupo</label>
                             <select class="form-control" id="grupo" name="grupo">
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>                        
+                                <?php
+                                    if(configuracion()["departamental"] == 1) {
+                                        echo '<option value=" ">&nbsp;</option>';
+                                    }
+                                    else { ?>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>    
+                                    <?php }
+                                ?>                    
                             </select>
                         </div> 
                     </div>                 
@@ -321,7 +328,7 @@
                     <div class="col-md-12"> 
                         <div class="form-group">
                             <label for="areasmat" class="control-label">Área de caracterización</label>
-                            <div id="lista_areas">
+                            <div id="lista_areas_caracterizacion">
                                 <select class="form-control" id="caracterizacion_area_select" name="caracterizacion_area">
                                 <option>Seleccione</option>    
                                 </select>

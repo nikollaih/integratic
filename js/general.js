@@ -318,7 +318,6 @@ function setAreasCaracterizacion(){
     
                         // Itera sobre el arreglo y agrega nuevas opciones al select
                         data.object.forEach((dba) => {
-                            console.log(dba)
                             const option = document.createElement('option');
                             option.value = dba.id_caracterizacion_area;
                             option.textContent = dba.descripcion_area;

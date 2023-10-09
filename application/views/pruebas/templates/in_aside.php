@@ -14,10 +14,6 @@
                         <i><img src='<?= base_url() ?>img/iconos/volver.png' width="50" height="50"></i><span>Volver</span></a>
                 </li>
                 <li>
-                    <a href="<?= base_url() ?>Temas" class=" ">
-                        <i><img src='<?= base_url() ?>img/iconos/lista_pruebas.png' width="50" height="50"></i><span>Temas</span></a>
-                </li>
-                <li>
                     <a href="<?= base_url() ?>Pruebas" class=" ">
                         <i><img src='<?= base_url() ?>img/iconos/lista_pruebas.png' width="50" height="50"></i><span>Lista pruebas</span></a>
                 </li>   
@@ -37,13 +33,25 @@
                                     <i><img src='<?= base_url() ?>img/iconos/crear_prueba.png' width="50" height="50"></i><span>Crear prueba</span></a>
                             </li>
                             <li>
+                                <a href="<?= base_url() ?>Temas" class=" ">
+                                    <i><img src='<?= base_url() ?>img/iconos/lista_pruebas.png' width="50" height="50"></i><span>Temas</span></a>
+                            </li>
+                            <li>
                                 <a href="<?= base_url() ?>EstadisticasPruebas/ver">
                                     <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Estadisticas</span></a>
                             </li>
-                            <li>
-                                <a href="<?= base_url() ?>EstadisticasPruebas/municipios">
-                                    <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Est. Municipios</span></a>
-                            </li>
+                            <?php
+                                if(configuracion()["departamental"] == 1){ ?>
+                                <li>
+                                    <a href="<?= base_url() ?>EstadisticasPruebas/municipios">
+                                        <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Est. Municipios</span></a>
+                                </li>
+                                <li>
+                                    <a href="<?= base_url() ?>ParticipantesPrueba/importar">
+                                        <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Importar participantes</span></a>
+                                </li>
+                                <?php }
+                            ?>
                         <?php
                     }
                 ?>

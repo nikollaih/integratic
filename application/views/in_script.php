@@ -69,6 +69,12 @@
         <!-- Pruebas -->
         <script src="<?= base_url() ?>js/pruebas.js"></script>
 
+        <!-- Plan de area -->
+        <script src="<?= base_url() ?>js/planarea.js"></script>
+
+        <!-- Select2 -->
+        <script src="<?= base_url() ?>js/libraries/select2.min.js"></script>
+
         <!-- Preguntas -->
         <script src="<?= base_url() ?>js/preguntas.js"></script>
 

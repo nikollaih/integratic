@@ -4674,3 +4674,55 @@ div.dataTables_info {
     border-radius: 10px;
     margin-bottom: 20px;
 }
+
+.section-container {
+    background: #fff;
+    padding: 15px;
+}
+
+.section-container .enumerator{
+    font-size: 9px;
+    color: #b4b4b4;
+    font-weight: bold;
+}
+
+.section-container .section-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 15px;
+}
+
+.section-container .section-header h1 {
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    background: #5888ca;
+    padding: 1px;
+    border-radius: 50%;
+    color: #fff;
+    margin-right: 15px;
+    border: 3px solid #3958b5;
+    font-size: 25px;
+}
+
+.section-container .section-title{
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.section-container .section-content .form-group label{
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.evidence-container {
+    padding: 1px 10px;
+    margin-top: 10px;
+}
+
+.evidence-container h5, .evidence-container label{
+    text-align: center;
+    color: #fff;
+}

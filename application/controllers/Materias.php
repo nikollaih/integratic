@@ -17,4 +17,15 @@
         }
         else json_response(null, false, "Inicie sesión para continuar.");
     }
+
+    public function getMateriasArea($id_area){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) != "estudiante"){
+                $materias = $this->Materias_Model->getMateriasArea($id_area);
+                json_response($materias, true, "Lista de items.");
+            }
+            else json_response(null, false, "No tiene permiso para realizar esta acción.");
+        }
+        else json_response(null, false, "Inicie sesión para continuar.");
+    }
 } 

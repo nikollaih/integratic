@@ -94,7 +94,7 @@
 
     function empezar($id_prueba){
         if(is_logged()){
-            if(logged_user()["rol"] == "Estudiante"){
+            if(strtolower(logged_user()["rol"]) == "estudiante"){
                 //$id_prueba = decrypt_string($id_prueba, true);
                 $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
                 $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
@@ -142,7 +142,7 @@
 
     function resolver($id_prueba){
         if(is_logged()){
-            if(logged_user()["rol"] == "Estudiante"){
+            if(strtolower(logged_user()["rol"]) == "estudiante"){
                 // TODO cambiar
                 $usuario = $this->Participantes_Prueba_Model->get(logged_user()["id"]);
                 $id_participante = $usuario["id_participante_prueba"];
@@ -272,7 +272,6 @@
         $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
         $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
         $params["preguntas"] = obtener_preguntas(unserialize($params["prueba"]["materias"]), unserialize($params["prueba"]["dificultad"]));
-
         if($params["asignadas"]){
             for ($i=0; $i < count($params["asignadas"]); $i++) { 
                 array_push($params["asignadas_ids"], $params["asignadas"][$i]["id_pregunta_prueba"]);

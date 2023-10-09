@@ -9,6 +9,8 @@ class Asignacion_Participantes_Prueba_Model extends CI_Model {
 	function get_all($id_prueba){
 		$this->db->from("core_participantes_pruebas cpp");
         $this->db->join("asignacion_participantes_prueba pp", "pp.id_participante = cpp.id_participante_prueba");
+		$this->db->join("municipios m", "m.id_municipio = cpp.municipio", "left");
+		$this->db->join("instituciones_educativas ie", "ie.id_institucion_educativa = cpp.institucion", "left");
 		$this->db->where("pp.id_prueba", $id_prueba);
 		$this->db->group_by("cpp.id_participante_prueba");
 		$this->db->order_by("cpp.apellidos", "asc");

@@ -166,7 +166,11 @@
                                                             <th>Nombre Completo</th>
                                                             <th>Teléfono</th>
                                                             <th>Email</th>
-                                                            <th>Institución</th>
+                                                            <?php
+                                                                if(configuracion()["departamental"] == "1") {
+                                                                    echo "<th>Municipio</th><th>Institución</th>";
+                                                                }
+                                                            ?>
                                                             <th>Grado</th>
                                                             <th>Nota</th>
                                                             <th></th>
@@ -183,7 +187,14 @@
                                                             <td><p><?= $participante["apellidos"]." ".$participante["nombres"] ?></p></td>
                                                             <td><p><?= $participante["telefono"] ?></p></td>
                                                             <td><p><?= $participante["email"] ?></p></td>
-                                                            <td><p><?= ($info_prueba["porcentaje"] == null) ? $participante["institucion"] : $info_prueba["institucion"] ?></p></td>
+                                                            <?php
+                                                                if(configuracion()["departamental"] == "1") {
+                                                                    echo "<td>".$participante["municipio"]."</td>";
+                                                                    ?>
+                                                                    <td><p><?= $participante["nombre_institucion"] ?></p></td>
+                                                                    <?php
+                                                                }
+                                                            ?>
                                                             <td><p><?= ($info_prueba["porcentaje"] == null) ? $participante["grado"] : $info_prueba["grado"] ?></p></td>
                                                             <td class="text-center"><p><?= ($info_prueba["porcentaje"] == null) ? "" : $info_prueba["calificacion"] ?></p></td>
                                                             <td class="text-center">

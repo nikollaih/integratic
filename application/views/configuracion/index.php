@@ -40,6 +40,17 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
+                                                <label for="">Es departamental *</label>
+                                                <select class="form-control" required name="data[departamental]" id="">
+                                                    <option <?= (is_array($data) && $data["departamental"] == 1) ? "selected" : "" ?> value="1">Si</option>
+                                                    <option <?= (is_array($data) && $data["departamental"] == 0) ? "selected" : "" ?> value="0">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
                                                 <label for="">Color principal *</label>
                                                 <input required type="color" name="data[color_principal]" class="form-control" value="<?= (is_array($data)) ? $data["color_principal"] : "" ?>">
                                             </div>

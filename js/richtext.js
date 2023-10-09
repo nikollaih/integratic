@@ -1,5 +1,5 @@
 let editorRich;
-let kothingParamsForo = {
+let kothingParams = {
     width: '100%',
     height: 'auto',
     toolbarItem: [
@@ -40,7 +40,7 @@ $( document ).ready(function() {
         let imageList = [];
         let selectedImages = [];
     
-        editorRich = KothingEditor.create('textarea_richtext', kothingParamsForo);
+        editorRich = KothingEditor.create('textarea_richtext', kothingParams);
     
         editorRich.onImageUpload = function (targetImgElement, index, state, imageInfo, remainingFilesCount) {
             if (state === 'delete') {

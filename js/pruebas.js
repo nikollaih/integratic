@@ -53,6 +53,11 @@ $(document).ready(function() {
         window.location = base_url + "EstadisticasPruebas/ver/" + alcance;
     });
 
+    $("#municipios-select").on('change', function(e) {
+        let municipio = jQuery(this).val();
+        getInstitucionesMunicipio(municipio);
+    });
+
 
     function asignar_pregunta(id_pregunta, id_prueba) {
         $("#background-loading").css("display", "flex");
@@ -247,4 +252,39 @@ function setTemasMateria(temas){
         option.textContent = tema.nombre_tema;
         selectElement.appendChild(option);
     });
+}
+
+function getInstitucionesMunicipio(id_municipio) {
+    $("#background-loading").css("display", "flex");
+    $.ajax({
+        url: base_url + "InstitucionesEducativas/get_by_municipio/" + id_municipio,
+        type: 'GET',
+        success: function(data) {
+            var data = JSON.parse(data);
+            let object = data.object;
+            if (data.status) setInstituciones(object);
+            $("#background-loading").css("display", "none");
+        },
+        error: function() { 
+            $("#background-loading").css("display", "none");
+            alert("Error!") 
+        }
+    });
+}
+
+function setInstituciones(instituciones){
+    // Obtén una referencia al elemento select por su ID
+    const selectElement = document.getElementById('instituciones-select');
+
+    // Limpia el select eliminando todas las opciones existentes
+    selectElement.innerHTML = '<option value="">- Seleccionar</option>';
+
+    if(instituciones.length > 0)
+        // Itera sobre el arreglo y agrega nuevas opciones al select
+        instituciones.forEach((tema) => {
+            const option = document.createElement('option');
+            option.value = tema.id_institucion_educativa;
+            option.textContent = tema.nombre_institucion;
+            selectElement.appendChild(option);
+        });
 }

@@ -53,14 +53,19 @@ class Preguntas_Model extends CI_Model {
 		$this->db->join("cfg_materias cm", "cm.codmateria = pp.id_materia");
 		$this->db->where_in("id_materia", $materias);
 		if(is_array($dificultad)){
+			$like_query = "(";
 			for ($i=0; $i < count($dificultad); $i++) { 
 				$search = ':"'.$dificultad[$i].'";';
-				if($i == 0)
-					$this->db->like('dificultad', $search, 'both');
-				else
-					$this->db->or_like('dificultad', $search, 'both');
+				if($i == 0){
+					$like_query .= "dificultad LIKE '%".$dificultad[$i]."%'";
+				}
+				else {
+					$like_query .= " OR dificultad LIKE '%".$dificultad[$i]."%'";
+				}
 			}
+			$like_query .= ")";
 		}
+		$this->db->where($like_query);
 		$this->db->where("pp.estado", 1);
 		$this->db->order_by("pp.created_at", "desc");
 		$result = $this->db->get();

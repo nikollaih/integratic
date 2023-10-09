@@ -3,7 +3,7 @@
 
     public function __construct() {  
        parent::__construct();  
-       $this->load->model(["Caracterizacion_Model", "Caracterizacion_DBA_Model", "Caracterizacion_Areas_Model", "Caracterizacion_Lineamientos_Model", "Caracterizacion_Estandar_Competencia_Model"]);
+       $this->load->model(["Caracterizacion_Model", "Caracterizacion_DBA_Model", "Caracterizacion_Areas_Model", "Caracterizacion_Lineamientos_Model", "Caracterizacion_Estandar_Competencia_Model", "Materias_Model", "Areas_Model"]);
     }
 
     public function getCaracterizacionAreas(){
@@ -102,6 +102,20 @@
 
 
     // ============== DBA ============= //
+    public function DBAByAreaGrado(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) != "estudiante"){
+                $data = $this->input->post();
+                $materia = $this->Materias_Model->getMateria($data["materia"]);
+                $area = $this->Areas_Model->find($data["area"]);
+                $dbas = $this->Caracterizacion_DBA_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
+                json_response($dbas, true, "Lista de items.");
+            }
+            else json_response(null, false, "No tiene permiso para realizar esta acción.");
+        }
+        else json_response(null, false, "Inicie sesión para continuar.");
+    }
+
     public function DBA(){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "super"){
@@ -238,6 +252,20 @@
 
 
     // ============== ESTANDAR DE COMPETENCIAS ============= //
+    public function estandarCompetenciaByAreaGrado(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) != "estudiante"){
+                $data = $this->input->post();
+                $materia = $this->Materias_Model->getMateria($data["materia"]);
+                $area = $this->Areas_Model->find($data["area"]);
+                $estandares = $this->Caracterizacion_Estandar_Competencia_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
+                json_response($estandares, true, "Lista de items.");
+            }
+            else json_response(null, false, "No tiene permiso para realizar esta acción.");
+        }
+        else json_response(null, false, "Inicie sesión para continuar.");
+    }
+
     public function estandarCompetencia(){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "super"){

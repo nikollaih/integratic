@@ -71,16 +71,30 @@
                                 array_push($split_name, $temp_name[$i]);
                             }
                         }
+
+                        if(count($split_name) == 4){
+                            $apellidos = $split_name[2] . " " . $split_name[3];
+                            $nombres = $split_name[0] . " " . $split_name[1];
+                        }
+                        else if(count($split_name) == 3){
+                            $apellidos = $split_name[1] ." ".$split_name[2];
+                            $nombres = $split_name[0];
+                        }
+                        else {
+                            $nombres = $split_name[0];
+                            $apellidos = $split_name[1];
+                        }
+
                         $data["identificacion"] = $e["documento"];
-                        $data["nombres"] = (count($split_name) == 4) ? $split_name[2] . " " . $split_name[3] : $split_name[2];
-                        $data["apellidos"] = $split_name[0] . " " . $split_name[1];
-                        $data["telefono"] = "";
-                        $data["email"] = "";
-                        $data["institucion"] = configuracion()["nombre_institucion"];
-                        $data["grado"] =  $e["grado"];
+                        $data["nombres"] = $nombres;
+                        $data["apellidos"] = $apellidos;
 
                         $user = $CI->Participantes_Prueba_Model->get_participante_by_identificacion($e["documento"]);
                         if(!$user){
+                            $data["telefono"] = "";
+                            $data["email"] = "";
+                            $data["institucion"] = configuracion()["nombre_institucion"];
+                            $data["grado"] =  $e["grado"];
                             array_push($participantes, $CI->Participantes_Prueba_Model->create($data));
                         }
                         else{

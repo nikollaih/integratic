@@ -55,4 +55,11 @@ class Participantes_Prueba_Model extends CI_Model {
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
+
+	function get_participante_by_param($param, $value){
+		$this->db->from("core_participantes_pruebas cpp");
+		$this->db->where("cpp.".$param, $value);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
 }

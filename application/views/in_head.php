@@ -15,6 +15,8 @@
         <link href="<?= base_url() ?>css/material-design-iconic-font.min.css" rel="stylesheet">
         <!-- animate css -->
         <link href="<?= base_url() ?>css/animate.css" rel="stylesheet" />
+        <!-- select2 css -->
+        <link href="<?= base_url() ?>css/libraries/select2.min.css" rel="stylesheet" />
         <!-- Waves-effect -->
         <link href="<?= base_url() ?>css/waves-effect.css" rel="stylesheet">
         <!-- sweet alerts -->
