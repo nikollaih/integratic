@@ -12,8 +12,8 @@ class PlanAreas_Model extends CI_Model {
 	} 
     
     function update($data){
-        $this->db->update("plan_areas", $data);
-         return $this->db->where("id_plan_area", $data["id_plan_area"]);
+        $this->db->where("id_plan_area", $data["id_plan_area"]);
+        return $this->db->update("plan_areas", $data);
 	} 
 
     function find($idPlanArea){

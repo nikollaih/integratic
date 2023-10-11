@@ -4734,3 +4734,10 @@ div.dataTables_info {
 .open-close-parte {
     cursor: pointer;
 }
+
+.hide-textarea{
+    display: block !important;
+    height: 0 !important;
+    border: 0;
+    padding: 0;
+}

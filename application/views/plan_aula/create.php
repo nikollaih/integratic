@@ -129,25 +129,25 @@
                                         <div class=" col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Diagnostico <span class="text-danger">*</span></label>
-                                                <textarea required name="plan[diagnostico]" id="richtext-1" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["diagnostico"] : "" ?></textarea>
+                                                <textarea name="plan[diagnostico]" id="richtext-1" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["diagnostico"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Estado actual <span class="text-danger">*</span></label>
-                                                <textarea required name="plan[estado_actual]" id="richtext-2" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["estado_actual"] : "" ?></textarea>
+                                                <textarea name="plan[estado_actual]" id="richtext-2" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["estado_actual"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Situación deseada <span class="text-danger">*</span></label>
-                                                <textarea required name="plan[situacion_deseada]" id="richtext-3" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["situacion_deseada"] : "" ?></textarea>
+                                                <textarea name="plan[situacion_deseada]" id="richtext-3" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["situacion_deseada"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Observaciones <span class="text-danger">*</span></label>
-                                                <textarea required name="plan[observaciones]" id="richtext-4" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["observaciones"] : "" ?></textarea>
+                                                <textarea name="plan[observaciones]" id="richtext-4" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["observaciones"] : "" ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -423,11 +423,12 @@
 <?php $this->load->view("in_script") ?>
 </html>
 <script>
+    let forLength = "<?= (is_array($plan_area)) ? 11 : 5 ?>";
     $('.select-2').select2();
 
     let kothingParamsPlan = {
         fontSize: ['8px', '10px', '12px', '14px', '16px', '18px', '20px'], // Lista de tamaños de letra
-  defaultFontSize: '12px', // Tamaño de letra predeterminado
+        defaultFontSize: '12px', // Tamaño de letra predeterminado
         width: '100%',
         height: 'auto',
         toolbarItem: [
@@ -441,13 +442,16 @@
 
     $( document ).ready(function() { 
         let allRichtext = [];
-        for (let i = 1; i < 11; i++) {
+        for (let i = 1; i < forLength; i++) {
             allRichtext[i] = KothingEditor.create('richtext-' + i, kothingParamsPlan);
+            jQuery("#richtext-" + i).addClass("hide-textarea");
         }
 
         $("#form-plan-aula").on('submit', function(e) {
-            for (let i = 1; i < 11; i++) {
-                jQuery("#richtext-" + i).html(allRichtext[i].getContents());;
+            for (let i = 1; i < forLength; i++) {
+                if(jQuery("#richtext-" + i).length) {
+                    jQuery("#richtext-" + i).html(allRichtext[i].getContents());
+                }
             }
         });
     })

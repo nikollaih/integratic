@@ -57,11 +57,11 @@ use Dompdf\Options;
     // Crea o actualiza la información de un plan de area
     private function savePlanArea($data){
         if($data){
-            $data["dbas"] = serialize($data["dbas"]);
-            $data["estandares_basicos"] = serialize($data["estandares_basicos"]);
+            $data["dbas"] = (isset($data["dbas"])) ? serialize($data["dbas"]) : serialize([]);
+            $data["estandares_basicos"] = (isset($data["estandares_basicos"])) ? serialize($data["estandares_basicos"]) : serialize([]);
             $data["created_by"] = logged_user()["id"];
 
-            if($data["id_plan_area"] != null){
+            if($data["id_plan_area"] != null && $data["id_plan_area"] != "null"){
                 $idPlanAula = $this->PlanAreas_Model->update($data);
             }
             else {
