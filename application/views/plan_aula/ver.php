@@ -12,7 +12,6 @@
                     </tr>
                     <tr>
                         <td>
-                            <h5>INSTITUCIÓN EDUCATIVA</h5>
                             <h5><?= (configuracion()) ? strtoupper(configuracion()["nombre_institucion"]) : "" ?></h5>
                             <p class="small-text"><?= (configuracion()) ? strtoupper(configuracion()["ciudad"]) : "" ?></p>
                         </td>
@@ -243,6 +242,6 @@
         height:110px;
         position: absolute;
         left: 20;
-        top: 16;
+        top: 7;
     }
 </style>
