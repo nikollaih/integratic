@@ -1,28 +1,28 @@
-<?php $this->load->view("in_head"); ?>
-
 <div class="general-content">
     <div class="row">
         <div class="col-md-12">
         <?php $logo = (configuracion()) ? configuracion()["logo_institucion"] : "" ?>
             <table>
-                <tr>
-                    <td style="width:150px;" rowspan="3"><img src="<?= base_url('img/'.$logo) ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>" class="thumb-lg"></td>
-                    <td><p class="small-text">FORMATO</p></td>
-                    <td><p class="small-text">CÓDIGO</p></td>
-                    <td style="width:150px;" rowspan="3"><img src="<?= base_url() ?>img/<?= (configuracion()) ? configuracion()["logo_institucion"] : "" ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>" class="thumb-lg"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <h5>INSTITUCIÓN EDUCATIVA</h5>
-                        <h5><?= (configuracion()) ? strtoupper(configuracion()["nombre_institucion"]) : "" ?></h5>
-                        <p class="small-text"><?= (configuracion()) ? strtoupper(configuracion()["ciudad"]) : "" ?></p>
-                    </td>
-                    <td><p class="small-text">VERSION</p></td>
-                </tr>
-                <tr>
-                    <td><p class="small-text">PLAN DE AULA</p></td>
-                    <td><p class="small-text">FECHA: <?= date("Y-m-d", strtotime($plan_area["created_at"])) ?></p></td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td class="td-image" rowspan="3"><img src="<?= base_url('img/'.$logo) ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>"></td>
+                        <td><p class="small-text">FORMATO</p></td>
+                        <td><p class="small-text">CÓDIGO</p></td>
+                        <td class="td-image" rowspan="3"><img src="<?= base_url() ?>img/it.png" alt="IntegraTic"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5>INSTITUCIÓN EDUCATIVA</h5>
+                            <h5><?= (configuracion()) ? strtoupper(configuracion()["nombre_institucion"]) : "" ?></h5>
+                            <p class="small-text"><?= (configuracion()) ? strtoupper(configuracion()["ciudad"]) : "" ?></p>
+                        </td>
+                        <td><p class="small-text">VERSION</p></td>
+                    </tr>
+                    <tr>
+                        <td><p class="small-text">PLAN DE AULA</p></td>
+                        <td><p class="small-text">FECHA: <?= date("Y-m-d", strtotime($plan_area["created_at"])) ?></p></td>
+                    </tr>
+                </tbody>
             </table>
 
             <table style="margin-top: 20px;">
@@ -197,6 +197,10 @@
         width: 100%;
     }
 
+    tbody, th {
+        color: #000 !important;
+    }
+
     th, td {
         border: 1px solid black;
         padding: 8px;
@@ -209,24 +213,36 @@
 
     .small-text {
         font-size: 11px;
-        margin: 0;
+        margin: 0 !important;
         text-align: center;
+        margin-bottom: 0 !important;
+        margin-top: 0 !important;
     }
 
     h5{ 
         margin: 0;
         text-align: center;
     }
-
-    @font-face {
-        font-family: 'Elegance';
-        font-weight: normal;
-        font-style: normal;
-        font-variant: normal;
-        src: url("http://eclecticgeek.com/dompdf/fonts/Elegance.ttf") format("truetype");
-    }
     
     body {
         font-family: Elegance, sans-serif, arial !important;
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    .td-image {
+        width:150px;
+        text-align:center;
+        height:100px !important;
+        padding-bottom: 0 !important;
+        position: relative;
+    }
+
+    .td-image > img{
+        width: 110px;
+        height:110px;
+        position: absolute;
+        left: 20;
+        top: 16;
     }
 </style>

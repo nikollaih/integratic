@@ -118,6 +118,7 @@ use Dompdf\Options;
         $dompdf->set_option('defaultMediaType', 'all');
         $dompdf->set_option('isFontSubsettingEnabled', true);
         $dompdf->set_option('isHtml5ParserEnabled', true);
+        $dompdf->set_option('isRemoteEnabled', TRUE);
         
         $dompdf->loadHtml($html);
 
