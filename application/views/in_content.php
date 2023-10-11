@@ -2471,7 +2471,9 @@ function cambio_menu(){
         //html+="<li><a href='javascript:cfg_docente();'>";
         //html+="<i><img src='./img/iconos/menu.png' width='60' height='40'></i><span>Administrar</span></a></li>";  
         html+="<li><a href='" + base_url+"Pruebas' class=' '>";
-        html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>";   
+        html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>";  
+        html+="<li><a href='" + base_url+"PlanAula' class=' '>";
+        html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Plan Aula</span></a></li>";   
         html+="<li><a href='javascript:cfg_docente();' class=' '>";
         html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
         html+="<li><a href='javascript:cfg_proyectos();' class=' '>";

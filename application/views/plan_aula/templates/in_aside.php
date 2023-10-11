@@ -15,7 +15,7 @@
                 </li>
                 <li>
                     <a href="<?= base_url() ?>PlanAula" class=" ">
-                        <i><img src='<?= base_url() ?>img/iconos/lista_pruebas.png' width="50" height="50"></i><span>Planes de aula</span></a>
+                        <i><img src='<?= base_url() ?>img/iconos/lista_pruebas.png' width="50" height="50"></i><span>Ver todos</span></a>
                 </li>   
                 <li>
                     <a href="<?= base_url() ?>PlanAula/create" class=" ">

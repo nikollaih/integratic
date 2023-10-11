@@ -4726,3 +4726,11 @@ div.dataTables_info {
     text-align: center;
     color: #fff;
 }
+
+.select2.select2-container {
+    width: 100% !important;
+}
+
+.open-close-parte {
+    cursor: pointer;
+}

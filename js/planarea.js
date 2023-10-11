@@ -18,6 +18,26 @@ jQuery(document).ready(function() {
         }
     });
 
+    jQuery(document).on("click", ".open-close-parte", function() {
+        let parte = jQuery(this).attr("data-parte");
+        jQuery("#parte-" + parte).slideToggle();
+    });
+
+    jQuery(document).on("click", ".remove-evidencia-aprendizaje", function() {
+        let idEvidenciaAprendizaje = jQuery(this).attr("data-id");
+        removeEvidenciaAprendizaje(idEvidenciaAprendizaje);
+    });
+
+    jQuery(document).on("change", "#only-row-input", function() {
+        if(jQuery(this).is(":checked")){
+            jQuery(".extra-info-evidencia").slideUp();
+        }
+        else {
+            jQuery(".extra-info-evidencia").slideDown();
+        }
+    });
+
+
     jQuery(document).on("change", "#plan-area-materia", function() {
         let idMateria = jQuery(this).val();
         let idArea = jQuery("#plan-area-area").val();
@@ -40,7 +60,9 @@ jQuery(document).ready(function() {
                 var data = JSON.parse(data);
                 let object = data.object;
                 if (data.status) setMateriasArea(object);
-                $("#background-loading").css("display", "none");
+                setTimeout(() => {
+                    $("#background-loading").css("display", "none");
+                }, 3000)
             },
             error: function() { 
                 $("#background-loading").css("display", "none");
@@ -148,5 +170,27 @@ jQuery(document).ready(function() {
             });
         }
         jQuery('.select-2').trigger("change");
+    }
+
+    function removeEvidenciaAprendizaje(idEvidenciaAprendizaje){
+        if (confirm("¿Está seguro que desea eliminar la evidencia de aprendizaje?") == true) {
+            $("#background-loading").css("display", "flex");
+            $.ajax({
+                url: base_url + "EvidenciasAprendizaje/remove/" + idEvidenciaAprendizaje,
+                type: 'POST',
+                success: function(data) {
+                    var data = JSON.parse(data);
+                    if (data.status) {
+                        jQuery("#evidencia-aprendizaje-" + idEvidenciaAprendizaje).remove();
+                    }
+                    $("#background-loading").css("display", "none");
+                    alert(data.message);
+                },
+                error: function() {
+                    $("#background-loading").css("display", "none");
+                    alert("Error!")
+                }
+            });
+        }
     }
 })

@@ -63,13 +63,17 @@ class Docente extends CI_Controller {
         } 
         else{echo ("Error en Asignacion");}
     } 
-    public function planeacion()
-    {  
-        if($datos  = $this->Consultas_Model->planeacion()){                   
+
+    function planeacion(){  
+        $datos  = $this->Consultas_Model->planeacion();
+        if($datos){                   
             echo json_encode($datos);
         } 
-        else{echo ("Error en Asignacion");}
+        else {
+            echo ("Error en Asignacion");
+        }
     }    
+
     public function tproyectos()
     {  
         if($datos  = $this->Consultas_Model->tproyectos()){                   

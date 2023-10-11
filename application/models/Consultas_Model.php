@@ -99,8 +99,7 @@ class Consultas_Model extends CI_Model {
   }
     public function planeacion(){
     $result=$this->db->query("select * from cfg_menu_planea");
-    if(!$result) {return false;}
-    else {return $result->result();}      
+    return $result->result();
   }  
     public function tproyectos(){
     $result=$this->db->query("select * from cfg_proyectos");
