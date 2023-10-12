@@ -38,4 +38,9 @@ class PlanAreas_Model extends CI_Model {
         $result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
     }
+
+    function delete($idPlanArea){
+        $this->db->where("id_plan_area", $idPlanArea);
+        return $this->db->delete("plan_areas");
+    }
 } 

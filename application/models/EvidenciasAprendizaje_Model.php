@@ -11,6 +11,11 @@ class EvidenciasAprendizaje_Model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    function update($data){
+        $this->db->where("id_evidencia_aprendizaje", $data["id_evidencia_aprendizaje"]);
+        return $this->db->update("evidencias_aprendizaje", $data);
+    }
+
     function getByPlanArea($idPlanArea){
         $this->db->from("evidencias_aprendizaje ea");
         $this->db->where("ea.id_plan_area", $idPlanArea);
@@ -27,6 +32,11 @@ class EvidenciasAprendizaje_Model extends CI_Model {
 
     function delete($idEvidenciaAprendizaje){
         $this->db->where("id_evidencia_aprendizaje", $idEvidenciaAprendizaje);
+        return $this->db->delete("evidencias_aprendizaje");
+    }
+
+    function deleteByPlanAula($idPlanAula){
+        $this->db->where("id_plan_area", $idPlanAula);
         return $this->db->delete("evidencias_aprendizaje");
     }
 } 

@@ -9,8 +9,17 @@
                     <input type="hidden" name="plan[id_plan_area]" value="<?= (is_array($plan_area)) ? $plan_area["id_plan_area"] : "null" ?>">
                     <div class="row" id="migas">
                         <div class="col-md-12">
-                            <h3><?= is_array($plan_area) ? "Modificar" : "Nuevo" ?> plan de aula</h3>
-                            <p>Por favor ingrese todos los campos para poder generar el plan de aula, los campos marcados con <span class="text-danger">*</span> son obligatorios.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div style="flex:1;">
+                                    <h3><?= is_array($plan_area) ? "Modificar" : "Nuevo" ?> plan de aula</h3>
+                                    <p>Por favor ingrese todos los campos para poder generar el plan de aula, los campos marcados con <span class="text-danger">*</span> son obligatorios.</p>
+                                </div>
+                                <?php
+                                    if(is_array($plan_area)){
+                                        echo '<a target="_blank" class="btn btn-primary" href="'.base_url().'PlanAula/ver/'.$plan_area["id_plan_area"].'">Ver PDF</a>';
+                                    }
+                                ?>
+                            </div>
                             <hr>
                         </div>
                     </div>
@@ -41,7 +50,7 @@
                                         <div class="col-md-3 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Área <span class="text-danger">*</span></label>
-                                                <select required class="form-control" name="plan[area]" id="plan-area-area">
+                                                <select <?= (is_array($plan_area)) ? "disabled" : "" ?> required class="form-control" name="plan[area]" id="plan-area-area">
                                                     <option value="">- Seleccionar</option>
                                                     <?php
                                                         if($areas){
@@ -56,7 +65,7 @@
                                         <div class="col-md-3 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Materia <span class="text-danger">*</span></label>
-                                                <select required class="form-control" name="plan[materia]" id="plan-area-materia">
+                                                <select <?= (is_array($plan_area)) ? "disabled" : "" ?> required class="form-control" name="plan[materia]" id="plan-area-materia">
                                                     <option value="">- Seleccionar</option>
                                                     <?php
                                                         if($materias){
@@ -71,7 +80,7 @@
                                         <div class="col-md-3 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Periodo <span class="text-danger">*</span></label>
-                                                <select required class="form-control" name="plan[periodo]" id="plan-area-periodo">
+                                                <select <?= (is_array($plan_area)) ? "disabled" : "" ?> required class="form-control" name="plan[periodo]" id="plan-area-periodo">
                                                     <option value="">- Seleccionar</option>
                                                     <?php
                                                         if($periodos){
@@ -99,6 +108,18 @@
                                             <div class="form-group">
                                                 <label for="">Intensidad horaria (Semanal) <span class="text-danger">*</span></label>
                                                 <input required type="number" placeholder="Ej. 2" name="plan[intensidad_horaria]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["intensidad_horaria"] : "" ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-4 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="">Código <span class="text-danger">*</span></label>
+                                                <input required type="text" placeholder="" name="plan[codigo]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["codigo"] : "" ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-4 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="">Versión <span class="text-danger">*</span></label>
+                                                <input required type="number" placeholder="" name="plan[version]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["version"] : "" ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -267,6 +288,8 @@
                                                                                 <?php }
                                                                             ?>
                                                                             <td>
+
+                                                                                <a href="<?= base_url() ?>PlanAula/create/<?= $plan_area["id_plan_area"] ?>/<?= $evidencia["id_evidencia_aprendizaje"] ?>" class="btn btn-sm btn-info m-b-1">Editar</a>
                                                                                 <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="button" class="btn btn-sm btn-danger remove-evidencia-aprendizaje">Eliminar</button>
                                                                             </td>
                                                                         </tr>
@@ -288,26 +311,31 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row" id="container-form-evidencia">
                                 <div class="col-md-12">
                                     <div class="section-container">
                                         <div class="section-header">
                                             <div>
                                                 <span class="enumerator">PARTE 4 DE 4</span>
-                                                <h4 class="section-title">Nueva Evidencia de aprendizaje</h4>
+                                                <h4 class="section-title"><?= (is_array($selectedEvidencia)) ? "Modificar" : "Nueva" ?> Evidencia de aprendizaje</h4>
                                             </div>
                                         </div>
                                         <div class="section-content">
                                             <hr>
                                             <div class="row">
+                                                <input type="hidden" name="evidencia[id_evidencia_aprendizaje]" value="<?= (is_array($selectedEvidencia)) ? $selectedEvidencia["id_evidencia_aprendizaje"] : "null" ?>">
                                                 <div class="col-md-3 col-sm-4 col-xs-12">
                                                     <div class="form-group">
                                                         <label for="">Semana(s)</label>
                                                         <select name="evidencia[semanas][]" class="form-control select-2" multiple id="">
                                                             <?php
                                                                 if($semanas){
+                                                                    $selectedSemanas = [];
+                                                                    if(is_array($selectedEvidencia)){
+                                                                        $selectedSemanas = unserialize($selectedEvidencia["semanas"]);
+                                                                    }
                                                                     foreach ($semanas as $semana) { ?>
-                                                                        <option value="<?= $semana["id_semana_periodo"] ?>"><?= $semana["semana"]. " - ( " . date("Y-m-d", strtotime($semana["fecha_inicio"])) . " )" ?></option>
+                                                                        <option <?= (in_array($semana["id_semana_periodo"], $selectedSemanas)) ? "selected" : "" ?> value="<?= $semana["id_semana_periodo"] ?>"><?= $semana["semana"]. " - ( " . date("Y-m-d", strtotime($semana["fecha_inicio"])) . " )" ?></option>
                                                                     <?php }
                                                                 }
                                                             ?>
@@ -317,17 +345,17 @@
                                                 <div class=" col-xs-12">
                                                     <div class="form-group">
                                                         <label for="">Evidencia de aprendizaje</label>
-                                                        <textarea name="evidencia[evidencia_aprendizaje]" id="richtext-5" cols="30" rows="3" class="form-control"></textarea>
+                                                        <textarea name="evidencia[evidencia_aprendizaje]" id="richtext-5" cols="30" rows="3" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["evidencia_aprendizaje"] : "" ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class=" col-xs-12">
                                                     <div class="form-group form-check">
-                                                        <input name="evidencia[is_only_row]" type="checkbox" class="form-check-input" id="only-row-input">
-                                                        <label class="form-check-label" for="exampleCheck1">La(s) semana(s) seleccionada(s) cuentan con proceso de exploración, estructuracion...</label>
+                                                        <input name="evidencia[is_only_row]" type="checkbox" class="form-check-input" id="only-row-input" <?= (is_array($selectedEvidencia) && $selectedEvidencia["is_only_row"] == 1) ? "checked" : "" ?>>
+                                                        <label class="form-check-label" for="exampleCheck1">Solo registrar evidencia de aprendizaje para esta(s) semana(s).</label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="extra-info-evidencia">
+                                            <div class="extra-info-evidencia" style="display:<?= (is_array($selectedEvidencia) && $selectedEvidencia["is_only_row"] == 1) ? "none;" : "block;" ?>">
                                                 <div class="row">
                                                     <div class="col-md-4 col-sm-6 col-xs-12">
                                                         <div style="background: #077b5d;" class="evidence-container">
@@ -336,7 +364,7 @@
                                                                 <div class=" col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="">Motivación y exploración de saberes previos</label>
-                                                                        <textarea name="evidencia[exploracion]" id="richtext-6" cols="30" rows="4" class="form-control"></textarea>
+                                                                        <textarea name="evidencia[exploracion]" id="richtext-6" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["exploracion"] : "" ?></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -350,7 +378,7 @@
                                                                 <div class=" col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="">Momento estrucuración y práctica</label>
-                                                                        <textarea name="evidencia[estructuracion]" id="richtext-7" cols="30" rows="4" class="form-control"></textarea>
+                                                                        <textarea name="evidencia[estructuracion]" id="richtext-7" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["estructuracion"] : "" ?></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -364,7 +392,7 @@
                                                                 <div class=" col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="">Momento de transferencia</label>
-                                                                        <textarea name="evidencia[transferencia]" id="richtext-8" cols="30" rows="4" class="form-control"></textarea>
+                                                                        <textarea name="evidencia[transferencia]" id="richtext-8" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["transferencia"] : "" ?></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -378,7 +406,7 @@
                                                                 <div class=" col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="">Momento de transferencia</label>
-                                                                        <textarea name="evidencia[valoracion]" id="richtext-9" cols="30" rows="4" class="form-control"></textarea>
+                                                                        <textarea name="evidencia[valoracion]" id="richtext-9" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["valoracion"] : "" ?></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -392,7 +420,7 @@
                                                                 <div class=" col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="">Recursos</label>
-                                                                        <textarea name="evidencia[recursos]" id="richtext-10" cols="30" rows="4" class="form-control"></textarea>
+                                                                        <textarea name="evidencia[recursos]" id="richtext-10" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["recursos"] : "" ?></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -424,6 +452,8 @@
 </html>
 <script>
     let forLength = "<?= (is_array($plan_area)) ? 11 : 5 ?>";
+    let editEvidencia = "<?= (is_array($selectedEvidencia)) ? "true" : "false" ?>";
+
     $('.select-2').select2();
 
     let kothingParamsPlan = {
@@ -454,5 +484,11 @@
                 }
             }
         });
+
+        if(editEvidencia == "true"){
+            jQuery('html, body').animate({
+                scrollTop: $("#container-form-evidencia").offset().top
+            }, 2000);
+        }
     })
 </script>

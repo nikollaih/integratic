@@ -7,7 +7,7 @@
                     <tr>
                         <td class="td-image" rowspan="3"><img src="<?= base_url('img/'.$logo) ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>"></td>
                         <td><p class="small-text">FORMATO</p></td>
-                        <td><p class="small-text">CÓDIGO</p></td>
+                        <td><p class="small-text">CÓDIGO: <?= $plan_area["codigo"] ?></p></td>
                         <td class="td-image" rowspan="3"><img src="<?= base_url() ?>img/it.png" alt="IntegraTic"></td>
                     </tr>
                     <tr>
@@ -15,7 +15,7 @@
                             <h5><?= (configuracion()) ? strtoupper(configuracion()["nombre_institucion"]) : "" ?></h5>
                             <p class="small-text"><?= (configuracion()) ? strtoupper(configuracion()["ciudad"]) : "" ?></p>
                         </td>
-                        <td><p class="small-text">VERSION</p></td>
+                        <td><p class="small-text">VERSION: <?= $plan_area["version"] ?></p></td>
                     </tr>
                     <tr>
                         <td><p class="small-text">PLAN DE AULA</p></td>
@@ -34,7 +34,7 @@
                             <b class="item-title">ASIGNATURA: <br> <?= strtoupper($materia["nommateria"]) ?></b>
                         </th>
                         <th>
-                            <b class="item-title">DOCENTE: <br> <?= strtoupper($area["nomarea"]) ?></b>
+                            <b class="item-title">DOCENTE: <?= strtoupper($usuario["nombres"]." ".$usuario["apellidos"]) ?></b>
                         </th>
                         <th>
                             <b class="item-title">PERIODO: <br> <?= strtoupper($plan_area["periodo"]) ?></b>

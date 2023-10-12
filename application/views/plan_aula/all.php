@@ -31,16 +31,17 @@
                                     <?php
                                         if($planes_aula){
                                             foreach ($planes_aula as $plan) { ?>
-                                                <tr>
+                                                <tr id="plan-aula-<?= $plan["id_plan_area"] ?>">
                                                     <td><?= $plan["nomarea"] ?></td>
                                                     <td><?= $plan["nommateria"] ?></td>
                                                     <td><?= $plan["grado"] ?></td>
                                                     <td><?= $plan["periodo"] ?></td>
                                                     <td><?= $plan["fecha_inicio"] ?></td>
                                                     <td><?= $plan["fecha_fin"] ?></td>
-                                                    <td>
+                                                    <td style="width:200px;">
                                                         <a href="<?= base_url() ?>PlanAula/create/<?= $plan["id_plan_area"] ?>" class="btn btn-info btn-sm">Editar</a>
                                                         <a target="_blank" href="<?= base_url() ?>PlanAula/ver/<?= $plan["id_plan_area"] ?>" class="btn btn-primary btn-sm">Ver</a>
+                                                        <button data-id="<?= $plan["id_plan_area"] ?>" class="btn btn-danger btn-sm remove-plan-aula">Eliminar</button>
                                                     </td>
                                                 </tr>
                                             <?php }

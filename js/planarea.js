@@ -23,6 +23,11 @@ jQuery(document).ready(function() {
         jQuery("#parte-" + parte).slideToggle();
     });
 
+    jQuery(document).on("click", ".remove-plan-aula", function() {
+        let idPlanAula = jQuery(this).attr("data-id");
+        removePlanAula(idPlanAula);
+    });
+
     jQuery(document).on("click", ".remove-evidencia-aprendizaje", function() {
         let idEvidenciaAprendizaje = jQuery(this).attr("data-id");
         removeEvidenciaAprendizaje(idEvidenciaAprendizaje);
@@ -182,6 +187,29 @@ jQuery(document).ready(function() {
                     var data = JSON.parse(data);
                     if (data.status) {
                         jQuery("#evidencia-aprendizaje-" + idEvidenciaAprendizaje).remove();
+                    }
+                    $("#background-loading").css("display", "none");
+                    alert(data.message);
+                },
+                error: function() {
+                    $("#background-loading").css("display", "none");
+                    alert("Error!")
+                }
+            });
+        }
+    }
+
+    // Elimina el plan de aula y sus respectivas evidencias de aprendizaje
+    function removePlanAula(idPlanAula){
+        if (confirm("¿Está seguro que desea eliminar el plan de aula?") == true) {
+            $("#background-loading").css("display", "flex");
+            $.ajax({
+                url: base_url + "PlanAula/delete/" + idPlanAula,
+                type: 'POST',
+                success: function(data) {
+                    var data = JSON.parse(data);
+                    if (data.status) {
+                        jQuery("#plan-aula-" + idPlanAula).remove();
                     }
                     $("#background-loading").css("display", "none");
                     alert(data.message);

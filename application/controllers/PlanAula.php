@@ -6,7 +6,7 @@ use Dompdf\Options;
     public function __construct() {  
        parent::__construct();  
        $this->load->helper(array('form', 'url','html')); 
-       $this->load->model(["Areas_Model", "Periodos_Model", "PlanAreas_Model", "Materias_Model", "Caracterizacion_Estandar_Competencia_Model", "Caracterizacion_DBA_Model", "EvidenciasAprendizaje_Model", "SemanasPeriodo_Model"]);
+       $this->load->model(["Areas_Model", "Periodos_Model", "PlanAreas_Model", "Materias_Model", "Caracterizacion_Estandar_Competencia_Model", "Caracterizacion_DBA_Model", "EvidenciasAprendizaje_Model", "SemanasPeriodo_Model", "Usuarios_Model"]);
     }
 
     function index(){
@@ -20,13 +20,14 @@ use Dompdf\Options;
         else header("Location: ".base_url());
     }
 
-    public function create($idPlanAula = null){   
+    public function create($idPlanAula = null, $idEvidenciaAprendizaje = null){   
         if(is_logged()){
 			if(strtolower(logged_user()["rol"]) == "docente"){
                 if($this->input->post()){
                     $plan = $this->input->post("plan");
                     $params["message"] = $this->savePlanArea($plan);
                     $this->saveEvidencia($this->input->post("evidencia"), $plan["id_plan_area"]);
+                    $idEvidenciaAprendizaje = null;
                 }
                 $params["materias"] = null;
                 $params["estandares"] = null;
@@ -34,6 +35,16 @@ use Dompdf\Options;
                 $params["evidencias"] = null;
 
                 $params["plan_area"] = $this->PlanAreas_Model->find($idPlanAula);
+                if(!$params["plan_area"]){
+                    $idEvidenciaAprendizaje = null;
+                }
+
+                $params["selectedEvidencia"] = $this->EvidenciasAprendizaje_Model->find($idEvidenciaAprendizaje);
+
+                if(is_array($params["selectedEvidencia"]) && ($params["selectedEvidencia"]["id_plan_area"] != $idPlanAula)){
+                    header("Location: ".base_url()."/PlanAula");
+                }
+
                 $params["areas"] = $this->Areas_Model->getAreasDocente(logged_user()["id"]);
                 $params["periodos"] = $this->Periodos_Model->getAll();
 
@@ -83,7 +94,12 @@ use Dompdf\Options;
             $evidencia["id_plan_area"] = $idPlanAula;
             $evidencia["semanas"] = serialize($evidencia["semanas"]);
             $evidencia["is_only_row"] = (isset($evidencia["is_only_row"])) ? 1 : 0;
-            $this->EvidenciasAprendizaje_Model->create($evidencia);
+
+            if($evidencia["id_evidencia_aprendizaje"] == "null" || $evidencia["id_evidencia_aprendizaje"] == null)
+                $this->EvidenciasAprendizaje_Model->create($evidencia);
+            else {
+                $this->EvidenciasAprendizaje_Model->update($evidencia);
+            }
         }
     }
 
@@ -92,6 +108,7 @@ use Dompdf\Options;
         if(is_array($params["plan_area"])){
             $area = $this->Areas_Model->find($params["plan_area"]["area"]);
             $materia = $this->Materias_Model->getMateria($params["plan_area"]["materia"]);
+            $params["usuario"] = $this->Usuarios_Model->get_user($params["plan_area"]["created_by"]);
             $params["area"] = $area;
             $params["materia"] = $materia;
             $params["materias"] = $this->Materias_Model->getMateriasArea($params["plan_area"]["area"]);
@@ -127,5 +144,32 @@ use Dompdf\Options;
 
         // Mostrar el PDF en el navegador o descargarlo
         $dompdf->stream('documento.pdf', array('Attachment' => false));
+    }
+
+    // Eliminar un plan de aula con sus respectivas evidencias de aprendizaje
+    function delete($idPlanAula){
+        if(is_logged()){
+            $planAula = $this->PlanAreas_Model->find($idPlanAula);
+            if(is_array($planAula)){
+                if(strtolower(logged_user()["rol"]) == "docente" && $planAula["created_by"] == logged_user()["id"]){
+                    $this->EvidenciasAprendizaje_Model->deleteByPlanAula($idPlanAula);
+                    if($this->PlanAreas_Model->delete($idPlanAula)){
+                        json_response(null, true, "Plan de aula eliminado exitosamente");
+                    }
+                    else{
+                        json_response(null, true, "Ha ocurrido un error, por favor intente de nuevo más tarde");
+                    }
+                }
+                else {
+                    json_response(null, false, "No tiene permisos para realizar esta acción");
+                }
+            }
+            else {
+                json_response(null, false, "No existe el plan de aula");
+            }
+        }
+        else{
+            json_response(null, false, "Por favor inicie sesion");
+        }
     }
 } 
