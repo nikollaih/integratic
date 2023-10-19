@@ -3,6 +3,20 @@ $( document ).ready(function() {
     setAreasCaracterizacion();
 });
 
+// Agrega la clase al pasar el ratón sobre el elemento
+$(".periodo-container.item-periodo").hover(function() {
+    $(this).removeClass("bg-light");
+    $(this).addClass("bg-info");
+    $(this).find("p").addClass("text-white");
+    $(this).find("h2").addClass("text-white");
+  }, function() {
+    // Elimina la clase al salir el ratón del elemento
+    $(this).removeClass("bg-info");
+    $(this).addClass("bg-light");
+    $(this).find("p").removeClass("text-white");
+    $(this).find("h2").removeClass("text-white");
+  });
+
 $(document).on("click", ".notificaciones-icon", function() {
     actualizar_fecha_notificaciones();
 });

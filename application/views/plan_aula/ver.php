@@ -97,6 +97,11 @@
                             ?>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="8">
+                            <p class="item-text"><b>ENCUADRE O PACTOS DE CLASE: </b><?= $plan_area["pactos_clase"] ?></p>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -130,10 +135,23 @@
                     <?php 
                         if($evidencias){
                             foreach ($evidencias as $evidencia) { 
-                                $semanas = implode(" - ", unserialize($evidencia["semanas"]));
+                                $semanas = unserialize($evidencia["semanas"]);
+                                $listaSemanas = get_semanas_by_ids($semanas);
                                 ?>
                                 <tr>
-                                    <td><p class="item-text"><?= $semanas ?></p></td>
+                                    <td style="width:90px;">
+                                        <?php
+                                            if(is_array($listaSemanas)){
+                                                for ($i=0; $i < count($listaSemanas); $i++) { ?>
+                                                    <div style="text-align:center;margin-bottom:10px;">
+                                                        <h5 class="m-b-0"><?= $listaSemanas[$i]["semana"] ?></h5>
+                                                        <span style="font-size:11px;color:#6d6d6d;"><?= $listaSemanas[$i]["fecha_inicio"] ?></span><br>
+                                                        <span style="font-size:11px;color:#6d6d6d;"><?= $listaSemanas[$i]["fecha_fin"] ?></span>
+                                                    </div>
+                                                <?php }
+                                            }
+                                        ?>
+                                    </td>
                                     <td colspan="<?= ($evidencia["is_only_row"]) ? 6 : 1 ?>"><p class="item-text"><?= $evidencia["evidencia_aprendizaje"] ?></p></td>
                                     <?php
                                         if($evidencia["is_only_row"] != 1){ ?>

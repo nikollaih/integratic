@@ -66,6 +66,9 @@
         <!-- Caracterizacion -->
         <script src="<?= base_url() ?>js/caracterizacion.js"></script>
 
+        <!-- Periodos -->
+        <script src="<?= base_url() ?>js/periodos.js"></script>
+
         <!-- Pruebas -->
         <script src="<?= base_url() ?>js/pruebas.js"></script>
 

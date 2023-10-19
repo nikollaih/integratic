@@ -23,6 +23,15 @@ class EvidenciasAprendizaje_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+    function getBySemanasPeriodo($semanasIDS){
+        $this->db->from("evidencias_aprendizaje ea");
+        if(is_array($semanasIDS)){
+            $this->db->like("ea.semanas", '"'.$semanasIDS[0].'"', "both");
+        }
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
     function find($idEvidenciaAprendizaje){
         $this->db->from("evidencias_aprendizaje");
         $this->db->where("id_evidencia_aprendizaje", $idEvidenciaAprendizaje);

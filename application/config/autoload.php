@@ -83,7 +83,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('usuarios', 'files', 'materias', 'exports', 'general', 'auth', 'documents', 'estudiantes', 'anuncios', 'actividades', 'preguntas', 'pruebas', 'imports', 'url');
+$autoload['helper'] = array('usuarios', 'files', 'materias', 'exports', 'general', 'auth', 'documents', 'estudiantes', 'anuncios', 'actividades', 'preguntas', 'pruebas', 'imports', 'url', 'periodos_semanas');
 
 /*
 | -------------------------------------------------------------------

@@ -2553,7 +2553,7 @@ body.fixed-left .side-menu.left {
 
 .mini-stat {
     background: #fff;
-    padding: 20px;
+    padding: 5px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -4379,6 +4379,10 @@ div.dataTables_info {
     margin: 0;
 }
 
+.m-r-1 {
+    margin-right: 10px;
+}
+
 .m-b-1 {
     margin-bottom: 10px !important;
 }
@@ -4405,6 +4409,26 @@ div.dataTables_info {
 
 .p-b-4 {
     padding-bottom: 40px !important;
+}
+
+.bg-light.card{
+    background-color: #f8f9fa!important;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+#nuevo-periodo-agregar .periodo-container{
+    min-height: 150px;
+}
+
+.periodo-container{
+    cursor: pointer;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .no-calificar {

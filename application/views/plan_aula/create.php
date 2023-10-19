@@ -171,6 +171,12 @@
                                                 <textarea name="plan[observaciones]" id="richtext-4" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["observaciones"] : "" ?></textarea>
                                             </div>
                                         </div>
+                                        <div class=" col-xs-12">
+                                            <div class="form-group">
+                                                <label for="">Encuadre o pactos de clase <span class="text-danger">*</span></label>
+                                                <textarea name="plan[pactos_clase]" id="richtext-11" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["pactos_clase"] : "" ?></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -273,10 +279,23 @@
                                                         <?php 
                                                                 if($evidencias){
                                                                     foreach ($evidencias as $evidencia) { 
-                                                                        $selectedSemanas = implode(" - ", unserialize($evidencia["semanas"]));
+                                                                        $selectedSemanas = unserialize($evidencia["semanas"]);
+                                                                        $listaSemanas = get_semanas_by_ids($selectedSemanas);
                                                                         ?>
                                                                         <tr id="evidencia-aprendizaje-<?= $evidencia["id_evidencia_aprendizaje"] ?>">
-                                                                            <td><?= $selectedSemanas ?></td>
+                                                                            <td style="width:100px;">
+                                                                                <?php
+                                                                                    if(is_array($listaSemanas)){
+                                                                                        for ($i=0; $i < count($listaSemanas); $i++) { ?>
+                                                                                            <div class="text-center">
+                                                                                                <h5 class="m-b-0"><?= $listaSemanas[$i]["semana"] ?></h5>
+                                                                                                <span class="text-muted" style="font-size:11px;"><?= $listaSemanas[$i]["fecha_inicio"] ?></span>
+                                                                                                <span class="text-muted" style="font-size:11px;"><?= $listaSemanas[$i]["fecha_fin"] ?></span>
+                                                                                            </div>
+                                                                                        <?php }
+                                                                                    }
+                                                                                ?>
+                                                                            </td>
                                                                             <td colspan="<?= ($evidencia["is_only_row"]) ? 6 : 1 ?>"><?= $evidencia["evidencia_aprendizaje"] ?></td>
                                                                             <?php
                                                                                 if($evidencia["is_only_row"] != 1){ ?>
@@ -335,7 +354,7 @@
                                                                         $selectedSemanas = unserialize($selectedEvidencia["semanas"]);
                                                                     }
                                                                     foreach ($semanas as $semana) { ?>
-                                                                        <option <?= (in_array($semana["id_semana_periodo"], $selectedSemanas)) ? "selected" : "" ?> value="<?= $semana["id_semana_periodo"] ?>"><?= $semana["semana"]. " - ( " . date("Y-m-d", strtotime($semana["fecha_inicio"])) . " )" ?></option>
+                                                                        <option <?= (in_array($semana["id_semana_periodo"], $selectedSemanas)) ? "selected" : "" ?> value="<?= $semana["id_semana_periodo"] ?>"><?= $semana["semana"]. " - ( " . date("Y-m-d", strtotime($semana["fecha_inicio"])) . " - " . date("Y-m-d", strtotime($semana["fecha_fin"])) . " )" ?></option>
                                                                     <?php }
                                                                 }
                                                             ?>
@@ -451,7 +470,7 @@
 <?php $this->load->view("in_script") ?>
 </html>
 <script>
-    let forLength = "<?= (is_array($plan_area)) ? 11 : 5 ?>";
+    let forLength = "<?= (is_array($plan_area)) ? 12 : 6 ?>";
     let editEvidencia = "<?= (is_array($selectedEvidencia)) ? "true" : "false" ?>";
 
     $('.select-2').select2();
