@@ -39,6 +39,24 @@ class PlanAreas_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
     }
 
+    function get_by_filter($area = null, $materia = null, $periodo = null){
+        $this->db->from("plan_areas pa");
+        $this->db->join("cfg_areas ca", "ca.codarea = pa.area");
+        $this->db->join("cfg_materias cm", "cm.codmateria = pa.materia");
+        $this->db->join("periodos p", "p.id_periodo = pa.periodo");
+        if($area != "" && $area != null){
+            $this->db->where("pa.area", $area);
+        }
+        if($materia != "" && $materia != null){
+            $this->db->where("pa.materia", $materia);
+        }
+        if($periodo != "" && $periodo != null){
+            $this->db->where("pa.periodo", $periodo);
+        }
+        $result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
     function delete($idPlanArea){
         $this->db->where("id_plan_area", $idPlanArea);
         return $this->db->delete("plan_areas");

@@ -46,8 +46,9 @@ jQuery(document).ready(function() {
     jQuery(document).on("change", "#plan-area-materia", function() {
         let idMateria = jQuery(this).val();
         let idArea = jQuery("#plan-area-area").val();
+        let selectElement = document.getElementById('plan-area-estandar');
 
-        if(idMateria.trim() != "" && idArea.trim() != ""){
+        if(idMateria.trim() != "" && idArea.trim() != "" && selectElement){
             getEstandaresArea(idArea, idMateria);
             getDBAArea(idArea, idMateria);
         }
@@ -67,7 +68,7 @@ jQuery(document).ready(function() {
                 if (data.status) setMateriasArea(object);
                 setTimeout(() => {
                     $("#background-loading").css("display", "none");
-                }, 3000)
+                }, 2000)
             },
             error: function() { 
                 $("#background-loading").css("display", "none");
@@ -120,19 +121,21 @@ jQuery(document).ready(function() {
         // Obtén una referencia al elemento select por su ID
         const selectElement = document.getElementById('plan-area-estandar');
 
-         // Limpia el select eliminando todas las opciones existentes
-         jQuery('#plan-area-estandar').empty();
-    
-        // Itera sobre el arreglo y agrega nuevas opciones al select
-        if(estandares != false){
-            estandares.forEach((estandar) => {
-                const option = document.createElement('option');
-                option.value = estandar.id_estandar;
-                option.textContent = estandar.descripcion_estandar;
-                selectElement.appendChild(option);
-            });
+        if(selectElement){
+            // Limpia el select eliminando todas las opciones existentes
+            jQuery('#plan-area-estandar').empty();
+                
+            // Itera sobre el arreglo y agrega nuevas opciones al select
+            if(estandares != false){
+                estandares.forEach((estandar) => {
+                    const option = document.createElement('option');
+                    option.value = estandar.id_estandar;
+                    option.textContent = estandar.descripcion_estandar;
+                    selectElement.appendChild(option);
+                });
+            }
+            jQuery('.select-2').trigger("change");
         }
-        jQuery('.select-2').trigger("change");
     }
 
     // GET DBA POR AREA

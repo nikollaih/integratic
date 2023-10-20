@@ -70,7 +70,7 @@ class Docente extends CI_Controller {
             echo json_encode($datos);
         } 
         else {
-            echo ("Error en Asignacion");
+            echo json_encode("{error: 'Error en asignación'}");
         }
     }    
 

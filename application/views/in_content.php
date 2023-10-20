@@ -2426,7 +2426,7 @@ function listar_planeacion(){
                         html=html+'<div class="panel-heading text-capitalize"s><b>Planeación Institucional</b></div>';
                         html=html+'<div class="panel-body">'; 
                         if(registros.length>0){ 
-                            for (i=0; i<registros.length; i++) { 
+                            for (i=0; i<registros.length; i++) {
                                 var icono=registros[i]["icono"].toLowerCase();
                                 html=html+"<div class='col-md-6 col-sm-6 col-lg-3'>";
                                 html=html+"<div class='mini-stat clearfix bx-shadow'>";

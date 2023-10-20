@@ -11,8 +11,28 @@ use Dompdf\Options;
 
     function index(){
         if(is_logged()){
-			if(strtolower(logged_user()["rol"]) == "docente"){
-                $params["planes_aula"] = $this->PlanAreas_Model->get_by_docente(logged_user()["id"]);
+            $params["areas"] = $this->Areas_Model->getAreasDocente(logged_user()["id"]);
+            $params["periodos"] = $this->Periodos_Model->getAll();
+            $params["materias"] = false;
+            
+			if(strtolower(logged_user()["rol"]) != "estudiante"){
+                if(strtolower(logged_user()["rol"]) == "docentes"){
+                    $params["planes_aula"] = $this->PlanAreas_Model->get_by_docente(logged_user()["id"]);
+                }
+                else {
+                    $params["area"] = null;
+                    $params["materia"] = null;
+                    $params["periodo"] = null;
+
+                    if($this->input->post()){
+                        $params["area"] = $this->input->post("area");
+                        $params["materia"] = $this->input->post("materia");
+                        $params["periodo"] = $this->input->post("periodo");
+                        $params["materias"] = $this->Materias_Model->getMateriasArea($params["area"]);
+                    }
+
+                    $params["planes_aula"] = $this->PlanAreas_Model->get_by_filter($params["area"], $params["materia"], $params["periodo"]);
+                }
             }
 
             $this->load->view("plan_aula/all", $params);
