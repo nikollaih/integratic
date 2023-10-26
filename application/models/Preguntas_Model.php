@@ -7,6 +7,7 @@ class Preguntas_Model extends CI_Model {
  	}
 
 	function get_all($materias, $id_materia){
+		$this->db->select("pp.*, cm.*, t.id_tema, t.nombre_tema");
 		$this->db->from("preguntas_prueba pp");
 		$this->db->join("cfg_materias cm", "cm.codmateria = pp.id_materia");
 		$this->db->join("temas t", "t.id_tema = pp.id_tema", "left outer");
