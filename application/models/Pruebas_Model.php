@@ -105,4 +105,18 @@ class Pruebas_Model extends CI_Model {
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
+
+	function get_by_grado($grado, $institucion = null) {
+		$this->db->select("p.*");
+		$this->db->from("realizar_prueba rp");
+		$this->db->join("pruebas p", "rp.id_prueba = p.id_prueba");
+		if($institucion){
+			$this->db->join("core_participantes_pruebas cpp", "cpp.id_participante_prueba = rp.id_participante");
+			$this->db->where("cpp.institucion", $institucion);
+		}
+		$this->db->group_by("p.id_prueba");
+		$this->db->where("rp.grado", strval($grado));
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : [];
+	}
 }

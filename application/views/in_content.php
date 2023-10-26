@@ -314,78 +314,82 @@
 </div>
 
 <!-- Modal Ingreso de Areas -->
-<div class="modal fade" id="modal_areas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-lg"> 
-        <div class="modal-content"> 
-            <div class="modal-header"> 
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
-                <h4 class="modal-title">Crear Nueva Area</h4> 
-            </div> 
-            <div class="modal-body"> 
-            <form id="frmareas" name="frmareas" enctype="multipart/form-data">  
-                <input id="icoarea-nueva-imagen" type="hidden" name="icoarea" value="null">
-                <div class="row"> 
-                    <div class="col-md-12"> 
-                        <div class="form-group">
-                            <label for="areasmat" class="control-label">Área de caracterización</label>
-                            <div id="lista_areas_caracterizacion">
-                                <select class="form-control" id="caracterizacion_area_select" name="caracterizacion_area">
-                                <option>Seleccione</option>    
-                                </select>
-                            </div>
-                        </div>                
-                    </div>                
-                </div> 
-                <div class="row"> 
-                    <div class="col-md-12"> 
-                        <div class="form-group">
-                            <label for="nomarea" class="control-label">Nombre del Area</label>
-                            <input id='nomarea' name='nomarea'  class='form-control input-lg' required placeholder='Nombre del Area' type='text'>                            
-                        </div>                
-                    </div>                
-                </div> 
-                <div class="row"> 
-                    <div class="col-md-12">
-                        <div class="form-group"> 
-                            <label for="archivo" class="control-label">Subir Icono/Imagen</label>
-                            <input id="archivo" name="archivo" size="50" type="file"/>
+<?php
+    if (logged_user()) { ?>
+        <div class="modal fade" id="modal_areas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg"> 
+                <div class="modal-content"> 
+                    <div class="modal-header"> 
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
+                        <h4 class="modal-title">Crear Nueva Area</h4> 
+                    </div> 
+                    <div class="modal-body"> 
+                    <form id="frmareas" name="frmareas" enctype="multipart/form-data">  
+                        <input id="icoarea-nueva-imagen" type="hidden" name="icoarea" value="null">
+                        <div class="row"> 
+                            <div class="col-md-12"> 
+                                <div class="form-group">
+                                    <label for="areasmat" class="control-label">Área de caracterización</label>
+                                    <div id="lista_areas_caracterizacion">
+                                        <select class="form-control" id="caracterizacion_area_select" name="caracterizacion_area">
+                                        <option>Seleccione</option>    
+                                        </select>
+                                    </div>
+                                </div>                
+                            </div>                
                         </div> 
-                    </div>                 
-                </div> 
-                <div class="row"> 
-                    <div class="col-md-12">
-                        <div class="form-group"> 
-                            <label for="archivo" class="control-label">Elegir Icono/Imagen</label><br>
-                            <a data-open="false" class="btn btn-sm btn-primary open-contenedor-imagenes-area">Ver imagenes</a>
-                            <img id="selected-imagen-area" src="" class="" alt="" style="display-none;margin-top:10px;" width="250px">
-                            <div id="contenedor-imagenes-area" style="display:none;">
-                                <?php
-                                $carpeta = './img/botones/areas';
-                                if($dir = opendir($carpeta)){
-                                    while(($archivo = readdir($dir)) !== false){ 
-                                        if($archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
-                                            $ruta=$carpeta."/".$archivo;
-                                            ?>
-                                                <img data-url="<?= $ruta ?>" data-imagen="<?= $archivo ?>" class="set-imagen-area" src="<?= $carpeta ?>/<?= $archivo ?>" alt="<?= $archivo ?>">
-                                            <?php                        
-                                        } 
-                                    }
-                                    closedir($dir);
-                                }
-                                ?>
-                            </div>
+                        <div class="row"> 
+                            <div class="col-md-12"> 
+                                <div class="form-group">
+                                    <label for="nomarea" class="control-label">Nombre del Area</label>
+                                    <input id='nomarea' name='nomarea'  class='form-control input-lg' required placeholder='Nombre del Area' type='text'>                            
+                                </div>                
+                            </div>                
                         </div> 
-                    </div>                 
+                        <div class="row"> 
+                            <div class="col-md-12">
+                                <div class="form-group"> 
+                                    <label for="archivo" class="control-label">Subir Icono/Imagen</label>
+                                    <input id="archivo" name="archivo" size="50" type="file"/>
+                                </div> 
+                            </div>                 
+                        </div> 
+                        <div class="row"> 
+                            <div class="col-md-12">
+                                <div class="form-group"> 
+                                    <label for="archivo" class="control-label">Elegir Icono/Imagen</label><br>
+                                    <a data-open="false" class="btn btn-sm btn-primary open-contenedor-imagenes-area">Ver imagenes</a>
+                                    <img id="selected-imagen-area" src="" class="" alt="" style="display-none;margin-top:10px;" width="250px">
+                                    <div id="contenedor-imagenes-area" style="display:none;">
+                                        <?php
+                                        $carpeta = './img/botones/areas';
+                                        if($dir = opendir($carpeta)){
+                                            while(($archivo = readdir($dir)) !== false){ 
+                                                if($archivo != '.' && $archivo != '..' && $archivo != '.htaccess'){
+                                                    $ruta=$carpeta."/".$archivo;
+                                                    ?>
+                                                        <img data-url="<?= $ruta ?>" data-imagen="<?= $archivo ?>" class="set-imagen-area" src="<?= $carpeta ?>/<?= $archivo ?>" alt="<?= $archivo ?>">
+                                                    <?php                        
+                                                } 
+                                            }
+                                            closedir($dir);
+                                        }
+                                        ?>
+                                    </div>
+                                </div> 
+                            </div>                 
+                        </div> 
+                    </form>    
+                    </div>   
+                    <div class="modal-footer"> 
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button> 
+                        <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal" onclick="crearArea();">Guardar</button> 
+                    </div>        
                 </div> 
-            </form>    
-            </div>   
-            <div class="modal-footer"> 
-                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button> 
-                <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal" onclick="crearArea();">Guardar</button> 
-            </div>        
-        </div> 
-    </div>      
-</div>
+            </div>      
+        </div>
+        <?php };
+?>
 <!-- Modal Ingreso de Materias -->
 <div class="modal fade" id="modal_materias" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-md"> 
@@ -2472,18 +2476,27 @@ function cambio_menu(){
         //html+="<i><img src='./img/iconos/menu.png' width='60' height='40'></i><span>Administrar</span></a></li>";  
         html+="<li><a href='" + base_url+"Pruebas' class=' '>";
         html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>";  
-        html+="<li><a href='" + base_url+"PlanAula' class=' '>";
-        html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Plan Aula</span></a></li>";   
-        html+="<li><a href='javascript:cfg_docente();' class=' '>";
-        html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
-        html+="<li><a href='javascript:cfg_proyectos();' class=' '>";
-        html+="<i><img src='./img/iconos/proyectos.png' width='50' height='50'></i><span>Proyectos</span></a></li>";    
-        html+="<li><a href='javascript:cfg_comunicacion();' class=' '>";
-        html+="<i><img src='./img/iconos/comunicacion.png' width='50' height='50'></i><span>Comunicación</span></a></li>";    
-        html+="<li><a href='javascript:cfg_planeacion();' class=' '>";
-        html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Planeación</span></a></li>"; 
+
+        if(configuracion.departamental == 0) {
+            html+="<li><a href='" + base_url+"PlanAula' class=' '>";
+            html+="<i><img src='./img/iconos/plan_aula.jpeg' width='50' height='50'></i><span>Plan Aula</span></a></li>";  
+
+            html+="<li><a href='javascript:cfg_docente();' class=' '>";
+            html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
+
+            html+="<li><a href='javascript:cfg_proyectos();' class=' '>";
+            html+="<i><img src='./img/iconos/proyectos.png' width='50' height='50'></i><span>Proyectos</span></a></li>";  
+
+            html+="<li><a href='javascript:cfg_comunicacion();' class=' '>";
+            html+="<i><img src='./img/iconos/comunicacion.png' width='50' height='50'></i><span>Comunicación</span></a></li>"; 
+
+            html+="<li><a href='javascript:cfg_planeacion();' class=' '>";
+            html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Planeación</span></a></li>";
+        }  
+
         html+="<li><a href='javascript:cfg_cambio_clave();' class=' '>";
-        html+="<i><img src='./img/iconos/clave.png' width='50' height='50'></i><span>Cambio Clave</span></a></li>";             
+        html+="<i><img src='./img/iconos/clave.png' width='50' height='50'></i><span>Cambio Clave</span></a></li>";  
+
         html+="<li><a href='javascript:logout();'>";
         html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar Sesión</span></a></li>";  
         html+="</ul>";
@@ -2501,12 +2514,18 @@ function menuForStudents(){
 	html="<ul>";
     html+="<li><a href='" + base_url+"Pruebas' class='waves-effect'>";
     html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>"; 
-	html+="<li><a href='javascript:StudentAreas();'>";
-	html+="<i><img src='./img/iconos/areas.png' width='50' height='50'></i><span>Areas</span></a></li>";             
+
+    if(configuracion.departamental == 0) {
+        html+="<li><a href='javascript:StudentAreas();'>";
+        html+="<i><img src='./img/iconos/areas.png' width='50' height='50'></i><span>Areas</span></a></li>"; 
+    }
+
 	html+="<li><a href='javascript:cfg_cambio_clave();' class='waves-effect'>";
-	html+="<i><img src='./img/iconos/clave.png' width='50' height='50'></i><span>Cambio Clave</span></a></li>";             
+	html+="<i><img src='./img/iconos/clave.png' width='50' height='50'></i><span>Cambio Clave</span></a></li>";  
+
 	html+="<li><a href='javascript:logout();'>";
 	html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar Sesión</span></a></li>";  
+
 	html+="</ul>";
 	$("#sidebar-menu").html(html); 
 }
@@ -2617,7 +2636,7 @@ function administrar(){
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='"+base_url+"Periodos'>";
-        html=html+"<img src='./img/botones/menu/caracterizar_contenido.png' width='100%' height='100%'></a></div></div>"; 
+        html=html+"<img src='./img/botones/menu/periodos_academicos.jpeg' width='100%' height='100%'></a></div></div>"; 
 
         html+="</div></div>";   
         html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';

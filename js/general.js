@@ -317,7 +317,6 @@ function capitalizeTheFirstLetterOfEachWord(words) {
 function setAreasCaracterizacion(){
     // Obtén una referencia al elemento select por su ID
     const selectElement = document.getElementById('caracterizacion_area_select');
-
     if(selectElement){
         $.ajax({
             url: base_url + "caracterizacion/getCaracterizacionAreas",
@@ -325,7 +324,6 @@ function setAreasCaracterizacion(){
             success: function(data) {
                 var data = JSON.parse(data);
                 if (data.status) {
-    
                     if(selectElement){
                         // Limpia el select eliminando todas las opciones existentes
                         selectElement.innerHTML = '';

@@ -70,4 +70,93 @@ class Realizar_Prueba_Model extends CI_Model {
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
+
+	function get_by_municipios(){
+		$this->db->select("m.*");
+		$this->db->from("realizar_prueba rp");
+		$this->db->join("core_participantes_pruebas cpp", "rp.id_participante = cpp.id_participante_prueba");
+		$this->db->join("municipios m", "m.id_municipio = cpp.municipio", "left");
+		$this->db->group_by("m.id_municipio");
+		$this->db->where("m.id_municipio >", 0);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
+	function get_aprobados_by_municipios($municipio, $tipo = true){
+		$this->db->select("m.*");
+		$this->db->from("realizar_prueba rp");
+		$this->db->join("core_participantes_pruebas cpp", "rp.id_participante = cpp.id_participante_prueba");
+		$this->db->join("municipios m", "m.id_municipio = cpp.municipio", "left");
+		$this->db->where("m.id_municipio", $municipio);
+		if($tipo){
+			$this->db->where("rp.calificacion >= ", 60);
+		}
+		else{
+			$this->db->where("rp.calificacion < ", 60);
+		}
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : [];
+	}
+
+	function get_by_instituciones($idMunicipio){
+		$this->db->select("ie.*");
+		$this->db->from("realizar_prueba rp");
+		$this->db->join("core_participantes_pruebas cpp", "rp.id_participante = cpp.id_participante_prueba");
+		$this->db->join("municipios m", "m.id_municipio = cpp.municipio", "left");
+		$this->db->join("instituciones_educativas ie", "m.id_municipio = ie.id_municipio", "left");
+		$this->db->group_by("ie.id_institucion_educativa");
+		$this->db->where("ie.id_institucion_educativa >", 0);
+		$this->db->where("m.id_municipio", $idMunicipio);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
+	function get_aprobados_by_instituciones($idInstitucion, $tipo = true){
+		$this->db->select("ie.*");
+		$this->db->from("realizar_prueba rp");
+		$this->db->join("core_participantes_pruebas cpp", "rp.id_participante = cpp.id_participante_prueba");
+		$this->db->join("municipios m", "m.id_municipio = cpp.municipio", "left");
+		$this->db->join("instituciones_educativas ie", "m.id_municipio = ie.id_municipio", "left");
+		$this->db->group_by("ie.id_institucion_educativa");
+		$this->db->where("ie.id_institucion_educativa", $idInstitucion);
+		if($tipo){
+			$this->db->where("rp.calificacion >= ", 60);
+		}
+		else{
+			$this->db->where("rp.calificacion < ", 60);
+		}
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : [];
+	}
+
+	function get_aprobados_by_grado_area($grado, $materias, $tipo = true, $institucion = null) {
+		$this->db->select("rp.*, p.materias");
+		$this->db->from("realizar_prueba rp");
+		$this->db->join("pruebas p", "p.id_prueba = rp.id_prueba");
+		if($institucion){
+			$this->db->join("core_participantes_pruebas cpp", "cpp.id_participante_prueba = rp.id_participante");
+			$this->db->where("cpp.institucion", $institucion);
+		}
+		$this->db->group_by("rp.id_realizar_prueba");
+		$this->db->where("rp.grado", $grado);
+		$query = "";
+		if(is_array($materias)){
+			$query = "(";
+			for ($i=0; $i < count($materias) ; $i++) { 
+				$query.= "p.materias LIKE '%".$materias[$i]."%' OR ";
+			}
+			$query = substr($query, 0, -4);
+			$query.= ")";
+		}
+
+		if($tipo){
+			$this->db->where("rp.calificacion >= ", 60);
+		}
+		else{
+			$this->db->where("rp.calificacion < ", 60);
+		}
+		$this->db->where($query, NULL, FALSE);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : [];
+	}
 }

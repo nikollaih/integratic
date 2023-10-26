@@ -13,4 +13,11 @@ class Instituciones_Educativas_Model extends CI_Model {
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
     }
+
+	public function find($id_ie){
+        $this->db->from("instituciones_educativas");
+        $this->db->where("id_institucion_educativa", $id_ie);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : [] ;
+    }
 }

@@ -12,4 +12,11 @@ class Municipios_Model extends CI_Model {
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
     }
+
+	public function find($idMunicipio){
+        $this->db->from("municipios");
+		$this->db->where("id_municipio", $idMunicipio);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+    }
 }

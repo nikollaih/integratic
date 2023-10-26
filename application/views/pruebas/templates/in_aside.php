@@ -36,10 +36,6 @@
                                 <a href="<?= base_url() ?>Temas" class=" ">
                                     <i><img src='<?= base_url() ?>img/iconos/lista_pruebas.png' width="50" height="50"></i><span>Temas</span></a>
                             </li>
-                            <li>
-                                <a href="<?= base_url() ?>EstadisticasPruebas/ver">
-                                    <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Estadisticas</span></a>
-                            </li>
                             <?php
                                 if(configuracion()["departamental"] == 1){ ?>
                                 <li>
@@ -47,9 +43,19 @@
                                         <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Est. Municipios</span></a>
                                 </li>
                                 <li>
+                                    <a href="<?= base_url() ?>EstadisticasPruebas/areas/0">
+                                        <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Est. Áreas</span></a>
+                                </li>
+                                <li>
                                     <a href="<?= base_url() ?>ParticipantesPrueba/importar">
                                         <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Importar participantes</span></a>
                                 </li>
+                                <?php }
+                                else { ?>
+                                    <li>
+                                        <a href="<?= base_url() ?>EstadisticasPruebas/ver">
+                                            <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Estadisticas</span></a>
+                                    </li>
                                 <?php }
                             ?>
                         <?php

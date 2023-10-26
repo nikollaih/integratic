@@ -8,35 +8,32 @@
             <div class="container">
                 <div class="row" id="migas">
                     <div class="col-md-12">
-                        <h4>Aprobados / No Aprobados por institución (<?= $municipio ?>)</h4>
+                        <h4>Estadisticas por institución (<?= $municipio["municipio"] ?>)</h4>
                         <p>A continuación se muestra el ponderado de pruebas aprobadas(azul)/no aprobadas(rojo) por institución, para ver los resultados por cada área puede hacerlo a través del botón "Ver áreas".</p>
                     </div>
                 </div>
                 <div class="row">
                     <?php
-                    $institucionesEducativas = [
-                        "Institucion Educativa San Juan",
-                        "Colegio Santa Maria",
-                        "Escuela San Pedro",
-                        "Liceo Los Pajaros",
-                        "Colegio San Jose",
-                        "Escuela Rosa de Lima",
-                        "Instituto Cervantes",
-                        "Colegio San Francisco",
-                        "Escuela El Bosque",
-                        "Liceo Simon Bolivar"
-                    ];
-                        for ($i=0; $i < 10; $i++) { ?>
-                            <div class="col-md-3 col-sm-6">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <label for=""><?= $institucionesEducativas[$i] ?></label>
-                                        <canvas class="m-b-10" width="100" height="100" id="chart-<?= $i ?>"></canvas>
-                                        <a href="<?= base_url() ?>EstadisticasPruebas/areas/<?= $institucionesEducativas[$i] ?>">Ver Áreas</a>
+                        $counter = [];
+                        $x = 0;
+                        if(is_array($instituciones)){
+                            foreach ($instituciones as $institucion) {
+                                $x++;
+                                $counter[$x]["aprobadas"] = count($institucion["aprobadas"]);
+                                $counter[$x]["no_aprobadas"] = count($institucion["no_aprobadas"]);
+                                ?>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="card bg-light">
+                                        <div class="card-body text-center">
+                                            <label for=""><?= $institucion["nombre_institucion"] ?></label>
+                                            <canvas class="m-b-10" width="100" height="100" id="chart-<?= $x ?>"></canvas>
+                                            <a href="<?= base_url() ?>EstadisticasPruebas/areas/0/<?= $institucion["id_institucion_educativa"] ?>">Ver Áreas</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        <?php }
+                            <?php
+                            }
+                        }
                     ?>
                 </div>
             </div> <!-- container -->                               
@@ -48,9 +45,11 @@
 
 <script>
     $(document).ready( function () {
-        for (let i = 0; i < 10; i++) {
-            let aprobadas = Math.floor(Math.random() * (100 - 1)) + 1;
-            let no_aprobadas = Math.floor(Math.random() * (100 - 1)) + 1;
+        let jsCounter = JSON.parse('<?= json_encode($counter) ?>');
+        let municipiosLength = parseInt("<?= $x; ?>")
+        for (let i = 1; i <= municipiosLength; i++) {
+            let aprobadas = jsCounter[i].aprobadas;
+            let no_aprobadas = jsCounter[i].no_aprobadas;
 
             let data = [
                 { label: "Aprobadas: " + aprobadas, count: aprobadas },
