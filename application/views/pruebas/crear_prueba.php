@@ -58,9 +58,11 @@
                                                 <?php
                                                     if($alcance_prueba != false){
                                                         foreach ($alcance_prueba as $ap) {
-                                                        ?>
-                                                            <option value="<?= $ap["id_alcance_prueba"] ?>"><?= $ap["descripcion"] ?></option>
-                                                        <?php
+                                                            if(configuracion()["departamental"] == 1 && strtolower($ap["descripcion"]) == "departamental" || (configuracion()["departamental"] == 0)){ 
+                                                                ?>
+                                                                    <option value="<?= $ap["id_alcance_prueba"] ?>"><?= $ap["descripcion"] ?></option>
+                                                                <?php
+                                                            }
                                                         }
                                                     }
                                                 ?>
