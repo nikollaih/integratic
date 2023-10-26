@@ -246,12 +246,15 @@ function setTemasMateria(temas){
     // Limpia el select eliminando todas las opciones existentes
     selectElement.innerHTML = '<option>- Seleccionar</option>';
     // Itera sobre el arreglo y agrega nuevas opciones al select
-    temas.forEach((tema) => {
-        const option = document.createElement('option');
-        option.value = tema.id_tema;
-        option.textContent = tema.nombre_tema;
-        selectElement.appendChild(option);
-    });
+
+    if(Array.isArray(temas)){
+        temas.forEach((tema) => {
+            const option = document.createElement('option');
+            option.value = tema.id_tema;
+            option.textContent = tema.nombre_tema;
+            selectElement.appendChild(option);
+        });
+    }
 }
 
 function getInstitucionesMunicipio(id_municipio) {
