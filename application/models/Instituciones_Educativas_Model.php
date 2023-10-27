@@ -6,6 +6,10 @@ class Instituciones_Educativas_Model extends CI_Model {
     	$this->load->database();
  	}
 
+	public function insert_multiple($data){
+		return $this->db->insert_batch('instituciones_educativas', $data);
+	}
+
     public function get_by_municipio($id_municipio){
         $this->db->from("instituciones_educativas");
         $this->db->where("id_municipio", $id_municipio);

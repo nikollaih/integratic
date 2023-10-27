@@ -90,3 +90,49 @@ function importar_estudiantes($FILES){
         }
     }
 }
+
+function importar_instituciones($FILES, $municipio, $start_line = 0){
+    $file_mimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    if(isset($FILES['instituciones']['name']) && in_array($FILES['instituciones']['type'], $file_mimes)) {
+        $instituciones = [];
+        $arr_file = explode('.', $FILES['instituciones']['name']);
+        $extension = end($arr_file);
+        $inputFileName = $FILES['instituciones']['tmp_name'];
+        
+        if('csv' == $extension){
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+            $reader->setInputEncoding('UTF-8');
+            // Read the CSV file contents
+            $fileContents = file_get_contents($inputFileName);
+
+            // Convert the contents to UTF-8
+            $fileContents = mb_convert_encoding($fileContents, 'UTF-8', 'UTF-8');
+
+            // Write the modified contents back to the file
+            file_put_contents($inputFileName, $fileContents);
+        } else {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+
+        $spreadsheet = $reader->load($inputFileName);
+        $sheetData = $spreadsheet->getActiveSheet()->toArray();
+
+        if(is_array($sheetData)){
+            if(count($sheetData) > 1){
+                for ($i = $start_line; $i < count($sheetData); $i++) { 
+                    $institucion = $sheetData[$i];
+                    $nueva_institucion["id_municipio"] = $municipio;
+                    $nueva_institucion["nombre_institucion"] = (isset($institucion[0])) ? $institucion[0] : "";
+                    array_push($instituciones, $nueva_institucion);
+                }
+            }
+        }
+
+        if(count($instituciones)){
+            return $instituciones;
+        }
+        else{
+            return false;
+        }
+    }
+}
