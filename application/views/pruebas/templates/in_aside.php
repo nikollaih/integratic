@@ -40,15 +40,15 @@
                                 if(configuracion()["departamental"] == 1){ ?>
                                 <li>
                                     <a href="<?= base_url() ?>EstadisticasPruebas/municipios">
-                                        <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Est. Municipios</span></a>
+                                        <i><img src='<?= base_url() ?>img/iconos/est_municipales.jpeg' width="50" height="50"></i><span>Est. Municipios</span></a>
                                 </li>
                                 <li>
                                     <a href="<?= base_url() ?>EstadisticasPruebas/areas/0">
-                                        <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Est. Áreas</span></a>
+                                        <i><img src='<?= base_url() ?>img/iconos/est_areas.jpeg' width="50" height="50"></i><span>Est. Áreas</span></a>
                                 </li>
                                 <li>
                                     <a href="<?= base_url() ?>ParticipantesPrueba/importar">
-                                        <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Importar participantes</span></a>
+                                        <i><img src='<?= base_url() ?>img/iconos/importar_participantes.jpeg' width="50" height="50"></i><span>Importar participantes</span></a>
                                 </li>
                                 <?php }
                                 else { ?>

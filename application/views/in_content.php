@@ -2640,7 +2640,7 @@ function administrar(){
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='"+base_url+"InstitucionesEducativas/index'>";
-        html=html+"<img src='./img/botones/menu/periodos_academicos.jpeg' width='100%' height='100%'></a></div></div>"; 
+        html=html+"<img src='./img/botones/menu/importar_instituciones.jpeg' width='100%' height='100%'></a></div></div>"; 
 
         html+="</div></div>";   
         html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
