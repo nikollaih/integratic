@@ -18,20 +18,22 @@
                         $x = 0;
                         if(is_array($instituciones)){
                             foreach ($instituciones as $institucion) {
-                                $x++;
-                                $counter[$x]["aprobadas"] = count($institucion["aprobadas"]);
-                                $counter[$x]["no_aprobadas"] = count($institucion["no_aprobadas"]);
-                                ?>
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="card bg-light">
-                                        <div class="card-body text-center">
-                                            <label for=""><?= $institucion["nombre_institucion"] ?></label>
-                                            <canvas class="m-b-10" width="100" height="100" id="chart-<?= $x ?>"></canvas>
-                                            <a href="<?= base_url() ?>EstadisticasPruebas/areas/0/<?= $institucion["id_institucion_educativa"] ?>">Ver Áreas</a>
+                                if(count($institucion["aprobadas"]) > 0 || count($institucion["no_aprobadas"]) > 0) {
+                                    $x++;
+                                    $counter[$x]["aprobadas"] = count($institucion["aprobadas"]);
+                                    $counter[$x]["no_aprobadas"] = count($institucion["no_aprobadas"]);
+                                    ?>
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="card bg-light">
+                                            <div class="card-body text-center">
+                                                <label for=""><?= $institucion["nombre_institucion"] ?></label>
+                                                <canvas class="m-b-10" width="100" height="100" id="chart-<?= $x ?>"></canvas>
+                                                <a href="<?= base_url() ?>EstadisticasPruebas/areas/0/<?= $institucion["id_institucion_educativa"] ?>">Ver Áreas</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                             <?php
+                                }
                             }
                         }
                     ?>

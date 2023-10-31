@@ -72,6 +72,9 @@
         <!-- Pruebas -->
         <script src="<?= base_url() ?>js/pruebas.js"></script>
 
+         <!-- Estadisticas -->
+         <script src="<?= base_url() ?>js/estadisticas.js"></script>
+
         <!-- Plan de area -->
         <script src="<?= base_url() ?>js/planarea.js"></script>
 

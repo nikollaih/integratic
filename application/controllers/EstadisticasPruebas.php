@@ -37,9 +37,25 @@ class EstadisticasPruebas extends CI_Controller {
         $params["participante"] = $this->Participantes_Prueba_Model->get($identificacion);
 
         if($params["participante"]){
+            $params["materias"] = $this->Materias_Model->getMateriasDocente(logged_user()["id"]);
             $params["pruebas"] = $this->Realizar_Prueba_Model->get_by_participante($params["participante"]["id_participante_prueba"]);
             $this->load->view("estadisticas/participante_pruebas", $params);
         }
+    }
+
+    public function participante_grafica(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) != "estudiante"){
+                $data = $this->input->post();
+                if($data){
+                    $pruebas = $this->Realizar_Prueba_Model->get_by_participante_materia($data["participante"], $data["materia"]);
+                    json_response($pruebas, true, "Pruebas.");
+                }
+                json_response(null, false, "No es posible realizar esta acción.");
+            }
+            else json_response(null, false, "No tiene permiso para realizar esta acción.");
+        }
+        else json_response(null, false, "Inicie sesión para continuar.");
     }
 
     function municipios(){

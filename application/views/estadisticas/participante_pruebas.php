@@ -34,10 +34,6 @@
                                                 <td><?= strtoupper($participante["email"]) ?></td>
                                             </tr>
                                             <tr>
-                                                <td>Institución</td>
-                                                <td><?=  strtoupper($participante["institucion"]) ?></td>
-                                            </tr>
-                                            <tr>
                                                 <td>Grado</td>
                                                 <td><?= strtoupper($participante["grado"]) ?></td>
                                             </tr>
@@ -71,7 +67,9 @@
                                             ?>
                                                         <tr>
                                                             <td><?= $prueba["nombre_prueba"] ?></td>
-                                                            <td><?= $prueba["institucion"] ?></td>
+                                                            <td><?php
+                                                                echo (configuracion()["departamental"] == 0) ? $prueba["institucion"] : $prueba["nombre_institucion"];
+                                                             ?></td>
                                                             <td><?= $prueba["grado"] ?></td>
                                                             <td><?= $prueba["nota"] ?></td>
                                                             <td class="text-center"><a href="<?= base_url() ?>Pruebas/ver/<?= $prueba["id_prueba"] ?>"><button class="btn btn-success">Ver prueba</button></a></td>
@@ -86,19 +84,76 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-capitalize"><b>Estadisticas de pruebas realizadas</b></div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="">Materia</label>
+                                        <select participante="<?= $participante["identificacion"] ?>" class="form-control" id="estadisticas-participante-grafica">
+                                            <option value="">Seleccionar</option>
+                                            <?php 
+                                                if($materias){
+                                                    foreach ($materias as $materia) { ?>
+                                                        <option value="<?= $materia["codmateria"] ?>"><?= $materia["nommateria"] ?></option>
+                                                    <?php }
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <button id="btn-estadisticas-participante-grafica" class="btn btn-primary m-t-2">Filtrar</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div style="max-height:300px;width:100%;">
+                                        <canvas class="m-b-10" style="width:100%;" id="chart-participante"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div> <!-- container -->                               
         </div> <!-- content -->
     </div>
 </div>
 </body>
 <?php $this->load->view("in_footer") ?>
-<?php $this->load->view("in_script") ?>
 
 <script>
+    let participanteChart = null;
+    let canvasChartPArticipante
+    let data = [];
     $(document).ready( function () {
         $('#tabla-pruebas').DataTable({
             order: []
         });
+
+        canvasChartPArticipante = document.getElementById('chart-participante');
+        canvasChartPArticipante.height = 300;
+        
+
+        participanteChart = new Chart(
+            document.getElementById('chart-participante'),
+            {
+            type: 'line',
+            data: {
+                labels: data.map(row => row),
+                datasets: [
+                {
+                    label: "Notas",
+                    data: data.map(row => row)
+                }
+                ]
+            }
+            }
+        );
     } );
 </script>
+<?php $this->load->view("in_script") ?>
 </html>

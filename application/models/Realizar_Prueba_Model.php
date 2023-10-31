@@ -24,7 +24,25 @@ class Realizar_Prueba_Model extends CI_Model {
 	function get_by_participante($id_participante){
 		$this->db->from("realizar_prueba rp");
 		$this->db->join("pruebas p", "p.id_prueba = rp.id_prueba");
+		$this->db->join("core_participantes_pruebas cpp", "rp.id_participante = cpp.id_participante_prueba");
+		$this->db->join("municipios m", "m.id_municipio = cpp.municipio", "left");
+		$this->db->join("instituciones_educativas ie", "m.id_municipio = ie.id_municipio", "left");
 		$this->db->where("rp.id_participante", $id_participante);
+		$this->db->group_by("p.id_prueba");
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
+	function get_by_participante_materia($id_participante, $materia){
+		$this->db->from("realizar_prueba rp");
+		$this->db->join("pruebas p", "p.id_prueba = rp.id_prueba");
+		$this->db->join("core_participantes_pruebas cpp", "rp.id_participante = cpp.id_participante_prueba");
+		$this->db->join("municipios m", "m.id_municipio = cpp.municipio", "left");
+		$this->db->join("instituciones_educativas ie", "m.id_municipio = ie.id_municipio", "left");
+		$this->db->where("cpp.identificacion", $id_participante);
+		$this->db->group_by("p.id_prueba");
+		$this->db->where("(p.materias LIKE '%".$materia."%' )", NULL, FALSE);
+
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
@@ -115,8 +133,8 @@ class Realizar_Prueba_Model extends CI_Model {
 		$this->db->select("ie.*");
 		$this->db->from("realizar_prueba rp");
 		$this->db->join("core_participantes_pruebas cpp", "rp.id_participante = cpp.id_participante_prueba");
-		$this->db->join("municipios m", "m.id_municipio = cpp.municipio", "left");
-		$this->db->join("instituciones_educativas ie", "m.id_municipio = ie.id_municipio", "left");
+		$this->db->join("instituciones_educativas ie", "cpp.institucion = ie.id_institucion_educativa", "left");
+		$this->db->join("municipios m", "m.id_municipio = ie.id_municipio");
 		$this->db->group_by("ie.id_institucion_educativa");
 		$this->db->where("ie.id_institucion_educativa", $idInstitucion);
 		if($tipo){
