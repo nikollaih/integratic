@@ -22,6 +22,7 @@
                                                     <div class="d-flex">
                                                         <a href="<?= base_url() ?>Pruebas/asignarPreguntas/<?= $prueba["id_prueba"] ?>" class="btn btn-info">Configurar preguntas</a>
                                                         <a href="<?= base_url() ?>Pruebas/participantes/<?= $prueba["id_prueba"] ?>" class="btn btn-success m-l-1">Participantes</a>
+                                                        <a href="<?= base_url() ?>Pruebas/crearPrueba/<?= $prueba["id_prueba"] ?>" class="btn btn-warning m-l-1">Modificar</a>
                                                     </div>
                                                 </div>
                                                 <hr>

@@ -129,6 +129,9 @@
                         <th>
                             <b class="item-title">RECURSOS</b>
                         </th>
+                        <th>
+                            <b class="item-title">ESTADO</b>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -162,6 +165,10 @@
                                     <td><p class="item-text"><?= $evidencia["recursos"] ?></p></td>
                                         <?php }
                                     ?>
+                                    <td>
+                                        <p class="item-text"><b><?= ($evidencia["estado_completo"] == 3) ? "Completado" : (($evidencia["estado_completo"] == 2) ? "No Completado" : "Pendiente") ?></b></p>
+                                        <p class="item-text"><?= $evidencia["observaciones_completo"] ?></p>
+                                    </td>
                                 </tr>
                             <?php }
                         }

@@ -4431,6 +4431,10 @@ div.dataTables_info {
     justify-content: center;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .no-calificar {
     background: transparent;
     border: 0;

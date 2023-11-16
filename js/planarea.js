@@ -18,6 +18,32 @@ jQuery(document).ready(function() {
         }
     });
 
+    jQuery(document).on("click", "#btn-completar-evidencia", function() {
+        let observaciones = jQuery("#observaciones-completar-evidencia").val();
+        let idEvidencia = jQuery("#id-completar-evidencia").val();
+        let estadoCompletado = jQuery("#estado-completar-evidencia").val();
+
+        if(estadoCompletado > 1)
+            completarEvidenciaAprendizaje(idEvidencia, observaciones, estadoCompletado);
+        else alert("Por favor seleccione un estado");
+    });
+
+    jQuery(document).on("click", ".completar-evidencia-aprendizaje", function() {
+        jQuery("#observaciones-completar-evidencia").val("");
+        jQuery("#id-completar-evidencia").val("");
+        let checked = jQuery(this).is(":checked");
+        let idEvidencia = jQuery(this).attr("data-id");
+
+        if(!checked && jQuery(this).hasClass("checked"))
+            jQuery(this).prop("checked", true);
+
+        if(checked || jQuery(this).hasClass("checked")){
+            getEvidenciaAprendizaje(idEvidencia);
+            jQuery("#id-completar-evidencia").val(idEvidencia);
+            jQuery("#modal-completar-evidencia").modal("show");
+        }
+    });
+
     jQuery(document).on("click", ".open-close-parte", function() {
         let parte = jQuery(this).attr("data-parte");
         jQuery("#parte-" + parte).slideToggle();
@@ -57,6 +83,75 @@ jQuery(document).ready(function() {
         }
     });
 
+    jQuery(document).on("change", "#plan-area-periodo-ea", function() {
+        let idPeriodo = jQuery(this).val();
+        getSemanasPeriodo(idPeriodo);
+    });
+
+    function completarEvidenciaAprendizaje(idEvidencia, observaciones, estadoCompletado) {
+        $("#background-loading").css("display", "flex");
+        $.ajax({
+            url: base_url + "EvidenciasAprendizaje/update",
+            type: 'POST',
+            data: {
+                id_evidencia_aprendizaje: idEvidencia,
+                observaciones_completo: observaciones,
+                estado_completo: estadoCompletado,
+                is_completo: 1
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status){
+                    alert("Evidencia completada exitosamente!");
+                    location.reload();
+                }
+            },
+            error: function() { 
+                $("#background-loading").css("display", "none");
+                alert("Error!") 
+            }
+        });
+    }
+
+    function getSemanasPeriodo(idPeriodo){
+        $("#background-loading").css("display", "flex");
+        $.ajax({
+            url: base_url + "SemanasPeriodo/getSemanasPeriodo/" + idPeriodo,
+            type: 'GET',
+            success: function(data) {
+                var data = JSON.parse(data);
+                let object = data.object;
+                if (data.status) setSemanasPeriodo(object);
+                $("#background-loading").css("display", "none");
+            },
+            error: function() { 
+                $("#background-loading").css("display", "none");
+                alert("Error!") 
+            }
+        });
+    }
+
+    function getEvidenciaAprendizaje(idEvidencia) {
+        $("#background-loading").css("display", "flex");
+        $.ajax({
+            url: base_url + "EvidenciasAprendizaje/find/" + idEvidencia,
+            type: 'GET',
+            success: function(data) {
+                var data = JSON.parse(data);
+                let object = data.object;
+                if (data.status){
+                    jQuery("#observaciones-completar-evidencia").val(object.observaciones_completo);
+                    jQuery("#estado-completar-evidencia").val(object.estado_completo);
+                }
+                $("#background-loading").css("display", "none");
+            },
+            error: function() { 
+                $("#background-loading").css("display", "none");
+                alert("Error!") 
+            }
+        });
+    }
+
     function getMateriasArea(id_area) {
         $("#background-loading").css("display", "flex");
         $.ajax({
@@ -90,6 +185,23 @@ jQuery(document).ready(function() {
                 const option = document.createElement('option');
                 option.value = materia.codmateria;
                 option.textContent = materia.nommateria + " - " + materia.grado + "°";
+                selectElement.appendChild(option);
+            });
+    }
+
+    function setSemanasPeriodo(semanas){
+        // Obtén una referencia al elemento select por su ID
+        const selectElement = document.getElementById('plan-area-semana');
+    
+        // Limpia el select eliminando todas las opciones existentes
+        selectElement.innerHTML = '<option>- Seleccionar</option>';
+        // Itera sobre el arreglo y agrega nuevas opciones al select
+
+        if(semanas != false)
+        semanas.forEach((semana) => {
+                const option = document.createElement('option');
+                option.value = semana.id_semana_periodo;
+                option.textContent = semana.semana + " - (" + semana.fecha_inicio + ")";
                 selectElement.appendChild(option);
             });
     }

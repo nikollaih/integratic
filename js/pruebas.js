@@ -166,6 +166,7 @@ $(document).ready(function() {
 
     function generar_pregunta_DOM(proxima_respuesta) {
         let pregunta_DOM = '<div class="panel panel-primary">' +
+            '<input type="hidden" name="respuesta' + proxima_respuesta + '[id_respuesta_pregunta_prueba]"/>' +
             '<div style="background-color: #0b6069;" class="panel-heading text-capitalize"><b>Respuesta #' + proxima_respuesta + '</b></div>' +
             '<div class="panel-body">' +
             '<div class="row">' +

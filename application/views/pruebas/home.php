@@ -79,8 +79,9 @@
                                                                     <?php
                                                                         if(strtolower(logged_user()["rol"]) == "docente"){
                                                                     ?>
-                                                                        <a class="btn btn-success" href="<?= base_url() ?>Pruebas/ver/<?= $p["id_prueba"] ?>">Ver</a>
-                                                                        <a class="btn btn-danger button-eliminar-prueba" class="button-eliminar-prueba" data-prueba="<?= $p["id_prueba"] ?>">Eliminar</a>
+                                                                        <a class="btn btn-sm btn-success m-t-1" href="<?= base_url() ?>Pruebas/ver/<?= $p["id_prueba"] ?>">Ver</a>
+                                                                        <a class="btn btn-sm btn-warning m-t-1" href="<?= base_url() ?>Pruebas/crearPrueba/<?= $p["id_prueba"] ?>">Modificar</a>
+                                                                        <a class="btn btn-sm btn-danger button-eliminar-prueba m-t-1" class="button-eliminar-prueba" data-prueba="<?= $p["id_prueba"] ?>">Eliminar</a>
                                                                     <?php
                                                                         }
                                                                     ?>

@@ -2,6 +2,7 @@
 <body>
     <?php $this->load->view("in_header") ?>
     <?php $this->load->view("plan_aula/templates/in_aside") ?>
+    <?php $this->load->view("plan_aula/templates/modal_completar_evidencia") ?>
     <div class="content-page">
         <div class="content">  
             <div class="container">
@@ -272,7 +273,7 @@
                                                                 <th>Transferencia</th>
                                                                 <th>Valoración</th>
                                                                 <th>Recursos</th>
-                                                                <th></th>
+                                                                <th style="width:130px;"></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -281,6 +282,7 @@
                                                                     foreach ($evidencias as $evidencia) { 
                                                                         $selectedSemanas = unserialize($evidencia["semanas"]);
                                                                         $listaSemanas = get_semanas_by_ids($selectedSemanas);
+                                                                        $completadoText = ($evidencia["estado_completo"] == 3) ? "Completado" : (($evidencia["estado_completo"] == 2) ? "No Completado" : "Completar");
                                                                         ?>
                                                                         <tr id="evidencia-aprendizaje-<?= $evidencia["id_evidencia_aprendizaje"] ?>">
                                                                             <td style="width:100px;">
@@ -306,8 +308,8 @@
                                                                             <td><?= $evidencia["recursos"] ?></td>
                                                                                 <?php }
                                                                             ?>
-                                                                            <td>
-
+                                                                            <td class="text-center">
+                                                                                <input <?= ($evidencia["is_completo"]) ? "checked" : "" ?> data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="checkbox" name="" class="completar-evidencia-aprendizaje <?= ($evidencia["is_completo"]) ? "checked" : "uncheked" ?>"> <?= $completadoText ?> <br><br>
                                                                                 <a href="<?= base_url() ?>PlanAula/create/<?= $plan_area["id_plan_area"] ?>/<?= $evidencia["id_evidencia_aprendizaje"] ?>" class="btn btn-sm btn-info m-b-1">Editar</a>
                                                                                 <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="button" class="btn btn-sm btn-danger remove-evidencia-aprendizaje">Eliminar</button>
                                                                             </td>

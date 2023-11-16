@@ -92,11 +92,12 @@
                                                                 <td><?= $pregunta["descripcion_pregunta"] ?></td>
                                                                 <td><?= date("d F Y H:i a", strtotime($pregunta["created_at"])) ?></td>
                                                                 <td class="text-center">
-                                                                    <a target="_blank" class="btn btn-success" href="<?= base_url() ?>PreguntasPrueba/ver/<?= $pregunta["id_pregunta_prueba"] ?>">Ver</a>
+                                                                    <a target="_blank" class="btn btn-sm btn-success" href="<?= base_url() ?>PreguntasPrueba/ver/<?= $pregunta["id_pregunta_prueba"] ?>">Ver</a>
                                                                     <?php
                                                                         if(logged_user()["id"] == $pregunta["created_by"]){
                                                                             ?>
-                                                                                <a data-pregunta="<?= $pregunta["id_pregunta_prueba"] ?>" class="btn btn-danger btn-eliminar-pregunta">Eliminar</a>
+                                                                                <a class="btn btn-sm btn-warning" href="<?= base_url() ?>PreguntasPrueba/crearPregunta/<?= $pregunta["id_pregunta_prueba"] ?>">Modificar</a>
+                                                                                <a data-pregunta="<?= $pregunta["id_pregunta_prueba"] ?>" class="btn btn-sm btn-danger btn-eliminar-pregunta">Eliminar</a>
                                                                             <?php
                                                                         }
                                                                     ?>

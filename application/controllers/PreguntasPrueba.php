@@ -5,7 +5,7 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model(["Preguntas_Model", "Respuestas_Preguntas_Model", "Consultas_Model", "Materias_Model"]);
+       $this->load->model(["Preguntas_Model", "Respuestas_Preguntas_Model", "Consultas_Model", "Materias_Model", "Temas_Model"]);
     }
     
     public function index($id_materia = null){
@@ -40,31 +40,37 @@
         }
     }
 
-    function crearPregunta(){
+    function crearPregunta($idPregunta = null){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "docente"){
                 $params = [];
                 $params["materias"] = $this->Materias_Model->getMateriasDocente(logged_user()["id"]);
-                if($this->input->post()){
-                    $params["message"] = $this->guardarPregunta($this->input->post());
-                }
 
+                if($this->input->post())
+                    $params["message"] = $this->guardarPregunta($this->input->post());
+
+                $params["pregunta"] = $this->Preguntas_Model->get($idPregunta);
+                $params["temas"] = ($params["pregunta"]) ? $this->Temas_Model->get_by_materias([$params["pregunta"]["id_materia"]]) : [];
+                $params["respuestas"] = ($params["pregunta"]) ? $this->Respuestas_Preguntas_Model->get_all($params["pregunta"]["id_pregunta_prueba"]) : [];
+                
                 $this->load->view("pruebas/preguntas/crear_pregunta", $params);
             }
-            else{
-                header("Location: ".base_url()."Pruebas");
-            }
+            else header("Location: ".base_url()."Pruebas");
         }
-        else{
-            header("Location: ".base_url());
-        }
+        else header("Location: ".base_url());
     }
 
     function guardarPregunta($data){
         $pregunta = $data["pregunta"];
         $pregunta["created_by"] = logged_user()["id"];
         $pregunta["dificultad"] = serialize($pregunta["dificultad"]);
-        $id_pregunta = $this->Preguntas_Model->create($pregunta);
+        $existsPregunta = $this->Preguntas_Model->get($pregunta["id_pregunta_prueba"]);
+
+        if(is_array($existsPregunta)){
+            $this->Preguntas_Model->update($pregunta);
+            $id_pregunta = $existsPregunta["id_pregunta_prueba"];
+        }
+        else $id_pregunta = $this->Preguntas_Model->create($pregunta);
 
         if($id_pregunta){
             if(isset($_FILES["pregunta_archivo"]) && $id_pregunta){
@@ -97,7 +103,14 @@
     function guardarRespuesta($data, $id_pregunta, $x){
         $archivo_imagen = "respuesta".$x;
         $data["id_pregunta"] = $id_pregunta;
-        $id_respuesta = $this->Respuestas_Preguntas_Model->create($data);
+        $existsRespuesta = $this->Respuestas_Preguntas_Model->find($data["id_respuesta_pregunta_prueba"]);
+
+        // Verifica si ya existe la respuesta, en ese caso la modifica, de lo contrario crea una nueva
+        if($existsRespuesta){
+            $this->Respuestas_Preguntas_Model->update($data);
+            $id_respuesta = $data["id_respuesta_pregunta_prueba"];
+        }
+        else $id_respuesta = $this->Respuestas_Preguntas_Model->create($data);
 
         if(isset($_FILES[$archivo_imagen]) && $id_respuesta){
             if(isset($_FILES[$archivo_imagen]['name']['archivo_respuesta'])) {

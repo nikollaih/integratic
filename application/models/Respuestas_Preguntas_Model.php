@@ -6,12 +6,19 @@ class Respuestas_Preguntas_Model extends CI_Model {
     	$this->load->database();
  	}
 
-	 function get_all($id_pregunta){
+	function get_all($id_pregunta){
 		$this->db->from("respuestas_preguntas_pruebas");
 		$this->db->where("id_pregunta", $id_pregunta);
 		$this->db->order_by("tipo_respuesta", "desc");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
+	function find($id_respuesta_pregunta_prueba){
+		$this->db->from("respuestas_preguntas_pruebas");
+		$this->db->where("id_respuesta_pregunta_prueba", $id_respuesta_pregunta_prueba);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
 	// Create a new answer

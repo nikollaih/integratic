@@ -25,7 +25,7 @@
         }
     }
 
-    public function crearPrueba(){
+    public function crearPrueba($idPrueba = null){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "docente"){
                 $params["materias"] = $this->Materias_Model->getMateriasDocente(logged_user()["id"]);
@@ -36,6 +36,7 @@
                     $params["message"] = $this->guardarPrueba($this->input->post());
                 }
 
+                $params["prueba"] = $this->Pruebas_Model->get($idPrueba);
                 $this->load->view("pruebas/crear_prueba", $params);
             }
             else{
@@ -49,16 +50,30 @@
 
     function guardarPrueba($post){
         $prueba = $post["prueba"];
-        $prueba["materias"] = serialize($prueba["materias"]);
-        $prueba["dificultad"] = serialize($prueba["dificultad"]);
-        $prueba["created_by"] = logged_user()["id"];
+
+        if(trim($prueba["id_prueba"]) == ""){
+            $prueba["materias"] = serialize($prueba["materias"]);
+            $prueba["dificultad"] = serialize($prueba["dificultad"]);
+            $prueba["created_by"] = logged_user()["id"];
+        }
+        else {
+            unset($prueba["materias"]);
+            unset($prueba["dificultad"]);
+        }
+        
         if(isset($prueba["mostrar_respuestas"]))
             $prueba["mostrar_respuestas"] = ($prueba["mostrar_respuestas"] == "on") ? 1 : 0;
 
-        $id_prueba = $this->Pruebas_Model->create($prueba);
+        $existsPrueba = $this->Pruebas_Model->get($prueba["id_prueba"]);
+
+        if($existsPrueba){
+            $this->Pruebas_Model->update($prueba);
+            $id_prueba = $prueba["id_prueba"];
+        }
+        else $id_prueba = $this->Pruebas_Model->create($prueba);
 
         if($id_prueba){
-            if($post["asignacion_preguntas"] == 1){
+            if($post["asignacion_preguntas"] == 1 && trim($prueba["id_prueba"]) == ""){
                 return asignar_preguntas_prueba($id_prueba);
             }
             else{

@@ -7,6 +7,7 @@
             <div class="container">
                 <div class="row" id="migas"></div>  
                 <form action="" method="post" enctype="multipart/form-data" id="form-prueba">
+                    <input type="hidden" name="prueba[id_prueba]" value="<?= ($prueba) ? $prueba["id_prueba"] : "" ?>">
                     <div class="row">
                         <div class="col-md-12">
                             <?php
@@ -21,13 +22,13 @@
                         </div>
                     </div>
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b>Nueva prueba</b></div>
+                        <div class="panel-heading text-capitalize"><b><?= ($prueba) ? "Modificar" : "Nueva" ?> prueba</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Nombre prueba *</label>
-                                        <input required type="text" name="prueba[nombre_prueba]"  class="form-control">
+                                        <input required type="text" name="prueba[nombre_prueba]"  class="form-control" value="<?= ($prueba) ? $prueba["nombre_prueba"] : "" ?>">
                                     </div>
                                 </div>
                             </div>
@@ -58,9 +59,9 @@
                                                 <?php
                                                     if($alcance_prueba != false){
                                                         foreach ($alcance_prueba as $ap) {
-                                                            if(configuracion()["departamental"] == 1 && strtolower($ap["descripcion"]) == "departamental" || (configuracion()["departamental"] == 0)){ 
+                                                            if(configuracion()["departamental"] == 1 && strtolower($ap["descripcion"]) == "departamental" || (configuracion()["departamental"] == 0 && strtolower($ap["descripcion"]) != "departamental")){ 
                                                                 ?>
-                                                                    <option value="<?= $ap["id_alcance_prueba"] ?>"><?= $ap["descripcion"] ?></option>
+                                                                    <option <?= ($prueba && $prueba["id_alcance_prueba"] == $ap["id_alcance_prueba"]) ? "selected" : "" ?> value="<?= $ap["id_alcance_prueba"] ?>"><?= $ap["descripcion"] ?></option>
                                                                 <?php
                                                             }
                                                         }
@@ -78,7 +79,7 @@
                                                     if($tipo_pruebas != false){
                                                         foreach ($tipo_pruebas as $tp) {
                                                         ?>
-                                                            <option value="<?= $tp["id_tipo_prueba"] ?>"><?= $tp["descripcion"] ?></option>
+                                                            <option <?= ($prueba && $prueba["id_tipo_prueba"] == $tp["id_tipo_prueba"]) ? "selected" : "" ?> value="<?= $tp["id_tipo_prueba"] ?>"><?= $tp["descripcion"] ?></option>
                                                         <?php
                                                         }
                                                     }
@@ -89,12 +90,13 @@
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Materias *</label>
-                                            <select required name="prueba[materias][]" id="" class="form-control multiple-select" multiple data-live-search="true" data-size="10" data-actions-box="true">
+                                            <select required name="prueba[materias][]" id="" class="form-control multiple-select <?= ($prueba) ? "select-readonly" : "" ?>" multiple data-live-search="true" data-size="10" data-actions-box="true">
                                                 <?php
                                                     if($materias != false){
                                                         foreach ($materias as $materia) {
+                                                            $selectedMaterias = ($prueba) ? unserialize($prueba["materias"]) : [];
                                                         ?>
-                                                            <option value="<?= $materia["codmateria"] ?>"><?= $materia["nommateria"]." - ".$materia["grado"]."°" ?></option>
+                                                            <option <?= ($prueba && in_array($materia["codmateria"], $selectedMaterias)) ? "selected" : "" ?> value="<?= $materia["codmateria"] ?>"><?= $materia["nommateria"]." - ".$materia["grado"]."°" ?></option>
                                                         <?php
                                                         }
                                                     }
@@ -107,10 +109,11 @@
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Dificultad *</label>
-                                            <select required name="prueba[dificultad][]" id="" class="form-control multiple-select" multiple data-live-search="true" data-actions-box="true" data-actions-box="true">
-                                                <option value="1">Facil</option>
-                                                <option value="2">Intermedia</option>
-                                                <option value="3">Avanzada</option>
+                                            <select required name="prueba[dificultad][]" id="" class="form-control multiple-select <?= ($prueba) ? "select-readonly" : "" ?>" multiple data-live-search="true" data-actions-box="true" data-actions-box="true">
+                                                <?php $selectedDificultad = ($prueba) ? unserialize($prueba["dificultad"]) : [] ?>
+                                                <option <?= ($prueba && in_array("1", $selectedDificultad)) ? "selected" : "" ?> value="1">Facil</option>
+                                                <option <?= ($prueba && in_array("2", $selectedDificultad)) ? "selected" : "" ?> value="2">Intermedia</option>
+                                                <option <?= ($prueba && in_array("3", $selectedDificultad)) ? "selected" : "" ?> value="3">Avanzada</option>
                                             </select>
                                         </div>
                                     </div>
@@ -118,7 +121,7 @@
                                         <div class="form-group">
                                             <label for="">Cantidad de preguntas *</label>
                                             <!-- Que el campo no sea menor a 1-->
-                                            <input required type="number" name="prueba[cantidad_preguntas]" class="form-control" min="1">
+                                            <input <?= ($prueba) ? "readonly" : "" ?> required type="number" name="prueba[cantidad_preguntas]" class="form-control" min="1" value="<?= ($prueba) ? $prueba["cantidad_preguntas"] : "" ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-lg-4">
@@ -130,7 +133,7 @@
                                                 // Estaba de 5 en 5 a llegar 300 minutos  
                                                     for ($i=10; $i <= 180 ; $i+=10) {
                                                 ?>
-                                                    <option value="<?= $i ?>"><?= $i ?> Minutos</option>                                                  
+                                                    <option <?= ($prueba && $prueba["duracion"] == $i) ? "selected" : "" ?> value="<?= $i ?>"><?= $i ?> Minutos</option>                                                  
                                                 <?php
                                                     }
                                                 ?>
@@ -142,13 +145,13 @@
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Fecha y hora Inicio *</label>
-                                            <input required type="datetime-local"  name="prueba[fecha_inicio]" class="form-control">                              
+                                            <input required type="datetime-local"  name="prueba[fecha_inicio]" class="form-control" value="<?= ($prueba) ? $prueba["fecha_inicio"] : "" ?>">                              
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Fecha y hora Finalización *</label>
-                                            <input required type="datetime-local" name="prueba[fecha_finaliza]" class="form-control">
+                                            <input required type="datetime-local" name="prueba[fecha_finaliza]" class="form-control" value="<?= ($prueba) ? $prueba["fecha_finaliza"] : "" ?>">
                                         </div>
                                     </div>
 
@@ -156,22 +159,26 @@
                                         <div class="form-group">
                                             <label for="">Mostrar respuestas</label>
                                             <div class="custom-control custom-switch m-t-1">
-                                                <input type="checkbox" name="prueba[mostrar_respuestas]" class="custom-control-input" id="customSwitch1">
+                                                <input <?= ($prueba && $prueba["mostrar_respuestas"] == 1) ? "checked" : "" ?> type="checkbox" name="prueba[mostrar_respuestas]" class="custom-control-input" id="customSwitch1">
                                                 <label class="custom-control-label" for="customSwitch1">Mostrar respuestas correctas al finalizar prueba</label>
                                             </div>
                                         </div>
                                     </div>
-                                   
-                                    <div class="col-md-12 col-sm-12 col-lg-12">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="asignacion-preguntas-1" name="asignacion_preguntas" value="1" checked>
-                                            <label class="custom-control-label" for="asignacion-preguntas-1">Asignacion de preguntas automatica</label>
-                                        </div>
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="asignacion-preguntas-2" name="asignacion_preguntas" value="2">
-                                            <label class="custom-control-label" for="asignacion-preguntas-2">Asignacion de preguntas manual</label>
-                                        </div>                                   
-                                    </div>
+
+                                    <?php
+                                        if(!$prueba) { ?>
+                                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" class="custom-control-input" id="asignacion-preguntas-1" name="asignacion_preguntas" value="1" checked>
+                                                    <label class="custom-control-label" for="asignacion-preguntas-1">Asignacion de preguntas automatica</label>
+                                                </div>
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" class="custom-control-input" id="asignacion-preguntas-2" name="asignacion_preguntas" value="2">
+                                                    <label class="custom-control-label" for="asignacion-preguntas-2">Asignacion de preguntas manual</label>
+                                                </div>                                   
+                                            </div>
+                                        <?php }
+                                    ?>
                                 </div>                      
                         </div>
                     </div>
@@ -205,4 +212,17 @@
 <script>
     $('.multiple-select').selectpicker();
 </script>
+
+<?php
+    if($prueba){ ?>
+        <script>
+            $(document).ready(() => {
+                let contents = "<?= $prueba["descripcion_prueba"] ?>";
+                editorRich.setContents(contents);
+
+                $(".select-readonly").select2({disabled: true});
+            })
+        </script>
+    <?php }
+?>
 </html>

@@ -55,7 +55,7 @@ class Pruebas_Model extends CI_Model {
 	}
 
 	function get($id_prueba){
-		$this->db->select("p.*, tp.descripcion as tipo_prueba, ap.descripcion as alcance_prueba");
+		$this->db->select("p.*, tp.descripcion as tipo_prueba, ap.descripcion as alcance_prueba, ap.id_alcance_prueba, tp.id_tipo_prueba");
 		$this->db->from("pruebas p");
 		$this->db->join("alcance_prueba ap", "p.alcance_prueba = ap.id_alcance_prueba");
         $this->db->join("tipo_prueba tp", "p.tipo_prueba = tp.id_tipo_prueba");

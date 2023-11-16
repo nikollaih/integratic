@@ -39,7 +39,7 @@ class Preguntas_Model extends CI_Model {
 		return $this->db->insert_id(); 
 	}
 
-	// Create a new question
+	// Modify a question
 	function update($data){
 		$this->db->where("id_pregunta_prueba", $data["id_pregunta_prueba"]);
 		return $this->db->update("preguntas_prueba", $data);
