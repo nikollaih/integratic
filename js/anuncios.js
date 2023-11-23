@@ -3,9 +3,19 @@ $(document).on("click", ".btn-eliminar-anuncio", function() {
     eliminarAnuncio(anuncio);
 });
 
+$(document).on("click", ".btn-editar-anuncio", function() {
+    let anuncio = $(this).attr("data-id");
+    getAnuncio(anuncio);
+});
+
+$(document).on("click", ".btn-agregar-anuncio", function() {
+    setAnuncio();
+});
+
 function guardar_anuncio(menu_materia = "true") {
+    let id_anuncio = $("#nuevo-anuncio-anuncio").val();
     let titulo = $("#nuevo-anuncio-titulo").val();
-    let descripcion = $("#nuevo-anuncio-descripcion").val();
+    let descripcion = editorRichAnuncios.getContents();
 
     if (titulo.trim() != "" && descripcion.trim() != "") {
         $.ajax({
@@ -13,7 +23,8 @@ function guardar_anuncio(menu_materia = "true") {
             type: 'POST',
             data: {
                 descripcion: descripcion,
-                titulo: titulo
+                titulo: titulo,
+                id_anuncio: id_anuncio
             },
             success: function(data) {
                 var data = JSON.parse(data);
@@ -50,4 +61,38 @@ function eliminarAnuncio(id_anuncio) {
             }
         });
     }
+}
+
+function getAnuncio(id_anuncio) {
+    $.ajax({
+        url: base_url + "Anuncios/getAnuncio/" + id_anuncio,
+        type: 'GET',
+        success: function(data) {
+            var data = JSON.parse(data);
+            if (data.status)
+                setAnuncio(data.object)
+            else
+                alert(data.message);
+        },
+        error: function(e) {
+            alert("Error!");
+            console.log(e);
+        }
+    });
+}
+
+function setAnuncio(anuncio){
+    if(anuncio){
+        jQuery("#agregar-nuevo-anuncio-label").html("Modificar anuncio");
+        jQuery("#nuevo-anuncio-anuncio").val(anuncio.id_anuncio);
+        jQuery("#nuevo-anuncio-titulo").val(anuncio.titulo);
+        editorRichAnuncios.setContents(anuncio.descripcion);
+    }
+    else {
+        jQuery("#agregar-nuevo-anuncio-label").html("Agregar nuevo anuncio");
+        jQuery("#nuevo-anuncio-anuncio").val("");
+        jQuery("#nuevo-anuncio-titulo").val("");
+        editorRichAnuncios.setContents("");
+    }
+    jQuery("#agregar-nuevo-anuncio").modal("show");
 }

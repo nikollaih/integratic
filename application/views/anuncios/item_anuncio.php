@@ -7,7 +7,14 @@
                 <?php
                     if(logged_user()["rol"] == "Docente"){
                         ?>
-                            <img data-id="<?= $anuncio["id_anuncio"] ?>" class="btn-eliminar-anuncio" style="align-self: flex-end;background: #fff;padding: 2px 2px;width: 19px;border-radius: 4px;cursor:pointer;" src="<?= base_url() ?>img/delete.png" alt="" width="15" srcset="">
+                            <div class="d-flex">
+                                <a style="margin-right:10px;" class="d-flex align-items-center btn-editar-anuncio pointer" data-id="<?= $anuncio["id_anuncio"] ?>"> 
+                                    <i class="fa fa-edit text-white"></i>
+                                </a>
+                                <a class="d-flex align-items-center btn-eliminar-anuncio pointer" data-id="<?= $anuncio["id_anuncio"] ?>"> 
+                                    <i class="fa fa-trash text-white"></i>
+                                </a>
+                            </div>
                         <?php
                     }
                 ?>

@@ -4769,3 +4769,45 @@ div.dataTables_info {
     border: 0;
     padding: 0;
 }
+
+.btn-transparent {
+    background: transparent !important;
+    color: #000 !important;
+    border: 0;
+    text-shadow: 0 0 BLACK;
+    box-shadow: 0 0 0 !important;
+}
+
+/* Dropdown */
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: -156px;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: .5rem 0;
+    margin: .125rem 0 0;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+
+/* End dropdown */

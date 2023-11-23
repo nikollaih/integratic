@@ -14,7 +14,7 @@
                             ?>
                                 <div class="row">
                                     <div class='col-lg-12'>    
-                                        <a data-toggle='modal' data-target='#agregar-nuevo-anuncio' href='javascript:crear();' class="add-announcement-container">
+                                        <a class="add-announcement-container btn-agregar-anuncio pointer">
                                             <img src='./img/iconos/crear_anuncio.png' height='32' alt='Nueva Carpeta' title='Nueva Carpeta'>
                                             <p>Crear Anuncio</p>
                                         </a>
@@ -62,7 +62,7 @@
                                         <a href="#"  data-toggle='modal' data-target='#agregar-nuevo-foro'> 
                                             <img src='./img/iconos/crear_foro.png'  height='32' alt='Crear foro' title='Crear foro'>
                                         </a>&nbsp;
-                                        <a href="#"  data-toggle='modal' data-target='#agregar-nueva-actividad'> 
+                                        <a href="#" class="button-agregar-nueva-actividad"> 
                                             <img src='./img/iconos/crear_actividad.png'  height='32' alt='Crear actividad' title='Crear actividad'>
                                         </a>&nbsp;
                                         <?php

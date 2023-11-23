@@ -1,6 +1,135 @@
+let editorRichActividades;
+let selectedImagesActividades = [];
+
+$( document ).ready(function() {  
+    let textarea = document.getElementById('nueva-actividad-descripcion'); 
+
+    if(textarea){
+        document.getElementById('image_wrapper_richtext');
+    
+        let imageList = [];
+    
+        editorRichActividades = KothingEditor.create('nueva-actividad-descripcion', kothingParams);
+    
+        editorRichActividades.onImageUpload = function (targetImgElement, index, state, imageInfo, remainingFilesCount) {
+            if (state === 'delete') {
+                imageList.splice(findIndex(imageList, index), 1)
+            } else {
+                if (state === 'create') {
+                    const image = editorRichActividades.getImagesInfo()[findIndex(editorRichActividades.getImagesInfo(), index)]
+                    imageList.push(image)
+                } else { }
+            }
+    
+            if (remainingFilesCount === 0) {
+                setImageList(imageList)
+            }
+        }
+    }
+
+    $(document).on( "change", ".files_upload_actividades", function(e) {
+        if (e.target.files) {
+            editorRichActividades.insertImage(e.target.files)
+            e.target.value = ''
+        }
+    });
+
+
+    // Edit image list
+    function setImageList (imageList) {
+        let imageTable = document.getElementById('image_list_richtext_actividades');
+        let imageSize = document.getElementById('image_size_richtext_actividades');
+        let list = '';
+        let size = 0;
+
+        for (let i = 0, image, fixSize; i < imageList.length; i++) {
+            image = imageList[i];
+            fixSize = (image.size / 1000).toFixed(1) * 1
+                
+            list += '<li id="img_' + image.index + '">' +
+                        '<div onclick="checkImage(' + image.index + ')">' +
+                            '<div class="image-wrapper"><img src="' + image.src + '"></div>' +
+                        '</div>' +
+                        '<a href="javascript:void(0)" onclick="selectImage(\'select\',' + image.index + ')" class="image-size">' + fixSize + 'KB</a>' +
+                        '<div class="image-check"><svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg></div>' +
+                    '</li>';
+            
+            size += fixSize;
+        }
+
+        imageSize.innerText = size.toFixed(1) + 'KB';
+        imageTable.innerHTML = list;
+    }
+});
+
+// Array.prototype.findIndex
+function findIndex(arr, index) {
+    let idx = -1;
+
+    arr.some(function (a, i) {
+        if ((typeof a === 'number' ? a : a.index) === index) {
+            idx = i;
+            return true;
+        }
+        return false;
+    })
+
+    return idx;
+}
+
+// Click the file size
+function selectImage (type, index) {
+    imageList[findIndex(imageList, index)][type]();
+}
+
+// Image check
+function checkImage (index) {
+    let imageRemove = document.getElementById('image_remove_richtext_actividades');
+    let imageTable = document.getElementById('image_list_richtext_actividades');
+    const li = imageTable.querySelector('#img_' + index);
+    const currentImageIdx = findIndex(selectedImagesActividades, index)
+
+    if (currentImageIdx > -1) {
+        selectedImagesActividades.splice(currentImageIdx, 1)
+        li.className = '';
+    } else {
+        selectedImagesActividades.push(index)
+        li.className = 'checked';
+    }
+
+    if (selectedImagesActividades.length > 0) {
+        imageRemove.removeAttribute('disabled');
+    } else {
+        imageRemove.setAttribute('disabled', true);
+    }
+}
+
+// Click the remove button
+function deleteCheckedImages() {
+    const iamgesInfo = editorRichActividades.getImagesInfo();
+
+    for (let i = 0; i < iamgesInfo.length; i++) {
+        if (selectedImagesActividades.indexOf(iamgesInfo[i].index) > -1) {
+            iamgesInfo[i].delete();
+            i--;
+        }
+    }
+
+    selectedImagesActividades = []
+}
+
 $(document).on("click", ".crear-respuesta-boton", function() {
     let actividad = $(this).attr("data-actividad");
     $("#respuesta-actividad-id").val(actividad);
+});
+
+$(document).on("click", ".button-editar-actividad", function() {
+    let actividad = $(this).attr("data-actividad");
+    get_actividad(actividad);
+});
+
+$(document).on("click", ".button-agregar-nueva-actividad", function() {
+    set_actividad();
 });
 
 $(document).on("click", ".btn-habilitar-actividad", function() {
@@ -47,12 +176,22 @@ $(document).on("click", ".btn-calificar", function() {
 });
 
 function guardar_actividad() {
-    if ($("#nueva-actividad-titulo").val().trim() != "" && $("#nueva-actividad-descripcion").val().trim() != "" && $("#nueva-actividad-date").val().trim() != "" && $("#nueva-actividad-time").val().trim() != "") {
+    let id_actividad = $("#nueva-actividad-actividad").val();
+    let titulo = $("#nueva-actividad-titulo").val();
+    let descripcion = editorRichActividades.getContents();
+    let periodo = $("#nueva-actividad-periodo").val();
+    let desde = $("#nueva-actividad-start").val();
+    let hasta = $("#nueva-actividad-end").val();
+
+    if (titulo.trim() != "" && descripcion.trim() != "" && periodo.trim() != "" && desde.trim() != "" && hasta.trim() != "") {
         var formData = new FormData();
-        formData.append("titulo", $("#nueva-actividad-titulo").val());
-        formData.append("descripcion", $("#nueva-actividad-descripcion").val());
-        formData.append("date", $("#nueva-actividad-date").val());
-        formData.append("time", $("#nueva-actividad-time").val());
+        formData.append("id_actividad", $("#nueva-actividad-actividad").val());
+        formData.append("titulo", titulo);
+        formData.append("descripcion", descripcion);
+        formData.append("disponible_desde", desde);
+        formData.append("disponible_hasta", hasta);
+        formData.append("id_periodo", periodo);
+        formData.append("id_actividad", id_actividad);
         formData.append("userfile", $('#nueva-actividad-file')[0].files[0]);
 
         $.ajax({
@@ -220,4 +359,44 @@ function eliminar_respuesta_actividad(id_actividad, id_respuesta) {
             }
         });
     }
+}
+
+function get_actividad(idActividad){
+    $.ajax({
+        url: base_url + 'Actividades/getActividad/' + idActividad,
+        type: 'GET',
+        success: function(data) {
+            var data = JSON.parse(data);
+            if (data.status) 
+                set_actividad(data.object);
+            else 
+                alert(data.message);
+
+            if (data.object.error == "auth") {
+                prelogin();
+            }
+        }
+    });
+}
+
+function set_actividad(actividad = null){
+    if(actividad){
+        jQuery("#agregar-nueva-actividad-label").html("Modificar actividad");
+        jQuery("#nueva-actividad-actividad").val(actividad.id_actividad);
+        jQuery("#nueva-actividad-titulo").val(actividad.titulo_actividad);
+        jQuery("#nueva-actividad-periodo").val(actividad.id_periodo);
+        jQuery("#nueva-actividad-start").val(actividad.disponible_desde);
+        jQuery("#nueva-actividad-end").val(actividad.disponible_hasta);
+        editorRichActividades.setContents(actividad.descripcion_actividad);
+    }
+    else {
+        jQuery("#agregar-nueva-actividad-label").html("Crear nueva actividad");
+        jQuery("#nueva-actividad-actividad").val("");
+        jQuery("#nueva-actividad-titulo").val("");
+        jQuery("#nueva-actividad-periodo").val("");
+        jQuery("#nueva-actividad-start").val("");
+        jQuery("#nueva-actividad-end").val("");
+        editorRichActividades.setContents("");
+    } 
+    jQuery("#agregar-nueva-actividad").modal("show");
 }

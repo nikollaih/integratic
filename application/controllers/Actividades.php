@@ -20,14 +20,24 @@ class Actividades extends CI_Controller {
                 $materia_grupo = $this->session->userdata("materia_grupo");
                 $inserted_id = false;
     
-                if($data["titulo"] != "" && $data["descripcion"] != "" && $data["date"] != "" && $data["time"] != ""){
+                if($data["titulo"] != "" && $data["descripcion"] != "" && $data["disponible_desde"] != "" && $data["disponible_hasta"] != "" && $data["id_periodo"] != ""){
                     $actividad["titulo_actividad"] = $data["titulo"];
+                    $actividad["id_periodo"] = $data["id_periodo"];
                     $actividad["descripcion_actividad"] = $data["descripcion"];
-                    $actividad["disponible_hasta"] = date("Y-m-d H:i:s", strtotime($data["date"]. " ".$data["time"]));
+                    $actividad["disponible_desde"] = date("Y-m-d H:i:s", strtotime($data["disponible_desde"]));
+                    $actividad["disponible_hasta"] = date("Y-m-d H:i:s", strtotime($data["disponible_hasta"]));
                     $actividad["materia"] = $materia_grupo["materia"];
                     $actividad["grupo"] = $materia_grupo["grupo"];
                     $actividad["created_by"] = logged_user()["id"];
-                    $inserted_id = $this->Actividades_Model->create($actividad);
+
+                    $existsActividad = $this->Actividades_Model->get_actividad($data["id_actividad"]);
+
+                    if($existsActividad){
+                        $actividad["id_actividad"] = $data["id_actividad"];
+                        $this->Actividades_Model->update($actividad);
+                        $inserted_id = $data["id_actividad"];
+                    }
+                    else $inserted_id = $this->Actividades_Model->create($actividad);
                 }
     
                 if(isset($_FILES["userfile"]) && $inserted_id){
@@ -40,7 +50,8 @@ class Actividades extends CI_Controller {
                 }
     
                 if($inserted_id){
-                    json_response($actividad, true, "Actividad creada exitosamente.");
+                    $text = ($existsActividad) ? "Actividad modificada exitosamente" : "Actividad creada exitosamente.";
+                    json_response($actividad, true, $text);
                 }
                 else{
                     json_response(false, false, "Ha ocurrido un error, por favor intente de nuevo");
@@ -753,6 +764,20 @@ class Actividades extends CI_Controller {
                 $actividad = $this->Actividades_Model->delete_response($id_respuesta);
                 if($actividad){
                     json_response(array("error" => false), true, "Respuesta eliminada correctamente");
+                }
+                else  json_response(array("error" => "not_found"), false, "No se ha encontrado la actividad seleccionada");
+            }
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
+    }
+
+    function getActividad($id_actividad = null){
+        if(is_logged()){
+            if(logged_user()["rol"] == "Docente"){
+                $actividad = $this->Actividades_Model->get_actividad($id_actividad);
+                if($actividad){
+                    json_response($actividad, true, "Actividad");
                 }
                 else  json_response(array("error" => "not_found"), false, "No se ha encontrado la actividad seleccionada");
             }

@@ -10,3 +10,15 @@ if(!function_exists('get_semanas_by_ids'))
     }
 
 }
+
+if(!function_exists('get_periodos'))
+{
+    function get_periodos(){
+        $CI = &get_instance();
+        $CI->load->model("Periodos_Model");
+        
+        $semanas = $CI->Periodos_Model->getAll();
+        return $semanas;
+    }
+
+}

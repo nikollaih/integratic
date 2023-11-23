@@ -11,6 +11,7 @@ class Actividades_Model extends CI_Model {
 		$this->db->from("actividades a");
 		$this->db->join("usuarios u", "a.created_by = u.id");
 		$this->db->join("cfg_materias cm", "cm.codmateria = a.materia");
+		$this->db->join("periodos p", "p.id_periodo = a.id_periodo");
         $this->db->where("a.grupo", $grupo);
         $this->db->where("a.materia", $materia);
 		$this->db->order_by("a.created_at", "desc");
