@@ -7,13 +7,16 @@ class Actividades_Model extends CI_Model {
  	}
 
 	// Get the activity for a particular group
-	function get_all($materia, $grupo){
+	function get_all($materia, $grupo, $rol = "docente"){
 		$this->db->from("actividades a");
 		$this->db->join("usuarios u", "a.created_by = u.id");
 		$this->db->join("cfg_materias cm", "cm.codmateria = a.materia");
 		$this->db->join("periodos p", "p.id_periodo = a.id_periodo");
         $this->db->where("a.grupo", $grupo);
         $this->db->where("a.materia", $materia);
+		if(strtolower($rol) == "estudiante"){
+			$this->db->where("a.disponible_desde <=", date("Y-m-d h:i"));
+		}
 		$this->db->order_by("a.created_at", "desc");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;

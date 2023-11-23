@@ -19,12 +19,14 @@
 
             $anuncio = $this->Anuncio_Model->get($data["id_anuncio"]);
 
-            if($anuncio)
+            if($anuncio){
                 if($this->Anuncio_Model->update($data))
                     json_response($data, true, "Anuncio modificado satisfactoriamente");
-            else 
+            }
+            else {
                 if($this->Anuncio_Model->create($data))
                     json_response($data, true, "Anuncio creado satisfactoriamente");
+            }
 
             json_response(null, false, "Ha ocurrido un error, por favor intente de nuevo más tarde.");
         }

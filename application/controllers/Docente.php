@@ -155,7 +155,7 @@ class Docente extends CI_Controller {
             $data["menu_materia"] = $menu_materia;
             $data["foros"] = $this->Foro_Model->get_all($data["materia"], $data["grupo"]);
             $data["anuncios"] = $this->Anuncio_Model->get_all($data["materia"], $data["grupo"]);
-            $data["actividades"] = $this->Actividades_Model->get_all($data["materia"], $data["grupo"], $estudiante);
+            $data["actividades"] = $this->Actividades_Model->get_all($data["materia"], $data["grupo"], logged_user()["rol"]);
             $this->session->set_userdata("materia_grupo", array("materia"  => $data["materia"], "grupo"  => $data["grupo"]));
             $this->load->view("docente/listar", $data);
         }

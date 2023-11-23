@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-            <input type="text" id="nuevo-anuncio-anuncio" value="">
+            <input type="hidden" id="nuevo-anuncio-anuncio" value="">
             <div class="form-group">
                 <label for="">Titulo *</label>
                 <input class="form-control input-lg" type="text" name="" id="nuevo-anuncio-titulo">
