@@ -77,15 +77,11 @@ class Estudiante extends CI_Controller {
 		}
 	}
       
-    public function areas(){
+    function areas(){
       	if(is_logged() && logged_user()['rol'] === 'Estudiante'){
-        	if($datos  = $this->Estudiante_Model->getAreas(logged_user()['id'])){                   
-            	echo json_encode($datos);
-			}
-			else
-			{
-				echo ("Error en consulta");
-			}
+			$datos  = $this->Estudiante_Model->getAreas(logged_user()['id']);
+        	if($datos) echo json_encode($datos);
+			else echo ("Error en consulta");
       	}
     }  
     
