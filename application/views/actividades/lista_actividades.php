@@ -23,18 +23,18 @@
                                                 <img src="./img/iconos/subir_archivo.png" width="32" height="32" alt="Subir Archivo" title="Subir Archivo">
                                                 <p style="margin:0px 0PX 0PX 10PX;">Subir respuesta</p>
                                             </a>
-                                <?php
-                                            }
-                                            else{
-                                                echo "<div style='text-align:right;'><p class='m-0 label label-success'>Completada</p><p class='m-0'>Calificacion: (".$respuesta_actividad["calificacion"].")</p></div>";
-                                            }
+                                            <?php
+                                        }
+                                        else{
+                                            echo "<p class='m-0 label label-success'>Completada</p><p title='".$respuesta_actividad["docente_notas"]."' class='m-0 pointer'><i onclick='alert(`Notas del docente:\n\n".$respuesta_actividad["docente_notas"]."`)' class='fas fa fa-solid fa-clipboard text-primary'></i> Calificacion: ".$respuesta_actividad["calificacion"]."</p>";
+                                        }
                                     }
                                     else{
                                         if($respuesta_actividad == false) {
                                             echo "<p class='m-0 label label-danger'>Actividad no disponible</p>";
                                         }
                                         else{
-                                            echo "<div style='text-align:right;'><p class='m-0 label label-success'>Completada</p><p class='m-0'>Calificacion: (".$respuesta_actividad["calificacion"].")</p></div>";
+                                            echo "<p class='m-0 label label-success'>Completada</p><p title='".$respuesta_actividad["docente_notas"]."' class='m-0 pointer'><i onclick='alert(`Notas del docente:\n\n".$respuesta_actividad["docente_notas"]."`)' class='fas fa fa-solid fa-clipboard text-primary'></i> Calificacion: ".$respuesta_actividad["calificacion"]."</p>";
                                         }
                                     }
                                 }
@@ -54,7 +54,6 @@
                                             </div>
                                         </div>
                                     <?php
-
                                 }
                             ?>
                         </div>

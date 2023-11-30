@@ -23,6 +23,7 @@ class Actividades extends CI_Controller {
                 if($data["titulo"] != "" && $data["descripcion"] != "" && $data["disponible_desde"] != "" && $data["disponible_hasta"] != "" && $data["id_periodo"] != ""){
                     $actividad["titulo_actividad"] = $data["titulo"];
                     $actividad["id_periodo"] = $data["id_periodo"];
+                    $actividad["porcentaje"] = $data["porcentaje"];
                     $actividad["descripcion_actividad"] = $data["descripcion"];
                     $actividad["disponible_desde"] = date("Y-m-d H:i:s", strtotime($data["disponible_desde"]));
                     $actividad["disponible_hasta"] = date("Y-m-d H:i:s", strtotime($data["disponible_hasta"]));
@@ -137,6 +138,8 @@ class Actividades extends CI_Controller {
             if(strtolower(logged_user()["rol"]) == "docente"){
                 $data["id_respuestas_actividades"] = $this->input->post()["id"];
                 $data["calificacion"] = $this->input->post()["calificacion"];
+                $data["docente_notas"] = $this->input->post()["notas"];
+                $data["fecha_calificacion"] = date("Y-m-d h:i:s");
 
                 if($this->Actividades_Model->update_response($data)){
                     json_response(null, true, "Calificación actualizada correctamente");

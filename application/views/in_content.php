@@ -2520,6 +2520,12 @@ function menuForStudents(){
         html+="<i><img src='./img/iconos/areas.png' width='50' height='50'></i><span>Areas</span></a></li>"; 
     }
 
+    html+="<li><a href='" + base_url+"Calendario/actividades' class='waves-effect'>";
+    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Calendario</span></a></li>"; 
+
+    html+="<li><a href='" + base_url+"Reportes' class='waves-effect'>";
+    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Reportes</span></a></li>"; 
+
 	html+="<li><a href='javascript:cfg_cambio_clave();' class='waves-effect'>";
 	html+="<i><img src='./img/iconos/clave.png' width='50' height='50'></i><span>Cambio Clave</span></a></li>";  
 

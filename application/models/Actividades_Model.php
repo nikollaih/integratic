@@ -7,19 +7,47 @@ class Actividades_Model extends CI_Model {
  	}
 
 	// Get the activity for a particular group
-	function get_all($materia, $grupo, $rol = "docente"){
+	function get_all($materia, $grupo, $rol = "docente", $all = false){
 		$this->db->from("actividades a");
 		$this->db->join("usuarios u", "a.created_by = u.id");
 		$this->db->join("cfg_materias cm", "cm.codmateria = a.materia");
 		$this->db->join("periodos p", "p.id_periodo = a.id_periodo");
         $this->db->where("a.grupo", $grupo);
-        $this->db->where("a.materia", $materia);
-		if(strtolower($rol) == "estudiante"){
+		if($materia != null){
+			$this->db->where("a.materia", $materia);
+		}
+		if(strtolower($rol) == "estudiante" && !$all){
 			$this->db->where("a.disponible_desde <=", date("Y-m-d h:i"));
 		}
 		$this->db->order_by("a.created_at", "desc");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
+	// Get the activity for a particular group
+	function get_all_for_students($materia, $periodo, $grupo = null, $grado = null){
+		$this->db->select("a.*, ra.*, p.periodo, cm.nommateria, cm.grado");
+		$this->db->from("actividades a");
+		$this->db->join("usuarios u", "a.created_by = u.id");
+		$this->db->join("cfg_materias cm", "cm.codmateria = a.materia");
+		$this->db->join("asg_materias am", "cm.codmateria = am.materia");
+		$this->db->join("periodos p", "p.id_periodo = a.id_periodo");
+		$this->db->join("respuestas_actividades ra", "a.id_actividad = ra.id_actividad", "left");
+		if($periodo != null && $periodo != "null"){
+			$this->db->where("a.id_periodo", $periodo);
+		}
+		if($materia != null && $materia != "null"){
+			$this->db->where("a.materia", $materia);
+			$this->db->where("a.grupo", $grupo);
+		}
+		else {	
+			$this->db->where("cm.grado", $grado);
+			$this->db->where("a.grupo", $grupo);
+		}
+		$this->db->order_by("a.created_at", "desc");
+		$this->db->group_by("a.id_actividad");
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : [];
 	}
 
 	// Get the activity for a particular group

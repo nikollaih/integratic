@@ -50,10 +50,16 @@
                         </div>
                     </div>
                   </div>
-                  <div class="col-md-12 m-t-2">
+                  <div class="col-md-8 m-t-2">
                     <div class="form-group">
                         <label for="">Archivo</label>
-                        <input class="form-control input-lg" type="file" name="" id="nueva-actividad-file">
+                        <input class="form-control" type="file" name="" id="nueva-actividad-file">
+                    </div>
+                  </div>
+                  <div class="col-md-4 m-t-2">
+                    <div class="form-group">
+                        <label for="">Porcentaje *</label>
+                        <input class="form-control" type="number" name="" id="nueva-actividad-porcentaje">
                     </div>
                   </div>
                   <div class="col-md-6">

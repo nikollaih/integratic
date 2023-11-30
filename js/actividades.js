@@ -163,14 +163,15 @@ $(document).on("click", ".cargar-respuestas-boton", function() {
 
 $(document).on("click", ".btn-guardar-calificar", function() {
     let respuesta = $(this).attr("data-id");
-    let calificacion = $("#calificacion-respuesta-" + respuesta).val();
-    calificar_respuesta(respuesta, calificacion);
+    let calificacion = $("#calificacion-respuesta-nota-" + respuesta).val();
+    let notas = $("#calificacion-respuesta-notas-" + respuesta).val();
+    calificar_respuesta(respuesta, calificacion, notas);
 });
 
 $(document).on("click", ".btn-calificar", function() {
     let respuesta = $(this).attr("data-id");
-    $("#calificacion-respuesta-" + respuesta).removeClass("no-calificar");
-    $("#calificacion-respuesta-" + respuesta).prop("readonly", false);
+    $(".modificar-calificacion-respuesta-" + respuesta).removeClass("no-calificar");
+    $(".modificar-calificacion-respuesta-" + respuesta).prop("readonly", false);
     $(this).hide();
     $("#btn-guardar-calificacion-" + respuesta).show();
 });
@@ -182,8 +183,9 @@ function guardar_actividad() {
     let periodo = $("#nueva-actividad-periodo").val();
     let desde = $("#nueva-actividad-start").val();
     let hasta = $("#nueva-actividad-end").val();
+    let porcentaje = $("#nueva-actividad-porcentaje").val();
 
-    if (titulo.trim() != "" && descripcion.trim() != "" && periodo.trim() != "" && desde.trim() != "" && hasta.trim() != "") {
+    if (titulo.trim() != "" && descripcion.trim() != "" && periodo.trim() != "" && desde.trim() != "" && hasta.trim() != "" && porcentaje.trim() != "") {
         var formData = new FormData();
         formData.append("id_actividad", $("#nueva-actividad-actividad").val());
         formData.append("titulo", titulo);
@@ -192,6 +194,7 @@ function guardar_actividad() {
         formData.append("disponible_hasta", hasta);
         formData.append("id_periodo", periodo);
         formData.append("id_actividad", id_actividad);
+        formData.append("porcentaje", porcentaje);
         formData.append("userfile", $('#nueva-actividad-file')[0].files[0]);
 
         $.ajax({
@@ -256,20 +259,21 @@ function obtener_actividad_respuestas(actividad) {
     });
 }
 
-function calificar_respuesta(respuesta = null, calificacion = null) {
+function calificar_respuesta(respuesta = null, calificacion = null, notas = "") {
     if (respuesta != null && calificacion != null) {
         $.ajax({
             url: 'index.php/Actividades/calificar_respuesta',
             data: {
                 id: respuesta,
-                calificacion: calificacion
+                calificacion: calificacion,
+                notas: notas
             },
             type: 'POST',
             success: function(data) {
                 var response = JSON.parse(data);
                 if (response.status) {
-                    $("#calificacion-respuesta-" + respuesta).addClass("no-calificar");
-                    $("#calificacion-respuesta-" + respuesta).prop("readonly", true);
+                    $(".modificar-calificacion-respuesta-" + respuesta).addClass("no-calificar");
+                    $(".modificar-calificacion-respuesta-" + respuesta).prop("readonly", true);
                     $("#btn-modificar-calificacion-" + respuesta).show();
                     $("#btn-guardar-calificacion-" + respuesta).hide();
                 }
@@ -387,6 +391,7 @@ function set_actividad(actividad = null){
         jQuery("#nueva-actividad-periodo").val(actividad.id_periodo);
         jQuery("#nueva-actividad-start").val(actividad.disponible_desde);
         jQuery("#nueva-actividad-end").val(actividad.disponible_hasta);
+        jQuery("#nueva-actividad-porcentaje").val(actividad.porcentaje);
         editorRichActividades.setContents(actividad.descripcion_actividad);
     }
     else {
@@ -396,6 +401,7 @@ function set_actividad(actividad = null){
         jQuery("#nueva-actividad-periodo").val("");
         jQuery("#nueva-actividad-start").val("");
         jQuery("#nueva-actividad-end").val("");
+        jQuery("#nueva-actividad-porcentaje").val("");
         editorRichActividades.setContents("");
     } 
     jQuery("#agregar-nueva-actividad").modal("show");
