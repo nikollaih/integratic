@@ -11,7 +11,8 @@ Class EvidenciasAprendizaje extends CI_Controller
 
     function index(){
         if(is_logged()){
-            $params["areas"] = $this->Areas_Model->getAreasDocente(logged_user()["id"]);
+            $rol = strtolower(logged_user()["rol"]);
+            $params["areas"] =  ($rol == "docente") ? $this->Areas_Model->getAreasDocente(logged_user()["id"]) : $this->Areas_Model->getAll();
             $params["periodos"] = $this->Periodos_Model->getAll();
             $params["materias"] = false;
             

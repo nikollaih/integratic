@@ -6,6 +6,13 @@ class Areas_Model extends CI_Model {
         $this->load->database(); 
     }
 
+    function getAll(){
+        $this->db->from("cfg_areas ca");
+		$this->db->group_by("ca.codarea");
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
+
     function getAreasDocente($id_docente){
         $this->db->from("cfg_areas ca");
         $this->db->join("cfg_materias cm", "ca.codarea = cm.area");

@@ -25,14 +25,14 @@ class Actividades_Model extends CI_Model {
 	}
 
 	// Get the activity for a particular group
-	function get_all_for_students($materia, $periodo, $grupo = null, $grado = null){
-		$this->db->select("a.*, ra.*, p.periodo, cm.nommateria, cm.grado");
+	function get_all_for_students($materia, $periodo, $grupo = null, $grado = null, $id = null){
+		$this->db->select("a.*, ra.*, p.periodo, cm.nommateria, cm.grado, ra.created_by");
 		$this->db->from("actividades a");
 		$this->db->join("usuarios u", "a.created_by = u.id");
 		$this->db->join("cfg_materias cm", "cm.codmateria = a.materia");
 		$this->db->join("asg_materias am", "cm.codmateria = am.materia");
 		$this->db->join("periodos p", "p.id_periodo = a.id_periodo");
-		$this->db->join("respuestas_actividades ra", "a.id_actividad = ra.id_actividad", "left");
+		$this->db->join("respuestas_actividades ra", "a.id_actividad = ra.id_actividad AND ra.created_by = '$id'", "left");
 		if($periodo != null && $periodo != "null"){
 			$this->db->where("a.id_periodo", $periodo);
 		}

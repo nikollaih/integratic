@@ -4810,4 +4810,8 @@ div.dataTables_info {
     border: 0;
 }
 
+.rounded-img {
+    border-radius: 50%;
+}
+
 /* End dropdown */

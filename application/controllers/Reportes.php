@@ -27,6 +27,7 @@ class Reportes extends CI_Controller {
         if(is_logged()){
             $grado = $this->session->userdata()["logged_in"]["grado"];
             $grupo = $this->session->userdata()["logged_in"]["grupo"];
+            $id = $this->session->userdata()["logged_in"]["id"];
             
             if($this->input->post()){
                 $materia = $this->input->post("id_materia");
@@ -43,11 +44,11 @@ class Reportes extends CI_Controller {
 
             if(is_array($params["materias"])){
                 for ($i=0; $i < count($params["materias"]); $i++) { 
-                    $params["materias"][$i]["actividades"] = $this->Actividades_Model->get_all_for_students($params["materias"][$i]["codmateria"], $periodo, $grupo);
+                    $params["materias"][$i]["actividades"] = $this->Actividades_Model->get_all_for_students($params["materias"][$i]["codmateria"], $periodo, $grupo, null, $id);
                 }
             }
 
-            $params["actividades"] = $this->Actividades_Model->get_all_for_students($materia, $periodo, $grupo, $grado);
+            $params["actividades"] = $this->Actividades_Model->get_all_for_students($materia, $periodo, $grupo, $grado, $id);
             $this->load->view("reportes/actividades_estudiante", $params);
 
             // Cargar HTML en dompdf (puedes cargar tu vista aquí)

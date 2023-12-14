@@ -28,13 +28,14 @@
             $periodo = null;
             $grado = $this->session->userdata()["logged_in"]["grado"];
             $grupo = $this->session->userdata()["logged_in"]["grupo"];
+            $id = $this->session->userdata()["logged_in"]["id"];
             
             if($this->input->post()){
                 $materia = $this->input->post("id_materia");
                 $periodo = $this->input->post("id_periodo");
             }
 
-            $actividades = $this->Actividades_Model->get_all_for_students($materia, $periodo, $grupo, $grado);
+            $actividades = $this->Actividades_Model->get_all_for_students($materia, $periodo, $grupo, $grado, $id);
             json_response($actividades, true, "Lista de actividades");
         }
         else json_response(null, false, "Por favor inicie sesion");

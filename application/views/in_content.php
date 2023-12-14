@@ -200,6 +200,7 @@
                             <select class="form-control" id="rol" name="rol">
                                 <option>Docente</option>
                                 <option>Administrativo</option>
+                                <option>Coordinador</option>
                             </select> 
                         </div> 
                     </div> 
@@ -2469,29 +2470,36 @@ var ced=document.getElementById("ced").value;
 }
 
 function cambio_menu(){
-		var rol=document.getElementById("rol").value;    
-    if (rol!=='super'){ 
+	let rol = document.getElementById("rol").value;  
+
+    if (rol.toLowerCase() != 'super'){ 
         html="<ul>";
         //html+="<li><a href='javascript:cfg_docente();'>";
-        //html+="<i><img src='./img/iconos/menu.png' width='60' height='40'></i><span>Administrar</span></a></li>";  
-        html+="<li><a href='" + base_url+"Pruebas' class=' '>";
-        html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>";  
-
+        //html+="<i><img src='./img/iconos/menu.png' width='60' height='40'></i><span>Administrar</span></a></li>";   
         if(configuracion.departamental == 0) {
-            html+="<li><a href='" + base_url+"PlanAula' class=' '>";
-            html+="<i><img src='./img/iconos/plan_aula.jpeg' width='50' height='50'></i><span>Plan Aula</span></a></li>";  
+            if (rol.toLowerCase() == 'docente'){ 
+                html+="<li><a href='" + base_url+"Pruebas' class=' '>";
+                html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>"; 
 
-            html+="<li><a href='javascript:cfg_docente();' class=' '>";
-            html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
+                html+="<li><a href='" + base_url+"PlanAula' class=' '>";
+                html+="<i><img src='./img/iconos/plan_aula.jpeg' width='50' height='50'></i><span>Plan Aula</span></a></li>";  
 
-            html+="<li><a href='javascript:cfg_proyectos();' class=' '>";
-            html+="<i><img src='./img/iconos/proyectos.png' width='50' height='50'></i><span>Proyectos</span></a></li>";  
+                html+="<li><a href='javascript:cfg_docente();' class=' '>";
+                html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
 
-            html+="<li><a href='javascript:cfg_comunicacion();' class=' '>";
-            html+="<i><img src='./img/iconos/comunicacion.png' width='50' height='50'></i><span>Comunicación</span></a></li>"; 
+                html+="<li><a href='javascript:cfg_proyectos();' class=' '>";
+                html+="<i><img src='./img/iconos/proyectos.png' width='50' height='50'></i><span>Proyectos</span></a></li>";  
 
-            html+="<li><a href='javascript:cfg_planeacion();' class=' '>";
-            html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Planeación</span></a></li>";
+                html+="<li><a href='javascript:cfg_comunicacion();' class=' '>";
+                html+="<i><img src='./img/iconos/comunicacion.png' width='50' height='50'></i><span>Comunicación</span></a></li>"; 
+
+                html+="<li><a href='javascript:cfg_planeacion();' class=' '>";
+                html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Planeación</span></a></li>";
+            }
+            if (rol.toLowerCase() == 'coordinador'){ 
+                html+="<li><a href='" + base_url+"EvidenciasAprendizaje' class=' '>";
+                html+="<i><img src='./img/iconos/evidencias_aprendizaje.jpeg' width='50' height='50' class='rounded-img'></i><span>Evidencias de aprendizaje</span></a></li>";
+            }
         }  
 
         html+="<li><a href='javascript:cfg_cambio_clave();' class=' '>";
