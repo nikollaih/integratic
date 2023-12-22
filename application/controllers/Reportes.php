@@ -6,7 +6,7 @@ class Reportes extends CI_Controller {
     public function __construct() {  
        parent::__construct();  
        $this->load->helper(array('form', 'url','html')); 
-       $this->load->model(['Actividades_Model', 'Materias_Model', 'Periodos_Model']);
+       $this->load->model(['Actividades_Model', 'Materias_Model', 'Periodos_Model', 'Pruebas_Model']);
     }
 
     // Shows the activities calendar
@@ -23,8 +23,9 @@ class Reportes extends CI_Controller {
 
     }
 
-    function actividadesEstudiante($materia = null, $periodo = null){
+    function actividadesEstudiante($materia = null, $periodo = null, $pruebas = false){
         if(is_logged()){
+            $params["incluir_pruebas"] = ($pruebas == "true");
             $grado = $this->session->userdata()["logged_in"]["grado"];
             $grupo = $this->session->userdata()["logged_in"]["grupo"];
             $id = $this->session->userdata()["logged_in"]["id"];
@@ -49,6 +50,15 @@ class Reportes extends CI_Controller {
             }
 
             $params["actividades"] = $this->Actividades_Model->get_all_for_students($materia, $periodo, $grupo, $grado, $id);
+
+            if($params["incluir_pruebas"]){
+                $params["pruebas"] = $this->Pruebas_Model->get_estudiante_report($id, $materia, $periodo);
+                if(is_array($params["pruebas"])){
+                    for ($i=0; $i < count($params["pruebas"]); $i++) { 
+                        $params["pruebas"][$i]["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["pruebas"][$i]["materias"]));
+                    }
+                }
+            }
             $this->load->view("reportes/actividades_estudiante", $params);
 
             // Cargar HTML en dompdf (puedes cargar tu vista aquí)

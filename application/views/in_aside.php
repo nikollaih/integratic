@@ -53,6 +53,19 @@
                                 <li><a href="<?= base_url() ?>Reportes" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/pruebas.png" width="50" height="50"></i><span>Reportes</span></a></li>
                             <?php
                         }
+
+                        if(strtolower(logged_user()["rol"]) == "acudiente"){
+                            ?>
+                                <li>
+                                    <a href='<?= base_url() ?>'>
+                                        <i><img src='<?= base_url() ?>img/iconos/volver.png' width='50' height='50'></i><span>Volver</span>
+                                    </a>
+                                </li>  
+                                <li><a href="<?= base_url() ?>Pruebas" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/pruebas.png" width="50" height="50"></i><span>Pruebas</span></a></li>
+                                <li><a href="<?= base_url() ?>Calendario/actividades" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/pruebas.png" width="50" height="50"></i><span>Calendario</span></a></li>
+                                <li><a href="<?= base_url() ?>Reportes" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/pruebas.png" width="50" height="50"></i><span>Reportes</span></a></li>
+                            <?php
+                        }
                     }
                     else{
                         ?>

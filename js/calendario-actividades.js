@@ -103,6 +103,8 @@ function getTooltipContent(event) {
     let formattedStartTime = getFormattedDate(event.start);
     let formattedEndTime = getFormattedDate(event.end);
     let status = getActivityStatus(event);
+    let tempCalificacion = event.extendedProps.customData.calificacion;
+    let calificacion = (tempCalificacion) ? tempCalificacion : "--";
 
     return '<div class="calendar-tooltip-container">' +
         '<h5 class="calendar-tooltip-title">Actividad</h5>' +
@@ -118,7 +120,7 @@ function getTooltipContent(event) {
         '<h5 class="calendar-tooltip-title">Estado</h5>' +
         '<p class="calendar-tooltip-text">' + status + '</p>' +
         '<h5 class="calendar-tooltip-title">Calificación</h5>' +
-        ' <p class="calendar-tooltip-text">' + event.extendedProps.customData.calificacion + '</p>' +
+        ' <p class="calendar-tooltip-text">' + calificacion + '</p>' +
         '</div>'
 }
 

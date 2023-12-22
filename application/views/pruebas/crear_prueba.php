@@ -157,8 +157,28 @@
 
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
+                                            <label for="">Periodo</label>
+                                            <select name="prueba[id_periodo]" id="" class="form-control" data-live-search="true" data-size="10" data-actions-box="true">
+                                                <option value="0">--</option>
+                                                <?php
+                                                    if($periodos != false){
+                                                        foreach ($periodos as $periodo) {
+                                                        ?>
+                                                            <option <?= ($prueba && $prueba["id_periodo"] == $periodo["id_periodo"]) ? "selected" : "" ?> value="<?= $periodo["id_periodo"] ?>"><?= $periodo["periodo"] ?></option>
+                                                        <?php
+                                                        }
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="col-md-12 col-sm-12 col-lg-4">
+                                        <div class="form-group">
                                             <label for="">Mostrar respuestas</label>
-                                            <div class="custom-control custom-switch m-t-1">
+                                            <div class="custom-control custom-switch">
                                                 <input <?= ($prueba && $prueba["mostrar_respuestas"] == 1) ? "checked" : "" ?> type="checkbox" name="prueba[mostrar_respuestas]" class="custom-control-input" id="customSwitch1">
                                                 <label class="custom-control-label" for="customSwitch1">Mostrar respuestas correctas al finalizar prueba</label>
                                             </div>

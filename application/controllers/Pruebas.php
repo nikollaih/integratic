@@ -5,7 +5,7 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model(["Estudiante_Model", "Respuestas_Realizar_Prueba_Model", "Realizar_Prueba_Model", "Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model"]);
+       $this->load->model(["Estudiante_Model", "Respuestas_Realizar_Prueba_Model", "Realizar_Prueba_Model", "Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model", "Periodos_Model"]);
     }
     
     public function index(){
@@ -15,7 +15,7 @@
                 //$materias = array_column($this->Materias_Model->getMateriasDocente(logged_user()["id"], true), "materia");
                 $params["pruebas"] = $this->Pruebas_Model->get_docente_all(logged_user()["id"]);
             }
-            if(strtolower(logged_user()["rol"]) == "estudiante"){
+            if(strtolower(logged_user()["rol"]) == "estudiante" || strtolower(logged_user()["rol"]) == "acudiente"){
                 $params["pruebas"] = $this->Pruebas_Model->get_estudiante_all(logged_user()["id"]);
             }
             $this->load->view("pruebas/home", $params);
@@ -31,6 +31,7 @@
                 $params["materias"] = $this->Materias_Model->getMateriasDocente(logged_user()["id"]);
                 $params["tipo_pruebas"] = $this->TipoPrueba_Model->get_all();
                 $params["alcance_prueba"] = $this->AlcancePruebas_Model->get_all();
+                $params["periodos"] = $this->Periodos_Model->getAll();
 
                 if($this->input->post()){
                     $params["message"] = $this->guardarPrueba($this->input->post());

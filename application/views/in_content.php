@@ -2191,7 +2191,7 @@ function login(){
                  var registros = JSON.parse(respuesta); 
                  user = registros; 
                       if(Object.keys(registros).length>0){ 
-                               var html = '<label>Hola, '+registros.nombres+'</label>';
+                               var html = '<span>Hola, '+registros.nombres+'</span>';
                                html=html+'<form><input type="hidden" id="ced" name="ced" value="'+registros.id+'"/>';
                                html=html+'<input class="form-control input-sm" type="hidden" id="usr_cambio" name="usr_cambio" value="usr"/>'; 
                                html=html+'<input type="hidden" id="rol" name="rol" value="'+registros.rol+'"/></form>';
@@ -2209,10 +2209,10 @@ function login(){
                                $("#contenedor").html('');
                                document.getElementById("usr_cambio").value=nomusr;
 
+                               actualizar_notificaciones();
                                 cambio_menu();
                                 if(user.id == user.clave){
                                     cambio_clave();
-                                    actualizar_notificaciones();
                                 }
                                 else{
                                     location.reload();
@@ -2251,7 +2251,7 @@ function login_estudiante(){
                        }
                      } 
                     else{
-                      var html = '<label><h5><font color="FFFFFF">Hola, Invitado</font></h5></label>';
+                      var html = '<span><h5><font color="FFFFFF">Hola, Invitado</font></h5></span>';
                       alert("Usuario No Registrado, Ingresará como invitado")}   
                    $("#nomusuario").html(html);                     
                 },
@@ -2513,9 +2513,30 @@ function cambio_menu(){
     if (rol==='super'){
         administrar();
     }
-		if(rol=== 'Estudiante'){
-			menuForStudents();
-		}
+    if(rol=== 'Estudiante'){
+        menuForStudents();
+    }
+    if(rol.toLowerCase() == 'acudiente'){
+        menuForAcudiente();
+    }
+}
+
+function menuForAcudiente(){
+	html="<ul>";
+    html+="<li><a href='" + base_url+"Pruebas' class='waves-effect'>";
+    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>"; 
+
+    html+="<li><a href='" + base_url+"Calendario/actividades' class='waves-effect'>";
+    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Calendario</span></a></li>"; 
+
+    html+="<li><a href='" + base_url+"Reportes' class='waves-effect'>";
+    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Reportes</span></a></li>"; 
+
+	html+="<li><a href='javascript:logout();'>";
+	html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar Sesión</span></a></li>";  
+
+	html+="</ul>";
+	$("#sidebar-menu").html(html); 
 }
 
 function menuForStudents(){

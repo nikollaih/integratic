@@ -22,7 +22,7 @@
                                                 <th>Disponibilidad</th>
                                                 <th>Estado</th>
                                                 <?php
-                                                    if(strtolower(logged_user()["rol"]) == "estudiante"){
+                                                    if(strtolower(logged_user()["rol"]) == "estudiante" || strtolower(logged_user()["rol"]) == "acudiente" ){
                                                         ?>
                                                             <th>Calificación</th>
                                                         <?php
@@ -62,7 +62,7 @@
                                                                 </td>
 
                                                                 <?php
-                                                                    if(strtolower(logged_user()["rol"]) == "estudiante"){
+                                                                    if(strtolower(logged_user()["rol"]) == "estudiante" || strtolower(logged_user()["rol"]) == "acudiente"){
                                                                         ?>
                                                                             <td><?= (info_prueba_realizada($p["id_prueba"], $p["id_participante_prueba"])["porcentaje"] != null) ? info_prueba_realizada($p["id_prueba"], $p["id_participante_prueba"])["calificacion"] : "Sin presentar" ?></td>
                                                                         <?php

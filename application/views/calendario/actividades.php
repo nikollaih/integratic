@@ -45,6 +45,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row m-b-2">
+                                <div class="col-md-12">
+                                    <span class="badge badge-primary" style="background:#428cff;">&nbsp;No Disponible&nbsp;</span>
+                                    <span class="badge badge-success" style="background:#0b6951;">&nbsp;Entregada&nbsp;</span>
+                                    <span class="badge badge-warning" style="background:#ffb142;">&nbsp;Disponible&nbsp;</span>
+                                    <span class="badge badge-danger" style="background:#ff424b;">&nbsp;Vencida&nbsp;</span>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div id='calendar'></div>

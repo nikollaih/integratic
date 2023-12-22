@@ -43,6 +43,11 @@
                      </select>
                   </div>
                </div>
+               <div class="col-md-12">
+                  <div class="form-group">
+                     <input type="checkbox" id="reporte-actividades-estudiante-pruebas" name="reporte-actividades-estudiante-pruebas" /> Incluir pruebas
+                  </div>
+               </div>
             </div>
          </div>
          <div class="modal-footer">

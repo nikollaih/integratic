@@ -50,19 +50,30 @@ class Principal extends CI_Controller {
                 $datos = array_merge($datos, get_group_grade($datos["id"]));
                 $datos["participante_prueba"] = $this->Participantes_Prueba_Model->get($datos["id"]);
             }
-
-            $this->session->set_userdata("logged_in", $datos);
-
-            $_SESSION['nom']=$datos["nombres"];
-            $_SESSION['ape']=$datos["apellidos"];
-            $_SESSION['usr']=$datos["usuario"];
-            $_SESSION['rol']=$datos["rol"];
-            $_SESSION['id']=$datos["id"];
-            echo json_encode($datos);
+            $this->finishLogin($datos);
         } 
-        else{
-            return 0;
+        else {
+            $estudiante = $this->Estudiante_Model->getStudentUserByDocumentGrado($usr, $pass);
+            if($estudiante){
+                $estudiante = array_merge($estudiante, get_group_grade($estudiante["id"]));
+                $estudiante["participante_prueba"] = $this->Participantes_Prueba_Model->get($estudiante["id"]);
+                $estudiante["rol"] = "acudiente";
+                $this->finishLogin($estudiante);
+            }
+            else return 0;
         }
+    }
+
+    function finishLogin($datos){
+        $this->session->set_userdata("logged_in", $datos);
+
+        $_SESSION['nom'] = $datos["nombres"];
+        $_SESSION['ape'] = $datos["apellidos"];
+        $_SESSION['usr'] = $datos["usuario"];
+        $_SESSION['rol'] = $datos["rol"];
+        $_SESSION['id'] = $datos["id"];
+
+        echo json_encode($datos);
     }
 
     public function login_estudiante()

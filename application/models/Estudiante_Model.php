@@ -38,6 +38,15 @@ class Estudiante_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
+	function getStudentUserByDocumentGrado($document, $grado){
+		$this->db->from("estudiante e");
+		$this->db->join("usuarios u", "u.id = e.documento");
+		$this->db->where("e.documento", $document);
+		$this->db->where("e.grado", $grado);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+	}
+
 	function getStudentGrade($student_id){
 		$student_grade = $this->db->query("select grado from estudiante where documento = '".$student_id."'");
 		$student_grade = trim($student_grade->result()[0]->grado);

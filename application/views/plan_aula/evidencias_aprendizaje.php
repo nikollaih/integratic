@@ -136,6 +136,7 @@
                                                     <td><?= ($evidencia["estado_completo"] == 3) ? "Completado" : (($evidencia["estado_completo"] == 2) ? "No Completado" : "Pendiente"); ?></td>
                                                     <td><?= $evidencia["observaciones_completo"] ?></td>
                                                     <td>
+                                                        <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" class="btn-sm btn btn-primary mostrar-evidencia-aprendizaje">Mostrar más</button>
                                                         <a target="_blank" href="<?= base_url() ?>PlanAula/ver/<?= $evidencia["id_plan_area"] ?>">
                                                             <button class="btn-sm btn">Ver plan</button>
                                                         </a>
@@ -156,6 +157,7 @@
 </body>
 <?php $this->load->view("in_footer") ?>
 <?php $this->load->view("in_script") ?>
+<?php $this->load->view("modal/evidencia_aprendizaje") ?>
 <script>
     jQuery("#tabla-evidencias").dataTable();
 </script>

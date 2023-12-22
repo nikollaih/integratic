@@ -44,6 +44,11 @@ jQuery(document).ready(function() {
         }
     });
 
+    jQuery(document).on("click", ".mostrar-evidencia-aprendizaje", function() {
+        let idEvidenciaAprendizaje = jQuery(this).attr("data-id");
+        showEvidenciaAprendizaje(idEvidenciaAprendizaje);
+    });
+
     jQuery(document).on("click", ".open-close-parte", function() {
         let parte = jQuery(this).attr("data-parte");
         jQuery("#parte-" + parte).slideToggle();
@@ -150,6 +155,36 @@ jQuery(document).ready(function() {
                 alert("Error!") 
             }
         });
+    }
+
+    function showEvidenciaAprendizaje(idEvidencia){
+        $("#background-loading").css("display", "flex");
+        $.ajax({
+            url: base_url + "EvidenciasAprendizaje/find/" + idEvidencia,
+            type: 'GET',
+            success: function(data) {
+                var data = JSON.parse(data);
+                let object = data.object;
+                if (data.status){
+                    setEvidenciaAprendizajeModal(object);
+                }
+                $("#background-loading").css("display", "none");
+            },
+            error: function() { 
+                $("#background-loading").css("display", "none");
+                alert("Error!") 
+            }
+        });
+    }
+
+    function setEvidenciaAprendizajeModal(evidencia){
+        jQuery("#evidencia-aprendizaje-modal-evidencia").html(evidencia.evidencia_aprendizaje);
+        jQuery("#evidencia-aprendizaje-modal-exploracion").html(evidencia.exploracion);
+        jQuery("#evidencia-aprendizaje-modal-estructuracion").html(evidencia.estructuracion);
+        jQuery("#evidencia-aprendizaje-modal-transferencia").html(evidencia.transferencia);
+        jQuery("#evidencia-aprendizaje-modal-valoracion").html(evidencia.valoracion);
+        jQuery("#evidencia-aprendizaje-modal-recursos").html(evidencia.recursos);
+        jQuery("#evidencia-aprendizaje-modal").modal("show");
     }
 
     function getMateriasArea(id_area) {

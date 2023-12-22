@@ -46,8 +46,11 @@
 		if(is_logged()){
 			$data["id"] = logged_user()["id"];
 			$data["ultima_fecha_anuncios"] = date("Y-m-d H:i:s");
+            $userData = $this->session->userdata('logged_in');
+            $userData["ultima_fecha_anuncios"] = $data["ultima_fecha_anuncios"];
 
 			if($this->Usuarios_Model->update_user($data)){
+                $this->session->set_userdata("logged_in", $userData);
 				json_response(null, true, "Fecha actualizada");
 			}
 			else{

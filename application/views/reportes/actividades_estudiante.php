@@ -9,6 +9,7 @@
                             <img src="<?= base_url('img/'.$logo) ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>"><br>
                             <h5><?= (configuracion()) ? strtoupper(configuracion()["nombre_institucion"]) : "" ?></h5>
                             <p class="small-text"><?= date("Y-m-d h:i a") ?></p>
+                            <h5><?= (is_logged()) ? strtoupper($this->session->userdata()["logged_in"]["grado"].$this->session->userdata()["logged_in"]["grupo"]) : "" ?></h5>
                             <h5><?= (is_logged()) ? strtoupper($this->session->userdata()["logged_in"]["nombres"]." ".$this->session->userdata()["logged_in"]["apellidos"]) : "" ?></h5>
                             <p class="small-text">REPORTE DE ACTIVIDADES PERIODO <?= $periodo["periodo"] ?></p>
                         </td>
@@ -64,6 +65,58 @@
                             </tbody>
                         </table>
                     <?php }
+                }
+            ?>
+
+            <?php
+                if($incluir_pruebas){ ?>
+                <table style="margin-top:50px;">
+                    <thead>
+                        <tr class="header-container">
+                            <th style="text-align:center;" colspan="6"><p>Pruebas</p></th>
+                        </tr>
+                        <tr class="header-container">
+                            <th><p>Nombre</p></th>
+                            <th><p>Disponibilidad</p></th>
+                            <th><p>Materias</p></th>
+                            <th><p>Tipo</p></th>
+                            <th><p>Duración</p></th>
+                            <th><p>Calificación</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            if($pruebas){
+                                foreach ($pruebas as $prueba) { 
+                                    $calificacion = info_prueba_realizada($prueba["id_prueba"], $this->session->userdata()["logged_in"]["participante_prueba"]["id_participante_prueba"]);
+                                    ?>
+                                    <tr>
+                                        <td><p><?= $prueba["nombre_prueba"] ?></p></td>
+                                        <td>
+                                            <p style="margin-bottom:0;"><b>Desde:</b> <?= date("Y-m-d h:i a", strtotime($prueba["fecha_inicio"])) ?></p><br>
+                                            <p style="margin-top:0;"><b>Hasta:</b> <?= date("Y-m-d h:i a", strtotime($prueba["fecha_finaliza"])) ?></p>
+                                        </td>
+                                        <td>
+                                            <?php
+                                                if($prueba["materias"]){
+                                                    echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
+                                                    foreach ($prueba["materias"] as $materia) {
+                                                        echo "<li style='font-size:12px;'>".$materia["nommateria"]." - ".$materia["grado"]."°</li>";
+                                                    }
+                                                    echo "</ul>";
+                                                }
+                                            ?>
+                                        </td>
+                                        <td><p><?= $prueba["tipo_prueba"] ?></p></td>
+                                        <td><p><?= $prueba["duracion"] ?>min</p></td>
+                                        <td><p><?= ($calificacion["porcentaje"] != null) ? $calificacion["calificacion"] : "--" ?></p></td>
+                                    </tr>
+                                <?php }
+                            }
+                        ?>      
+                    </tbody>
+                </table>
+            <?php 
                 }
             ?>
         </div>

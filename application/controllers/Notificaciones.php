@@ -10,14 +10,28 @@
     // Obtiene el número de notificaciones
 	public function obtener_contador_notificaciones(){
 		$contador = 0;
-		$contador +=  obtener_contador_anuncios();
+
+      if(strtolower(logged_user()["rol"]) == "estudiante"){
+         $contador +=  obtener_contador_anuncios();
+      }
+
+      if(strtolower(logged_user()["rol"]) == "docente"){
+         $contador += obtener_contador_notificaciones();
+      }
+      
 		json_response($contador, true, "Notificaciones");
 	}
 
    public function obtener_lista_notificaciones(){
       $notificaciones_dom = "";
-      $notificaciones_dom .= anuncios_notificaciones(true);
+      if(strtolower(logged_user()["rol"]) == "estudiante"){
+         $notificaciones_dom .= anuncios_notificaciones(true);
+      }
+
+      if(strtolower(logged_user()["rol"]) == "docente"){
+         $notificaciones_dom .= docente_notificaciones();
+      }
+
       json_response($notificaciones_dom, true, "Notificaciones");
-   }
-     
+   } 
 } 
