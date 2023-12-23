@@ -70,7 +70,8 @@ class Actividades extends CI_Controller {
                 $data = $this->input->post();
                 $inserted_id = false;
                 $nombre_estudiante = logged_user()["nombres"]." ".logged_user()["apellidos"];
-                $estudiante_grado = logged_user()["grado"].logged_user()["grupo"];
+                $estudiante_grado = logged_user()["grado"];
+                $estudiante_grupo = logged_user()["grupo"];
     
                 if(isset($_FILES["userfile"])){
                     if(isset($_FILES['userfile']['name'])) {
@@ -98,7 +99,7 @@ class Actividades extends CI_Controller {
                                         $respuesta["url_archivo"] = $file_name;
                                         $this->Actividades_Model->update_response($respuesta);
                                         // Crear una notificacion para el docente
-                                        create_notificacion_docente($actividad["materia"], $nombre_estudiante, $estudiante_grado, $actividad["titulo_actividad"]);
+                                        create_notificacion_docente($actividad["materia"], $nombre_estudiante, $estudiante_grado, $estudiante_grupo, $actividad["titulo_actividad"]);
                                         json_response(true, true, "Respuesta creada exitosamente.");
                                     }
                                     else json_response(false, false, "Error, Ha ocurrido un error intente de nuevo más tarde");

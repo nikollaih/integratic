@@ -29,19 +29,19 @@ class Notificaciones_Model extends CI_Model {
 	} 
 
     function getByDocente($idDocente, $query, $fecha = false){
-        $this->db->select("n.*, cm.codmateria, cm.nommateria, cm.grado, am.*");
+        $this->db->select("n.*, cm.codmateria, cm.nommateria");
         $this->db->from("notificaciones n");
         $this->db->join("cfg_materias cm", "n.materia = cm.codmateria");
         $this->db->join("asg_materias am", "am.materia = cm.codmateria AND am.docente = $idDocente");
         if(count($query) >= 1){
             $add = ($fecha != false) ? "(" : "";
             $final = ($fecha != false && count($query) == 1) ? ")" : "";
-            $this->db->where($add."(n.materia = '".$query[0]["materia"]."' AND n.grado = '".$query[0]["grado"]."')$final");
+            $this->db->where($add."(n.materia = '".$query[0]["materia"]."' AND n.grado = '".$query[0]["grado"]."' AND n.grupo = '".$query[0]["grupo"]."')$final");
         }
         if(count($query) > 1){
             for ($i=1; $i < count($query); $i++) { 
                 $add = ($i == count($query) - 1 && $fecha != false) ? ")" : "";
-                $this->db->or_where("(n.materia = '".$query[$i]["materia"]."' AND n.grado = '".$query[$i]["grado"]."')$add");
+                $this->db->or_where("(n.materia = '".$query[$i]["materia"]."' AND n.grado = '".$query[$i]["grado"]."' AND n.grupo = '".$query[$i]["grupo"]."')$add");
             }
         }
         if($fecha != false){

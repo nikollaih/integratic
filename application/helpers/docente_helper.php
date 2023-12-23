@@ -9,7 +9,8 @@ if(!function_exists('get_grupos_docente'))
         if(is_array($materiasDocente)){
             foreach ($materiasDocente as $materiaDocente) {
                 $materia["materia"] = $materiaDocente["codmateria"];
-                $materia["grado"] = $materiaDocente["grado"].$materiaDocente["grupo"];
+                $materia["grado"] = $materiaDocente["grado"];
+                $materia["grupo"] = $materiaDocente["grupo"];
                 array_push($query, $materia);
             }
         }

@@ -1,13 +1,14 @@
 <?php
 if(!function_exists('create_notificacion_docente'))
 {
-    function create_notificacion_docente($materia, $nombre_estudiante, $grado, $nombre_actividad){
+    function create_notificacion_docente($materia, $nombre_estudiante, $grado, $grupo, $nombre_actividad){
         $CI = &get_instance();
         $CI->load->model(["Notificaciones_Model", "Materias_Model"]);
         $materiaData = $CI->Materias_Model->getMateria($materia);
 
         $notificacion["descripcion"] = "El estudiante <b>$nombre_estudiante</b> del grado <b>$grado</b> ha cargado una respuesta para la actividad <b>$nombre_actividad</b> de <b>".$materiaData['nommateria']."</b>";
         $notificacion["grado"] = $grado;
+        $notificacion["grupo"] = $grupo;
         $notificacion["materia"] = $materia;
 
         return $CI->Notificaciones_Model->create($notificacion);
