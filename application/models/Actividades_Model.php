@@ -58,6 +58,15 @@ class Actividades_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
+	function get_actividad_all($id_actividad){
+		$this->db->from("actividades a");
+		$this->db->join("cfg_materias cm", "a.materia = cm.codmateria");
+		$this->db->join("usuarios u", "a.created_by = u.id");
+        $this->db->where("a.id_actividad", $id_actividad);
+		$result = $this->db->get();
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+	}
+
 	function get_activity_response($id_actividad, $estudiante){
 		$this->db->from("respuestas_actividades");
 		$this->db->where("id_actividad", $id_actividad);

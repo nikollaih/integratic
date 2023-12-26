@@ -7,6 +7,7 @@ class Estudiante_Model extends CI_Model {
  	}
 
 	function getAll(){
+		$this->db->select("u.*, e.*, e.email as email");
 		$this->db->from("estudiante e");
 		$this->db->join("usuarios u", "e.documento = u.id", "left");
 		$this->db->order_by("e.grado", "asc");

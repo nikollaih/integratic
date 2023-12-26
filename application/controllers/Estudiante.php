@@ -41,14 +41,16 @@ class Estudiante extends CI_Controller {
 		$dataEstudiante = array(
 			"documento" => $data["documento"],
 			"nombre" => $data["nombre"],
-			"grado" => $data["grado"]
+			"grado" => $data["grado"],
+			"email" => $data["email"]
 		);
 
 		$dataUsuario = array(
 			"id" => $data["documento"],
 			"clave" => $data["clave"],
 			"rol" => "Estudiante",
-			"cargo" => "Estudiante"
+			"cargo" => "Estudiante",
+			"email" => $data["email"]
 		);
 
 		if($documento){

@@ -30,6 +30,7 @@
                 "rol"       => $rol,
                 "nocel"     => $cel,
                 "usuario"   => $usr,
+                "email"   => $usr,
                 "clave"     => $pass,
                 "fecha"     => $fecha,
                 "estado"    => "ac"

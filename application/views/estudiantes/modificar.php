@@ -16,30 +16,36 @@
                         <div class="panel-heading text-capitalize"><b><?= ($documento) ? "Modificar" : "Nuevo" ?> Estudiante</b></div>
                         <div class="panel-body">
                             <div class="row">
-                                <dic class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Documento</label>
                                         <input name="documento" class="form-control" <?= ($documento) ? "readonly" : "" ?> type="text" id="" value="<?= ($estudiante) ? $estudiante["documento"] : "" ?>">
                                     </div>
-                                </dic>
-                                <dic class="col-md-6">
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Apellidos - Nombres</label>
                                         <input name="nombre" class="form-control" <?= ($documento) ? "readonly" : "" ?> type="text" id="" value="<?= ($estudiante) ? $estudiante["nombres"]." ".$estudiante["apellidos"] : "" ?>">
                                     </div>
-                                </dic>
-                                <dic class="col-md-6">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Email</label>
+                                        <input class="form-control" name="email" type="email" id="" value="<?= ($estudiante) ? $estudiante["email"] : "" ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Grado</label>
                                         <input class="form-control" name="grado" type="text" id="" value="<?= ($estudiante) ? $estudiante["grado"] : "" ?>">
                                     </div>
-                                </dic>
-                                <dic class="col-md-6">
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Clave</label>
                                         <input class="form-control" name="clave" type="text" id="" value="<?= ($estudiante) ? $estudiante["clave"] : "" ?>">
                                     </div>
-                                </dic>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">

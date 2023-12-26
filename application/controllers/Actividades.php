@@ -9,8 +9,8 @@ class Actividades extends CI_Controller {
          $this->load->helper('form');
          $this->load->helper('html');
          $this->load->helper('url');
-         $this->load->model(['Consultas_Model', 'Actividades_Model']);
-         $this->load->library('upload');
+         $this->load->model(['Consultas_Model', 'Actividades_Model', 'Estudiante_Model']);
+         $this->load->library(['upload', 'Mailer']);
     }
 
     public function guardar(){
@@ -38,7 +38,10 @@ class Actividades extends CI_Controller {
                         $this->Actividades_Model->update($actividad);
                         $inserted_id = $data["id_actividad"];
                     }
-                    else $inserted_id = $this->Actividades_Model->create($actividad);
+                    else {
+                        $inserted_id = $this->Actividades_Model->create($actividad);
+                        $this->sendEmail($inserted_id);
+                    }
                 }
     
                 if(isset($_FILES["userfile"]) && $inserted_id){
@@ -60,6 +63,22 @@ class Actividades extends CI_Controller {
             }
             else{
                 json_response(false, false, "No tiene permisos para realizar esta acción");
+            }
+        }
+    }
+
+    function sendEmail($id_actividad){
+        $data["actividad"] = $this->Actividades_Model->get_actividad_all($id_actividad);
+        $grado = $data["actividad"]["grado"].$data["actividad"]["grupo"];
+        $estudiantes = $this->Estudiante_Model->getStudentsByGrado($grado);
+
+        if($estudiantes){
+            foreach ($estudiantes as $estudiante) {
+                if(trim($estudiante["email"]) != ""){
+                    $data["estudiante"] = $estudiante["nombre"];
+                    $email_body = $this->load->view('email/actividad', $data, true);
+                    $this->mailer->send($email_body, 'Nueva actividad', $estudiante["email"]);
+                }
             }
         }
     }

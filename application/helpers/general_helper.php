@@ -6,7 +6,6 @@
             $CI->load->model(['Estudiante_Model', 'General_Model', 'Usuarios_Model']);
             
             $estudiantes = $CI->Estudiante_Model->getAll();
-            
             if(is_array($estudiantes)){
                 foreach ($estudiantes as $e) {
                     $temp_name = explode(" ", $e["nombre"]);
@@ -19,6 +18,16 @@
 
                     $nombres = "";
                     $apellidos = "";
+                    if(count($split_name) == 6){
+                        $nombres = $split_name[4]." ".$split_name[5];
+                        $apellidos = $split_name[0] . " " . $split_name[1]. " " . $split_name[2]. " " . $split_name[3];
+                    }
+
+                    if(count($split_name) == 5){
+                        $nombres = $split_name[3] . " ". $split_name[4];
+                        $apellidos = $split_name[0] . " " . $split_name[1]. " " . $split_name[2];
+                    }
+
                     if(count($split_name) == 4){
                         $nombres = $split_name[2] . " " . $split_name[3];
                         $apellidos = $split_name[0] . " " . $split_name[1];
@@ -37,6 +46,7 @@
                     $data["nombres"] = $nombres;
                     $data["apellidos"] = $apellidos;
                     $data["id"] = trim($e["documento"]);
+                    $data["email"] = trim($e["email"]);
                     $data["cargo"] = "Estudiante";
                     $data["rol"] = "Estudiante";
                     $data["usuario"] = $e["documento"];
