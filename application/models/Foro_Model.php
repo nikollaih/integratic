@@ -27,6 +27,7 @@ class Foro_Model extends CI_Model {
     }
 
     function get_foro_all($id_foro){
+        $this->db->select("cm.*, u.*, f.*, f.titulo as titulo_foro");
         $this->db->from("foros f");
         $this->db->join("cfg_materias cm", "f.materia = cm.codmateria");
         $this->db->join("usuarios u", "f.created_by = u.id");

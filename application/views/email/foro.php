@@ -35,7 +35,7 @@
     <p>Te informamos que se ha creado un nuevo foro para el grado <strong><?= $foro["grado"]. $foro["grupo"] ?></strong> en la plataforma Integratic. A continuación, se detallan los datos:</p>
     <ul>
         <li><strong>Materia:</strong> <?= $foro["nommateria"] ?></li>
-        <li><strong>Nombre del foro:</strong> <?= $foro["titulo"] ?></li>
+        <li><strong>Nombre del foro:</strong> <?= $foro["titulo_foro"] ?></li>
         <li><strong>Docente Responsable:</strong> <?= $foro["nombres"]." ". $foro["apellidos"] ?></li>
         <li><strong>Disponible desde:</strong> <?= $foro["disponible_desde"] ?><strong> hasta:</strong> <?= $foro["disponible_hasta"] ?></li>
     </ul>
