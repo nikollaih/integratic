@@ -17,10 +17,10 @@ class Mailer {
 
     $config = array(
       'protocol'  => 'sendmail',
-      'smtp_host' => 'smtp.hostinger.com',
-      'smtp_port' => 465,
-      'smtp_user' => 'info@integratic.redesystemco.com',
-      'smtp_pass' => '@Integratic123',
+      'smtp_host' => configuracion()["smtp_host"],
+      'smtp_port' => configuracion()["smtp_port"],
+      'smtp_user' => configuracion()["smtp_user"],
+      'smtp_pass' => configuracion()["smtp_pass"],
       'mailtype'  => 'html',
       'charset'   => 'utf-8',
       'wordwrap' => TRUE,

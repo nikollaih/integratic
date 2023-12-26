@@ -107,6 +107,38 @@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="">SMTP HOST</label>
+                                                <input type="text" name="data[smtp_host]" class="form-control" value="<?= (is_array($data)) ? $data["smtp_host"] : "" ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="">SMTP POST</label>
+                                                <input type="text" name="data[smtp_port]" class="form-control" value="<?= (is_array($data)) ? $data["smtp_port"] : "" ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="">SMTP USER</label>
+                                                <input type="text" name="data[smtp_user]" class="form-control" value="<?= (is_array($data)) ? $data["smtp_user"] : "" ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="">SMTP PASS</label>
+                                                <input type="text" name="data[smtp_pass]" class="form-control" value="<?= (is_array($data)) ? $data["smtp_pass"] : "" ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group d-flex" style="align-items: center;">
                                                 <div style="flex: 1;margin-right: 20px;">
