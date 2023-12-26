@@ -30,9 +30,9 @@
 </head>
 <body>
   <div class="container">
-    <h2>Nuevo Foro Programada</h2>
+    <h2>Nuevo Foro Programado</h2>
     <p>Estimado/a <?= $estudiante ?>,</p>
-    <p>Te informamos que se ha creado un nuevo foro para el grado <strong><?= $actividad["grado"]. $actividad["grupo"] ?></strong> en la plataforma Integratic. A continuación, se detallan los datos:</p>
+    <p>Te informamos que se ha creado un nuevo foro para el grado <strong><?= $foro["grado"]. $foro["grupo"] ?></strong> en la plataforma Integratic. A continuación, se detallan los datos:</p>
     <ul>
         <li><strong>Materia:</strong> <?= $foro["nommateria"] ?></li>
         <li><strong>Nombre del foro:</strong> <?= $foro["titulo"] ?></li>
