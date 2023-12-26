@@ -26,6 +26,17 @@ class Foro_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
     }
 
+    function get_foro_all($id_foro){
+        $this->db->from("foros f");
+        $this->db->join("cfg_materias cm", "f.materia = cm.codmateria");
+        $this->db->join("usuarios u", "f.created_by = u.id");
+        $this->db->where("f.id_foro", $id_foro);
+		$result = $this->db->get();
+
+
+		return ($result->num_rows() > 0) ? $result->row_array() : false;
+    }
+
     function add($data){
         $data["created_at"] = date("Y-m-d H:i:s");
         $this->db->insert("foros", $data);

@@ -5,7 +5,8 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url', 'foros')); 
-       $this->load->model('Foro_Model');
+       $this->load->model(['Foro_Model', 'Estudiante_Model']);
+       $this->load->library(['Mailer']);
     }
     
     public function ver($id_foro){
@@ -93,6 +94,7 @@
             if($data["materia"] && $data["grupo"] && $data["titulo"] != ""){
                 $foro = $this->Foro_Model->add($data);
                 if($foro){
+                    $this->sendEmail($foro["id_foro"]);
                     json_response($foro, true, "Foro creado exitosamente");
                 }
                 else{
@@ -108,6 +110,21 @@
         }
     }
 
+    function sendEmail($id_foro){
+        $data["foro"] = $this->Foro_Model->get_foro_all($id_foro);
+        $grado = $data["foro"]["grado"].$data["foro"]["grupo"];
+        $estudiantes = $this->Estudiante_Model->getStudentsByGrado($grado);
+
+        if($estudiantes){
+            foreach ($estudiantes as $estudiante) {
+                if(trim($estudiante["email"]) != ""){
+                    $data["estudiante"] = $estudiante["nombre"];
+                    $email_body = $this->load->view('email/foro', $data, true);
+                    $this->mailer->send($email_body, 'Nuevo foro', $estudiante["email"]);
+                }
+            }
+        }
+    }
 
     function delete($id_foro = null){
         if(is_logged()){
