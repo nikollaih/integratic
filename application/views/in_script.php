@@ -60,6 +60,9 @@
         <!-- Temas -->
         <script src="<?= base_url() ?>js/temas.js"></script>
 
+        <!-- Cursos -->
+        <script src="<?= base_url() ?>js/cursos.js"></script>
+
         <!-- Actividades -->
         <script src="<?= base_url() ?>js/actividades.js"></script>
 

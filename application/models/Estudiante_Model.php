@@ -158,4 +158,13 @@ class Estudiante_Model extends CI_Model {
 		$this->db->where("documento", $id);
 		return $this->db->update("estudiante", $data);
 	}
+
+	function getGrados(){
+		$this->db->from("estudiante");
+		$this->db->group_by("grado");
+		$this->db->order_by("grado", "asc");
+		$result = $this->db->get();
+
+		return ($result->num_rows() > 0) ? $result->result_array() : false;
+	}
 }

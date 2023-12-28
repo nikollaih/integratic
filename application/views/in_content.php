@@ -2464,10 +2464,10 @@ var ced=document.getElementById("ced").value;
 }
 
 function cambio_menu(){
-	let rol = document.getElementById("rol").value;  
+	let rol = document.getElementById("rol").value;
 
     if (rol.toLowerCase() != 'super'){ 
-        html="<ul>";
+        let html="<ul>";
         //html+="<li><a href='javascript:cfg_docente();'>";
         //html+="<i><img src='./img/iconos/menu.png' width='60' height='40'></i><span>Administrar</span></a></li>";   
         if(configuracion.departamental == 0) {
@@ -2476,7 +2476,10 @@ function cambio_menu(){
                 html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>"; 
 
                 html+="<li><a href='" + base_url+"PlanAula' class=' '>";
-                html+="<i><img src='./img/iconos/plan_aula.jpeg' width='50' height='50'></i><span>Plan Aula</span></a></li>";  
+                html+="<i><img src='./img/iconos/plan_aula.jpeg' width='50' height='50'></i><span>Plan Aula</span></a></li>";
+
+                html+="<li><a href='" + base_url+"Cursos' class=' '>";
+                html+="<i><img src='./img/iconos/plan_aula.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
 
                 html+="<li><a href='javascript:cfg_docente();' class=' '>";
                 html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
@@ -2543,6 +2546,9 @@ function menuForStudents(){
         html+="<li><a href='javascript:StudentAreas();'>";
         html+="<i><img src='./img/iconos/areas.png' width='50' height='50'></i><span>Areas</span></a></li>"; 
     }
+
+    html+="<li><a href='" + base_url+"Cursos' class='waves-effect'>";
+    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Cursos</span></a></li>";
 
     html+="<li><a href='" + base_url+"Calendario/actividades' class='waves-effect'>";
     html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Calendario</span></a></li>"; 
