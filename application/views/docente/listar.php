@@ -41,7 +41,7 @@
             <div class="panel-heading text-capitalize">
                 <b><div id="titulo"><?= $titulo ?></div></b>
             </div>
-            <div class="panel-body">       
+            <div class="panel-body">     
                 <div class='row' id='migas'>
                     <input id='ruta' name='ruta' value=".htmlentities($carpeta)." type='hidden'/>
                     <input id='nombre' name='nombre' type='hidden'/>
@@ -82,7 +82,12 @@
                         if(is_dir($carpeta)){
                             if($dir = opendir($carpeta)){
                                 $carpeta_length = explode("/", $carpeta);
-                                if(((count($carpeta_length) > 6) && $menu_materia) || ($menu_materia != "true" && (isset($carpeta_length[2]) && $carpeta_length[2] == "proyectos") && (count($carpeta_length) > 4 && logged_user()["rol"] != "Estudiante")) || ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[2] != "proyectos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 2 && logged_user()["rol"] != "Estudiante" && logged_user()["rol"] != "Administrativo")) || ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[2] != "proyectos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 4 && logged_user()["rol"] == "Administrativo"))){
+                                if(((count($carpeta_length) > 6) && $menu_materia) || 
+                                    ($menu_materia != "true" && (isset($carpeta_length[2]) && $carpeta_length[2] == "proyectos") && (count($carpeta_length) > 4 && logged_user()["rol"] != "Estudiante")) || 
+                                    ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[2] != "proyectos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 2 && logged_user()["rol"] != "Estudiante" && logged_user()["rol"] != "Administrativo")) || 
+                                    ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[2] != "proyectos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 4 && logged_user()["rol"] == "Administrativo"))
+                                    )
+                                {
                                     array_pop($carpeta_length);
                                     $title_back = $carpeta_length[count($carpeta_length) - 1];
                                     ?>

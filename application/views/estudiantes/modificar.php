@@ -25,7 +25,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Apellidos - Nombres</label>
-                                        <input name="nombre" class="form-control" <?= ($documento) ? "readonly" : "" ?> type="text" id="" value="<?= ($estudiante) ? $estudiante["nombres"]." ".$estudiante["apellidos"] : "" ?>">
+                                        <input name="nombre" class="form-control" <?= ($documento) ? "readonly" : "" ?> type="text" id="" value="<?= ($estudiante) ? $estudiante["apellidos"]." ".$estudiante["nombres"] : "" ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">

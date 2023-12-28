@@ -23,6 +23,7 @@
                                         <tr>
                                             <td>Identificación</td>
                                             <td>Nombre completo</td>
+                                            <td>Email</td>
                                             <td>Grado</td>
                                             <td>Clave</td>
                                             <td></td>
@@ -36,6 +37,7 @@
                                                         <tr id="estudiante-<?= $e["documento"] ?>">
                                                             <td><?= $e["documento"] ?></td>
                                                             <td><?= $e["nombre"] ?></td>
+                                                            <td><?= $e["email"] ?></td>
                                                             <td><?= $e["grado"] ?></td>
                                                             <td><?= $e["clave"] ?></td>
                                                             <td class="text-center">

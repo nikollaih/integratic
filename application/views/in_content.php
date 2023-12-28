@@ -1852,8 +1852,9 @@ function submenu(ruta,sub, menu_materia = "false"){
                     grupo:info_current_materia.idgrupo
                 },
                 async:false,
-                success:function(respuesta){                      
-                        $("#listacon").html(respuesta);              
+                success:function(respuesta){ 
+                    console.log(respuesta);                     
+                    $("#listacon").html(respuesta);              
                 },
                error:function(){alert("Ocurrió un Error!");}        
        });
@@ -1950,17 +1951,10 @@ function listado(tipo, carpeta, materia, grupo, descripcion, idmateria = null, i
     document.getElementById("ubica").value = titulo;
     var rol = document.getElementById("rol").value; 
 
-    if(rol==='Docente') {
-        url = base_url + 'principal/listar';
-    }
-    else{
-        url = base_url + 'docente/listar/' + menu_materia;
-    }
-
     $.ajax({
-        url:url,
-        type:'POST',
-        data:{
+        url: base_url + 'docente/listar/' + menu_materia,
+        type: 'POST',
+        data: {
             ruta: ruta,
             titulo: titulo,
             materia: idmateria,
@@ -2486,7 +2480,12 @@ function cambio_menu(){
 
                 html+="<li><a href='javascript:cfg_docente();' class=' '>";
                 html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
-
+            }
+            if (rol.toLowerCase() == 'coordinador'){ 
+                html+="<li><a href='" + base_url+"EvidenciasAprendizaje' class=' '>";
+                html+="<i><img src='./img/iconos/evidencias_aprendizaje.jpeg' width='50' height='50' class='rounded-img'></i><span>Evidencias de aprendizaje</span></a></li>";
+            }
+            if (rol.toLowerCase() == 'coordinador' || rol.toLowerCase() == 'docente'){
                 html+="<li><a href='javascript:cfg_proyectos();' class=' '>";
                 html+="<i><img src='./img/iconos/proyectos.png' width='50' height='50'></i><span>Proyectos</span></a></li>";  
 
@@ -2495,10 +2494,6 @@ function cambio_menu(){
 
                 html+="<li><a href='javascript:cfg_planeacion();' class=' '>";
                 html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Planeación</span></a></li>";
-            }
-            if (rol.toLowerCase() == 'coordinador'){ 
-                html+="<li><a href='" + base_url+"EvidenciasAprendizaje' class=' '>";
-                html+="<i><img src='./img/iconos/evidencias_aprendizaje.jpeg' width='50' height='50' class='rounded-img'></i><span>Evidencias de aprendizaje</span></a></li>";
             }
         }  
 
