@@ -18,7 +18,7 @@
                                         <input type="text" name="curso[nombre_curso]" id="" class="form-control" value="<?= ($curso) ? $curso["nombre_curso"] : "" ?>">
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-12 col-lg-4">
+                                <div class="col-md-6 col-sm-12 col-lg-3">
                                     <div class="form-group">
                                         <label for="">Grupos *</label>
                                         <select required multiple name="curso[grados][]" data-live-search="true" data-actions-box="true" data-actions-box="true" class="form-control multiple-select">
@@ -35,16 +35,22 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-12 col-lg-4">
+                                <div class="col-md-6 col-sm-12 col-lg-3">
                                     <div class="form-group">
                                         <label for="">Disponible desde *</label>
                                         <input type="datetime-local" name="curso[disponible_desde]" class="form-control" id="" value="<?= ($curso) ? $curso["disponible_desde"] : "" ?>">
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-12 col-lg-4">
+                                <div class="col-md-6 col-sm-12 col-lg-3">
                                     <div class="form-group">
                                         <label for="">Disponible hasta *</label>
                                         <input type="datetime-local" name="curso[disponible_hasta]" class="form-control" id="" value="<?= ($curso) ? $curso["disponible_hasta"] : "" ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-lg-3">
+                                    <div class="form-group">
+                                        <label for="">Archivos</label>
+                                        <input type="file" name="archivos[]" multiple class="form-control" id="">
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-lg-12">
@@ -63,6 +69,33 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php
+                                    if($archivos){ ?>
+                                    <div class="col-md-12 col-sm-12 col-lg-12 m-t-2">
+                                        <h5 class="m-t-2">Archivos adjuntos</h5>
+                                        <table id="tabla-archivos_curso" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Fecha de creación</th>
+                                                    <th></th>
+                                                </tr>
+                                                <tbody>
+                                                    <?php
+                                                        foreach ($archivos as $archivo) { ?>
+                                                            <tr id="archivo-curso-<?= $archivo["id_archivo_curso"] ?>">
+                                                                <td><a target="_blank" href="<?= base_url().'uploads/cursos/'.$curso["id_curso"].'/'.$archivo["slug_archivo"] ?>"><?= $archivo["nombre_archivo"] ?></a></td>
+                                                                <td><?= date("Y-m-d h:i a", strtotime($archivo["created_at"])) ?></td>
+                                                                <td style="width:100px;"><a  data-id="<?= $archivo["id_archivo_curso"] ?>" class="btn btn-danger btn-sm btn-eliminar-archivo-curso">Eliminar</a></td>
+                                                            </tr>
+                                                        <?php }
+                                                    ?>
+                                                </tbody>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <?php }
+                                ?>
                             </div>
                         </div>
                     </div>
