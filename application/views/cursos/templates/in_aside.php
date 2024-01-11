@@ -15,11 +15,11 @@
                 </li>
                 <li>
                             <a href="<?= base_url() ?>Cursos" class=" ">
-                                <i><img src='<?= base_url() ?>img/iconos/todos_planes_aula.jpeg' width="50" height="50" class="rounded-img"></i><span>Ver todos</span>
+                                <i><img src='<?= base_url() ?>img/iconos/cursos.jpeg' width="50" height="50" class="rounded-img"></i><span>Ver todos</span>
                             </a>
                         </li>  
                 <?php
-                    if(strtolower(logged_user()["rol"]) == "docente"){ ?>
+                    if(strtolower(logged_user()["rol"]) != "estudiante"){ ?>
                         <li>
                             <a href="<?= base_url() ?>Cursos/create" class=" ">
                                 <i><img src='<?= base_url() ?>img/iconos/nuevo_plan_aula.jpeg' width="50" height="50" class="rounded-img"></i><span>Nuevo</span>

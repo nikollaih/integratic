@@ -7,19 +7,15 @@
                     <tr>
                         <td class="td-image" rowspan="3"><img src="<?= base_url('img/'.$logo) ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>"></td>
                         <td><p class="small-text">FORMATO</p></td>
-                        <td><p class="small-text">CÓDIGO: <?= $plan_area["codigo"] ?></p></td>
-                        <td class="td-image" rowspan="3"><img src="<?= base_url() ?>img/it.png" alt="IntegraTic"></td>
                     </tr>
                     <tr>
                         <td>
                             <h5><?= (configuracion()) ? strtoupper(configuracion()["nombre_institucion"]) : "" ?></h5>
                             <p class="small-text"><?= (configuracion()) ? strtoupper(configuracion()["ciudad"]) : "" ?></p>
                         </td>
-                        <td><p class="small-text">VERSION: <?= $plan_area["version"] ?></p></td>
                     </tr>
                     <tr>
-                        <td><p class="small-text">PLAN DE AULA</p></td>
-                        <td><p class="small-text">FECHA: <?= date("Y-m-d", strtotime($plan_area["created_at"])) ?></p></td>
+                        <td><p class="small-text">PLAN DE AULA <br><?= date("Y-m-d", strtotime($plan_area["created_at"])) ?></p></td>
                     </tr>
                 </tbody>
             </table>

@@ -314,9 +314,9 @@ function capitalizeTheFirstLetterOfEachWord(words) {
     return separateWord.join(' ');
 }
 
-function setAreasCaracterizacion(){
+function setAreasCaracterizacion(idSelect = 'caracterizacion_area_select'){
     // Obtén una referencia al elemento select por su ID
-    const selectElement = document.getElementById('caracterizacion_area_select');
+    const selectElement = document.getElementById(idSelect);
     if(selectElement){
         $.ajax({
             url: base_url + "caracterizacion/getCaracterizacionAreas",

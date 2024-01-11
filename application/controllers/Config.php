@@ -237,10 +237,11 @@ public function up_area(){
             date_default_timezone_set ('America/Bogota'); 
             $cod        = $this->input->post("ucodarea");
             $nom        = $this->input->post("unomarea");
+            $area        = $this->input->post("caracterizacion_area");
             $fecha      = date('Y-m-d');
             $ico        = $_FILES["uicoarea"]['name'];
             
-          $this->Config_Model->up_area($cod,$nom,$ico,$fecha);
+          $this->Config_Model->up_area($cod,$nom,$ico,$fecha,$area);
           echo json_encode($ico);
          }
          else{show_404();}       

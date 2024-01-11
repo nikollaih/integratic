@@ -1932,6 +1932,10 @@ body.fixed-left .side-menu.left {
     background-color: #f3f3f3 !important;
 }
 
+#sidebar-menu ul li a img {
+    border-radius: 50%;
+}
+
 #wrapper.enlarged .left.side-menu {
     width: 77px;
     z-index: 5;

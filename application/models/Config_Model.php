@@ -65,11 +65,11 @@ public function bo_menuad($id){
             return true;     }
     else{   return false;    }  
   }    
-public function up_area($cod,$nom,$ico,$fecha){
+public function up_area($cod,$nom,$ico,$fecha, $area){
     if($ico!=''){
-        $result=$this->db->query("Update cfg_areas Set nomarea='$nom',icoarea='$ico',fecha='$fecha' Where codarea=$cod");
+        $result=$this->db->query("Update cfg_areas Set caracterizacion_area='$area', nomarea='$nom',icoarea='$ico',fecha='$fecha' Where codarea=$cod");
     } else{
-        $result=$this->db->query("Update cfg_areas Set nomarea='$nom',fecha='$fecha' Where codarea=$cod");
+        $result=$this->db->query("Update cfg_areas Set caracterizacion_area='$area', nomarea='$nom',fecha='$fecha' Where codarea=$cod");
     }    
     if ($this->db->affected_rows() > 0) {
             return true;     }

@@ -332,7 +332,7 @@
                                 <div class="form-group">
                                     <label for="areasmat" class="control-label">Área de caracterización</label>
                                     <div id="lista_areas_caracterizacion">
-                                        <select class="form-control" id="caracterizacion_area_select" name="caracterizacion_area">
+                                        <select class="form-control caracterizacion_area_select" id="caracterizacion_area_select" name="caracterizacion_area">
                                         <option>Seleccione</option>    
                                         </select>
                                     </div>
@@ -2479,7 +2479,7 @@ function cambio_menu(){
                 html+="<i><img src='./img/iconos/plan_aula.jpeg' width='50' height='50'></i><span>Plan Aula</span></a></li>";
 
                 html+="<li><a href='" + base_url+"Cursos' class=' '>";
-                html+="<i><img src='./img/iconos/plan_aula.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
+                html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
 
                 html+="<li><a href='javascript:cfg_docente();' class=' '>";
                 html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
@@ -2487,8 +2487,11 @@ function cambio_menu(){
             if (rol.toLowerCase() == 'coordinador'){ 
                 html+="<li><a href='" + base_url+"EvidenciasAprendizaje' class=' '>";
                 html+="<i><img src='./img/iconos/evidencias_aprendizaje.jpeg' width='50' height='50' class='rounded-img'></i><span>Evidencias de aprendizaje</span></a></li>";
+
+                html+="<li><a href='" + base_url+"Cursos' class=' '>";
+                html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
             }
-            if (rol.toLowerCase() == 'coordinador' || rol.toLowerCase() == 'docente'){
+            if (rol.toLowerCase() != 'estudiante' && rol.toLowerCase() != 'super'){
                 html+="<li><a href='javascript:cfg_proyectos();' class=' '>";
                 html+="<i><img src='./img/iconos/proyectos.png' width='50' height='50'></i><span>Proyectos</span></a></li>";  
 
@@ -2525,10 +2528,10 @@ function menuForAcudiente(){
     html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>"; 
 
     html+="<li><a href='" + base_url+"Calendario/actividades' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Calendario</span></a></li>"; 
+    html+="<i><img src='./img/iconos/calendario.jpeg' width='50' height='50'></i><span>Calendario</span></a></li>"; 
 
     html+="<li><a href='" + base_url+"Reportes' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Reportes</span></a></li>"; 
+    html+="<i><img src='./img/iconos/reportes.jpeg' width='50' height='50'></i><span>Reportes</span></a></li>"; 
 
 	html+="<li><a href='javascript:logout();'>";
 	html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar Sesión</span></a></li>";  
@@ -2548,13 +2551,13 @@ function menuForStudents(){
     }
 
     html+="<li><a href='" + base_url+"Cursos' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Cursos</span></a></li>";
+    html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
 
     html+="<li><a href='" + base_url+"Calendario/actividades' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Calendario</span></a></li>"; 
+    html+="<i><img src='./img/iconos/calendario.jpeg' width='50' height='50'></i><span>Calendario</span></a></li>"; 
 
     html+="<li><a href='" + base_url+"Reportes' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Reportes</span></a></li>"; 
+    html+="<i><img src='./img/iconos/reportes.jpeg' width='50' height='50'></i><span>Reportes</span></a></li>"; 
 
 	html+="<li><a href='javascript:cfg_cambio_clave();' class='waves-effect'>";
 	html+="<i><img src='./img/iconos/clave.png' width='50' height='50'></i><span>Cambio Clave</span></a></li>";  
@@ -3716,7 +3719,17 @@ function consu_menuad(){
             success:function(respuesta){
                var registros = eval(respuesta); 
                  for (i=0; i<registros.length; i++) { 
-                    html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +          
+                    console.log(registros[i])
+                    html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +    
+                 
+                            "<div class='form-group'>"+
+                                "<label for='areasmat' class='control-label'>Área de caracterización</label>"+
+                                "<div id='lista_areas_caracterizacion'>"+
+                                    "<select class='form-control caracterizacion_area_select_edit' id='caracterizacion_area_select_edit' name='caracterizacion_area'>"+
+                                    "<option>Seleccione</option>   " +
+                                    "</select>"+
+                               " </div>"+
+                           " </div>   "   +  
                             "<label for='codigo'>No. Código</label>" +                 
                             "<div class='input-group'>" +   
                             "<input class='form-control' type='text' id='ucodarea' name='ucodarea' value='" + registros[i]["codarea"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
@@ -3735,6 +3748,10 @@ function consu_menuad(){
                     var titulo='<h4 class="modal-title">Actualización de Areas</h4> ';
                     $("#edi_titulo").html(titulo);   
                     $("#edi_cuerpo").html(html);
+                    setAreasCaracterizacion('caracterizacion_area_select_edit');
+                    setTimeout(() => {
+                        $("#caracterizacion_area_select_edit").val(parseInt(registros[i - 1]['caracterizacion_area']));
+                    }, 1000);
                     $("#modal_consultas").modal('hide');
                     $("#modal_editar").modal('show');
                    }
@@ -3977,6 +3994,7 @@ var campo = nodosEnTr[0].textContent;
            document.getElementById("unomarea").value !== ''){
            $("#modal_editar").modal("hide");
            var formData = new FormData($("#frmeditar")[0]);
+           console.log(formData);
            //ruta =  document.getElementById("ruta").value;
            ruta = "./principal/areas/";
            anterior =  ruta+document.getElementById("unomareant").value;
@@ -3989,7 +4007,7 @@ var campo = nodosEnTr[0].textContent;
                     async:false,
                     contentType:false,
                     processData:false,  
-                    success:function(){
+                    success:function(result){
                             url='./index.php/docente/renombrar';
                                     $.ajax({
                                        url:url,
