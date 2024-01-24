@@ -84,8 +84,9 @@
                                 $carpeta_length = explode("/", $carpeta);
                                 if(((count($carpeta_length) > 6) && $menu_materia) || 
                                     ($menu_materia != "true" && (isset($carpeta_length[2]) && $carpeta_length[2] == "proyectos") && (count($carpeta_length) > 4 && logged_user()["rol"] != "Estudiante")) || 
+                                    ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[1] == "documentos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 2 && logged_user()["rol"] != "Estudiante")) || 
                                     ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[2] != "proyectos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 2 && logged_user()["rol"] != "Estudiante" && logged_user()["rol"] != "Administrativo")) || 
-                                    ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[2] != "proyectos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 4 && logged_user()["rol"] == "Administrativo"))
+                                    ($menu_materia != "true" && ((isset($carpeta_length[2]) && $carpeta_length[2] != "proyectos") || !isset($carpeta_length[2])) && (count($carpeta_length) > 4 && (logged_user()["rol"] == "Administrativo")))
                                     )
                                 {
                                     array_pop($carpeta_length);

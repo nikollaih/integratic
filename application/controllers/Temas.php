@@ -54,7 +54,12 @@
 
     function procesarTema($post){
         $post["materias"] = serialize($post["materias"]);
-        $id_tema = ($post["id_tema"] != null) ? $this->Temas_Model->update($post) : $this->Temas_Model->create($post);
+        $data = $post;
+        if(($data["id_tema"] == null)){
+            unset($data["id_tema"]);
+        }
+        $id_tema = ($post["id_tema"] != null) ? $this->Temas_Model->update($data) : $this->Temas_Model->create($data);
+
         $success_status = ($post["id_tema"] != null) ? "Tema modificado exitosamente" : "Tema creado exitosamente";
         $fail_status = ($post["id_tema"] != null) ? "No se ha podido modificar el tema, intente de nuevo más tarde." : "No se ha podido crear el tema, intente de nuevo más tarde.";
 

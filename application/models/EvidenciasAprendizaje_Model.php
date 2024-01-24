@@ -44,7 +44,7 @@ class EvidenciasAprendizaje_Model extends CI_Model {
         }
 
         // Aplica filtro de periodo
-        if($periodo != null){
+        if($periodo != null && $semana == null){
             $this->db->where("pa.periodo", $periodo);
         }
 
@@ -55,7 +55,7 @@ class EvidenciasAprendizaje_Model extends CI_Model {
 
         // Aplica filtro de semana
         if($semana != null){
-            $this->db->where("ea.semanas LIKE '%".$semana."%'", NULL, FALSE);
+            $this->db->where("ea.semanas LIKE '%\"".$semana."\"%'", NULL, FALSE);
         }
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;

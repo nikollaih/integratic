@@ -442,6 +442,8 @@ ALTER TABLE `estudiante` ADD `email` VARCHAR(100) NOT NULL AFTER `nombre`;
 
 ALTER TABLE `preguntas_prueba` ADD `id_tema` INT NOT NULL AFTER `id_materia`;
 
+ALTER TABLE `cfg_areas` ADD `caracterizacion_area` INT DEFAULT NULL AFTER `fecha`;
+
 ALTER TABLE `pruebas` ADD `id_periodo` INT NOT NULL AFTER `id_prueba`, ADD `mostrar_respuestas` TINYINT(1) NOT NULL AFTER `id_periodo`;
 
 ALTER TABLE `usuarios` ADD `email` VARCHAR(100) NOT NULL AFTER `apellidos`;

@@ -26,7 +26,7 @@ class SemanasPeriodo_Model extends CI_Model {
         $this->db->from("semanas_periodo sm");
         $this->db->join("periodos p", "sm.periodo = p.id_periodo");
         $this->db->where("sm.periodo", $idPeriodo);
-        $this->db->order_by("semana ASC");
+        $this->db->order_by("CAST(semana AS SIGNED) ASC");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}

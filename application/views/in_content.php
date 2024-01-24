@@ -198,8 +198,8 @@
                         <div class="form-group"> 
                             <label for="rol" class="control-label">Rol</label> 
                             <select class="form-control" id="rol" name="rol">
-                                <option>Docente</option>
                                 <option>Administrativo</option>
+                                <option>Docente</option>
                                 <option>Coordinador</option>
                             </select> 
                         </div> 
@@ -1906,6 +1906,7 @@ function submenu_acti(ruta,sub){
 
 function listado(tipo, carpeta, materia, grupo, descripcion, idmateria = null, idgrupo = null){
     let menu_materia = false;
+    let url = base_url + 'docente/listar/' + menu_materia;
     info_current_materia["materia"] = materia;
     info_current_materia["grupo"] = grupo;
     info_current_materia["idmateria"] = idmateria;
@@ -1914,10 +1915,12 @@ function listado(tipo, carpeta, materia, grupo, descripcion, idmateria = null, i
         case 'labs':
             titulo = "Laboratorio Virtual " + materia;
             ruta = "principal/labs/" + materia;
+            url = base_url + 'Principal/listar';
             break; 
         case 'artes':
             titulo = "Artes Plasticas - " + materia;
-            ruta = "principal/artes_plasticas/" + materia;                        
+            ruta = "principal/artes_plasticas/" + materia;   
+            url = base_url + 'Principal/listar';                     
             break;                 
         case 'areas':
             var gra = materia.replace(/\D/g,'');
@@ -1930,20 +1933,23 @@ function listado(tipo, carpeta, materia, grupo, descripcion, idmateria = null, i
             else{
                 ruta = "principal/areas/" + carpeta + "/" + materia + "/" + grupo;
             }
+            url = base_url + 'docente/listar/' + menu_materia;
         break;   
         case 'areabase':
-            titulo = descripcion;                                       
+            titulo = descripcion;                             
             if(grupo==='N'){
                 ruta = "principal/areas/" + carpeta+"/" + materia;
             }
             else{
                 ruta="principal/areas/" + carpeta + "/" + materia + "/" + grupo;
             }
+            url = base_url + 'Principal/listar';
             break;             
         case 'raiz':
             titulo = descripcion; 
             $("#contenedor").html('<div id="contenido" class="ir-arriba"></div><div id="listacon"></div>');
             ruta = "principal/" + carpeta;
+            url = base_url + 'docente/listar/' + menu_materia;
             break;            
     }  
 
@@ -1951,8 +1957,10 @@ function listado(tipo, carpeta, materia, grupo, descripcion, idmateria = null, i
     document.getElementById("ubica").value = titulo;
     var rol = document.getElementById("rol").value; 
 
+    console.log(url);
+
     $.ajax({
-        url: base_url + 'docente/listar/' + menu_materia,
+        url: url,
         type: 'POST',
         data: {
             ruta: ruta,
@@ -2145,14 +2153,14 @@ function cfg_docente(){
     var rol=document.getElementById("rol").value;
     cambio_menu();
     listar_materias(document.getElementById("ced").value);
-    if(rol==='Administrativo'){listar_procesos(document.getElementById("ced").value);}
+    if(rol==='Administrativo' || rol.toLowerCase()=='coordinador'){listar_procesos(document.getElementById("ced").value);}
         else{listar_materias(document.getElementById("ced").value);}
 }    
 function cfg_proyectos(){         
     $("#contenedor").html('<div id="proyectos"></div>'); 
     var rol=document.getElementById("rol").value;
     cambio_menu();
-    if(rol==='Administrativo'){listar_tproyectos();}
+    if(rol==='Administrativo' || rol.toLowerCase()=='coordinador'){listar_tproyectos();}
         else{listar_proyectos(document.getElementById("ced").value);}
 }
 function cfg_comunicacion(){         
@@ -2203,13 +2211,16 @@ function login(){
                                $("#contenedor").html('');
                                document.getElementById("usr_cambio").value=nomusr;
 
-                               actualizar_notificaciones();
+                                actualizar_notificaciones();
                                 cambio_menu();
                                 if(user.id == user.clave){
                                     cambio_clave();
                                 }
                                 else{
-                                    location.reload();
+                                    if(user.rol.toLowerCase() == 'administrativo')
+                                        cfg_docente();
+                                    else
+                                        location.reload();
                                 }
                                /*if(registros.rol == "Docente"){
                                 location.reload();
@@ -2485,6 +2496,9 @@ function cambio_menu(){
                 html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
             }
             if (rol.toLowerCase() == 'coordinador'){ 
+                html+="<li><a href='javascript:cfg_docente();'>";
+                html+="<i><img src='./img/iconos/menu.png' width='50' height='50'></i><span>Administrar</span></a></li>";   
+
                 html+="<li><a href='" + base_url+"EvidenciasAprendizaje' class=' '>";
                 html+="<i><img src='./img/iconos/evidencias_aprendizaje.jpeg' width='50' height='50' class='rounded-img'></i><span>Evidencias de aprendizaje</span></a></li>";
 
@@ -2492,6 +2506,14 @@ function cambio_menu(){
                 html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
             }
             if (rol.toLowerCase() != 'estudiante' && rol.toLowerCase() != 'super'){
+                if (rol.toLowerCase() == 'administrativo'){
+                    html+="<li><a href='javascript:cfg_docente();'>";
+                    html+="<i><img src='./img/iconos/menu.png' width='50' height='50'></i><span>Administrar</span></a></li>";   
+                
+                    html+="<li><a href='" + base_url+"Cursos' class=' '>";
+                    html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
+                }
+
                 html+="<li><a href='javascript:cfg_proyectos();' class=' '>";
                 html+="<i><img src='./img/iconos/proyectos.png' width='50' height='50'></i><span>Proyectos</span></a></li>";  
 

@@ -39,7 +39,7 @@
                                                     if($materias != false){
                                                         foreach ($materias as $materia) {
                                                         ?>
-                                                            <option <?= ($pregunta["id_materia"] ==  $materia["codmateria"]) ? "selected" : "" ?> value="<?= $materia["codmateria"] ?>"><?= $materia["nommateria"]. " - ".$materia["grado"] . "°"; ?></option>
+                                                            <option <?= (isset($pregunta["id_materia"]) && $pregunta["id_materia"] ==  $materia["codmateria"]) ? "selected" : "" ?> value="<?= $materia["codmateria"] ?>"><?= $materia["nommateria"]. " - ".$materia["grado"] . "°"; ?></option>
                                                         <?php
                                                         }
                                                     }
@@ -81,7 +81,7 @@
                                             <input type="file" name="pregunta_archivo" accept="image/*" class="form-control">
                                         </div>
                                         <?php 
-                                            if(trim($pregunta["archivo"]) != ""){ ?>
+                                            if(isset($pregunta["archivo"]) && trim($pregunta["archivo"]) != ""){ ?>
                                                 <div class="m-b-2">
                                                     <a target="_blank" href="<?= base_url() ?>uploads/preguntas/<?= $pregunta["archivo"] ?>"><?= $pregunta["nombre_archivo"] ?></a>
                                                 </div>

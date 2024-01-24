@@ -10,10 +10,9 @@
     // Muestra la lista de todos los cursos disponibles
     function index(){
         if(is_logged()){
-            $idUser = logged_user()["id"];
             $rolUser = logged_user()["rol"];
 
-            $params["cursos"] = (strtolower($rolUser) == "docente") ? $this->Cursos_Model->get_all($idUser) : $this->Cursos_Model->get_by_grado(logged_user()["grado"].logged_user()["grupo"]);
+            $params["cursos"] = (strtolower($rolUser) != "estudiante") ? $this->Cursos_Model->get_all() : $this->Cursos_Model->get_by_grado(logged_user()["grado"].logged_user()["grupo"]);
             $this->load->view("cursos/index", $params);
         }
         else header("Location: ".base_url());

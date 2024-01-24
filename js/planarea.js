@@ -229,7 +229,7 @@ jQuery(document).ready(function() {
         const selectElement = document.getElementById('plan-area-semana');
     
         // Limpia el select eliminando todas las opciones existentes
-        selectElement.innerHTML = '<option>- Seleccionar</option>';
+        selectElement.innerHTML = '<option value="">- Todas</option>';
         // Itera sobre el arreglo y agrega nuevas opciones al select
 
         if(semanas != false)

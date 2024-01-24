@@ -45,6 +45,7 @@
                                     <div class="form-group">
                                         <label for="">DBA</label>
                                         <select  name="DBA" id="dba-tema-select" class="form-control" data-live-search="true"  data-actions-box="true">
+                                            <option value="0">No aplica</option>
                                             <?php
                                                 if($dba){
                                             ?>

@@ -77,7 +77,7 @@ $(document).ready(function() {
                 var data = JSON.parse(data);
                 if (data.status) {
                     let dbas = data.object.dbas;
-                    if(dbas) setTemaDBAs(dbas);
+                    setTemaDBAs(dbas);
                 }
                 else alert(data.message);
                 $("#background-loading").css("display", "none");
@@ -94,15 +94,16 @@ $(document).ready(function() {
         const selectElement = document.getElementById('dba-tema-select');
 
         // Limpia el select eliminando todas las opciones existentes
-        selectElement.innerHTML = '';
+        selectElement.innerHTML = '<option value="0">No aplica</option>';
 
         // Itera sobre el arreglo y agrega nuevas opciones al select
-        dbas.forEach((dba) => {
-            const option = document.createElement('option');
-            option.value = dba.id_dba;
-            option.textContent = dba.descripcion_dba;
-            selectElement.appendChild(option);
-        });
+        if(dbas.length > 0)
+            dbas.forEach((dba) => {
+                const option = document.createElement('option');
+                option.value = dba.id_dba;
+                option.textContent = dba.descripcion_dba;
+                selectElement.appendChild(option);
+            });
     }
 });
 

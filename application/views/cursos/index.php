@@ -42,7 +42,7 @@
                                                                 <td class="text-center">
                                                                     <a class="btn btn-sm btn-success" href="<?= base_url() ?>Cursos/ver/<?= $curso["id_curso"] ?>">Ver</a>
                                                                     <?php
-                                                                        if(strtolower(logged_user()["rol"]) == "docente"){
+                                                                        if(strtolower(logged_user()["rol"]) != "estudiante" && logged_user()["id"] == $curso["created_by"]){
                                                                     ?>
                                                                         <a class="btn btn-sm btn-warning" href="<?= base_url() ?>Cursos/create/<?= $curso["id_curso"] ?>">Modificar</a>
                                                                         <a class="btn btn-sm btn-danger button-eliminar-curso" class="button-eliminar-curso" data-curso="<?= $curso["id_curso"] ?>">Eliminar</a>

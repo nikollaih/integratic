@@ -48,7 +48,7 @@
                                 <div style="display:<?= (is_array($plan_area)) ? "none" : "block" ?>;" class="section-content" id="parte-1">
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Área <span class="text-danger">*</span></label>
                                                 <select <?= (is_array($plan_area)) ? "disabled" : "" ?> required class="form-control" name="plan[area]" id="plan-area-area">
@@ -63,7 +63,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Materia <span class="text-danger">*</span></label>
                                                 <select <?= (is_array($plan_area)) ? "disabled" : "" ?> required class="form-control" name="plan[materia]" id="plan-area-materia">
@@ -78,7 +78,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Periodo <span class="text-danger">*</span></label>
                                                 <select <?= (is_array($plan_area)) ? "disabled" : "" ?> required class="form-control" name="plan[periodo]" id="plan-area-periodo">
@@ -93,34 +93,22 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Fecha inicio <span class="text-danger">*</span></label>
                                                 <input required type="date" name="plan[fecha_inicio]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["fecha_inicio"] : "" ?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Fecha fin <span class="text-danger">*</span></label>
                                                 <input required type="date" name="plan[fecha_fin]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["fecha_fin"] : "" ?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Intensidad horaria (Semanal) <span class="text-danger">*</span></label>
                                                 <input required type="number" placeholder="Ej. 2" name="plan[intensidad_horaria]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["intensidad_horaria"] : "" ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-4 col-xs-12">
-                                            <div class="form-group">
-                                                <label for="">Código <span class="text-danger">*</span></label>
-                                                <input required type="text" placeholder="" name="plan[codigo]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["codigo"] : "" ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-4 col-xs-12">
-                                            <div class="form-group">
-                                                <label for="">Versión <span class="text-danger">*</span></label>
-                                                <input required type="number" placeholder="" name="plan[version]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["version"] : "" ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -398,7 +386,7 @@
                                                             <div class="row">
                                                                 <div class=" col-xs-12">
                                                                     <div class="form-group">
-                                                                        <label for="">Momento estrucuración y práctica</label>
+                                                                        <label for="">Momento estructuración y práctica</label>
                                                                         <textarea name="evidencia[estructuracion]" id="richtext-7" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["estructuracion"] : "" ?></textarea>
                                                                     </div>
                                                                 </div>
@@ -478,15 +466,19 @@
     $('.select-2').select2();
 
     let kothingParamsPlan = {
-        fontSize: ['8px', '10px', '12px', '14px', '16px', '18px', '20px'], // Lista de tamaños de letra
-        defaultFontSize: '12px', // Tamaño de letra predeterminado
+        fontSize: [8, 10, 12, 14, 16, 18, 20], // Lista de tamaños de letra
+        defaultFontSize: 10, // Tamaño de letra predeterminado
         width: '100%',
         height: 'auto',
         toolbarItem: [
             ['undo', 'redo'],
             ['fontSize'],
             ['bold', 'underline', 'italic'],
+            ['fontColor', 'hiliteColor'],
             ['outdent', 'indent', 'align', 'list', 'horizontalRule'],
+            ['link', 'image', 'video'],
+            ['fullScreen', 'showBlocks', 'codeView'],
+            ['preview', 'print'],
         ],
         charCounter: true,
     }

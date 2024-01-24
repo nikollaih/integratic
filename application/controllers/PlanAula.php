@@ -14,16 +14,15 @@ use Dompdf\Options;
             $params["areas"] = $this->Areas_Model->getAreasDocente(logged_user()["id"]);
             $params["periodos"] = $this->Periodos_Model->getAll();
             $params["materias"] = false;
+            $params["area"] = null;
+            $params["materia"] = null;
+            $params["periodo"] = null;
             
 			if(strtolower(logged_user()["rol"]) != "estudiante"){
-                if(strtolower(logged_user()["rol"]) == "docentes"){
+                if(strtolower(logged_user()["rol"]) == "docente"){
                     $params["planes_aula"] = $this->PlanAreas_Model->get_by_docente(logged_user()["id"]);
                 }
                 else {
-                    $params["area"] = null;
-                    $params["materia"] = null;
-                    $params["periodo"] = null;
-
                     if($this->input->post()){
                         $params["area"] = $this->input->post("area");
                         $params["materia"] = $this->input->post("materia");

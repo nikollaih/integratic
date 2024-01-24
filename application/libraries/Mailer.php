@@ -31,7 +31,7 @@ class Mailer {
     $this->CI->email->set_newline("\r\n");
 
     $this->CI->email->to($to);
-    $this->CI->email->from('info@integratic.redesystemco.com','IntegraTic');
+    $this->CI->email->from(configuracion()["smtp_user"],'IntegraTic');
     $this->CI->email->subject($subject);
     $this->CI->email->message($content);
 
@@ -46,7 +46,8 @@ class Mailer {
           return false;
       }
     } catch (Exception $e) {
-      echo $e->getMessage();
+      return false;
+      //echo $e->getMessage();
     }
   }
 }
