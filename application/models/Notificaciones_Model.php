@@ -49,6 +49,7 @@ class Notificaciones_Model extends CI_Model {
         }
         $this->db->group_by("n.id_notificacion");
         $this->db->limit(20);
+        $this->db->order_by('fecha', 'desc');
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}   

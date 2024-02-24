@@ -71,7 +71,7 @@ class Estudiante_Model extends CI_Model {
 	function getAreas($student_id){
 		$grade = $this->session->userdata()["logged_in"]["grado"];
 		$grupo = $this->session->userdata()["logged_in"]["grupo"];
-		$result = $this->db->query("Select * from cfg_areas a left join cfg_materias m on a.codarea = m.area join asg_materias am on am.materia = m.codmateria where m.grado = '".$grade."' and am.grupo = '".$grupo."'");
+		$result = $this->db->query("Select * from cfg_areas a left join cfg_materias m on a.codarea = m.area join asg_materias am on am.materia = m.codmateria where m.grado = '".$grade."' and am.grupo = '".$grupo."' group by a.codarea");
 		if(!$result){
 			return false;
 		}else{

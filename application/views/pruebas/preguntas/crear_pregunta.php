@@ -61,7 +61,7 @@
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Tema</label>
-                                            <select required name="pregunta[id_tema]" id="crear-prueba-tema" class="form-control select-tema">
+                                            <select name="pregunta[id_tema]" id="crear-prueba-tema" class="form-control select-tema">
                                                 <option value="">- Seleccionar</option>
                                                 <?php
                                                     if(count($temas) > 0){

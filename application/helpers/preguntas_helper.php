@@ -12,24 +12,24 @@
 
     if(!function_exists('get_pregunta_dificultad'))
     {
-        function get_pregunta_dificultad($dificultades){
+        function get_pregunta_dificultad($dificultades): string
+        {
             $dificultad_text = "";
             $dificultad = unserialize($dificultades);
-            
-            for ($i=0; $i < count($dificultad); $i++) { 
-                switch ($dificultad[$i]) {
-                    case '1':
-                        $dificultad_text .= "- Facil <br>";
-                        break;
-                    case '2':
-                        $dificultad_text .= "- Intermedia <br>";
-                        break;
-                    case '3':
-                        $dificultad_text .= "- Avanzada <br>";
-                        break;
-                    default:
-                        $dificultad_text .= "- Facil <br>";
-                        break;
+
+            if(is_array($dificultad)){
+                for ($i=0; $i < count($dificultad); $i++) {
+                    switch ($dificultad[$i]) {
+                        case '2':
+                            $dificultad_text .= "- Intermedia <br>";
+                            break;
+                        case '3':
+                            $dificultad_text .= "- Avanzada <br>";
+                            break;
+                        default:
+                            $dificultad_text .= "- Facil <br>";
+                            break;
+                    }
                 }
             }
 

@@ -460,7 +460,7 @@
 <?php $this->load->view("in_script") ?>
 </html>
 <script>
-    let forLength = "<?= (is_array($plan_area)) ? 12 : 6 ?>";
+    let forLength = 12;
     let editEvidencia = "<?= (is_array($selectedEvidencia)) ? "true" : "false" ?>";
 
     $('.select-2').select2();
@@ -485,9 +485,13 @@
 
     $( document ).ready(function() { 
         let allRichtext = [];
+        let domElement = null;
         for (let i = 1; i < forLength; i++) {
-            allRichtext[i] = KothingEditor.create('richtext-' + i, kothingParamsPlan);
-            jQuery("#richtext-" + i).addClass("hide-textarea");
+            domElement = jQuery("#richtext-" + i);
+            if(domElement.length > 0){
+                allRichtext[i] = KothingEditor.create('richtext-' + i, kothingParamsPlan);
+                jQuery("#richtext-" + i).addClass("hide-textarea");
+            }
         }
 
         $("#form-plan-aula").on('submit', function(e) {
