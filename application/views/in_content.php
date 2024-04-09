@@ -1950,15 +1950,13 @@ function listado(tipo, carpeta, materia, grupo, descripcion, idmateria = null, i
             titulo = descripcion; 
             $("#contenedor").html('<div id="contenido" class="ir-arriba"></div><div id="listacon"></div>');
             ruta = "principal/" + carpeta;
-            url = base_url + 'docente/listar/' + menu_materia;
+            url = base_url + 'principal/listar/' + menu_materia;
             break;            
     }  
 
     document.getElementById("dir").value = ruta;
     document.getElementById("ubica").value = titulo;
-    var rol = document.getElementById("rol").value; 
-
-    console.log(url);
+    var rol = document.getElementById("rol").value;
 
     $.ajax({
         url: url,
@@ -3231,10 +3229,10 @@ function in_asignaproc(){
     });
 }
 function remover_pro(){
- var ced= document.getElementById("docentes").value;
+ var ced= document.getElementById("prodocentes").value;
  var pro=document.getElementById("pro_asg").value;
     $.ajax({
-            url:'<?=site_url();?>/asignacion/bo_asignapro',
+            url:'<?=site_url();?>asignacion/bo_asignapro',
             type:'POST',
             datatype:'json',
             data:{ced:ced,pro:pro},
