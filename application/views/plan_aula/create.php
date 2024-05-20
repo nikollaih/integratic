@@ -86,7 +86,7 @@
                                                     <?php
                                                         if($periodos){
                                                             foreach ($periodos as $periodo) { ?>
-                                                                <option <?= (is_array($plan_area) && $plan_area["periodo"] == $periodo["id_periodo"]) ? "selected" : "" ?> value="<?= $periodo["id_periodo"] ?>"><?= $periodo["periodo"] ?></option>
+                                                                <option <?= (is_array($plan_area) && $plan_area["id_periodo"] == $periodo["id_periodo"]) ? "selected" : "" ?> value="<?= $periodo["id_periodo"] ?>"><?= $periodo["periodo"] ?></option>
                                                             <?php }
                                                         }
                                                     ?>

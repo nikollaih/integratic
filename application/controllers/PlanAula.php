@@ -74,7 +74,7 @@ use Dompdf\Options;
                     $params["estandares"] = $this->Caracterizacion_Estandar_Competencia_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
                     $params["dbas"] = $this->Caracterizacion_DBA_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
                     $params["evidencias"] = $this->EvidenciasAprendizaje_Model->getByPlanArea($params["plan_area"]["id_plan_area"]);
-                    $params["semanas"] = $this->SemanasPeriodo_Model->getByPeriodo($params["plan_area"]["periodo"]);
+                    $params["semanas"] = $this->SemanasPeriodo_Model->getByPeriodo($params["plan_area"]["id_periodo"]);
                 }
 
                 $this->load->view("plan_aula/create", $params);
