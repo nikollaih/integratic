@@ -1233,6 +1233,14 @@ a:focus {
     }
 }
 
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
 
 /* 2.12 Modals */
 

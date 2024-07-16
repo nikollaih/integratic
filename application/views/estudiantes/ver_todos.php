@@ -26,12 +26,13 @@
                                             <td>Email</td>
                                             <td>Grado</td>
                                             <td>Clave</td>
+                                            <td>Caracterización</td>
                                             <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            if($estudiantes){
+                                            if(isset($estudiantes)){
                                                 foreach ($estudiantes as $e) {
                                                     ?>
                                                         <tr id="estudiante-<?= $e["documento"] ?>">
@@ -40,6 +41,13 @@
                                                             <td><?= $e["email"] ?></td>
                                                             <td><?= $e["grado"] ?></td>
                                                             <td><?= $e["clave"] ?></td>
+                                                            <td>
+                                                                <?php
+                                                                    if($e["id_pregunta"]) {
+                                                                        echo '<a target="_blank" href="'.base_url().'CaracterizacionEstudiantes/completar/'.$e["documento"].'">Ver</a>';
+                                                                    }
+                                                                ?>
+                                                            </td>
                                                             <td class="text-center">
                                                                 <a class="btn btn-warning btn-sm" href="<?= base_url() ?>Estudiante/modificar/<?= trim($e["documento"]) ?>">Modificar</a>
                                                                 <button data-id="<?= $e["documento"] ?>" class="btn btn-danger btn-sm btn-eliminar-estudiante">Eliminar</button>

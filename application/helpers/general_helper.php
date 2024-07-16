@@ -124,6 +124,15 @@
                 return $CI->encryption->decrypt($string);
             }
         }
-    
+    }
+
+    if(!function_exists('getPercentFromNumber'))
+    {
+        function getPercentFromNumber($current, $total){
+            if ($total == 0) {
+                return 0; // Avoid division by zero
+            }
+            return round(($current / $total) * 100);
+        }
     }
 ?>

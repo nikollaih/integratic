@@ -16,9 +16,9 @@ class Consultas_Model extends CI_Model {
 
   public function registrar_ingreso($user_id){
     $date = date_create();
-    $fecha= date_format($date, 'Y-m-d H:i:s');
+    $fecha = date_format($date, 'Y-m-d H:i:s');
     $hora= date_format($date, 'H:i:s');
-    $f=$this->db->query("INSERT INTO ingresos VALUES(0,'$user_id','$fecha','$hora')");
+    $this->db->query("INSERT INTO ingresos (documento, fecha, hora) VALUES('$user_id','$fecha','$hora')");
   }
 
   public function login_estudiante($usr){

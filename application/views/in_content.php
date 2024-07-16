@@ -625,6 +625,7 @@
         </div> 
     </div>      
 </div>
+<?php $this->load->view("modal/direccion_grupo_asignacion"); ?>
 <!-- Modal Asignacion de Proyectos -->
 <div class="modal fade" id="modal_asignapro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg"> 
@@ -2521,6 +2522,9 @@ function cambio_menu(){
 
                 html+="<li><a href='javascript:cfg_planeacion();' class=' '>";
                 html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Planeación</span></a></li>";
+
+                html+="<li><a href='"+base_url+"CaracterizacionEstudiantes/filtrar' class=' '>";
+                html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Caracterización</span></a></li>";
             }
         }  
 
@@ -2665,7 +2669,12 @@ function administrar(){
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='javascript:proasigna();'>";
-        html=html+"<img src='./img/botones/menu/asg_proyectos.png' width='100%' height='100%'></a></div></div>";  
+        html=html+"<img src='./img/botones/menu/asg_proyectos.png' width='100%' height='100%'></a></div></div>";
+
+        html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
+        html=html+"<div class='mini-stat clearfix bx-shadow'>";
+        html=html+"<a href='javascript:direccion_asignar();'>";
+        html=html+"<img src='./img/botones/menu/asg_proyectos.png' width='100%' height='100%'></a></div></div>";
 
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
@@ -2885,6 +2894,7 @@ function modasigna(){
     con_docentes();
     lista_asg();
 }
+
 function proasigna(){
     $('#modal_asignapro').modal('show');
     $("#lista_asignadas").html(''); 
@@ -2892,6 +2902,14 @@ function proasigna(){
     con_prodocentes();
     proyectos_asg();
 }
+
+function direccion_asignar(){
+    $('#modal_asignar_direccion').modal('show');
+    con_docentes("lista_direccion_docentes", "direccion_docente");
+    getGruposSelect();
+    obtenerDireccionGrupo();
+}
+
 function asg_procesos(){
     $('#modal_asignaproc').modal('show');
     $("#lista_asignadas").html(''); 
@@ -2959,7 +2977,8 @@ function con_procesos(){
             }                    
     }); 
 }
-function con_docentes(){
+
+function con_docentes(idLista = "lista_docentes", selectId = "docentes"){
  $.ajax({
             url:'<?=site_url();?>/docente/co_docentes',
             type:'POST',
@@ -2968,14 +2987,14 @@ function con_docentes(){
             dataType:'json',
             success:function(respuesta){
                 var registros = eval(respuesta);
-                html='<select class="form-control" id="docentes" name="docentes" onchange="lista_asg();">';
+                html='<select class="form-control" id='+selectId+' name='+selectId+' onchange="lista_asg();">';
                       if(registros.length>0){ 
                           for (i=0; i<registros.length; i++) { 
                             html+='<option value="'+registros[i]["id"]+'">'+registros[i]["nombres"]+' '+registros[i]["apellidos"]+'</option>';
                           }     
                    }                
                 html+='</select>'; 
-                $("#lista_docentes").html(html);
+                $("#" + idLista).html(html);
             },
             error:function(respuesta){
                     alert("Error: " + respuesta);

@@ -284,7 +284,7 @@ function eliminar_foro(id_foro) {
 }
 
 function eliminar_foro_respuesta(id_respuesta) {
-    if (confirm("¿Está seguro que desea eliminar la respuesta?") == true) {
+    if (confirm("¿Está seguro que desea eliminar la respuesta?") === true) {
         $.ajax({
             url: base_url + 'Foros/delete_answer/' + id_respuesta,
             type: 'GET',
@@ -294,7 +294,7 @@ function eliminar_foro_respuesta(id_respuesta) {
                     $("#respuesta-foro-" + id_respuesta).remove();
                 }
 
-                if (data.object.error == "auth") {
+                if (data.object.error === "auth") {
                     prelogin();
                 }
                 alert(data.message);
@@ -348,4 +348,37 @@ function setAreasCaracterizacion(idSelect = 'caracterizacion_area_select'){
             }
         });
     }
+}
+
+function getGrupos() {
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            url: base_url + '/Principal/getGrupos',
+            type: 'GET',
+            cache: false,
+            dataType: 'json',
+            success: function(respuesta) {
+                resolve(respuesta["object"]); // Resolve the promise with the response
+            },
+            error: function() {
+                reject(false); // Reject the promise on error
+            }
+        });
+    });
+}
+
+async function getGruposSelect(idLista = "lista_direccion_grupos", selectId = "direccion_grupos") {
+    let grupos = await getGrupos();
+    let html = '<select class="form-control" id="' + selectId + '" name="' + selectId + '">';
+
+    if (grupos) {
+        if (grupos.length > 0) {
+            for (let i = 0; i < grupos.length; i++) {
+                html += '<option value="' + grupos[i]["grado"] + '">' + grupos[i]["grado"] + ' </option>';
+            }
+        }
+    }
+
+    html += '</select>';
+    jQuery("#" + idLista).html(html);
 }

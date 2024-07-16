@@ -48,11 +48,20 @@
         function get_students_by_grado($grado){
             $CI = &get_instance();
             $CI->load->model(['Estudiante_Model', 'Materias_Model']);
-            $estudiantes = $CI->Estudiante_Model->getStudentsByGrado($grado);
-            return $estudiantes;
+            return $CI->Estudiante_Model->getStudentsByGrado($grado);
         }
     
     }
+
+if(!function_exists('get_student_by_document'))
+{
+    function get_student_by_document($documento){
+        $CI = &get_instance();
+        $CI->load->model(['Estudiante_Model']);
+        return $CI->Estudiante_Model->getStudentUserByDocument($documento);
+    }
+
+}
 
     if(!function_exists('mover_estudiantes_participantes_prueba'))
     {

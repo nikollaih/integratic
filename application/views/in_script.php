@@ -90,6 +90,9 @@
         <!-- Estudiantes -->
         <script src="<?= base_url() ?>js/estudiantes.js"></script>
 
+        <!-- Direccion Grupo -->
+        <script src="<?= base_url() ?>js/direccion_grupo.js"></script>
+
         <!-- Datatable -->
         <script src="<?= base_url() ?>assets/dataTables/jquery.dataTables.min.js"></script>
         <script src="<?= base_url() ?>assets/dataTables/dataTables.bootstrap4.min.js"></script>

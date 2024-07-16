@@ -5,6 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/application/libraries/dompdf/src" isTestSource="false" packagePrefix="Dompdf\" />
       <sourceFolder url="file://$MODULE_DIR$/application/libraries/dompdf/tests" isTestSource="true" packagePrefix="Dompdf\Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/application/libraries/dompdf/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dompdf/dompdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ezyang/htmlpurifier" />

@@ -281,4 +281,11 @@ function cambio_clave(){
     }
 }
 
+    function getGrupos() {
+        if(is_logged()){
+            $grados = $this->Estudiante_Model->getGrados(true);
+            json_response($grados, true, "Lista de grados");
+        }
+        else json_response(null, false, "Usuario no válido");
+    }
 }
