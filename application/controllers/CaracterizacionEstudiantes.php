@@ -71,27 +71,32 @@ class CaracterizacionEstudiantes extends CI_Controller
     }
 
     public function filtrar() {
-        if(is_logged() && strtolower(logged_user()['rol']) != 'estudiante'){
-            $params["filtros"]["grado"] = "";
-            $params["grados"] = $this->Estudiante_Model->getGrados();
-
-            // Si el usuario logueado es un docente, se aplicará el filtro de dirección de grupo
-            // para traer unicamente los estudiantes que pertenezcan a su grupo.
-            if(strtolower(logged_user()['rol']) == 'docente'){
-                $params["direccion_grupo"] = $this->DireccionGrupo_Model->getByDocente(logged_user()["id"]);
-                if($params["direccion_grupo"]) {
-                    $params["filtros"]["grado"] = $params["direccion_grupo"]["grado"];
-                }
-            }
+        if(is_logged() && strtolower(logged_user()['rol']) != 'estudiante' && strtolower(logged_user()['rol']) != 'acudiente'){
+            $params["filtros"] = [];
 
             // Si viene algún filtro estos será aplicados
             if($this->input->post()){
                 if(strtolower(logged_user()['rol']) != 'docente') {
-                    $params["filtros"]["grado"] = $this->input->post("grado");
+                    $params["filtros"] = $this->input->post();
                 }
             }
 
-            $params["estudiantes"] = $this->Estudiante_Model->getCaracterizacionEstudiantes($params["filtros"]);
+            // Si el usuario logueado es un docente, se aplicará el filtro de dirección de grupo
+            // para traer unicamente los estudiantes que pertenezcan a su grupo.
+            if(strtolower(logged_user()['rol']) == 'docente'){
+                $direccion_grupo = $this->DireccionGrupo_Model->getByDocente(logged_user()["id"]);
+                if($direccion_grupo) {
+                    $grado = $direccion_grupo["grado"];
+                }
+
+                $params["estudiantes"] =  $this->Estudiante_Model->getCaracterizacionEstudiantes($grado);
+            }
+            else {
+                $params["estudiantes"] = (!empty($params["filtros"]))
+                    ? $this->Estudiante_Model->getCaracterizacionEstudiantesFilters($params["filtros"])
+                    : $this->Estudiante_Model->getCaracterizacionEstudiantes();
+            }
+
             $params["cantidad_preguntas"] = $this->CaracterizacionEstudiantesPreguntas_Model->getPreguntas();
             $this->load->view("caracterizacion_estudiantes/filtrar", $params);
         }

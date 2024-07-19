@@ -11,32 +11,12 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <form action="" method="post">
-                                <div class="row m-b-30">
-                                    <?php
-                                        if(strtolower(logged_user()['rol']) != 'docente'){ ?>
-                                            <div class="col-md-3">
-                                                <label for="grado">Grado</label>
-                                                <select class="form-control" name="grado" id="grado">
-                                                    <option value="">Todos</option>
-                                                    <?php
-                                                    if(isset($grados) && is_array($grados)) {
-                                                        foreach ($grados as $grado) {
-                                                            $selected = ($filtros["grado"] == $grado["grado"]) ? "selected" : "";
-                                                            echo '<option '.$selected.' value="'.$grado["grado"].'">'.$grado["grado"].'</option>';
-                                                        }
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                       <?php }
-                                    ?>
-
-                                    <div class="col-md-3 p-t-10">
-                                        <button class="btn btn-primary">Filtrar</button>
-                                    </div>
-                                </div>
-                            </form>
+                            <?php
+                                if(strtolower(logged_user()["rol"]) != "docente"){
+                                    $this->load->view("caracterizacion_estudiantes/modal/filters", ["preguntas" => $cantidad_preguntas]);
+                                    echo '<button class="btn btn-primary m-b-30" data-toggle="modal" data-target="#modal_filtrar_caracterizacion">Mostrar Filtros ('. count_filters_caracterizacion($filtros) .'/29)</button>';
+                                }
+                            ?>
                             <table id="tabla-estudiantes" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>

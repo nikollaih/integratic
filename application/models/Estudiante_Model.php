@@ -173,7 +173,66 @@ class Estudiante_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
-    function getCaracterizacionEstudiantes($filters) {
+    function getCaracterizacionEstudiantesFilters($filters) {
+        // Construir la subconsulta aplicando los filtros
+        $subquery = $this->db->select('cer.id_estudiante, JSON_ARRAYAGG(JSON_OBJECT("id_pregunta", cer.id_pregunta, "respuesta", cer.respuesta)) as caracterizacion_respuestas')
+            ->from('caracterizacion_estudiantes_respuestas cer')
+            ->group_by('cer.id_estudiante')
+            ->get_compiled_select();
+
+// Construir la subconsulta para contar coincidencias de filtros
+        $filter_query = $this->db->select('id_estudiante')
+            ->from('caracterizacion_estudiantes_respuestas')
+            ->group_start();
+
+        $countFilters = count($filters);
+
+        foreach ($filters as $id_pregunta => $respuesta) {
+            if (!empty($respuesta)) {
+                $countFilters++; // Contar el filtro para este id_pregunta
+                if (is_array($respuesta)) {
+                    $filter_query->or_group_start();
+                    foreach ($respuesta as $filter) {
+                        $filter_query->group_start()
+                            ->where('id_pregunta', $id_pregunta)
+                            ->like('respuesta', $filter, 'both')
+                            ->group_end();
+                        $filter_query->having('SUM(CASE WHEN id_pregunta = ' . $id_pregunta . ' AND respuesta LIKE ' . $this->db->escape('%' . $filter . '%') . ' THEN 1 ELSE 0 END) > 0');
+                    }
+                    $filter_query->group_end();
+                } else {
+                    $filter_query->or_group_start()
+                        ->where('id_pregunta', $id_pregunta)
+                        ->like('respuesta', $respuesta, 'both')
+                        ->group_end();
+                    $filter_query->having('SUM(CASE WHEN id_pregunta = ' . $id_pregunta . ' AND respuesta LIKE ' . $this->db->escape('%' . $respuesta . '%') . ' THEN 1 ELSE 0 END) > 0');
+                }
+            }
+
+        }
+
+// Agrupación final y condición de HAVING para contar los filtros
+        $filter_query = $filter_query->group_end()
+            ->group_by('id_estudiante')
+            ->get_compiled_select();
+
+// Construir la consulta final
+        $this->db->select("u.*, e.*, e.email as email, cer_responses.caracterizacion_respuestas");
+        $this->db->from("estudiante e");
+        $this->db->join("usuarios u", "e.documento = u.id", "left");
+        $this->db->join("($subquery) as cer_responses", "cer_responses.id_estudiante = u.id", "left outer");
+        $this->db->join("($filter_query) as filter_matches", "filter_matches.id_estudiante = u.id", "inner");
+        $this->db->order_by("e.grado", "asc");
+        $this->db->order_by("e.nombre", "asc");
+        $this->db->group_by("e.documento");
+
+        $result = $this->db->get();
+
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
+    function getCaracterizacionEstudiantes($grado = false) {
+        // Construir la subconsulta aplicando los filtros
         $subquery = $this->db->select('cer.id_estudiante, JSON_ARRAYAGG(JSON_OBJECT("id_pregunta", cer.id_pregunta, "respuesta", cer.respuesta)) as caracterizacion_respuestas')
             ->from('caracterizacion_estudiantes_respuestas cer')
             ->group_by('cer.id_estudiante')
@@ -183,16 +242,16 @@ class Estudiante_Model extends CI_Model {
         $this->db->from("estudiante e");
         $this->db->join("usuarios u", "e.documento = u.id", "left");
         $this->db->join("($subquery) as cer_responses", "cer_responses.id_estudiante = u.id", "left outer");
+
+        if($grado) {
+            $this->db->where("e.grado", $grado);
+        }
+
         $this->db->order_by("e.grado", "asc");
         $this->db->order_by("e.nombre", "asc");
         $this->db->group_by("e.documento");
 
-        if(isset($filters["grado"]) && $filters["grado"] !== ""){
-            $this->db->where("e.grado", $filters["grado"]);
-        }
-
         $result = $this->db->get();
-
 
         return ($result->num_rows() > 0) ? $result->result_array() : false;
     }

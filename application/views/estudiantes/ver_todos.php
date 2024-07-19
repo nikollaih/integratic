@@ -11,6 +11,7 @@
                         <a class="btn btn-primary m-b-2" href="<?= base_url() ?>Estudiante/modificar">Nuevo estudiante</a>
                         <a href="<?= base_url() ?>Estudiante/importar" class="btn btn-primary m-b-2">Importar estudiantes</a>
                         <button class="btn btn-danger m-b-2 btn-eliminar-todos-estudiantes">Eliminar Todos</button>
+                        <a href="<?= base_url() ?>CaracterizacionEstudiantes/filtrar" class="btn btn-primary m-b-2">Caracterización</a>
                     </div>
                 </div>
                 <div class="panel panel-primary">
