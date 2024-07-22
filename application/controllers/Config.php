@@ -315,15 +315,10 @@ public function up_menu(){
          else{show_404();}       
      }      
      
-    public function co_menu(){ 
-        if ($this->input->is_ajax_request()) {
-            $logged = (is_logged()) ? true : false;
-            $con=$this->Config_Model->con_menu($logged); 
-            echo json_encode($con);  
-        }
-        else{
-            show_404();
-        }
+    public function co_menu(){
+        $logged = (is_logged()) ? true : false;
+        $con=$this->Config_Model->con_menu($logged);
+        echo json_encode($con);
     }     
 
 public function co_menupri_fil($filtro){ 
