@@ -38,6 +38,7 @@
                     ?>
                     <div class="row">
                         <div class="col-md-12 text-center">
+                            <a class="btn btn-secondary m-r-5" href="<?= base_url() ?>CaracterizacionEstudiantes/filtrar">Limpiar filtros</a>
                             <button class="btn btn-primary">Aplicar Filtros</button>
                         </div>
                     </div>

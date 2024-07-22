@@ -182,13 +182,14 @@ class Estudiante_Model extends CI_Model {
 
 // Construir la subconsulta para contar coincidencias de filtros
         $filter_query = $this->db->select('id_estudiante')
-            ->from('caracterizacion_estudiantes_respuestas')
-            ->group_start();
+            ->from('caracterizacion_estudiantes_respuestas');
+
 
         $countFilters = count($filters);
 
         foreach ($filters as $id_pregunta => $respuesta) {
             if (!empty($respuesta)) {
+                $filter_query->group_start();
                 $countFilters++; // Contar el filtro para este id_pregunta
                 if (is_array($respuesta)) {
                     $filter_query->or_group_start();
@@ -207,13 +208,14 @@ class Estudiante_Model extends CI_Model {
                         ->group_end();
                     $filter_query->having('SUM(CASE WHEN id_pregunta = ' . $id_pregunta . ' AND respuesta LIKE ' . $this->db->escape('%' . $respuesta . '%') . ' THEN 1 ELSE 0 END) > 0');
                 }
+
+                $filter_query->group_end();
             }
 
         }
 
 // Agrupación final y condición de HAVING para contar los filtros
-        $filter_query = $filter_query->group_end()
-            ->group_by('id_estudiante')
+        $filter_query = $filter_query->group_by('id_estudiante')
             ->get_compiled_select();
 
 // Construir la consulta final
