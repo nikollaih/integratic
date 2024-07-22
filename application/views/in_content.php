@@ -863,7 +863,8 @@ function filtrar_menu(area){
 
 function creditos(){ $('#creditos').modal('show');}
 
-function menupri(){   
+function menupri(){
+    html="";
   var url='<?=site_url();?>/config/co_menu';
     $.ajax({
            url:url,
@@ -874,8 +875,7 @@ function menupri(){
            processData:false,            
            success:function(respuesta){
              var registros = eval(respuesta);                                     
-                  if(registros.length>0){ 
-                      html="";
+                  if(registros.length>0){
                       html+="<div class='row'>";
                       html+="<div class='col-md-12 col-sm-12 col-lg-12'>";
                       html+="<div class='mini-stat clearfix bx-shadow'>";
