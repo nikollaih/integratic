@@ -31,7 +31,7 @@
                                 <?php
                                 if(isset($estudiantes) && is_array($estudiantes)) {
                                     foreach ($estudiantes as $e) {
-                                        $e["caracterizacion_respuestas"] = json_decode($e["caracterizacion_respuestas"]);
+                                        $e["caracterizacion_respuestas"] = ($e["caracterizacion_respuestas"]) ? json_decode($e["caracterizacion_respuestas"]) : [];
                                         $cantidad_respuestas = (is_array($e["caracterizacion_respuestas"])) ? count($e["caracterizacion_respuestas"]) : 0;
                                         $porcentaje = getPercentFromNumber($cantidad_respuestas, count($cantidad_preguntas));
                                         $background = ($porcentaje == 100) ? "bg-success" : "bg-info";

@@ -32,15 +32,45 @@ ALTER TABLE `caracterizacion_estudiantes_preguntas`
 ALTER TABLE `caracterizacion_estudiantes_preguntas`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-CREATE TABLE respuestas_estudiantes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_estudiante INT NOT NULL, -- ID del estudiante
-    id_pregunta INT NOT NULL, -- ID de la pregunta
-    respuesta TEXT, -- Respuesta del estudiante
-    respuesta_otro TEXT, -- Campo adicional para "otro"
-    fecha_respuesta TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Fecha y hora de la respuesta
-    FOREIGN KEY (id_pregunta) REFERENCES caracterizacion_estudiantes_preguntas(id) -- Relación con la tabla de preguntas
-);
+CREATE TABLE `caracterizacion_estudiantes_respuestas` (
+                                                          `id` int(11) NOT NULL,
+                                                          `id_estudiante` int(11) NOT NULL,
+                                                          `id_pregunta` int(11) NOT NULL,
+                                                          `respuesta` text COLLATE utf8_spanish2_ci,
+                                                          `respuesta_otro` text COLLATE utf8_spanish2_ci,
+                                                          `fecha_respuesta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `caracterizacion_estudiantes_respuestas`
+--
+ALTER TABLE `caracterizacion_estudiantes_respuestas`
+    ADD PRIMARY KEY (`id`),
+    ADD KEY `id_pregunta` (`id_pregunta`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `caracterizacion_estudiantes_respuestas`
+--
+ALTER TABLE `caracterizacion_estudiantes_respuestas`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `caracterizacion_estudiantes_respuestas`
+--
+ALTER TABLE `caracterizacion_estudiantes_respuestas`
+    ADD CONSTRAINT `caracterizacion_estudiantes_respuestas_ibfk_1` FOREIGN KEY (`id_pregunta`) REFERENCES `caracterizacion_estudiantes_preguntas` (`id`);
 
 CREATE TABLE `direccion_grupo` (
    `id` int(11) NOT NULL,
