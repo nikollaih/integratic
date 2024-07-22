@@ -25,7 +25,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 //$config['base_url'] = 'http://'.$_SERVER['HTTP_HOST'].'/integratic';
 //if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){ $protocol = "https://".$_SERVER['HTTP_HOST']; } else{ $protocol='http://'.$_SERVER['HTTP_HOST']; }
-$config['base_url'] = "http://".$_SERVER['HTTP_HOST']."/integratic";
+if ($_SERVER['HTTP_HOST'] === 'localhost') {
+    $config['base_url'] = "http://".$_SERVER['HTTP_HOST'];
+} else {
+    $config['base_url'] = "http://".$_SERVER['HTTP_HOST']."/integratic";
+}
 
 //$config['base_url'] = 'http://100.100.0.2/Integra/';
 

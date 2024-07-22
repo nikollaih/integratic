@@ -865,7 +865,7 @@ function creditos(){ $('#creditos').modal('show');}
 
 function menupri(){
     html="";
-  var url='<?=site_url();?>/config/co_menu';
+  var url='<?=site_url();?>config/co_menu';
     $.ajax({
            url:url,
            type:'POST',
@@ -912,7 +912,7 @@ function menupri(){
 }  
 
 function menuadd(){
-  var url='<?=site_url();?>/config/co_menuadd';
+  var url='<?=site_url();?>config/co_menuadd';
     $.ajax({
            url:url,
            type:'POST',
@@ -963,7 +963,7 @@ function buscarBiblio(){
   listado_filtro('raiz','biblioteca','biblioteca',filtro,'','BIBLIOTECA VIRTUAL');
 }
 function menupri_fil(farea){
-  var url='<?=site_url();?>/config/co_menupri_fil/'+farea;
+  var url='<?=site_url();?>config/co_menupri_fil/'+farea;
     $.ajax({
            url:url,
            type:'POST',
@@ -1007,7 +1007,7 @@ function menupri_fil(farea){
         return html; 
 }  
 function menuadd_fil(farea){
-  var url='<?=site_url();?>/config/co_menuadd_fil/'+farea;
+  var url='<?=site_url();?>config/co_menuadd_fil/'+farea;
     $.ajax({
            url:url,
            type:'POST',
