@@ -394,3 +394,63 @@ ERROR - 2024-08-06 18:21:24 --> 404 Page Not Found: Img/iconos
 ERROR - 2024-08-06 18:21:24 --> 404 Page Not Found: Img/iconos
 ERROR - 2024-08-06 18:21:33 --> 404 Page Not Found: Img/iconos
 ERROR - 2024-08-06 18:21:33 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:36:34 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:36:34 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:18 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:18 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:25 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:25 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:33 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:33 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:33 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:33 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:34 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:34 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:35 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:35 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:42:40 --> Severity: Notice --> Undefined variable: semanas /Applications/MAMP/htdocs/integratic/application/views/plan_aula/evidencias_aprendizaje.php 70
+ERROR - 2024-08-06 18:43:44 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:43:44 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:43:48 --> Severity: Warning --> Illegal string offset 'rol' /Applications/MAMP/htdocs/integratic/application/controllers/Notificaciones.php 14
+ERROR - 2024-08-06 18:43:48 --> Severity: Notice --> Uninitialized string offset: 0 /Applications/MAMP/htdocs/integratic/application/controllers/Notificaciones.php 14
+ERROR - 2024-08-06 18:43:48 --> Severity: Warning --> Illegal string offset 'rol' /Applications/MAMP/htdocs/integratic/application/controllers/Notificaciones.php 18
+ERROR - 2024-08-06 18:43:48 --> Severity: Notice --> Uninitialized string offset: 0 /Applications/MAMP/htdocs/integratic/application/controllers/Notificaciones.php 18
+ERROR - 2024-08-06 18:43:48 --> Severity: Warning --> Illegal string offset 'rol' /Applications/MAMP/htdocs/integratic/application/controllers/Notificaciones.php 27
+ERROR - 2024-08-06 18:43:48 --> Severity: Notice --> Uninitialized string offset: 0 /Applications/MAMP/htdocs/integratic/application/controllers/Notificaciones.php 27
+ERROR - 2024-08-06 18:43:48 --> Severity: Warning --> Illegal string offset 'rol' /Applications/MAMP/htdocs/integratic/application/controllers/Notificaciones.php 31
+ERROR - 2024-08-06 18:43:48 --> Severity: Notice --> Uninitialized string offset: 0 /Applications/MAMP/htdocs/integratic/application/controllers/Notificaciones.php 31
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/banner%20ie%20integratic%20hosting%201.png
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:48 --> 404 Page Not Found: Img/botones
+ERROR - 2024-08-06 18:43:50 --> 404 Page Not Found: Images/small
+ERROR - 2024-08-06 18:43:58 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:43:58 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:43:59 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:43:59 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:44:00 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:44:00 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:44:02 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:44:02 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:44:07 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:44:07 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:48:21 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 18:48:21 --> 404 Page Not Found: Img/iconos
