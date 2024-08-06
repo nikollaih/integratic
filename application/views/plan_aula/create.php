@@ -107,19 +107,19 @@
                                         <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Fecha inicio <span class="text-danger">*</span></label>
-                                                <input disabled="<?= (!$editable) ?>" required type="date" name="plan[fecha_inicio]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["fecha_inicio"] : "" ?>">
+                                                <input <?= (!$editable) ? "disabled" : "" ?> required type="date" name="plan[fecha_inicio]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["fecha_inicio"] : "" ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Fecha fin <span class="text-danger">*</span></label>
-                                                <input disabled="<?= (!$editable) ?>" required type="date" name="plan[fecha_fin]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["fecha_fin"] : "" ?>">
+                                                <input <?= (!$editable) ? "disabled" : "" ?> required type="date" name="plan[fecha_fin]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["fecha_fin"] : "" ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Intensidad horaria (Semanal) <span class="text-danger">*</span></label>
-                                                <input disabled="<?= (!$editable) ?>" required type="number" placeholder="Ej. 2" name="plan[intensidad_horaria]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["intensidad_horaria"] : "" ?>">
+                                                <input <?= (!$editable) ? "disabled" : "" ?> required type="number" placeholder="Ej. 2" name="plan[intensidad_horaria]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["intensidad_horaria"] : "" ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@
                                         <div class=" col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Diagnostico <span class="text-danger">*</span></label>
-                                                <textarea disabled="<?= (!$editable) ?>" name="plan[diagnostico]" id="richtext-1" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["diagnostico"] : "" ?></textarea>
+                                                <textarea <?= (!$editable) ? "disabled" : "" ?> name="plan[diagnostico]" id="richtext-1" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["diagnostico"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
@@ -205,7 +205,7 @@
                                         <div class="col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Estandar básico de competencia</label>
-                                                <select disabled="<?= (!$editable) ?>" name="plan[estandares_basicos][]" data-live-search="true" data-size="10" class="form-control select-2" multiple id="plan-area-estandar">
+                                                <select <?= (!$editable) ? "disabled" : "" ?> name="plan[estandares_basicos][]" data-live-search="true" data-size="10" class="form-control select-2" multiple id="plan-area-estandar">
                                                     <?php
                                                         if($estandares){
                                                             foreach ($estandares as $estandar) { 
@@ -221,7 +221,7 @@
                                         <div class="col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Derecho básicos de aprendizaje</label>
-                                                <select disabled="<?= (!$editable) ?>" name="plan[dbas][]" data-live-search="true" data-size="10" class="form-control select-2" multiple id="plan-area-dba">
+                                                <select <?= (!$editable) ? "disabled" : "" ?> name="plan[dbas][]" data-live-search="true" data-size="10" class="form-control select-2" multiple id="plan-area-dba">
                                                     <?php
                                                         if($dbas){
                                                             foreach ($dbas as $dba) { 
