@@ -91,4 +91,21 @@ Class EvidenciasAprendizaje extends CI_Controller
         }
         else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }
+
+    function AgregarObservacion() {
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "coordinador"){
+                $data = $this->input->post();
+                if($data){
+                    $evidencia = $this->EvidenciasAprendizaje_Model->find($data["id_evidencia_aprendizaje"]);
+                    if($evidencia){
+                        $this->session->set_flashdata('message', 'Observaciones agregadas exitosamente!');
+                        $this->EvidenciasAprendizaje_Model->update($data);
+                    }
+                }
+            }
+        }
+
+        header("Location: ".base_url()."PlanAula/create/".$evidencia["id_plan_area"]);
+    }
 }

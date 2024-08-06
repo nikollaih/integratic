@@ -4826,4 +4826,15 @@ div.dataTables_info {
     border-radius: 50%;
 }
 
+.bg-gray {
+    background: #efefef;
+}
+
+.p-10 {
+    padding: 10px;
+}
+
+.rounded-sm {
+    border-radius: 5px;
+}
 /* End dropdown */

@@ -154,3 +154,49 @@ INSERT INTO `caracterizacion_estudiantes_preguntas` (`id`, `pregunta`, `tipo_eti
    (52, 'Si el estudiante no se desplaza solo hasta su casa, por favor indique quienes serían las personas autorizadas para recogerlo(a)', 'input', 'text', NULL, 0, NULL, 0, 0, 51, 0),
    (53, '¿Cuál es la tipología de la familia de o la estudiante?', 'select', NULL, NULL, 0, 'a:8:{i:0;s:52:\"Familia Unipersonal: El o la estudiante vive solo(a)\";i:1;s:72:\"Compuestas: Miembros de la familia y otras personas que no son parientes\";i:2;s:99:\"Recompuesta: Jefe de hogar con pareja (padrastro – madrastra) hijos de cada uno e hijos en común\";i:3;s:27:\"Nuclear: Los padres e hijos\";i:4;s:44:\"Monoparental: Uno solo de los padres e hijos\";i:5;s:55:\"Extensa: La nuclear o monoparental con otros familiares\";i:6;s:67:\"Homoparental: Pareja del mismo sexo, con hijos propios o adoptados.\";i:7;s:24:\"Familia Sustituta (ICBF)\";}', 0, 1, 51, 1),
    (54, 'Por favor indique la siguiente información de acuerdo a las personas con las que el o la estudiante vive: \r\nNombre completo, edad, parentesco', 'textarea', NULL, NULL, 0, NULL, 0, 1, 52, 0);
+
+ALTER TABLE `evidencias_aprendizaje` ADD `observaciones_coordinador` TEXT NOT NULL AFTER `observaciones_completo`;
+
+--
+-- Estructura de tabla para la tabla `evidencias_aprendizaje_soportes`
+--
+
+CREATE TABLE `evidencias_aprendizaje_soportes` (
+                                                   `id` int(11) NOT NULL,
+                                                   `id_evidencia_aprendizaje` int(11) NOT NULL,
+                                                   `nombre_archivo` text COLLATE utf8_spanish2_ci NOT NULL,
+                                                   `titulo_archivo` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
+                                                   `comentarios` text COLLATE utf8_spanish2_ci,
+                                                   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `evidencias_aprendizaje_soportes`
+--
+ALTER TABLE `evidencias_aprendizaje_soportes`
+    ADD PRIMARY KEY (`id`),
+    ADD KEY `evidencias_aprendizaje_soporte` (`id_evidencia_aprendizaje`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `evidencias_aprendizaje_soportes`
+--
+ALTER TABLE `evidencias_aprendizaje_soportes`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `evidencias_aprendizaje_soportes`
+--
+ALTER TABLE `evidencias_aprendizaje_soportes`
+    ADD CONSTRAINT `evidencias_aprendizaje_soporte` FOREIGN KEY (`id_evidencia_aprendizaje`) REFERENCES `evidencias_aprendizaje` (`id_evidencia_aprendizaje`) ON DELETE CASCADE ON UPDATE CASCADE;

@@ -41,13 +41,15 @@ use Dompdf\Options;
 
     public function create($idPlanAula = null, $idEvidenciaAprendizaje = null){   
         if(is_logged()){
-			if(strtolower(logged_user()["rol"]) == "docente"){
+            $rol = strtolower(logged_user()["rol"]);
+			if($rol != "estudiante"){
                 if($this->input->post()){
                     $plan = $this->input->post("plan");
                     $params["message"] = $this->savePlanArea($plan);
                     $this->saveEvidencia($this->input->post("evidencia"), $plan["id_plan_area"]);
                     $idEvidenciaAprendizaje = null;
                 }
+                $params["editable"] = ($rol == "docente");
                 $params["materias"] = null;
                 $params["estandares"] = null;
                 $params["dbas"] = null;
@@ -64,7 +66,7 @@ use Dompdf\Options;
                     header("Location: ".base_url()."/PlanAula");
                 }
 
-                $params["areas"] = $this->Areas_Model->getAreasDocente(logged_user()["id"]);
+                $params["areas"] = ($rol == "docente") ? $this->Areas_Model->getAreasDocente(logged_user()["id"]) : $this->Areas_Model->getAll();
                 $params["periodos"] = $this->Periodos_Model->getAll();
 
                 if(is_array($params["plan_area"])){
@@ -74,7 +76,7 @@ use Dompdf\Options;
                     $params["estandares"] = $this->Caracterizacion_Estandar_Competencia_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
                     $params["dbas"] = $this->Caracterizacion_DBA_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
                     $params["evidencias"] = $this->EvidenciasAprendizaje_Model->getByPlanArea($params["plan_area"]["id_plan_area"]);
-                    $params["semanas"] = $this->SemanasPeriodo_Model->getByPeriodo($params["plan_area"]["id_periodo"]);
+                    $params["semanas"] = $this->SemanasPeriodo_Model->getByPeriodo($params["plan_area"]["periodo"]);
                 }
 
                 $this->load->view("plan_aula/create", $params);

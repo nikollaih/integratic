@@ -136,9 +136,12 @@
                                                     <td><?= ($evidencia["estado_completo"] == 3) ? "Completado" : (($evidencia["estado_completo"] == 2) ? "No Completado" : "Pendiente"); ?></td>
                                                     <td><?= $evidencia["observaciones_completo"] ?></td>
                                                     <td>
-                                                        <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" class="btn-sm btn btn-primary mostrar-evidencia-aprendizaje">Mostrar más</button>
+                                                        <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" class="btn-sm m-b-10 btn btn-primary mostrar-evidencia-aprendizaje">Mostrar más</button>
                                                         <a target="_blank" href="<?= base_url() ?>PlanAula/ver/<?= $evidencia["id_plan_area"] ?>">
-                                                            <button class="btn-sm btn">Ver plan</button>
+                                                            <button class="btn-sm btn m-b-10">Ver PDF</button>
+                                                        </a>
+                                                        <a target="_blank" href="<?= base_url() ?>PlanAula/create/<?= $evidencia["id_plan_area"] ?>">
+                                                            <button class="btn-sm btn btn-primary">Ver plan</button>
                                                         </a>
                                                     </td>
                                                 </tr>

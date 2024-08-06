@@ -7,6 +7,7 @@ class PlanAreas_Model extends CI_Model {
     }
 
     function create($data){
+        unset($data['id_plan_area']);
         $this->db->insert("plan_areas", $data);
         return $this->db->insert_id();
     }

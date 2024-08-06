@@ -253,7 +253,7 @@ function obtener_actividad_respuestas(actividad) {
         data: { id_actividad: actividad },
         type: 'POST',
         success: function(data) {
-            var response = JSON.parse(data);
+            let response = JSON.parse(data);
             $(".items-repsuestas-estudiante").html(response.object);
         }
     });
@@ -270,15 +270,17 @@ function calificar_respuesta(respuesta = null, calificacion = null, notas = "") 
             },
             type: 'POST',
             success: function(data) {
-                var response = JSON.parse(data);
+                let response = JSON.parse(data);
                 if (response.status) {
-                    $(".modificar-calificacion-respuesta-" + respuesta).addClass("no-calificar");
-                    $(".modificar-calificacion-respuesta-" + respuesta).prop("readonly", true);
+                    let respuestaDOM = $(".modificar-calificacion-respuesta-" + respuesta);
+                    respuestaDOM.addClass("no-calificar");
+                    respuestaDOM.prop("readonly", true);
                     $("#btn-modificar-calificacion-" + respuesta).show();
                     $("#btn-guardar-calificacion-" + respuesta).hide();
                 }
-
-                alert(response.message);
+                else {
+                    alert(response.message);
+                }
             }
         });
     }

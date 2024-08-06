@@ -1,12 +1,27 @@
 <?php
 
+/**
+ * Class CaracterizacionEstudiantes
+ *
+ * Controlador para gestionar la caracterización de estudiantes.
+ */
 class CaracterizacionEstudiantes extends CI_Controller
 {
+    /**
+     * CaracterizacionEstudiantes constructor.
+     *
+     * Carga los modelos necesarios para la caracterización de estudiantes.
+     */
     public function __construct() {
         parent::__construct();
         $this->load->model(["CaracterizacionEstudiantesPreguntas_Model", "CaracterizacionEstudiantesRespuestas_Model", "Estudiante_Model", "DireccionGrupo_Model"]);
     }
 
+    /**
+     * Método para completar la caracterización de un estudiante.
+     *
+     * @param int|null $idEstudiante ID del estudiante (opcional).
+     */
     public function completar($idEstudiante = null) {
         if(is_logged()) {
             $id_estudiante = ($idEstudiante) ? $idEstudiante : logged_user()["id"];
@@ -14,9 +29,10 @@ class CaracterizacionEstudiantes extends CI_Controller
 
             if(!$estudiante) {
                 header("Location: ".base_url());
+                exit;
             }
 
-            // Recibe las respuestas almacenadas por el usuario y las envia a la función de guardar.
+            // Procesa las respuestas enviadas por el usuario.
             if($this->input->post()) {
                 $this->guardar($this->input->post(), $id_estudiante);
                 $params["message"] = "Información actualizada exitosamente.";
@@ -28,10 +44,17 @@ class CaracterizacionEstudiantes extends CI_Controller
             $params["respuestas"] = $this->CaracterizacionEstudiantesRespuestas_Model->getRespuestas($estudiante["documento"]);
 
             $this->load->view("caracterizacion_estudiantes/completar", $params);
+        } else {
+            header("Location: ".base_url());
         }
-        else header("Location: ".base_url());
     }
 
+    /**
+     * Método privado para guardar las respuestas de la caracterización.
+     *
+     * @param array $respuestas Respuestas del estudiante.
+     * @param int $idEstudiante ID del estudiante.
+     */
     private function guardar($respuestas, $idEstudiante) {
         $model = $this->CaracterizacionEstudiantesRespuestas_Model;
 
@@ -39,7 +62,7 @@ class CaracterizacionEstudiantes extends CI_Controller
             $userRespuesta = $respuesta;
             $userRespuestaOtro = "";
 
-            // Procesar respuestas que son arrays (como opciones múltiples)
+            // Procesa respuestas que son arrays (como opciones múltiples).
             if (is_array($respuesta)) {
                 if (array_key_exists("other", $respuesta)) {
                     $userRespuestaOtro = $respuesta["other"];
@@ -48,7 +71,7 @@ class CaracterizacionEstudiantes extends CI_Controller
                 $userRespuesta = (count($respuesta) > 0) ? serialize($respuesta) : "";
             }
 
-            // Preparar nueva respuesta
+            // Prepara nueva respuesta.
             $newRespuesta = [
                 "id_estudiante" => $idEstudiante,
                 "id_pregunta" => $index,
@@ -56,10 +79,10 @@ class CaracterizacionEstudiantes extends CI_Controller
                 "respuesta_otro" => $userRespuestaOtro
             ];
 
-            // Verificar si ya existe la respuesta
+            // Verifica si ya existe la respuesta.
             $existsRespuesta = $model->existsRespuesta($idEstudiante, $index);
 
-            // Actualizar o insertar la respuesta
+            // Actualiza o inserta la respuesta.
             if ($existsRespuesta) {
                 $model->updateRespuesta($idEstudiante, $index, $newRespuesta);
             } else {
@@ -70,19 +93,21 @@ class CaracterizacionEstudiantes extends CI_Controller
         }
     }
 
+    /**
+     * Método para filtrar los estudiantes según criterios especificados.
+     */
     public function filtrar() {
         if(is_logged() && strtolower(logged_user()['rol']) != 'estudiante' && strtolower(logged_user()['rol']) != 'acudiente'){
             $params["filtros"] = [];
 
-            // Si viene algún filtro estos será aplicados
+            // Aplica filtros si se han enviado.
             if($this->input->post()){
                 if(strtolower(logged_user()['rol']) != 'docente') {
                     $params["filtros"] = $this->input->post();
                 }
             }
 
-            // Si el usuario logueado es un docente, se aplicará el filtro de dirección de grupo
-            // para traer unicamente los estudiantes que pertenezcan a su grupo.
+            // Aplica el filtro de dirección de grupo si el usuario es docente.
             if(strtolower(logged_user()['rol']) == 'docente'){
                 $direccion_grupo = $this->DireccionGrupo_Model->getByDocente(logged_user()["id"]);
                 if($direccion_grupo) {
@@ -99,8 +124,7 @@ class CaracterizacionEstudiantes extends CI_Controller
 
             $params["cantidad_preguntas"] = $this->CaracterizacionEstudiantesPreguntas_Model->getPreguntas();
             $this->load->view("caracterizacion_estudiantes/filtrar", $params);
-        }
-        else{
+        } else {
             header("Location: ".base_url());
         }
     }

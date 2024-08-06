@@ -7,6 +7,7 @@ class EvidenciasAprendizaje_Model extends CI_Model {
     }
 
     function create($data){
+        unset($data['id_evidencia_aprendizaje']);
         $this->db->insert("evidencias_aprendizaje", $data);
         return $this->db->insert_id();
     }
