@@ -30,6 +30,16 @@ jQuery(document).ready(function() {
         richEditorEvidenciasAprendizajeSoportes = KothingEditor.create('evidencia-aprendizaje-soporte-comentarios', kothingParamsPlan);
     }
 
+    jQuery(document).on("change", "#create-plan-aula-semanas-select", function() {
+        let semanas = jQuery(this).val();
+        if(semanas.length > 0) {
+            jQuery(".btn-mostrar-evidencias-aprendizaje-incompletos").removeClass("hidden");
+        }
+        else{
+            jQuery(".btn-mostrar-evidencias-aprendizaje-incompletos").addClass("hidden");
+        }
+    })
+
     jQuery(document).on("change", "#plan-area-area", function() {
         let idArea = jQuery(this).val();
         let idMateria = jQuery("#plan-area-materia").val();

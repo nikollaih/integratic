@@ -43,3 +43,25 @@ if(!function_exists("count_filters_caracterizacion")){
         return $counter;
     }
 }
+
+if(!function_exists("get_respuesta_excel")){
+    function get_respuesta_excel($pregunta, $respuesta)
+    {
+        if(is_array($respuesta)){
+            if(isset($respuesta[0])){
+                if($respuesta[0]["respuesta_otro"] != ""){
+                    return $respuesta[0]["respuesta_otro"];
+                }
+
+                if($pregunta["es_multiple"] == "1" || $pregunta["tipo_etiqueta"] == "checkbox") {
+                    $customRespuesta = unserialize($respuesta[0]["respuesta"]);
+                    return implode(",", $customRespuesta);
+                }
+
+                return $respuesta[0]["respuesta"];
+            }
+        }
+
+        return "No completo";
+    }
+}

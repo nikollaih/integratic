@@ -4837,4 +4837,13 @@ div.dataTables_info {
 .rounded-sm {
     border-radius: 5px;
 }
+
+.sticky-table-header {
+    position: sticky;
+    top: 0;
+}
+
+.bg-white {
+    background: #fff;
+}
 /* End dropdown */

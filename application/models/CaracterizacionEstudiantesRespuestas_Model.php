@@ -12,6 +12,7 @@ class CaracterizacionEstudiantesRespuestas_Model extends CI_Model
         parent::__construct();
         $this->load->database();
         $this->table = 'caracterizacion_estudiantes_respuestas';
+        $this->table_students = 'estudiante';
     }
 
     public function getRespuestas($idEstudiante) {

@@ -31,7 +31,7 @@ class PlanAreas_Model extends CI_Model {
     }
 
     function get_by_docente($idDocente){
-        $this->db->select('ca.*, cm.*, pa.*, p.*');
+        $this->db->select('ca.*, cm.*, p.*, pa.*');
         $this->db->from("plan_areas pa");
         $this->db->join("cfg_areas ca", "ca.codarea = pa.area");
         $this->db->join("cfg_materias cm", "cm.codmateria = pa.materia");

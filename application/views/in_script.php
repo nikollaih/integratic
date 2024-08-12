@@ -93,6 +93,9 @@
         <!-- Direccion Grupo -->
         <script src="<?= base_url() ?>js/direccion_grupo.js"></script>
 
+        <!-- Evidencias aprendizaje -->
+        <script src="<?= base_url() ?>js/evidencias_aprendizaje.js"></script>
+
         <!-- Datatable -->
         <script src="<?= base_url() ?>assets/dataTables/jquery.dataTables.min.js"></script>
         <script src="<?= base_url() ?>assets/dataTables/dataTables.bootstrap4.min.js"></script>

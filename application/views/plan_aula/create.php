@@ -6,6 +6,7 @@
     <?php $this->load->view("modal/observaciones_coordinador_plan_aula") ?>
     <?php $this->load->view("modal/evidencia_aprendizaje_soportes_agregar") ?>
     <?php $this->load->view("modal/evidencia_aprendizaje_soportes") ?>
+    <?php $this->load->view("modal/user_evidencias_aprendizaje_incompletas") ?>
     <div class="content-page">
         <div class="content">  
             <div class="container">
@@ -363,10 +364,10 @@
                                                     <hr>
                                                     <div class="row">
                                                         <input type="hidden" name="evidencia[id_evidencia_aprendizaje]" value="<?= (is_array($selectedEvidencia)) ? $selectedEvidencia["id_evidencia_aprendizaje"] : "null" ?>">
-                                                        <div class="col-md-3 col-sm-4 col-xs-12">
+                                                        <div class="col-md-4 col-sm-4 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="">Semana(s)</label>
-                                                                <select name="evidencia[semanas][]" class="form-control select-2" multiple id="">
+                                                                <select name="evidencia[semanas][]" class="form-control select-2 m-b-10" multiple id="create-plan-aula-semanas-select">
                                                                     <?php
                                                                     if($semanas){
                                                                         $selectedSemanas = [];
@@ -379,6 +380,7 @@
                                                                     }
                                                                     ?>
                                                                 </select>
+                                                                <a data-id="<?= (is_array($plan_area)) ? $plan_area["id_plan_area"] : "null" ?>" class="m-t-10 hidden pointer btn-mostrar-evidencias-aprendizaje-incompletos"><span>Seleccionar evidencia de aprendizaje no completada</span></a>
                                                             </div>
                                                         </div>
                                                         <div class=" col-xs-12">

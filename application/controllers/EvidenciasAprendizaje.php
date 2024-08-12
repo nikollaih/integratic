@@ -108,4 +108,47 @@ Class EvidenciasAprendizaje extends CI_Controller
 
         header("Location: ".base_url()."PlanAula/create/".$evidencia["id_plan_area"]);
     }
+
+    function uncompleted(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $evidencias = $this->EvidenciasAprendizaje_Model->uncompleted();
+                if($evidencias) json_response($evidencias, true, "Evidencias de aprendizaje incompletas");
+                else json_response(array("error" => "404"), false, "No se han encontrado evidencias de aprendizaje");
+            }
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
+    }
+
+    function use(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                $data = $this->input->post();
+                $evidencia = $this->EvidenciasAprendizaje_Model->find($data["id_evidencia_aprendizaje"]);
+                $planAula = $this->PlanAreas_Model->find($data["id_plan_aula"]);
+                $idEvidenciaAprendizaje = $data["id_evidencia_aprendizaje"];
+
+                if($evidencia && $planAula){
+                    $evidencia["id_plan_area"] = $data["id_plan_aula"];
+                    $evidencia["created_at"] = date("Y-m-d H:i:s");
+                    $evidencia["semanas"] = serialize($data["semanas"]);
+                    $evidencia["observaciones_coordinador"] = "";
+                    unset($evidencia["id_evidencia_aprendizaje"]);
+
+                    if($this->EvidenciasAprendizaje_Model->create($evidencia)){
+                        if($data["mode"] == "true") {
+                            $this->EvidenciasAprendizaje_Model->update(array("id_evidencia_aprendizaje" => $idEvidenciaAprendizaje, "is_completo" => 1));
+                        }
+                        json_response($evidencia, true, "Evidencia de aprendizaje copiada exitosamente");
+                    }
+                }
+                else {
+                    json_response(array("error" => "404"), false, "No se han encontrado los registros seleccionados");
+                }
+            }
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
+    }
 }

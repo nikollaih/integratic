@@ -126,6 +126,18 @@
         }
     }
 
+if(!function_exists('get_grados'))
+{
+    function get_grados(){
+        $CI = &get_instance();
+        $CI->load->model("Estudiante_Model");
+
+        return $CI->Estudiante_Model->getGrados();
+    }
+}
+
+
+
     if(!function_exists('getPercentFromNumber'))
     {
         function getPercentFromNumber($current, $total){

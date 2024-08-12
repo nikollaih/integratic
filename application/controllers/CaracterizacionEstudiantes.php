@@ -99,6 +99,7 @@ class CaracterizacionEstudiantes extends CI_Controller
     public function filtrar() {
         if(is_logged() && strtolower(logged_user()['rol']) != 'estudiante' && strtolower(logged_user()['rol']) != 'acudiente'){
             $params["filtros"] = [];
+            $params["grado"] = "";
 
             // Aplica filtros si se han enviado.
             if($this->input->post()){
@@ -112,6 +113,7 @@ class CaracterizacionEstudiantes extends CI_Controller
                 $direccion_grupo = $this->DireccionGrupo_Model->getByDocente(logged_user()["id"]);
                 if($direccion_grupo) {
                     $grado = $direccion_grupo["grado"];
+                    $params["grado"] = $grado;
                 }
 
                 $params["estudiantes"] =  $this->Estudiante_Model->getCaracterizacionEstudiantes($grado);

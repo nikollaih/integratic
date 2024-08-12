@@ -475,3 +475,6 @@ ERROR - 2024-08-06 18:58:51 --> 404 Page Not Found: PlanAula/index.php
 ERROR - 2024-08-06 18:59:02 --> 404 Page Not Found: Img/iconos
 ERROR - 2024-08-06 18:59:02 --> 404 Page Not Found: Img/iconos
 ERROR - 2024-08-06 18:59:02 --> 404 Page Not Found: PlanAula/index.php
+ERROR - 2024-08-06 19:00:01 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 19:00:01 --> 404 Page Not Found: Img/iconos
+ERROR - 2024-08-06 19:00:02 --> 404 Page Not Found: PlanAula/index.php

@@ -24,6 +24,13 @@ class EvidenciasAprendizaje_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+    function uncompleted(){
+        $this->db->from("evidencias_aprendizaje ea");
+        $this->db->where("ea.is_completo", 0);
+        $result = $this->db->get();
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
     // Obtiene la lista de evidencias de aprendizaje basados
     // en los fintros establecidos por el usuario
     function get_by_filter($area = null, $materia = null, $semana = null, $periodo = null, $estado = null){
