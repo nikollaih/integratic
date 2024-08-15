@@ -185,7 +185,7 @@
 
                             if(is_array($respuestas) ) {
                                 for ($i = 0; $i < count($preguntas); $i++) {
-                                    // Filtrar los arrays donde 'id_pregunta' sea igual a 2
+                                    // Filtrar los arrays
                                     $filtered = array_filter($respuestas, function($array) use ($preguntas, $i) {
                                         return $array['id_pregunta'] == $preguntas[$i]["id"];
                                     });

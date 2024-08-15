@@ -1,5 +1,6 @@
 <?php
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
 /**
  * Class CaracterizacionEstudiantes
  *
@@ -128,6 +129,42 @@ class CaracterizacionEstudiantes extends CI_Controller
             $this->load->view("caracterizacion_estudiantes/filtrar", $params);
         } else {
             header("Location: ".base_url());
+        }
+    }
+
+    public function pdf($idEstudiante = null) {
+        if(is_logged() && strtolower(logged_user()['rol']) != 'estudiante' && strtolower(logged_user()['rol']) != 'acudiente') {
+            $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($idEstudiante);
+            $params["preguntas"] = $this->CaracterizacionEstudiantesPreguntas_Model->getPreguntas();
+            $params["respuestas"] = $this->CaracterizacionEstudiantesRespuestas_Model->getRespuestas($idEstudiante);
+            $this->load->view('caracterizacion_estudiantes/pdf', $params);
+
+            // Cargar HTML en dompdf (puedes cargar tu vista aquí)
+            $html = $this->output->get_output();
+
+            // Configurar opciones de dompdf
+            $options = new Options();
+            $options->set('isHtml5ParserEnabled', true);
+
+
+            // Inicializar dompdf
+            $dompdf = new Dompdf($options);
+            // Configurar orientación a horizontal
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->set_option('defaultMediaType', 'all');
+            $dompdf->set_option('isFontSubsettingEnabled', true);
+            $dompdf->set_option('isHtml5ParserEnabled', true);
+            $dompdf->set_option('isRemoteEnabled', TRUE);
+
+            $dompdf->loadHtml($html);
+
+            // Renderizar PDF
+            $dompdf->render();
+
+            $filename = $params["estudiante"]["nombres"]." ".$params["estudiante"]["apellidos"]." - ".$params["estudiante"]["grado"].".pdf";
+
+            // Mostrar el PDF en el navegador o descargarlo
+            $dompdf->stream($filename, array('Attachment' => false));
         }
     }
 }

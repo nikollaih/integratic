@@ -55,7 +55,7 @@ if(!function_exists("get_respuesta_excel")){
 
                 if($pregunta["es_multiple"] == "1" || $pregunta["tipo_etiqueta"] == "checkbox") {
                     $customRespuesta = unserialize($respuesta[0]["respuesta"]);
-                    return implode(",", $customRespuesta);
+                    return implode(", ", $customRespuesta);
                 }
 
                 return $respuesta[0]["respuesta"];

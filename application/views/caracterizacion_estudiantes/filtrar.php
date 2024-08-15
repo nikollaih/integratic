@@ -66,9 +66,13 @@
                                             <td><?= $e["grado"] ?></td>
                                             <td>
                                                 <?php
-                                                if(is_array($e["caracterizacion_respuestas"]) && count($e["caracterizacion_respuestas"]) > 0) {
-                                                    echo '<a target="_blank" href="'.base_url().'CaracterizacionEstudiantes/completar/'.$e["documento"].'">Ver</a>';
-                                                }
+                                                    if(is_array($e["caracterizacion_respuestas"]) && count($e["caracterizacion_respuestas"]) > 0) {
+                                                        echo '<button><a target="_blank" href="'.base_url().'CaracterizacionEstudiantes/completar/'.$e["documento"].'">Ver formulario</a></button>';
+                                                    }
+
+                                                    if(is_array($e["caracterizacion_respuestas"]) && count($e["caracterizacion_respuestas"]) > 0) {
+                                                        echo '<button class="m-l-15"><a target="_blank" href="'.base_url().'CaracterizacionEstudiantes/pdf/'.$e["documento"].'/caracterizacion">PDF</a></button>';
+                                                    }
                                                 ?>
                                             </td>
                                             <td class="text-center">

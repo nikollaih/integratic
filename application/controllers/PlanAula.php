@@ -142,7 +142,7 @@ use Dompdf\Options;
         $this->load->view("plan_aula/ver", $params);
 
         // Cargar HTML en dompdf (puedes cargar tu vista aquí)
-        $html = $html = $this->output->get_output();
+        $html = $this->output->get_output();
 
         // Configurar opciones de dompdf
         $options = new Options();
