@@ -2524,7 +2524,7 @@ function cambio_menu(){
                 html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Planeación</span></a></li>";
 
                 html+="<li><a href='"+base_url+"CaracterizacionEstudiantes/filtrar' class=' '>";
-                html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Caracterización</span></a></li>";
+                html+="<i><img src='./img/iconos/caracterizacion_estudiantes.jpeg' width='50' height='50'></i><span>Caracterización</span></a></li>";
             }
         }  
 
@@ -2556,9 +2556,12 @@ function menuForAcudiente(){
     html+="<i><img src='./img/iconos/calendario.jpeg' width='50' height='50'></i><span>Calendario</span></a></li>"; 
 
     html+="<li><a href='" + base_url+"Reportes' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/reportes.jpeg' width='50' height='50'></i><span>Reportes</span></a></li>"; 
+    html+="<i><img src='./img/iconos/reportes.jpeg' width='50' height='50'></i><span>Reportes</span></a></li>";
 
-	html+="<li><a href='javascript:logout();'>";
+    html+="<li><a href='" + base_url+"CaracterizacionEstudiantes/completar' class='waves-effect'>";
+    html+="<i><img src='./img/iconos/caracterizacion_estudiantes.jpeg' width='50' height='50'></i><span>Caracterización</span></a></li>";
+
+    html+="<li><a href='javascript:logout();'>";
 	html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar Sesión</span></a></li>";  
 
 	html+="</ul>";
@@ -2674,7 +2677,7 @@ function administrar(){
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
         html=html+"<a href='javascript:direccion_asignar();'>";
-        html=html+"<img src='./img/botones/menu/asg_proyectos.png' width='100%' height='100%'></a></div></div>";
+        html=html+"<img src='./img/botones/menu/direccion_grupo.jpeg' width='100%' height='100%'></a></div></div>";
 
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
