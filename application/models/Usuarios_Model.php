@@ -35,10 +35,19 @@ class Usuarios_Model extends CI_Model {
 	}
 
 	public function get_all(){
+        $this->db->where("estado", "ac");
 		$this->db->from("usuarios");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
+
+    public function get_by_role($role){
+        $this->db->where("rol", $role);
+        $this->db->where("estado", "ac");
+        $this->db->from("usuarios");
+        $result = $this->db->get();
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
 
 	public function delete_all_users_rol($rol){
 		$this->db->where("rol", $rol);

@@ -15,8 +15,10 @@ Class EvidenciasAprendizaje extends CI_Controller
             $params["areas"] =  ($rol == "docente") ? $this->Areas_Model->getAreasDocente(logged_user()["id"]) : $this->Areas_Model->getAll();
             $params["periodos"] = $this->Periodos_Model->getAll();
             $params["materias"] = false;
+            $params["docentes"] = $this->Usuarios_Model->get_by_role("docente");
             
 			if(strtolower(logged_user()["rol"]) != "estudiante"){
+                $params["docente"] = null;
                 $params["area"] = null;
                 $params["materia"] = null;
                 $params["periodo"] = null;
@@ -25,6 +27,7 @@ Class EvidenciasAprendizaje extends CI_Controller
                 $params["evidencias_aprendizaje"] = null;
 
                 if($this->input->post()){
+                    $params["docente"] = $this->input->post("docente");
                     $params["area"] = $this->input->post("area");
                     $params["materia"] = $this->input->post("materia");
                     $params["periodo"] = $this->input->post("periodo");
@@ -32,7 +35,7 @@ Class EvidenciasAprendizaje extends CI_Controller
                     $params["estado"] = $this->input->post("estado");
                     $params["materias"] = $this->Materias_Model->getMateriasArea($params["area"]);
                     $params["semanas"] = $this->SemanasPeriodo_Model->getByPeriodo($params["periodo"]);
-                    $params["evidencias_aprendizaje"] = $this->EvidenciasAprendizaje_Model->get_by_filter($params["area"], $params["materia"], $params["semana"], $params["periodo"], $params["estado"]);
+                    $params["evidencias_aprendizaje"] = $this->EvidenciasAprendizaje_Model->get_by_filter($params["area"], $params["materia"], $params["semana"], $params["periodo"], $params["estado"], $params["docente"]);
                 }
         }
             $this->load->view("plan_aula/evidencias_aprendizaje", $params);

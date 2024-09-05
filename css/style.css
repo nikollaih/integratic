@@ -4847,3 +4847,12 @@ div.dataTables_info {
     background: #fff;
 }
 /* End dropdown */
+
+select {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,0 5,5" fill="black"/></svg>') !important;
+    background-position: right 1rem top 52% !important; /* Adjusts arrow position */
+    background-repeat: no-repeat !important;
+    background-size: 0.6em !important;
+    appearance: none;
+    line-height: 15px !important;
+}

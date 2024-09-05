@@ -33,13 +33,18 @@ class EvidenciasAprendizaje_Model extends CI_Model {
 
     // Obtiene la lista de evidencias de aprendizaje basados
     // en los fintros establecidos por el usuario
-    function get_by_filter($area = null, $materia = null, $semana = null, $periodo = null, $estado = null){
+    function get_by_filter($area = null, $materia = null, $semana = null, $periodo = null, $estado = null, $docente = null){
         $this->db->from("evidencias_aprendizaje ea");
         $this->db->join("plan_areas pa", "ea.id_plan_area = pa.id_plan_area");
         $this->db->join("usuarios u", "u.id = pa.created_by");
         $this->db->join("cfg_areas ca", "ca.codarea = pa.area");
         $this->db->join("cfg_materias cm", "cm.codmateria = pa.materia");
         $this->db->join("periodos p", "p.id_periodo = pa.periodo");
+
+        // Aplica filtro de docente
+        if($docente != null){
+            $this->db->where("pa.created_by", $docente);
+        }
 
         // Aplica filtro de área
         if($area != null){

@@ -19,8 +19,23 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="">Área *</label>
-                                            <select required class="form-control" name="area" id="plan-area-area">
+                                            <label for="">Docente</label>
+                                            <select required class="form-control" name="docente">
+                                                <option value="">- Seleccionar</option>
+                                                <?php
+                                                if($docentes){
+                                                    foreach ($docentes as $l_docente) { ?>
+                                                        <option <?= ($docente == $l_docente["id"]) ? "selected" : "" ?> value="<?= $l_docente["id"] ?>"><?= $l_docente["nombres"]." ".$l_docente["apellidos"] ?></option>
+                                                    <?php }
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Área</label>
+                                            <select class="form-control" name="area" id="plan-area-area">
                                                 <option value="">- Seleccionar</option>
                                                 <?php
                                                     if($areas){
@@ -34,8 +49,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="">Materia y grado *</label>
-                                            <select required name="materia" class="form-control" id="plan-area-materia">
+                                            <label for="">Materia y grado </label>
+                                            <select name="materia" class="form-control" id="plan-area-materia">
                                                 <?php
                                                     if($materias){
                                                         foreach ($materias as $l_materia) { ?>
