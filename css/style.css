@@ -4856,3 +4856,7 @@ select {
     appearance: none;
     line-height: 15px !important;
 }
+
+#table-respuestas-actividades tbody td {
+    word-break: break-all;
+}

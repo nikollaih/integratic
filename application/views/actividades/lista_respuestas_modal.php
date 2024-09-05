@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered table-stripeded">
+                <table id="table-respuestas-actividades" class="table table-bordered table-stripeded">
                     <thead class="thead-dark">
                         <tr>
                             <td>Documento</td>

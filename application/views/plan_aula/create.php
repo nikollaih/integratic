@@ -326,7 +326,7 @@
                                                                                     ?>
                                                                                     <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="button" class="btn btn-sm btn-primary btn-evidencias-aprendizaje-soportes">Evidencias</button>
                                                                                     <div class="text-left m-t-10">
-                                                                                        <p><strong>Observaciones: </strong><?= $evidencia["observaciones_coordinador"] ?></p>
+                                                                                        <p><strong>Observaciones del coordinador: </strong><?= $evidencia["observaciones_coordinador"] ?></p>
                                                                                     </div>
                                                                                 </div>
                                                                             </td>
