@@ -20,7 +20,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Docente</label>
-                                            <select required class="form-control" name="docente">
+                                            <select class="form-control" name="docente">
                                                 <option value="">- Seleccionar</option>
                                                 <?php
                                                 if($docentes){
