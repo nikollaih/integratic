@@ -1,6 +1,5 @@
 <?php
-use Dompdf\Dompdf;
-use Dompdf\Options;
+
 use Mpdf\Mpdf;
    class PlanAula extends CI_Controller { 
 
