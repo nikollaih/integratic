@@ -1,12 +1,22 @@
 <?php
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Mpdf\Mpdf;
    class PlanAula extends CI_Controller { 
 
     public function __construct() {  
-       parent::__construct();  
-       $this->load->helper(array('form', 'url','html')); 
-       $this->load->model(["Areas_Model", "Periodos_Model", "PlanAreas_Model", "Materias_Model", "Caracterizacion_Estandar_Competencia_Model", "Caracterizacion_DBA_Model", "EvidenciasAprendizaje_Model", "SemanasPeriodo_Model", "Usuarios_Model"]);
+        parent::__construct();
+        $this->load->helper(array('form', 'url','html'));
+        $this->load->model(["Areas_Model", "Periodos_Model", "PlanAreas_Model", "Materias_Model", "Caracterizacion_Estandar_Competencia_Model", "Caracterizacion_DBA_Model", "EvidenciasAprendizaje_Model", "SemanasPeriodo_Model", "Usuarios_Model"]);
+
+        $this->mpdf = new Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4-L', // A4 landscape orientation
+            'margin_left' => 5,
+            'margin_right' => 5,
+            'margin_top' => 5,
+            'margin_bottom' => 5
+        ]);
     }
 
     function index(){
@@ -144,70 +154,8 @@ use Dompdf\Options;
         // Cargar HTML en dompdf (puedes cargar tu vista aquí)
         $html = $this->output->get_output();
 
-        // Configurar opciones de dompdf
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-      
-
-        // Inicializar dompdf
-        $dompdf = new Dompdf($options);
-        // Configurar orientación a horizontal
-        $dompdf->setPaper('A4', 'landscape');
-        $dompdf->set_option('defaultMediaType', 'all');
-        $dompdf->set_option('isFontSubsettingEnabled', true);
-        $dompdf->set_option('isHtml5ParserEnabled', true);
-        $dompdf->set_option('isRemoteEnabled', TRUE);
-        
-        $dompdf->loadHtml($html);
-
-        // Renderizar PDF
-        $dompdf->render();
-
-        // Mostrar el PDF en el navegador o descargarlo
-        $dompdf->stream('documento.pdf', array('Attachment' => false));
-    }
-
-    function verNuevo($idPlanAula){
-        $params["plan_area"] = $this->PlanAreas_Model->find($idPlanAula);
-        if(is_array($params["plan_area"])){
-            $area = $this->Areas_Model->find($params["plan_area"]["area"]);
-            $materia = $this->Materias_Model->getMateria($params["plan_area"]["materia"]);
-            $params["usuario"] = $this->Usuarios_Model->get_user($params["plan_area"]["created_by"]);
-            $params["area"] = $area;
-            $params["materia"] = $materia;
-            $params["materias"] = $this->Materias_Model->getMateriasArea($params["plan_area"]["area"]);
-            $params["estandares"] = $this->Caracterizacion_Estandar_Competencia_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
-            $params["dbas"] = $this->Caracterizacion_DBA_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
-            $params["evidencias"] = $this->EvidenciasAprendizaje_Model->getByPlanArea($params["plan_area"]["id_plan_area"]);
-            $params["semanas"] = $this->SemanasPeriodo_Model->getByPeriodo($params["plan_area"]["periodo"]);
-        }
-
-        $this->load->view("plan_aula/ver_nuevo", $params);
-
-        // Cargar HTML en dompdf (puedes cargar tu vista aquí)
-        $html = $html = $this->output->get_output();
-
-        // Configurar opciones de dompdf
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-      
-
-        // Inicializar dompdf
-        $dompdf = new Dompdf($options);
-        // Configurar orientación a horizontal
-        $dompdf->setPaper('A4', 'landscape');
-        $dompdf->set_option('defaultMediaType', 'all');
-        $dompdf->set_option('isFontSubsettingEnabled', true);
-        $dompdf->set_option('isHtml5ParserEnabled', true);
-        $dompdf->set_option('isRemoteEnabled', TRUE);
-        
-        $dompdf->loadHtml($html);
-
-        // Renderizar PDF
-        $dompdf->render();
-
-        // Mostrar el PDF en el navegador o descargarlo
-        $dompdf->stream('documento.pdf', array('Attachment' => false));
+        $this->mpdf->WriteHTML($html);
+        $this->mpdf->Output('documento.pdf', 'I');
     }
 
     // Eliminar un plan de aula con sus respectivas evidencias de aprendizaje
