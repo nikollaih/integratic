@@ -23,7 +23,7 @@
                                 </select>
                             </div>
                         </div>
-                        <dic class="col-md-12">
+                        <div class="col-md-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading text-capitalize"><b>Estadisticas</b></div>
                                 <div class="panel-body">
@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </dic>
+                        </div>
                     </div>
 
                     <div class="row">

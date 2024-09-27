@@ -211,3 +211,97 @@ ALTER TABLE `evidencias_aprendizaje_soportes`
 --
 ALTER TABLE `evidencias_aprendizaje_soportes`
     ADD CONSTRAINT `evidencias_aprendizaje_soporte` FOREIGN KEY (`id_evidencia_aprendizaje`) REFERENCES `evidencias_aprendizaje` (`id_evidencia_aprendizaje`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Estructura de tabla para la tabla `recuperaciones`
+--
+
+CREATE TABLE `recuperaciones` (
+                                  `id_recuperacion` int(11) NOT NULL,
+                                  `title` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
+                                  `description` text COLLATE utf8_spanish2_ci NOT NULL,
+                                  `materia` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
+                                  `grupo` varchar(5) COLLATE utf8_spanish2_ci NOT NULL,
+                                  `created_by` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+                                  `id_periodo` int(11) NOT NULL,
+                                  `disponible_desde` datetime DEFAULT NULL,
+                                  `disponible_hasta` datetime NOT NULL,
+                                  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `recuperaciones`
+--
+ALTER TABLE `recuperaciones`
+    ADD PRIMARY KEY (`id_recuperacion`),
+    ADD KEY `fk_recuperacion_periodo` (`id_periodo`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `recuperaciones`
+--
+ALTER TABLE `recuperaciones`
+    MODIFY `id_recuperacion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `recuperaciones`
+--
+ALTER TABLE `recuperaciones`
+    ADD CONSTRAINT `fk_recuperacion_periodo` FOREIGN KEY (`id_periodo`) REFERENCES `periodos` (`id_periodo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `actividades` ADD `es_recuperacion` TINYINT NULL DEFAULT '0' AFTER `disponible_desde`;
+
+--
+-- Estructura de tabla para la tabla `recuperaciones_actividades`
+--
+
+CREATE TABLE `recuperaciones_actividades` (
+                                              `id_recuperacion_actividad` int(11) NOT NULL,
+                                              `id_recuperacion` int(11) NOT NULL,
+                                              `id_actividad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `recuperaciones_actividades`
+--
+ALTER TABLE `recuperaciones_actividades`
+    ADD PRIMARY KEY (`id_recuperacion_actividad`),
+    ADD KEY `recuperacion_actividad` (`id_actividad`),
+    ADD KEY `actividad_recuperacion` (`id_recuperacion`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `recuperaciones_actividades`
+--
+ALTER TABLE `recuperaciones_actividades`
+    MODIFY `id_recuperacion_actividad` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `recuperaciones_actividades`
+--
+ALTER TABLE `recuperaciones_actividades`
+    ADD CONSTRAINT `actividad_recuperacion` FOREIGN KEY (`id_recuperacion`) REFERENCES `recuperaciones` (`id_recuperacion`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `recuperacion_actividad` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id_actividad`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;

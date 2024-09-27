@@ -12,6 +12,7 @@
                         <h4 class='titulo-foro' style="border-bottom:0;margin:0;"><a  style="color:#33aaff;"><?= $a["titulo_actividad"] ?></a></h4>
                         <div class="text-right">
                             <p class="m-0 label label-primary">Periodo: <?= $a["periodo"] ?></p>
+                            <?= $a["es_recuperacion"] === "1" ? '<p class="m-0 label label-success">Recuperación</p>' : '' ?>
                             <?php
                                 $respuesta_actividad = respuestas_actividad($a["id_actividad"], logged_user()["id"]);
                                 $estudiantes_habilitados = ($a["estudiantes_habilitados"]) ? unserialize($a["estudiantes_habilitados"]) : [];

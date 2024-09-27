@@ -184,8 +184,9 @@ function guardar_actividad() {
     let desde = $("#nueva-actividad-start").val();
     let hasta = $("#nueva-actividad-end").val();
     let porcentaje = $("#nueva-actividad-porcentaje").val();
+    let recuperacion = $("#nueva-actividad-recuperacion").val();
 
-    if (titulo.trim() != "" && descripcion.trim() != "" && periodo.trim() != "" && desde.trim() != "" && hasta.trim() != "" && porcentaje.trim() != "") {
+    if (titulo.trim() !== "" && descripcion.trim() !== "" && periodo.trim() !== "" && desde.trim() !== "" && hasta.trim() !== "" && porcentaje.trim() !== "") {
         var formData = new FormData();
         formData.append("id_actividad", $("#nueva-actividad-actividad").val());
         formData.append("titulo", titulo);
@@ -195,6 +196,7 @@ function guardar_actividad() {
         formData.append("id_periodo", periodo);
         formData.append("id_actividad", id_actividad);
         formData.append("porcentaje", porcentaje);
+        formData.append("es_recuperacion", recuperacion);
         formData.append("userfile", $('#nueva-actividad-file')[0].files[0]);
 
         $.ajax({
@@ -288,7 +290,7 @@ function calificar_respuesta(respuesta = null, calificacion = null, notas = "") 
 
 
 function eliminar_actividad(id_actividad) {
-    if (confirm("¿Está seguro que desea eliminar la actividad?") == true) {
+    if (confirm("¿Está seguro que desea eliminar la actividad?") === true) {
         $.ajax({
             url: base_url + 'Actividades/delete/' + id_actividad,
             type: 'GET',
@@ -297,11 +299,13 @@ function eliminar_actividad(id_actividad) {
                 if (data.status) {
                     $("#actividad-" + id_actividad).remove();
                 }
+                else {
+                    alert(data.message);
+                }
 
                 if (data.object.error == "auth") {
                     prelogin();
                 }
-                alert(data.message);
             }
         });
     }
@@ -348,7 +352,7 @@ function inhabilitar_estudiante_actividad(id_actividad, id_estudiante) {
 }
 
 function eliminar_respuesta_actividad(id_actividad, id_respuesta) {
-    if (confirm("¿Está seguro que desea eliminar la respuesta?") == true) {
+    if (confirm("¿Está seguro que desea eliminar la respuesta?") === true) {
         $.ajax({
             url: base_url + 'Actividades/deleteRespuesta/' + id_respuesta,
             type: 'GET',
@@ -394,6 +398,7 @@ function set_actividad(actividad = null){
         jQuery("#nueva-actividad-start").val(actividad.disponible_desde);
         jQuery("#nueva-actividad-end").val(actividad.disponible_hasta);
         jQuery("#nueva-actividad-porcentaje").val(actividad.porcentaje);
+        jQuery("#nueva-actividad-recuperacion").val(actividad.es_recuperacion);
         editorRichActividades.setContents(actividad.descripcion_actividad);
     }
     else {
@@ -404,6 +409,7 @@ function set_actividad(actividad = null){
         jQuery("#nueva-actividad-start").val("");
         jQuery("#nueva-actividad-end").val("");
         jQuery("#nueva-actividad-porcentaje").val("");
+        jQuery("#nueva-actividad-recuperacion").val("");
         editorRichActividades.setContents("");
     } 
     jQuery("#agregar-nueva-actividad").modal("show");

@@ -2492,6 +2492,9 @@ function cambio_menu(){
                 html+="<li><a href='" + base_url+"Cursos' class=' '>";
                 html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
 
+                html+="<li><a href='" + base_url+"Recuperaciones' class=' '>";
+                html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Recuperaciones</span></a></li>";
+
                 html+="<li><a href='javascript:cfg_docente();' class=' '>";
                 html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
             }

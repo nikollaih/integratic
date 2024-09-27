@@ -71,8 +71,14 @@ class Consultas_Model extends CI_Model {
     $result=$this->db->query("select distinct grado,grupo from asg_materias,cfg_materias Where codmateria=materia");
     if(!$result) {return false;}
     else {return $result->result();}      
-  }    
-  public function asignadoc($id){
+  }
+
+    public function allGrupos(){
+        $result=$this->db->query("select distinct grado,grupo from asg_materias,cfg_materias Where codmateria=materia");
+        if(!$result) {return false;}
+        else {return $result->result_array();}
+    }
+    public function asignadoc($id){
     $result=$this->db->query("select codmateria,nomarea,nommateria,grado,grupo from asg_materias,cfg_materias,cfg_areas Where docente='$id' And codmateria=materia And codarea=area");
     if(!$result) {return false;}
     else {return $result->result();}      

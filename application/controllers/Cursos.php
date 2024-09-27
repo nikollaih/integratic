@@ -60,8 +60,6 @@
             $this->saveFiles($curso["id_curso"], $FILES);
             return array("type" => "success", "message" => "Curso modificado exitosamente.", "success" => true);
         }
-
-        return array("type" => "error", "message" => "Ha ocurrido un error.", "success" => false);
     }
 
     // Guarda los archivos de un curso especifico

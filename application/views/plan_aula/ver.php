@@ -239,9 +239,13 @@
         text-align: left;
         overflow-wrap: break-word; /* Permite que el texto se ajuste dentro de la celda */
         word-wrap: break-word;
-        word-break: break-word;
+        word-break: break-all;
         white-space: normal; /* Permite que el texto fluya y se divida correctamente */
         page-break-inside: avoid; /* Ajusta según el comportamiento de la celda */
+    }
+
+    span {
+        word-break: break-all;
     }
 
     td {

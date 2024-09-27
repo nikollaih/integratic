@@ -498,6 +498,11 @@
 <?php $this->load->view("in_footer") ?>
 <?php $this->load->view("in_script") ?>
 </html>
+<style>
+    span {
+        word-break: break-all;
+    }
+</style>
 <script>
     let forLength = 12;
     let editEvidencia = "<?= (is_array($selectedEvidencia)) ? "true" : "false" ?>";

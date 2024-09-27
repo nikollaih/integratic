@@ -146,7 +146,6 @@ class Docente extends CI_Controller {
     public function listar($menu_materia = false){ 
         // Verificamos si existe un usuario logueado
         if(is_logged()){
-            $estudiante = (strtolower(logged_user()["rol"]) == "estudiante") ? logged_user()["id"] : null;
             // Obtiene las variables POST
             $data["carpeta"] = $this->input->post("ruta");
             $data["titulo"] = $this->input->post("titulo");

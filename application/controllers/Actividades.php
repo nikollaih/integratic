@@ -15,7 +15,7 @@ class Actividades extends CI_Controller {
 
     public function guardar(){
         if(is_logged()){
-            if(logged_user()["rol"] == "Docente"){
+            if(strtolower(logged_user()["rol"]) == "docente"){
                 $data = $this->input->post();
                 $materia_grupo = $this->session->userdata("materia_grupo");
                 $inserted_id = false;
@@ -29,6 +29,7 @@ class Actividades extends CI_Controller {
                     $actividad["disponible_hasta"] = date("Y-m-d H:i:s", strtotime($data["disponible_hasta"]));
                     $actividad["materia"] = $materia_grupo["materia"];
                     $actividad["grupo"] = $materia_grupo["grupo"];
+                    $actividad["es_recuperacion"] = $data["es_recuperacion"];
                     $actividad["created_by"] = logged_user()["id"];
 
                     $existsActividad = $this->Actividades_Model->get_actividad($data["id_actividad"]);
@@ -85,7 +86,7 @@ class Actividades extends CI_Controller {
 
     public function guardar_respuesta(){
         if(is_logged()){
-            if(logged_user()["rol"] == "Estudiante"){
+            if(strtolower(logged_user()["rol"]) == "estudiante"){
                 $data = $this->input->post();
                 $inserted_id = false;
                 $nombre_estudiante = logged_user()["nombres"]." ".logged_user()["apellidos"];
@@ -765,7 +766,7 @@ class Actividades extends CI_Controller {
     
     function delete($id_actividad = null){
         if(is_logged()){
-            if(logged_user()["rol"] == "Docente"){
+            if(strtolower(logged_user()["rol"]) == "docente"){
                 $actividad = $this->Actividades_Model->get_actividad($id_actividad);
                 if($actividad){
                     if($actividad["created_by"] == logged_user()["id"]){
@@ -802,7 +803,7 @@ class Actividades extends CI_Controller {
 
     function getActividad($id_actividad = null){
         if(is_logged()){
-            if(logged_user()["rol"] == "Docente"){
+            if(strtolower(logged_user()["rol"]) == "docente"){
                 $actividad = $this->Actividades_Model->get_actividad($id_actividad);
                 if($actividad){
                     json_response($actividad, true, "Actividad");
