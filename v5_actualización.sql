@@ -305,3 +305,49 @@ ALTER TABLE `recuperaciones_actividades`
     ADD CONSTRAINT `actividad_recuperacion` FOREIGN KEY (`id_recuperacion`) REFERENCES `recuperaciones` (`id_recuperacion`) ON DELETE CASCADE ON UPDATE CASCADE,
     ADD CONSTRAINT `recuperacion_actividad` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id_actividad`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+ALTER TABLE `pruebas` ADD `es_recuperacion` TINYINT NOT NULL DEFAULT '0' AFTER `estado`;
+
+--
+-- Estructura de tabla para la tabla `recuperaciones_pruebas`
+--
+
+CREATE TABLE `recuperaciones_pruebas` (
+                                          `id_recuperaciones_pruebas` int(11) NOT NULL,
+                                          `id_recuperacion` int(11) NOT NULL,
+                                          `id_prueba` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `recuperaciones_pruebas`
+--
+ALTER TABLE `recuperaciones_pruebas`
+    ADD PRIMARY KEY (`id_recuperaciones_pruebas`),
+    ADD KEY `recuperaciones_pruebas` (`id_recuperacion`),
+    ADD KEY `prueba_recuperaciones` (`id_prueba`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `recuperaciones_pruebas`
+--
+ALTER TABLE `recuperaciones_pruebas`
+    MODIFY `id_recuperaciones_pruebas` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `recuperaciones_pruebas`
+--
+ALTER TABLE `recuperaciones_pruebas`
+    ADD CONSTRAINT `prueba_recuperaciones` FOREIGN KEY (`id_prueba`) REFERENCES `pruebas` (`id_prueba`) ON DELETE CASCADE,
+    ADD CONSTRAINT `recuperaciones_pruebas` FOREIGN KEY (`id_recuperacion`) REFERENCES `recuperaciones` (`id_recuperacion`) ON DELETE CASCADE;
+COMMIT;

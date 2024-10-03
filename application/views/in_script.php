@@ -51,6 +51,9 @@
         <!-- Anuncios -->
         <script src="<?= base_url() ?>js/anuncios.js"></script>
 
+        <!-- Recuperaciones -->
+        <script src="<?= base_url() ?>js/recuperaciones.js"></script>
+
         <!-- Rich text -->
         <script src="<?= base_url() ?>js/richtext.js"></script>
 

@@ -104,8 +104,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row m-t-2">
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Dificultad *</label>
@@ -140,22 +138,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row m-t-2">
-                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                    <div class="col-md-6 col-sm-12 col-lg-3">
                                         <div class="form-group">
                                             <label for="">Fecha y hora Inicio *</label>
                                             <input required type="datetime-local"  name="prueba[fecha_inicio]" class="form-control" value="<?= ($prueba) ? $prueba["fecha_inicio"] : "" ?>">                              
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                    <div class="col-md-6 col-sm-12 col-lg-3">
                                         <div class="form-group">
                                             <label for="">Fecha y hora Finalización *</label>
                                             <input required type="datetime-local" name="prueba[fecha_finaliza]" class="form-control" value="<?= ($prueba) ? $prueba["fecha_finaliza"] : "" ?>">
                                         </div>
                                     </div>
-
-                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                    <div class="col-md-6 col-sm-12 col-lg-3">
                                         <div class="form-group">
                                             <label for="">Periodo</label>
                                             <select name="prueba[id_periodo]" id="" class="form-control" data-live-search="true" data-size="10" data-actions-box="true">
@@ -172,10 +167,18 @@
                                             </select>
                                         </div>
                                     </div>
-
+                                    <div class="col-md-6 col-sm-12 col-lg-3">
+                                        <div class="form-group">
+                                            <label for="">Es recuperación</label>
+                                            <select name="prueba[es_recuperacion]" id="" class="form-control" data-live-search="true" data-size="10" data-actions-box="true">
+                                                <option value="0">No</option>
+                                                <option value="1">Si</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <hr>
 
-                                    <div class="col-md-12 col-sm-12 col-lg-4">
+                                    <div class="col-md-12 col-sm-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="">Mostrar respuestas</label>
                                             <div class="custom-control custom-switch">

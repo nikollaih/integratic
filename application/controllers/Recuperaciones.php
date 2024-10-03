@@ -4,7 +4,7 @@ class Recuperaciones extends CI_Controller
 {
     function __construct() {
         parent::__construct();
-        $this->load->model(['Recuperacion_Model', 'Estudiante_Model', 'Materias_Model', 'Consultas_Model', 'Periodos_Model', 'Actividades_Model', 'RecuperacionActividades_Model']);
+        $this->load->model(['RecuperacionPruebas_Model', 'Pruebas_Model', 'Recuperacion_Model', 'Estudiante_Model', 'Materias_Model', 'Consultas_Model', 'Periodos_Model', 'Actividades_Model', 'RecuperacionActividades_Model']);
     }
 
     public function index() {
@@ -54,11 +54,16 @@ class Recuperaciones extends CI_Controller
 
     function view($idRecuperacion = null){
         if(is_logged()){
-            $params["recuperacion"] = $this->Recuperacion_Model->find($idRecuperacion);
-            if($params["recuperacion"]) {
-                $params["actividades"] = $this->Recuperacion_Model->getActivities($idRecuperacion);
-                $params["actividades_disponibles"] = $this->Actividades_Model->getActivitiesRecuperaciones($params["recuperacion"]["materia"], $params["recuperacion"]["grupo"]);
-                $this->load->view("recuperaciones/view", $params);
+            if(strtolower(logged_user()["rol"]) !== "estudiante"){
+                $params["recuperacion"] = $this->Recuperacion_Model->find($idRecuperacion);
+                if($params["recuperacion"]) {
+                    $params["actividades"] = $this->Recuperacion_Model->getActivities($idRecuperacion);
+                    $params["pruebas"] = $this->Recuperacion_Model->getPruebas($idRecuperacion);
+                    $params["actividades_disponibles"] = $this->Actividades_Model->getActivitiesRecuperaciones($params["recuperacion"]["materia"], $params["recuperacion"]["grupo"]);
+                    $params["pruebas_disponibles"] = $this->Pruebas_Model->getPruebasRecuperaciones($params["recuperacion"]["materia"]);
+                    $this->load->view("recuperaciones/view", $params);
+                }
+                else header("Location: ".base_url().'Recuperaciones');
             }
             else header("Location: ".base_url().'Recuperaciones');
         }
@@ -91,5 +96,69 @@ class Recuperaciones extends CI_Controller
             }
         }
         else header("Location: ".base_url());
+    }
+
+    function asignar_prueba_recuperacion() {
+        if(is_logged()){
+            if($this->input->post()){
+                $data = $this->input->post();
+                $existsRecuperacion = $this->Recuperacion_Model->find($data["id_recuperacion"]);
+                if(is_array($data["pruebas"]) && count($data["pruebas"]) > 0 && $existsRecuperacion) {
+                    $actividadRecuperacion["id_recuperacion"] = $data["id_recuperacion"];
+                    foreach($data["pruebas"] as $prueba) {
+                        $actividadRecuperacion["id_prueba"] = $prueba;
+                        $existsRecuperacionActividad = $this->RecuperacionPruebas_Model->get($actividadRecuperacion["id_recuperacion"], $actividadRecuperacion["id_prueba"]);
+                        if(!$existsRecuperacionActividad) {
+                            $this->RecuperacionPruebas_Model->create($actividadRecuperacion);
+                        }
+                    }
+
+                    header("Location: ".base_url()."Recuperaciones/view/".$actividadRecuperacion["id_recuperacion"]);
+                }
+                else {
+                    header("Location: ".base_url()."Recuperaciones");
+                }
+            }
+            else {
+                header("Location: ".base_url()."Recuperaciones");
+            }
+        }
+        else header("Location: ".base_url());
+    }
+
+    function delete(){
+        if(is_logged()) {
+            // Verifica que no sea un estudiante quien hace la petición
+            if(strtolower(logged_user()["rol"]) !== "estudiante"){
+                $data = $this->input->post();
+                // Verifica que el type sea correcto
+                if(isset($data["type"]) && ($data["type"] === "actividad" || $data["type"] === "prueba")) {
+                    $type = $data["type"];
+
+                    // Si es una actividad entonces asigna el modelo de actividades, de lo contrario asigna el de pruebas
+                    if($type === "actividad") {
+                        $model = $this->RecuperacionActividades_Model;
+                    }
+                    if($type === "prueba") {
+                        $model = $this->RecuperacionPruebas_Model;
+                    }
+
+
+                    // Elimina el registro
+                    $deleted = $model->delete($data["id_recuperacion"], $data["id_fk"]);
+
+                    // Verifica que el registro haya sido eliminado
+                    if($deleted) {
+                        json_response($data, true, $type." eliminada satisfactoriamente");
+                    }
+                    else {
+                        json_response(null, false, "No se pudo eliminar el registro");
+                    }
+                }
+                else json_response($data, false, "La información recibida no es correcta");
+            }
+            else json_response(null, false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(null, false, "Inicie sessión para continuar");
     }
 }

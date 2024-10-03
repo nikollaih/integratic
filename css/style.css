@@ -4860,3 +4860,7 @@ select {
 #table-respuestas-actividades tbody td {
     word-break: break-all;
 }
+
+.modal-header button.close {
+    margin-top: -20px;
+}

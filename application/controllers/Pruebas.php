@@ -71,10 +71,13 @@
             $this->Pruebas_Model->update($prueba);
             $id_prueba = $prueba["id_prueba"];
         }
-        else $id_prueba = $this->Pruebas_Model->create($prueba);
+        else {
+            unset($prueba["id_prueba"]);
+            $id_prueba = $this->Pruebas_Model->create($prueba);
+        }
 
         if($id_prueba){
-            if($post["asignacion_preguntas"] == 1 && trim($prueba["id_prueba"]) == ""){
+            if($post["asignacion_preguntas"] == 1 && !isset($prueba["id_prueba"])){
                 return asignar_preguntas_prueba($id_prueba);
             }
             else{

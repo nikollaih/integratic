@@ -1,26 +1,26 @@
 <!-- Modal -->
-<div class="modal fade bd-example-modal-sm" id="agregar-actividad-recuperacion-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-sm" id="agregar-prueba-recuperacion-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="">Agregar Actividades a la Recuperación</h5>
+                <h5 class="modal-title" id="">Agregar Pruebas a la Recuperación</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url() ?>Recuperaciones/asignar_actividad_recuperacion" method="post">
+                <form action="<?= base_url() ?>Recuperaciones/asignar_prueba_recuperacion" method="post">
                     <input type="hidden" name="id_recuperacion" value="<?= $recuperacion['id_recuperacion'] ?>">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="id_actividad" class="control-label">Actividad</label>
-                                <select required multiple name="actividades[]" id="" class="form-control multiple-select multiple" data-live-search="true" data-size="10" data-actions-box="true">
+                                <label for="id_prueba" class="control-label">Prueba</label>
+                                <select required multiple name="pruebas[]" id="" class="form-control multiple-select multiple" data-live-search="true" data-size="10" data-actions-box="true">
                                     <?php
-                                    if($actividades_disponibles !== false){
-                                        foreach ($actividades_disponibles as $ad) {
+                                    if($pruebas_disponibles !== false){
+                                        foreach ($pruebas_disponibles as $p) {
                                             ?>
-                                            <option value="<?= $ad["id_actividad"] ?>"><?= $ad["titulo_actividad"] ?></option>
+                                            <option value="<?= $p["id_prueba"] ?>"><?= $p["nombre_prueba"] ?></option>
                                             <?php
                                         }
                                     }
