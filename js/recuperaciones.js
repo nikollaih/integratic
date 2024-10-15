@@ -2,17 +2,23 @@ $( document ).ready(function() {
     $(document).on("click", ".delete-recuperacion-actividad", function() {
         let idActividad = $(this).attr("data-actividad");
         let idRecuperacion = $(this).attr("data-recuperacion");
-        deleteRecuperacionActividadPrueba(idRecuperacion, idActividad)
+        deleteRecuperacionFK(idRecuperacion, idActividad)
     });
 
     $(document).on("click", ".delete-recuperacion-prueba", function() {
         let idPrueba = $(this).attr("data-prueba");
         let idRecuperacion = $(this).attr("data-recuperacion");
-        deleteRecuperacionActividadPrueba(idRecuperacion, idPrueba, "prueba")
+        deleteRecuperacionFK(idRecuperacion, idPrueba, "prueba")
+    });
+
+    $(document).on("click", ".delete-recuperacion-estudiante", function() {
+        let idEstudiante = $(this).attr("data-estudiante");
+        let idRecuperacion = $(this).attr("data-recuperacion");
+        deleteRecuperacionFK(idRecuperacion, idEstudiante, "estudiante")
     });
 });
 
-function deleteRecuperacionActividadPrueba (idRecuperacion, idFK, type = "actividad") {
+function deleteRecuperacionFK (idRecuperacion, idFK, type = "actividad") {
     if (confirm(`¿Está seguro que desea eliminar la ${type} de la recuperación?`) === true) {
         $("#background-loading").css("display", "flex");
         $.ajax({

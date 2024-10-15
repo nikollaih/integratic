@@ -99,7 +99,31 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading text-capitalize"><b>Estudiantes</b></div>
                             <div class="panel-body">
-
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    if($estudiantes){
+                                        foreach($estudiantes as $estudiante){ ?>
+                                            <tr>
+                                                <td><?= $estudiante["nombre"] ?></td>
+                                                <td>
+                                                    <button data-recuperacion="<?= $recuperacion["id_recuperacion"] ?>" data-estudiante="<?= $estudiante["documento"] ?>" class="btn btn-sm btn-danger delete-recuperacion-estudiante">Eliminar</button>
+                                                </td>
+                                            </tr>
+                                        <?php }
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                                <div class="text-center">
+                                    <button class="btn btn-primary mx-auto" type="button" data-toggle="modal" data-target="#agregar-estudiante-recuperacion-modal">Agregar Estudiante</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -110,6 +134,7 @@
 </div>
     <?php $this->load->view("modal/agregar_actividad_recuperacion") ?>
     <?php $this->load->view("modal/agregar_prueba_recuperacion") ?>
+    <?php $this->load->view("modal/agregar_estudiante_recuperacion") ?>
 </body>
 <?php $this->load->view("in_footer") ?>
 <?php $this->load->view("in_script") ?>
