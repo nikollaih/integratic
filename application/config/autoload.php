@@ -83,7 +83,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('directories', 'caracterizacion_estudiantes', 'usuarios', 'files', 'materias', 'exports', 'general', 'auth', 'documents', 'estudiantes', 'anuncios', 'actividades', 'preguntas', 'pruebas', 'imports', 'url', 'periodos_semanas', 'notificaciones', 'docente');
+$autoload['helper'] = array('calificaciones', 'directories', 'caracterizacion_estudiantes', 'usuarios', 'files', 'materias', 'exports', 'general', 'auth', 'documents', 'estudiantes', 'anuncios', 'actividades', 'preguntas', 'pruebas', 'imports', 'url', 'periodos_semanas', 'notificaciones', 'docente');
 
 /*
 | -------------------------------------------------------------------

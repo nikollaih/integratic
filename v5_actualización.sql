@@ -219,7 +219,7 @@ ALTER TABLE `evidencias_aprendizaje_soportes`
 CREATE TABLE `recuperaciones` (
                                   `id_recuperacion` int(11) NOT NULL,
                                   `title` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
-                                  `description` text COLLATE utf8_spanish2_ci NOT NULL,
+                                  `description` longtext COLLATE utf8_spanish2_ci NOT NULL,
                                   `materia` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
                                   `grupo` varchar(5) COLLATE utf8_spanish2_ci NOT NULL,
                                   `created_by` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
@@ -393,3 +393,7 @@ ALTER TABLE `recuperaciones_estudiantes`
 ALTER TABLE `recuperaciones_estudiantes`
     ADD CONSTRAINT `recuperacion_estudiante_recuperacion` FOREIGN KEY (`id_recuperacion`) REFERENCES `recuperaciones` (`id_recuperacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+ALTER TABLE `core_participantes_pruebas` CHANGE `municipio` `municipio` INT(11) NULL;
+
+ALTER TABLE `estudiante` ADD `email_acudiente` VARCHAR(100) NOT NULL AFTER `email`;

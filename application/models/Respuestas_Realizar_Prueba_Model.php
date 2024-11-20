@@ -16,6 +16,14 @@ class Respuestas_Realizar_Prueba_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+    function get_note_by_prueba_participante($id_prueba, $id_participante){
+        $this->db->from("realizar_prueba rp");
+        $this->db->where("rp.id_prueba", $id_prueba);
+        $this->db->where("rp.id_participante", $id_participante);
+        $result = $this->db->get();
+        return ($result->num_rows() > 0) ? $result->row_array() : false;
+    }
+
 	function get($id_realizar_prueba){
 		$this->db->from("respuestas_realizar_prueba rrp");
 		$this->db->join("preguntas_prueba pp", "rrp.id_pregunta = pp.id_pregunta_prueba");

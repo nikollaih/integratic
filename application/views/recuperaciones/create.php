@@ -6,7 +6,7 @@
         <div class="content">
             <div class="container">
                 <div class="row" id="migas"></div>
-                <form action="" method="post" id="form-recuperacion">
+                <form action="" method="post" id="form-recuperacion" enctype="multipart/form-data">
                     <input type="hidden" name="recuperacion[id_recuperacion]" id="" value="<?= ($recuperacion) ? $recuperacion["id_recuperacion"] : "" ?>">
                     <div class="panel panel-primary">
                         <div class="panel-heading text-capitalize"><b><?= ($recuperacion) ? "Modificar" : "Nuevo" ?> recuperacion</b></div>
@@ -15,7 +15,7 @@
                                 <div class="col-md-12 col-sm-12 col-lg-9">
                                     <div class="form-group">
                                         <label for="">Titulo *</label>
-                                        <input type="text" required name="recuperacion[title]" id="" class="form-control" value="<?= ($recuperacion) ? $recuperacion["nombre_recuperacion"] : "" ?>">
+                                        <input type="text" required name="recuperacion[title]" id="" class="form-control" value="<?= ($recuperacion) ? $recuperacion["title"] : "" ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-lg-3">
@@ -133,7 +133,7 @@
     if($recuperacion){ ?>
         <script>
             $(document).ready(() => {
-                let contents = '<?= $recuperacion["descripcion_recuperacion"] ?>';
+                let contents = '<?= $recuperacion["description"] ?>';
                 editorRich.setContents(contents);
             })
         </script>

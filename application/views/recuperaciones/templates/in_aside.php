@@ -19,7 +19,7 @@
                     </a>
                 </li>
                 <?php
-                if(strtolower(logged_user()["rol"]) != "estudiante"){ ?>
+                if(strtolower(logged_user()["rol"]) === "docente"){ ?>
                     <li>
                         <a href="<?= base_url() ?>Recuperaciones/create" class=" ">
                             <i><img src='<?= base_url() ?>img/iconos/nuevo_plan_aula.jpeg' width="50" height="50" class="rounded-img"></i><span>Nuevo</span>

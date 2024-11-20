@@ -25,6 +25,7 @@
                                             <td>Identificación</td>
                                             <td>Nombre completo</td>
                                             <td>Email</td>
+                                            <td>Email acudiente</td>
                                             <td>Grado</td>
                                             <td>Clave</td>
                                             <td>Caracterización</td>
@@ -40,6 +41,7 @@
                                                             <td><?= $e["documento"] ?></td>
                                                             <td><?= $e["nombre"] ?></td>
                                                             <td><?= $e["email"] ?></td>
+                                                            <td><?= $e["email_acudiente"] ?></td>
                                                             <td><?= $e["grado"] ?></td>
                                                             <td><?= $e["clave"] ?></td>
                                                             <td>

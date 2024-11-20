@@ -11,7 +11,7 @@ class Mailer {
   }
 
   
-  public function send($content, $subject, $to){
+  public function send($content, $subject, $to, $cc = NULL){
     $this->CI->load->library('email');
 
 
@@ -31,6 +31,9 @@ class Mailer {
     $this->CI->email->set_newline("\r\n");
 
     $this->CI->email->to($to);
+    if($cc){
+        $this->CI->email->cc($cc);
+    }
     $this->CI->email->from(configuracion()["smtp_user"],'IntegraTic');
     $this->CI->email->subject($subject);
     $this->CI->email->message($content);

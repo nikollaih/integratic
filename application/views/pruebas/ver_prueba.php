@@ -20,9 +20,13 @@
                                                 <div class="subtitle-buttons">
                                                     <h4><?= $prueba["nombre_prueba"] ?></h4>
                                                     <div class="d-flex">
-                                                        <a href="<?= base_url() ?>Pruebas/asignarPreguntas/<?= $prueba["id_prueba"] ?>" class="btn btn-info">Configurar preguntas</a>
+                                                        <?php
+                                                        if(strtolower(logged_user()["rol"]) === "docente"){ ?>
+                                                            <a href="<?= base_url() ?>Pruebas/asignarPreguntas/<?= $prueba["id_prueba"] ?>" class="btn btn-info">Configurar preguntas</a>
+                                                            <a href="<?= base_url() ?>Pruebas/crearPrueba/<?= $prueba["id_prueba"] ?>" class="btn btn-warning m-l-1">Modificar</a>
+                                                        <?php }
+                                                        ?>
                                                         <a href="<?= base_url() ?>Pruebas/participantes/<?= $prueba["id_prueba"] ?>" class="btn btn-success m-l-1">Participantes</a>
-                                                        <a href="<?= base_url() ?>Pruebas/crearPrueba/<?= $prueba["id_prueba"] ?>" class="btn btn-warning m-l-1">Modificar</a>
                                                     </div>
                                                 </div>
                                                 <hr>

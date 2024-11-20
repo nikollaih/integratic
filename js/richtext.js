@@ -28,18 +28,16 @@ let kothingParams = {
     charCounter: true,
 }
 
-$( document ).ready(function() {  
-    let textarea = document.getElementById('textarea_richtext'); 
+$( document ).ready(function() {
+    const imageSize = document.getElementById('image_size_richtext');
+    const imageRemove = document.getElementById('image_remove_richtext');
+    const imageTable = document.getElementById('image_list_richtext');
 
+    let imageList = [];
+    let selectedImages = [];
+    let textarea = document.getElementById('textarea_richtext');
     if(textarea){
         document.getElementById('image_wrapper_richtext');
-        const imageSize = document.getElementById('image_size_richtext');
-        const imageRemove = document.getElementById('image_remove_richtext');
-        const imageTable = document.getElementById('image_list_richtext');
-    
-        let imageList = [];
-        let selectedImages = [];
-    
         editorRich = KothingEditor.create('textarea_richtext', kothingParams);
     
         editorRich.onImageUpload = function (targetImgElement, index, state, imageInfo, remainingFilesCount) {

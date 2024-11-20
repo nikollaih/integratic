@@ -16,6 +16,10 @@ $( document ).ready(function() {
         let idRecuperacion = $(this).attr("data-recuperacion");
         deleteRecuperacionFK(idRecuperacion, idEstudiante, "estudiante")
     });
+
+    $("#form-recuperacion").on('submit', function(e) {
+        jQuery("#textarea_richtext").html(editorRich.getContents());
+    });
 });
 
 function deleteRecuperacionFK (idRecuperacion, idFK, type = "actividad") {

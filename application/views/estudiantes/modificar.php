@@ -34,13 +34,19 @@
                                         <input class="form-control" name="email" type="email" id="" value="<?= ($estudiante) ? $estudiante["email"] : "" ?>">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Email acudiente</label>
+                                        <input class="form-control" name="email_acudiente" type="email" id="" value="<?= ($estudiante) ? $estudiante["email_acudiente"] : "" ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Grado</label>
                                         <input class="form-control" name="grado" type="text" id="" value="<?= ($estudiante) ? $estudiante["grado"] : "" ?>">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Clave</label>
                                         <input class="form-control" name="clave" type="text" id="" value="<?= ($estudiante) ? $estudiante["clave"] : "" ?>">

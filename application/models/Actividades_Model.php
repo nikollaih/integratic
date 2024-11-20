@@ -40,6 +40,16 @@ class Actividades_Model extends CI_Model {
           return ($result->num_rows() > 0) ? $result->result_array() : false;
     }
 
+    function getActivitiesRecuperacion($idRecuperacion) {
+        $this->db->from("actividades a");
+        $this->db->join("recuperaciones_actividades ra", "ra.id_actividad = a.id_actividad");
+        $this->db->where("a.es_recuperacion", "1");
+        $this->db->where("ra.id_recuperacion", $idRecuperacion);
+        $this->db->order_by("a.created_at", "desc");
+        $result = $this->db->get();
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
 	// Get the activity for a particular group
 	function get_all_for_students($materia, $periodo, $grupo = null, $grado = null, $id = null){
 		$this->db->select("a.*, ra.*, p.periodo, cm.nommateria, cm.grado, ra.created_by");

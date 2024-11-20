@@ -17,11 +17,28 @@ class Pruebas_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+    function getPruebaParticipants($idPrueba){
+        $this->db->from("asignacion_participantes_prueba app");
+        $this->db->where("app.id_prueba =", $idPrueba);
+        $result = $this->db->get();
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
     function getPruebasRecuperaciones($materia) {
         $this->db->select("p.*");
         $this->db->from("pruebas p");
         $this->db->where("p.estado !=", 2);
         $this->db->like("p.materias", $materia);
+        $this->db->order_by("p.created_at", "desc");
+        $result = $this->db->get();
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
+    function getPruebasRecuperacion($idRecuperacion) {
+        $this->db->select("p.*");
+        $this->db->from("pruebas p");
+        $this->db->join('recuperaciones_pruebas rp', 'rp.id_prueba = p.id_prueba');
+        $this->db->where("p.estado !=", 2);
         $this->db->order_by("p.created_at", "desc");
         $result = $this->db->get();
         return ($result->num_rows() > 0) ? $result->result_array() : false;

@@ -120,41 +120,44 @@
                                             </div>
                                         </div>
 
-                                        <div class="row m-b-2">
-                                            <div class="col-md-6 col-sm-12">
-                                                <div>
-                                                    <form method="post" enctype="multipart/form-data">
-                                                        <input type="hidden" name="file" value="false">
-                                                        <label for="prueba-participantes-file">Importar participantes desde archivo</label>
-                                                        <input required accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" name="participantes" id="prueba-participantes-file">
-                                                        <button class="btn btn-sm btn-success m-t-1" type="submit">Importar</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 col-sm-12">
-                                                <div>
-                                                    <form method="post">
-                                                        <label for="prueba-participantes-file">Asignar participantes desde grupo</label>
-                                                        <select required class="form-control" name="grado" id="prueba-participantes-grado">
-                                                            <option value="null">- Seleccionar grupo</option>
-                                                            <?php
-                                                                if($grupos_materia){
-                                                                    foreach ($grupos_materia as $gm) {
-                                                                        ?>
+                                            <?php
+                                            if(strtolower(logged_user()["rol"]) === "docente"){ ?>
+                                                <div class="row m-b-2">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div>
+                                                            <form method="post" enctype="multipart/form-data">
+                                                                <input type="hidden" name="file" value="false">
+                                                                <label for="prueba-participantes-file">Importar participantes desde archivo</label>
+                                                                <input required accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" name="participantes" id="prueba-participantes-file">
+                                                                <button class="btn btn-sm btn-success m-t-1" type="submit">Importar</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div>
+                                                            <form method="post">
+                                                                <label for="prueba-participantes-file">Asignar participantes desde grupo</label>
+                                                                <select required class="form-control" name="grado" id="prueba-participantes-grado">
+                                                                    <option value="null">- Seleccionar grupo</option>
+                                                                    <?php
+                                                                    if($grupos_materia){
+                                                                        foreach ($grupos_materia as $gm) {
+                                                                            ?>
                                                                             <option value="<?= $gm["grado"].$gm["grupo"] ?>"><?= $gm["nommateria"]." - ".$gm["grado"]."°".$gm["grupo"] ?></option>
-                                                                        <?php
+                                                                            <?php
+                                                                        }
                                                                     }
-                                                                }
-                                                            ?>
-                                                        </select>
-                                                        <select required name="estudiantes[]" id="prueba-participantes-estudiantes" class="form-control multiple-select" multiple data-live-search="true" data-actions-box="true" data-actions-box="true">
-                                                        </select>
-                                                        <button class="btn btn-sm btn-success m-t-1" type="submit">Asignar</button>
-                                                    </form>
+                                                                    ?>
+                                                                </select>
+                                                                <select required name="estudiantes[]" id="prueba-participantes-estudiantes" class="form-control multiple-select" multiple data-live-search="true" data-actions-box="true" data-actions-box="true">
+                                                                </select>
+                                                                <button class="btn btn-sm btn-success m-t-1" type="submit">Asignar</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            <?php }
+                                            ?>
                     
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12 col-lg-12">
@@ -200,9 +203,11 @@
                                                             <td class="text-center">
                                                                 <?php
                                                                     if($info_prueba["porcentaje"] == null){
+                                                                        if(strtolower(logged_user()["rol"]) === "docente"){
                                                                         ?>
                                                                             <button data-prueba="<?= $prueba["id_prueba"] ?>" data-participante="<?= $participante["id_participante_prueba"] ?>" class="btn btn-danger btn-sm btn-eliminar-participante">Eliminar participante</button>
                                                                         <?php
+                                                                        }
                                                                     }
                                                                     else{
                                                                         ?>

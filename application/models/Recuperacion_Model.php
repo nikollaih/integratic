@@ -12,6 +12,7 @@ class Recuperacion_Model extends CI_Model
         $this->pruebas_table = 'pruebas';
         $this->recuperaciones_actividades_table = 'recuperaciones_actividades';
         $this->recuperaciones_pruebas_table = 'recuperaciones_pruebas';
+        $this->recuperaciones_estudiantes_table = 'recuperaciones_estudiantes';
     }
 
     public function create($data) {
@@ -29,6 +30,18 @@ class Recuperacion_Model extends CI_Model
         $this->db->join($this->periodos_table, $this->periodos_table.'.id_periodo = '.$this->table.'.id_periodo');
         $this->db->join($this->materias_table, $this->materias_table.'.codmateria = '.$this->table.'.materia');
         $this->db->where('created_by', $createdUserId);
+        $result = $this->db->get();
+
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
+    public function getAllByStudent($userId) {
+        $this->db->select($this->table.'.*, '.$this->periodos_table.'.periodo,'.$this->materias_table.'.nommateria, '.$this->materias_table.'.grado');
+        $this->db->from($this->table);
+        $this->db->join($this->periodos_table, $this->periodos_table.'.id_periodo = '.$this->table.'.id_periodo');
+        $this->db->join($this->materias_table, $this->materias_table.'.codmateria = '.$this->table.'.materia');
+        $this->db->join($this->recuperaciones_estudiantes_table, $this->recuperaciones_estudiantes_table.'.id_recuperacion = '.$this->table.'.id_recuperacion');
+        $this->db->where($this->recuperaciones_estudiantes_table.'.id_estudiante', $userId);
         $result = $this->db->get();
 
         return ($result->num_rows() > 0) ? $result->result_array() : false;

@@ -78,7 +78,7 @@ class Actividades extends CI_Controller {
                 if(trim($estudiante["email"]) != ""){
                     $data["estudiante"] = $estudiante["nombre"];
                     $email_body = $this->load->view('email/actividad', $data, true);
-                    $this->mailer->send($email_body, 'Nueva actividad', $estudiante["email"]);
+                    $this->mailer->send($email_body, 'Nueva actividad', $estudiante["email"], $estudiante["email_acudiente"]);
                 }
             }
         }

@@ -49,6 +49,7 @@
                                     </a>
                                 </li>  
                                 <li><a href="<?= base_url() ?>Pruebas" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/pruebas.png" width="50" height="50"></i><span>Pruebas</span></a></li>
+                                <li><a href="<?= base_url() ?>Recuperaciones" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/calendario.jpeg" width="50" height="50"></i><span>Recuperaciones</span></a></li>
                                 <li><a href="<?= base_url() ?>Calendario/actividades" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/calendario.jpeg" width="50" height="50"></i><span>Calendario</span></a></li>
                                 <li><a href="<?= base_url() ?>Reportes" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/reportes.jpeg" width="50" height="50"></i><span>Reportes</span></a></li>
                             <?php
@@ -64,6 +65,7 @@
                                 <li><a href="<?= base_url() ?>Pruebas" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/pruebas.png" width="50" height="50" alt=""></i><span>Pruebas</span></a></li>
                                 <li><a href="<?= base_url() ?>Calendario/actividades" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/calendario.jpeg" width="50" height="50" alt=""></i><span>Calendario</span></a></li>
                                 <li><a href="<?= base_url() ?>Reportes" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/reportes.jpeg" width="50" height="50" alt=""></i><span>Reportes</span></a></li>
+                                <li><a href="<?= base_url() ?>Recuperaciones" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/reportes.jpeg" width="50" height="50" alt=""></i><span>Recuperaciones</span></a></li>
                                 <li><a href="<?= base_url() ?>CaracterizacionEstudiantes/completar" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/caracterizacion_estudiantes.jpeg" width="50" height="50"></i><span>Caracterización</span></a></li>
                             <?php
                         }

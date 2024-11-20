@@ -95,7 +95,7 @@
         if(is_logged()){
             //$id_prueba = decrypt_string($id_prueba, true);
             $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
-            if($params["prueba"]["created_by"] == logged_user()["id"]){
+            if($params["prueba"]["created_by"] == logged_user()["id"] || strtolower(logged_user()["rol"]) === 'coordinador'){
                 $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
                 $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
                 $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);

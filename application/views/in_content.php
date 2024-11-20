@@ -2505,6 +2505,9 @@ function cambio_menu(){
                 html+="<li><a href='" + base_url+"EvidenciasAprendizaje' class=' '>";
                 html+="<i><img src='./img/iconos/evidencias_aprendizaje.jpeg' width='50' height='50' class='rounded-img'></i><span>Evidencias de aprendizaje</span></a></li>";
 
+                html+="<li><a href='" + base_url+"Recuperaciones' class=' '>";
+                html+="<i><img src='./img/iconos/recuperaciones.jpeg' width='50' height='50' class='rounded-img'></i><span>Recuperaciones</span></a></li>";
+
                 html+="<li><a href='" + base_url+"Cursos' class=' '>";
                 html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
             }
@@ -2553,7 +2556,10 @@ function cambio_menu(){
 function menuForAcudiente(){
 	html="<ul>";
     html+="<li><a href='" + base_url+"Pruebas' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>"; 
+    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>";
+
+    html+="<li><a href='" + base_url+"Recuperaciones' class='waves-effect'>";
+    html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Recuperaciones</span></a></li>";
 
     html+="<li><a href='" + base_url+"Calendario/actividades' class='waves-effect'>";
     html+="<i><img src='./img/iconos/calendario.jpeg' width='50' height='50'></i><span>Calendario</span></a></li>"; 
@@ -2583,6 +2589,9 @@ function menuForStudents(){
 
     html+="<li><a href='" + base_url+"Cursos' class='waves-effect'>";
     html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
+
+    html+="<li><a href='" + base_url+"Recuperaciones' class='waves-effect'>";
+    html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Recuperaciones</span></a></li>";
 
     html+="<li><a href='" + base_url+"Calendario/actividades' class='waves-effect'>";
     html+="<i><img src='./img/iconos/calendario.jpeg' width='50' height='50'></i><span>Calendario</span></a></li>"; 
