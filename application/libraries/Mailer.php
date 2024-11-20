@@ -16,7 +16,7 @@ class Mailer {
 
 
     $config = array(
-      'protocol'  => 'sendmail',
+      'protocol'  => 'mail',
       'smtp_host' => configuracion()["smtp_host"],
       'smtp_port' => configuracion()["smtp_port"],
       'smtp_user' => configuracion()["smtp_user"],
@@ -44,7 +44,7 @@ class Mailer {
       if ($this->CI->email->send()) {
         return true;
       } else {
-        die($this->CI->email->print_debugger());
+        //die($this->CI->email->print_debugger());
           //Do whatever you want if failed 
           return false;
       }

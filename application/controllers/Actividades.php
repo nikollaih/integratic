@@ -41,7 +41,9 @@ class Actividades extends CI_Controller {
                     }
                     else {
                         $inserted_id = $this->Actividades_Model->create($actividad);
-                        $this->sendEmail($inserted_id);
+                        if($actividad["es_recuperacion"] != 0) {
+                            $this->sendEmail($inserted_id);
+                        }
                     }
                 }
     

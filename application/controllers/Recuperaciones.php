@@ -5,6 +5,7 @@ class Recuperaciones extends CI_Controller
     function __construct() {
         parent::__construct();
         $this->load->model(['Usuarios_Model', 'Respuestas_Realizar_Prueba_Model', 'Asignacion_Participantes_Prueba_Model', 'Estudiante_Model', 'Participantes_Prueba_Model', 'RecuperacionEstudiante_Model', 'Materias_Model', 'RecuperacionPruebas_Model', 'Pruebas_Model', 'Recuperacion_Model', 'Estudiante_Model', 'Materias_Model', 'Consultas_Model', 'Periodos_Model', 'Actividades_Model', 'RecuperacionActividades_Model']);
+        $this->load->library(['Mailer']);
     }
 
     public function index() {
@@ -171,6 +172,7 @@ class Recuperaciones extends CI_Controller
                         $existsRecuperacionEstudiante = $this->RecuperacionEstudiante_Model->get($estudianteRecuperacion["id_recuperacion"], $estudianteRecuperacion["id_estudiante"]);
                         if(!$existsRecuperacionEstudiante) {
                             $this->RecuperacionEstudiante_Model->create($estudianteRecuperacion);
+                            $this->sendEmail($estudiante, $existsRecuperacion);
                         }
                         // Add the student to activity participants
                         $this->agregar_estudiante_actividad($actividades, $estudianteRecuperacion["id_estudiante"] );
@@ -189,6 +191,19 @@ class Recuperaciones extends CI_Controller
             }
         }
         else header("Location: ".base_url());
+    }
+
+    function sendEmail($estudianteId, $recuperacion){
+        $estudiante = $this->Estudiante_Model->getStudentUserByDocument($estudianteId);
+
+        $data["recuperacion"] = $recuperacion;
+        if($estudiante){
+            if(trim($estudiante["email"]) != ""){
+                $data["estudiante"] = $estudiante["nombre"];
+                $email_body = $this->load->view('email/recuperacion', $data, true);
+                $this->mailer->send($email_body, 'Nueva recuperación', $estudiante["email"], $estudiante["email_acudiente"]);
+            }
+        }
     }
 
     function agregar_estudiante_actividad ($actividades, $idEstudiante) {

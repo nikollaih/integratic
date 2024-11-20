@@ -120,7 +120,7 @@
                 if(trim($estudiante["email"]) != ""){
                     $data["estudiante"] = $estudiante["nombre"];
                     $email_body = $this->load->view('email/foro', $data, true);
-                    $this->mailer->send($email_body, 'Nuevo foro', $estudiante["email"]);
+                    $this->mailer->send($email_body, 'Nuevo foro', $estudiante["email"], $estudiante["email_acudiente"]);
                 }
             }
         }

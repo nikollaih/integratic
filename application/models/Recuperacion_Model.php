@@ -10,6 +10,7 @@ class Recuperacion_Model extends CI_Model
         $this->materias_table = 'cfg_materias';
         $this->actividades_table = 'actividades';
         $this->pruebas_table = 'pruebas';
+        $this->users_table = 'usuarios';
         $this->recuperaciones_actividades_table = 'recuperaciones_actividades';
         $this->recuperaciones_pruebas_table = 'recuperaciones_pruebas';
         $this->recuperaciones_estudiantes_table = 'recuperaciones_estudiantes';
@@ -72,6 +73,9 @@ class Recuperacion_Model extends CI_Model
     public function find($id) {
         $this->db->from($this->table);
         $this->db->where('id_recuperacion', $id);
+        $this->db->join($this->periodos_table, $this->periodos_table.'.id_periodo = '.$this->table.'.id_periodo');
+        $this->db->join($this->materias_table, $this->materias_table.'.codmateria = '.$this->table.'.materia');
+        $this->db->join($this->users_table, $this->users_table.'.id = '.$this->table.'.created_by');
         $result = $this->db->get();
 
         return ($result->num_rows() > 0) ? $result->row_array() : false;
