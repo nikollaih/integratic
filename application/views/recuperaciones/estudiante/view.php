@@ -36,8 +36,8 @@
                                                         <tr>
                                                             <td><?= $actividad["titulo_actividad"] ?></td>
                                                             <td><?= $actividad["porcentaje"] ?>%</td>
-                                                            <td style="overflow-wrap: anywhere;"><?= $actividad["respuesta"]["estudiante_notas"] ?></td>
-                                                            <td style="overflow-wrap: anywhere;"><?= $actividad["respuesta"]["docente_notas"] ?></td>
+                                                            <td style="overflow-wrap: anywhere;"><?= ($actividad["respuesta"]) ? $actividad["respuesta"]["estudiante_notas"] : "" ?></td>
+                                                            <td style="overflow-wrap: anywhere;"><?= ($actividad["respuesta"]) ? $actividad["respuesta"]["docente_notas"] : "" ?></td>
                                                             <td>
                                                                 <?php
                                                                     if($actividad["respuesta"] > 0){

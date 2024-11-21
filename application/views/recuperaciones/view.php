@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     <?php
-                    if(strtolower(logged_user()["rol"]) === "docente"){ ?>
+                    if(strtolower(logged_user()["rol"]) === "docente" || strtolower(logged_user()["rol"]) === "coordinador"){ ?>
                         <div class="col-md-4">
                             <div class="panel panel-primary">
                                 <div class="panel-heading text-capitalize"><b>Estudiantes</b></div>
