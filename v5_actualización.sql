@@ -397,3 +397,6 @@ COMMIT;
 ALTER TABLE `core_participantes_pruebas` CHANGE `municipio` `municipio` INT(11) NULL;
 
 ALTER TABLE `estudiante` ADD `email_acudiente` VARCHAR(100) NOT NULL AFTER `email`;
+
+ALTER TABLE `recuperaciones_estudiantes` ADD `observaciones` LONGTEXT NULL AFTER `id_estudiante`;
+

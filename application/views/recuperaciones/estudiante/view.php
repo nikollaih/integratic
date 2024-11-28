@@ -2,12 +2,14 @@
 <body>
     <?php $this->load->view("in_header") ?>
     <?php $this->load->view("recuperaciones/templates/in_aside") ?>
+    <?php $notas = notas_estudiante_recuperacion($recuperacion["id_recuperacion"], $recuperacion["documento"]) ?>
     <div class="content-page">
         <div class="content">
             <div class="container">
                 <div class="row" id="migas">
                     <div class="col-md-12">
-                        <h3><?= $estudiante["nombres"].' '.$estudiante["apellidos"].' - '.$estudiante["grado"] ?></h3>
+                        <h3><?= $recuperacion["nombre"].' - '.$recuperacion["grado"] ?></h3>
+                        <p><strong>Nota global: </strong> <?= $notas["ponderado"] ?></p>
                         <hr>
                     </div>
                 </div>
@@ -16,7 +18,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading text-capitalize"><b>Actividades</b></div>
+                                    <div class="panel-heading text-capitalize"><b>Actividades </b>(<?= $notas["actividades"] ?>)</div>
                                     <div class="panel-body">
                                         <table class="table table-bordered">
                                             <thead>
@@ -62,7 +64,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading text-capitalize"><b>Pruebas</b></div>
+                                    <div class="panel-heading text-capitalize"><b>Pruebas</b> (<?= $notas["pruebas"] ?>)</div>
                                     <div class="panel-body">
                                         <table class="table table-bordered">
                                             <thead>
@@ -100,6 +102,63 @@
                                 </div>
                             </div>
                         </div>
+
+                        <?php
+                        if(strtolower(logged_user()["rol"]) !== "docente") {
+                        ?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading text-capitalize"><b>Observaciones del docente</b></div>
+                                        <div class="panel-body">
+                                            <p><?= $recuperacion["observaciones"] ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+
+                        <?php
+                            if(strtolower(logged_user()["rol"]) === "docente") {
+                                ?>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <?php
+                                        if(isset($message)){
+                                            ?>
+                                            <div class="alert alert-<?= $message["type"] ?> alert-dismissible show" role="alert">
+                                                <?= $message["message"] ?>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading text-capitalize"><b>Observaciones</b></div>
+                                            <div class="panel-body">
+                                                <form action="" method="post">
+                                                    <label for="observaciones">Agregar observaciones</label>
+                                                    <textarea
+                                                            name="observaciones"
+                                                            id=""
+                                                            cols="30"
+                                                            rows="5"
+                                                            class="form-control"
+                                                    ><?= $recuperacion["observaciones"] ?></textarea>
+                                                    <button class="btn btn-primary m-t-10">Guardar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        ?>
                     </div>
                 </div>
             </div> <!-- container -->

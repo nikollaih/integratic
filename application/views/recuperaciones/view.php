@@ -144,9 +144,10 @@
                                         <tbody>
                                         <?php
                                         if($estudiantes){
-                                            foreach($estudiantes as $estudiante){ ?>
+                                            foreach($estudiantes as $estudiante){
+                                                ?>
                                                 <tr>
-                                                    <td><?= $estudiante["nombre"] ?></td>
+                                                    <td><?= $estudiante["nombre"].' ('.notas_estudiante_recuperacion($recuperacion["id_recuperacion"],$estudiante["documento"])["ponderado"].')' ?></td>
                                                     <td>
                                                         <?php
                                                         if(strtolower(logged_user()["rol"]) === "docente"){ ?>

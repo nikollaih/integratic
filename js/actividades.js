@@ -401,16 +401,5 @@ function set_actividad(actividad = null){
         jQuery("#nueva-actividad-recuperacion").val(actividad.es_recuperacion);
         editorRichActividades.setContents(actividad.descripcion_actividad);
     }
-    else {
-        jQuery("#agregar-nueva-actividad-label").html("Crear nueva actividad");
-        jQuery("#nueva-actividad-actividad").val("");
-        jQuery("#nueva-actividad-titulo").val("");
-        jQuery("#nueva-actividad-periodo").val("");
-        jQuery("#nueva-actividad-start").val("");
-        jQuery("#nueva-actividad-end").val("");
-        jQuery("#nueva-actividad-porcentaje").val("");
-        jQuery("#nueva-actividad-recuperacion").val("");
-        editorRichActividades.setContents("");
-    } 
     jQuery("#agregar-nueva-actividad").modal("show");
 }

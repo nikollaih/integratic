@@ -372,6 +372,10 @@ class Recuperaciones extends CI_Controller
 
     function estudiante($documento, $idRecuperacion) {
         if(is_logged()) {
+            if($this->input->post()){
+                $params["message"] = $this->add_comments($documento, $idRecuperacion, $this->input->post());
+            }
+
             $coreParticipant = $this->Participantes_Prueba_Model->get($documento);
             // Get the pruebas belongs to the process
             $params["pruebas"] = $this->Pruebas_Model->getPruebasRecuperacion($idRecuperacion);
@@ -391,8 +395,13 @@ class Recuperaciones extends CI_Controller
                 }
             }
 
-            $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($documento);
+            $params["recuperacion"] = $this->RecuperacionEstudiante_Model->get($idRecuperacion, $documento);
             $this->load->view("recuperaciones/estudiante/view", $params);
         }
+    }
+
+    function add_comments($documento, $idRecuperacion, $data) {
+        $this->RecuperacionEstudiante_Model->update($idRecuperacion, $documento, $data);
+        return array("type" => "success", "message" => "Observaciones agregadas exitosamente.", "success" => true);
     }
 }
