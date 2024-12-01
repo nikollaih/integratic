@@ -1,5 +1,11 @@
 // A $( document ).ready() block.
 $( document ).ready(function() {
+    $('.datatable').DataTable({
+        order: [],
+        "language": {
+            "url": base_url + "js/json/datatable_spanish.json"
+        }
+    });
     setAreasCaracterizacion();
 });
 

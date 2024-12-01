@@ -50,7 +50,7 @@
                                 </div>
                             <?php }
                             ?>
-                            <table class="table table-bordered">
+                            <table class="table table-bordered datatable">
                                 <thead>
                                     <tr>
                                         <th>Titulo</th>

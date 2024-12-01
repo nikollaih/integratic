@@ -1,4 +1,11 @@
 jQuery(document).ready(function() {
+    let tabla_plan_aula = $('#tabla-plan-aula').DataTable({
+        order: [],
+        "language": {
+            "url": base_url + "js/json/datatable_spanish.json"
+        }
+    });
+
     let kothingParamsPlan = {
         fontSize: [8, 10, 12, 14, 16, 18, 20], // Lista de tamaños de letra
         defaultFontSize: 10, // Tamaño de letra predeterminado
