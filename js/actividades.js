@@ -129,7 +129,6 @@ $(document).on("click", ".button-editar-actividad", function() {
 });
 
 $(document).on("click", ".button-agregar-nueva-actividad", function() {
-    jQuery("#nueva-actividad-from-repo").val(false);
     get_actividades_repositorio();
     set_actividad();
 });
@@ -228,6 +227,7 @@ function guardar_actividad() {
                 if (response.status) {
                     enlace_mat_est(response.object.materia, "true");
                     $('#actividad-form').trigger("reset");
+                    jQuery("#nueva-actividad-from-repo").val(false);
                     editorRichActividades.setContents("");
                     $("#agregar-nueva-actividad").modal("hide");
                 }

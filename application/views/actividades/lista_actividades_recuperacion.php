@@ -1,13 +1,13 @@
 <div>
-    <div style="background-color:#33aaff;border-radius:10px;" class="d-flex justify-between align-items-center m-b-1">
-        <h3 class="title-container-foros">Actividades</h3>
-        <i class="fa fa-chevron-up open-section" data-section="actividades"></i>
+    <div style="background-color:#33b86c;border-radius:10px;" class="d-flex justify-between align-items-center m-b-1">
+        <h3 class="title-container-foros">Actividades de recuperación</h3>
+        <i class="fa fa-chevron-up open-section" data-section="recuperacion"></i>
     </div>
-    <ul style="padding:0" class="section-actividades">
-        <?php 
+    <ul style="padding:0" class="section-recuperacion">
+        <?php
         if($actividades){
             foreach ($actividades as $a) {
-                if($a["es_recuperacion"] === "0"){
+                if($a["es_recuperacion"] === "1"){
                 ?>
                 <li class='item-foro' id="actividad-<?= $a["id_actividad"] ?>">
                     <div class="d-flex justify-between align-items-center">
@@ -22,7 +22,7 @@
                                     if(($a["disponible_hasta"] > date("Y-m-d H:i:s")) || in_array(logged_user()["id"], $estudiantes_habilitados)){
                                         if($respuesta_actividad == false || ($respuesta_actividad == false && in_array(logged_user()["id"], $estudiantes_habilitados))) {
                                             ?>
-                                            <a href="javascript:subir();" class="crear-respuesta-boton d-flex align-items-center" data-actividad="<?= $a["id_actividad"] ?>" data-toggle="modal" data-target="#agregar-respuesta-actividad"> 
+                                            <a href="javascript:subir();" class="crear-respuesta-boton d-flex align-items-center" data-actividad="<?= $a["id_actividad"] ?>" data-toggle="modal" data-target="#agregar-respuesta-actividad">
                                                 <img src="./img/iconos/subir_archivo.png" width="32" height="32" alt="Subir Archivo" title="Subir Archivo">
                                                 <p style="margin:0px 0PX 0PX 10PX;">Subir respuesta</p>
                                             </a>
@@ -79,6 +79,6 @@
             <?php  }
             }
         }
-        ?> 
+        ?>
     </ul>
-</div> 
+</div>

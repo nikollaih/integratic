@@ -179,6 +179,7 @@
             <?php
                 if($menu_materia == "true"){
                     $this->load->view("actividades/lista_actividades", $actividades);
+                    $this->load->view("actividades/lista_actividades_recuperacion", $actividades);
                     $this->load->view("foros/template/lista_foros", $foros);
                 }
             ?>    
