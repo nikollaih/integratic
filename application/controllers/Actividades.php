@@ -9,7 +9,7 @@ class Actividades extends CI_Controller {
          $this->load->helper('form');
          $this->load->helper('html');
          $this->load->helper('url');
-         $this->load->model(['Consultas_Model', 'Actividades_Model', 'Estudiante_Model']);
+         $this->load->model(['Consultas_Model', 'Actividades_Model', 'Estudiante_Model', 'RepositorioActividades_Model']);
          $this->load->library(['upload', 'Mailer']);
     }
 
@@ -20,7 +20,7 @@ class Actividades extends CI_Controller {
                 $materia_grupo = $this->session->userdata("materia_grupo");
                 $inserted_id = false;
     
-                if($data["titulo"] != "" && $data["descripcion"] != "" && $data["disponible_desde"] != "" && $data["disponible_hasta"] != "" && $data["id_periodo"] != ""){
+                if($data["titulo"] != "" && $data["descripcion"] != "" && $data["disponible_desde"] != "" && $data["disponible_hasta"] != "" && $data["id_periodo"] != "") {
                     $actividad["titulo_actividad"] = $data["titulo"];
                     $actividad["id_periodo"] = $data["id_periodo"];
                     $actividad["porcentaje"] = $data["porcentaje"];
@@ -34,39 +34,97 @@ class Actividades extends CI_Controller {
 
                     $existsActividad = $this->Actividades_Model->get_actividad($data["id_actividad"]);
 
-                    if($existsActividad){
+                    if ($existsActividad) {
                         $actividad["id_actividad"] = $data["id_actividad"];
                         $this->Actividades_Model->update($actividad);
                         $inserted_id = $data["id_actividad"];
-                    }
-                    else {
+                    } else {
                         $inserted_id = $this->Actividades_Model->create($actividad);
-                        if($actividad["es_recuperacion"] != 0) {
+                        if ($actividad["es_recuperacion"] != 0) {
                             $this->sendEmail($inserted_id);
                         }
                     }
-                }
-    
-                if(isset($_FILES["userfile"]) && $inserted_id){
-                    if(isset($_FILES['userfile']['name'])) {
-                        $file_name = md5($inserted_id).".".get_file_format($_FILES['userfile']['name']);
-                        $file_tmp =$_FILES['userfile']['tmp_name'];
-                        move_uploaded_file($file_tmp,"uploads/actividades/".$file_name);
-                        $this->Actividades_Model->update(array("id_actividad" => $inserted_id, "url_archivo" => $file_name, "nombre_archivo" => $_FILES['userfile']['name']));
+
+                    if (isset($_FILES["userfile"]) && $inserted_id) {
+                        if (isset($_FILES['userfile']['name'])) {
+                            $file_name = md5($inserted_id) . "." . get_file_format($_FILES['userfile']['name']);
+                            $file_tmp = $_FILES['userfile']['tmp_name'];
+
+                            if(!is_dir("uploads/actividades")){
+                                mkdir("uploads/actividades");
+                            }
+
+                            if(!is_dir("uploads/repositorio_actividades")){
+                                mkdir("uploads/repositorio_actividades");
+                            }
+
+                            move_uploaded_file($file_tmp, "uploads/actividades/" . $file_name);
+                            copy("uploads/actividades/" . $file_name, "uploads/repositorio_actividades/" . $file_name);
+
+                            $actividad["url_archivo"] = $file_name;
+                            $actividad["nombre_archivo"] = $_FILES['userfile']['name'];
+                            $this->Actividades_Model->update(array("id_actividad" => $inserted_id, "url_archivo" => $file_name, "nombre_archivo" => $_FILES['userfile']['name']));
+                        }
+                    }
+
+                    if ($inserted_id) {
+                        $text = ($existsActividad) ? "Actividad modificada exitosamente" : "Actividad creada exitosamente.";
+                        if($data["from_repo"] !== "true"){
+                            $this->saveActivityBackup($inserted_id, $actividad);
+                        }
+                        else {
+                            $this->setDocumentFromActivityRepo($data["from_repo_id"], $inserted_id);
+                        }
+
+                        json_response($actividad, true, $text);
+                    } else {
+                        json_response(false, false, "Ha ocurrido un error, por favor intente de nuevo");
                     }
                 }
-    
-                if($inserted_id){
-                    $text = ($existsActividad) ? "Actividad modificada exitosamente" : "Actividad creada exitosamente.";
-                    json_response($actividad, true, $text);
-                }
-                else{
+                else {
                     json_response(false, false, "Ha ocurrido un error, por favor intente de nuevo");
                 }
             }
             else{
                 json_response(false, false, "No tiene permisos para realizar esta acción");
             }
+        }
+    }
+
+    function setDocumentFromActivityRepo($idActivityRepo, $idActividad){
+        $actividadRepo = $this->RepositorioActividades_Model->get($idActivityRepo);
+
+        if($actividadRepo){
+            if(!is_dir("uploads/repositorio_actividades/".$actividadRepo["archivo"])){
+                copy("uploads/repositorio_actividades/" . $actividadRepo["archivo"], "uploads/actividades/" . $idActividad.$actividadRepo["archivo"]);
+                $this->Actividades_Model->update(array("id_actividad" => $idActividad, "url_archivo" => $idActividad.$actividadRepo["archivo"], "nombre_archivo" => $actividadRepo["nombre_archivo"]));
+            }
+            else{
+                echo "No es directorio: "."uploads/repositorio_actividades/".$actividadRepo["archivo"];
+            }
+        }
+    }
+
+    // Save the activity as a backup to reuse it after
+    function saveActivityBackup($idActividad, $actividad) {
+        // Check if the activity already exists
+        $existsActivity = $this->RepositorioActividades_Model->get($idActividad);
+
+        // Set the repo activity values
+        $repoActivity["titulo"] = $actividad["titulo_actividad"];
+        $repoActivity["descripcion"] = $actividad["descripcion_actividad"];
+        $repoActivity["materia"] = $actividad["materia"];
+
+        if($existsActivity){
+            // Update the activity in case it exists
+            $this->RepositorioActividades_Model->update($idActividad, $repoActivity);
+        }
+        else {
+            // Create the new repo activity
+            $repoActivity["id_actividad"] = $idActividad;
+            $repoActivity["archivo"] = $actividad["url_archivo"] ?? '';
+            $repoActivity["nombre_archivo"] = $actividad["nombre_archivo"] ?? '';
+            $this->RepositorioActividades_Model->create($repoActivity);
         }
     }
 
@@ -285,7 +343,6 @@ class Actividades extends CI_Controller {
          else{
              echo("Archivo no pudo ser eliminado!");
          }
-                 listar_docente($id); 
     }  
     function eliminacar(){
         $nomdir    = $_POST['arc'];         
@@ -298,8 +355,7 @@ class Actividades extends CI_Controller {
          unlink ($archivos[$i]); 
         }
         //borramos el directorio
-        rmdir ($nomdir); 
-        listar_docente($id);        
+        rmdir ($nomdir);
     }    
 
     function listar(){

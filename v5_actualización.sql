@@ -400,3 +400,37 @@ ALTER TABLE `estudiante` ADD `email_acudiente` VARCHAR(100) NOT NULL AFTER `emai
 
 ALTER TABLE `recuperaciones_estudiantes` ADD `observaciones` LONGTEXT NULL AFTER `id_estudiante`;
 
+--
+-- Estructura de tabla para la tabla `repositorio_actividades`
+--
+
+CREATE TABLE `repositorio_actividades` (
+                                           `id_repositorio_actividad` int(11) NOT NULL,
+                                           `id_actividad` int(11) NOT NULL,
+                                           `titulo` text COLLATE utf8_spanish2_ci NOT NULL,
+                                           `descripcion` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                                           `archivo` varchar(250) COLLATE utf8_spanish2_ci NULL,
+                                           `nombre_archivo` varchar(250) COLLATE utf8_spanish2_ci NULL,
+                                           `materia` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
+                                           `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `repositorio_actividades`
+--
+ALTER TABLE `repositorio_actividades`
+    ADD PRIMARY KEY (`id_repositorio_actividad`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `repositorio_actividades`
+--
+ALTER TABLE `repositorio_actividades`
+    MODIFY `id_repositorio_actividad` int(11) NOT NULL AUTO_INCREMENT;

@@ -129,6 +129,8 @@ $(document).on("click", ".button-editar-actividad", function() {
 });
 
 $(document).on("click", ".button-agregar-nueva-actividad", function() {
+    jQuery("#nueva-actividad-from-repo").val(false);
+    get_actividades_repositorio();
     set_actividad();
 });
 
@@ -147,6 +149,18 @@ $(document).on("click", ".btn-inhabilitar-actividad", function() {
 $(document).on("click", ".button-eliminar-actividad", function() {
     let actividad = $(this).attr("data-actividad");
     eliminar_actividad(actividad);
+});
+
+$(document).on("change", "#nueva-actividad-repositorio-actividad", function() {
+    if(Array.isArray(ACTIVIDADES_REPOSITORIO)){
+        let selected_activity_id = jQuery(this).val();
+        let selected_activity = ACTIVIDADES_REPOSITORIO.find((activity) => activity.id_repositorio_actividad === selected_activity_id);
+        if(selected_activity){
+            jQuery("#nueva-actividad-from-repo-id").val(selected_activity.id_actividad);
+            jQuery("#nueva-actividad-from-repo").val(true);
+            set_actividad(selected_activity, true);
+        }
+    }
 });
 
 $(document).on("click", ".btn-eliminar-respuesta-actividad", function() {
@@ -183,8 +197,10 @@ function guardar_actividad() {
     let periodo = $("#nueva-actividad-periodo").val();
     let desde = $("#nueva-actividad-start").val();
     let hasta = $("#nueva-actividad-end").val();
+    let from_repo = $("#nueva-actividad-from-repo").val();
     let porcentaje = $("#nueva-actividad-porcentaje").val();
     let recuperacion = $("#nueva-actividad-recuperacion").val();
+    let from_repo_id = $("#nueva-actividad-from-repo-id").val();
 
     if (titulo.trim() !== "" && descripcion.trim() !== "" && periodo.trim() !== "" && desde.trim() !== "" && hasta.trim() !== "" && porcentaje.trim() !== "") {
         var formData = new FormData();
@@ -197,6 +213,8 @@ function guardar_actividad() {
         formData.append("id_actividad", id_actividad);
         formData.append("porcentaje", porcentaje);
         formData.append("es_recuperacion", recuperacion);
+        formData.append("from_repo", from_repo);
+        formData.append("from_repo_id", from_repo_id);
         formData.append("userfile", $('#nueva-actividad-file')[0].files[0]);
 
         $.ajax({
@@ -210,6 +228,7 @@ function guardar_actividad() {
                 if (response.status) {
                     enlace_mat_est(response.object.materia, "true");
                     $('#actividad-form').trigger("reset");
+                    editorRichActividades.setContents("");
                     $("#agregar-nueva-actividad").modal("hide");
                 }
                 alert(response.message);
@@ -221,7 +240,7 @@ function guardar_actividad() {
 }
 
 function guardar_actividad_respuesta() {
-    if ($("#respuesta-actividad-id").val().trim() != "" && $("#respuesta-actividad-id").val() != null) {
+    if ($("#respuesta-actividad-id").val().trim() !== "" && $("#respuesta-actividad-id").val() !== null) {
         var formData = new FormData();
         formData.append("id_actividad", $("#respuesta-actividad-id").val());
         formData.append("notas", $("#respuesta-actividad-notas").val());
@@ -312,7 +331,7 @@ function eliminar_actividad(id_actividad) {
 }
 
 function habilitar_estudiante_actividad(id_actividad, id_estudiante) {
-    if (confirm("¿Está seguro que desea habilitar la actividad para este estudiante?") == true) {
+    if (confirm("¿Está seguro que desea habilitar la actividad para este estudiante?") === true) {
         $.ajax({
             url: base_url + 'Actividades/habilitar',
             data: {
@@ -332,7 +351,7 @@ function habilitar_estudiante_actividad(id_actividad, id_estudiante) {
 }
 
 function inhabilitar_estudiante_actividad(id_actividad, id_estudiante) {
-    if (confirm("¿Está seguro que desea inhabilitar la actividad para este estudiante?") == true) {
+    if (confirm("¿Está seguro que desea inhabilitar la actividad para este estudiante?") === true) {
         $.ajax({
             url: base_url + 'Actividades/inhabilitar',
             data: {
@@ -389,17 +408,55 @@ function get_actividad(idActividad){
     });
 }
 
-function set_actividad(actividad = null){
+var ACTIVIDADES_REPOSITORIO = false;
+function get_actividades_repositorio(){
+    $.ajax({
+        url: base_url + 'RepositorioActividades/getByMateria',
+        type: 'GET',
+        success: function(data) {
+            data = JSON.parse(data);
+            console.log(data)
+            if(data.status) {
+                ACTIVIDADES_REPOSITORIO = data.object;
+                set_actividades_repositorio(ACTIVIDADES_REPOSITORIO);
+            }
+
+            if (data.object.error === "auth") {
+                prelogin();
+            }
+        }
+    });
+}
+
+function set_actividades_repositorio(actividades) {
+    let selectInput = jQuery("#nueva-actividad-repositorio-actividad");
+    selectInput.html('<option value="">- Seleccionar </option>');
+
+    if(Array.isArray(actividades)) {
+        for (let i = 0; i < actividades.length; i++) {
+            let actividad = actividades[i];
+            selectInput.append('<option value="'+actividad.id_repositorio_actividad+'">'+actividad.titulo+'</option>');
+        }
+    }
+}
+
+function set_actividad(actividad = null, is_repo = false){
     if(actividad){
-        jQuery("#agregar-nueva-actividad-label").html("Modificar actividad");
-        jQuery("#nueva-actividad-actividad").val(actividad.id_actividad);
-        jQuery("#nueva-actividad-titulo").val(actividad.titulo_actividad);
-        jQuery("#nueva-actividad-periodo").val(actividad.id_periodo);
-        jQuery("#nueva-actividad-start").val(actividad.disponible_desde);
-        jQuery("#nueva-actividad-end").val(actividad.disponible_hasta);
-        jQuery("#nueva-actividad-porcentaje").val(actividad.porcentaje);
-        jQuery("#nueva-actividad-recuperacion").val(actividad.es_recuperacion);
-        editorRichActividades.setContents(actividad.descripcion_actividad);
+        if(!is_repo){
+            jQuery("#agregar-nueva-actividad-label").html("Modificar actividad");
+            jQuery("#nueva-actividad-actividad").val(actividad.id_actividad);
+            jQuery("#nueva-actividad-titulo").val(actividad.titulo_actividad);
+            jQuery("#nueva-actividad-periodo").val(actividad.id_periodo);
+            jQuery("#nueva-actividad-start").val(actividad.disponible_desde);
+            jQuery("#nueva-actividad-end").val(actividad.disponible_hasta);
+            jQuery("#nueva-actividad-porcentaje").val(actividad.porcentaje);
+            jQuery("#nueva-actividad-recuperacion").val(actividad.es_recuperacion);
+            editorRichActividades.setContents(actividad.descripcion_actividad);
+        }
+        else{
+            jQuery("#nueva-actividad-titulo").val(actividad.titulo);
+            editorRichActividades.setContents(actividad.descripcion);
+        }
     }
     jQuery("#agregar-nueva-actividad").modal("show");
 }

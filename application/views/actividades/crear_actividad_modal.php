@@ -12,13 +12,23 @@
         <div class="modal-body">
             <form id="actividad-form" action="" method="post" enctype="multipart/form-data">
                 <input type="hidden" value="" id="nueva-actividad-actividad">
+                <input type="hidden" value="false" id="nueva-actividad-from-repo">
+                <input type="hidden" value="" id="nueva-actividad-from-repo-id">
                 <div class="row">
-                  <div class="col-md-8">
-                    <div class="form-group">
-                        <label for="">Titulo *</label>
-                        <input class="form-control" type="text" name="" id="nueva-actividad-titulo">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Seleccionar actividad de repositorio</label>
+                            <select name="" class="form-control" id="nueva-actividad-repositorio-actividad">
+                                <option value="">- Seleccionar</option>
+                            </select>
+                        </div>
                     </div>
-                  </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="">Titulo *</label>
+                            <input class="form-control" type="text" name="" id="nueva-actividad-titulo">
+                        </div>
+                    </div>
                   <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Periodo *</label>
