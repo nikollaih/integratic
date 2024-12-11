@@ -171,8 +171,14 @@ $(document).on("click", ".btn-eliminar-respuesta-actividad", function() {
 $(document).on("click", ".cargar-respuestas-boton", function() {
     let actividad = $(this).attr("data-actividad");
     $(".items-repsuestas-estudiante").html("<tr><td colspan='7'><div class='loader'></td></div></tr>");
+    $("#button-descargar-archivos-actividad").attr("data-id", actividad);
     obtener_actividad_respuestas(actividad);
 });
+
+$(document).on('click', '#button-descargar-archivos-actividad', function(){
+    let idActividad = $(this).attr("data-id");
+    window.open(base_url + "RespuestasActividades/downloadZIPFile/" + idActividad, '_blank');
+})
 
 $(document).on("click", ".btn-guardar-calificar", function() {
     let respuesta = $(this).attr("data-id");

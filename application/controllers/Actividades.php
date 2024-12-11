@@ -173,7 +173,9 @@ class Actividades extends CI_Controller {
                                     if($inserted_id){
                                         $file_name = md5($inserted_id).".".get_file_format($_FILES['userfile']['name']);
                                         $file_tmp =$_FILES['userfile']['tmp_name'];
-                                        mkdir(string_to_folder_name('uploads/actividades/respuestas/'), 0777);
+                                        if(!is_dir('uploads/actividades/respuestas')){
+                                            mkdir(string_to_folder_name('uploads/actividades/respuestas/'), 0755);
+                                        }
                                         move_uploaded_file($file_tmp,"uploads/actividades/respuestas/".$file_name);
                                         $respuesta["id_respuestas_actividades"] = $inserted_id;
                                         $respuesta["url_archivo"] = $file_name;
@@ -210,11 +212,15 @@ class Actividades extends CI_Controller {
                 $grupo_materia = $this->session->userdata("materia_grupo");
                 $estudiantes = get_students_by_materia($grupo_materia["materia"], $grupo_materia["grupo"]);
 
-                for ($i=0; $i < count($estudiantes); $i++) { 
-                    $estudiantes[$i]["respuesta"] = $this->Actividades_Model->get_activity_response($actividad, $estudiantes[$i]["documento"]);
-                }
+                if($estudiantes) {
+                    for ($i=0; $i < count($estudiantes); $i++) {
+                        $estudiantes[$i]["respuesta"] = $this->Actividades_Model->get_activity_response($actividad, $estudiantes[$i]["documento"]);
+                    }
 
-                json_response($this->load->view("actividades/lista_estudiantes_respuestas", array("estudiantes" => $estudiantes, 'actividad' => $data_actividad), true), true, "Lista de estudiantes");
+                    json_response($this->load->view("actividades/lista_estudiantes_respuestas", array("estudiantes" => $estudiantes, 'actividad' => $data_actividad), true), true, "Lista de estudiantes");
+                }
+                else json_response(null, false, "Lista de estudiantes");
+
             }
         }
     }

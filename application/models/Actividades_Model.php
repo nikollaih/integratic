@@ -104,12 +104,23 @@ class Actividades_Model extends CI_Model {
 
 	function get_all_activity_response($id_actividad){
 		$this->db->from("respuestas_actividades ra");
-		$this->db->join("actividades a", "a.id_actividad == ra.id_actividad");
-		$this->db->where("id_actividad", $id_actividad);
+		$this->db->join("actividades a", "a.id_actividad = ra.id_actividad");
+		$this->db->where("ra.id_actividad", $id_actividad);
 		$result = $this->db->get();
 
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
+
+    function get_all_activity_responses($id_actividad){
+          $this->db->select('ra.*, u.nombres, u.apellidos, a.titulo_actividad');
+            $this->db->from("respuestas_actividades ra");
+            $this->db->join("actividades a", "a.id_actividad = ra.id_actividad");
+            $this->db->join("usuarios u", "ra.created_by = u.id");
+            $this->db->where("ra.id_actividad", $id_actividad);
+            $result = $this->db->get();
+
+            return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
 
 	// Create a new activity
 	function create($data){
