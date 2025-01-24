@@ -14,6 +14,16 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on("change", "#crear-prueba-tipo-pregunta", function() {
+        let value = $(this).val();
+        if(value === 'multiple'){
+            $("#container-agregar-respuesta").show();
+        }
+        else{
+            $("#container-agregar-respuesta").hide();
+        }
+    });
+
     $(document).on("click", ".btn-eliminar-pregunta", function() {
         let id_pregunta = $(this).attr("data-pregunta");
         eliminar(id_pregunta);

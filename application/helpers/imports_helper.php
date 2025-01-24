@@ -79,6 +79,7 @@ function importar_estudiantes($FILES){
                         $nuevo_estudiante["nombre"] = $estudiante[1];
                         $nuevo_estudiante["grado"] = $estudiante[4];
                         $nuevo_estudiante["email"] = $estudiante[5];
+                        $nuevo_estudiante["nee"] = $estudiante[6];
                         array_push($estudiantes, $nuevo_estudiante);
                     }
                 }

@@ -23,13 +23,13 @@ function exportarPreguntasExcel($questions, $materia){
             $sheet->setCellValue('H'.$line, 'ARCHIVO'); 
             $sheet->setCellValue('I'.$line, 'NOMBRE ARCHIVO'); 
             $sheet->setCellValue('J'.$line, 'FECHA DE CREACION'); 
-            $sheet->setCellValue('K'.$line, 'ARCHIVO'); 
+            $sheet->setCellValue('K'.$line, 'ARCHIVO');
+            $sheet->setCellValue('L'.$line, 'TIPO PREGUNTA');
 
             $line++;
 
             foreach ($questions as $q) {
                 $file = "";
-                $formato = "";
 
                 if($q["archivo"] && $q["nombre_archivo"] && file_exists("./uploads/preguntas/".$q["archivo"])){
                     $formato = explode(".", $q["nombre_archivo"]);
@@ -48,6 +48,7 @@ function exportarPreguntasExcel($questions, $materia){
                 $sheet->setCellValue('I'.$line, $q["nombre_archivo"]);
                 $sheet->setCellValue('J'.$line, $q["created_at"]);
                 $sheet->setCellValue('K'.$line, $file);
+                $sheet->setCellValue('L'.$line, $q["tipo_pregunta"]);
                 $line++;
             }
 

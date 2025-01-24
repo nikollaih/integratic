@@ -2,7 +2,7 @@
     $estudiantes_habilitados = ($actividad["estudiantes_habilitados"]) ? unserialize($actividad["estudiantes_habilitados"]) : [];
     foreach ($estudiantes as $e) {
 ?>
-        <tr>
+        <tr style="background: <?= $e["nee"] === '1' ? '#e9f3ff' : 'transparent' ?>">
             <td><?= $e["documento"] ?></td>
             <td><?= $e["nombre"] ?></td>
             <td><?= ($e["respuesta"] != null) ? date("d M, Y h:i a", strtotime($e["respuesta"]["created_at"])) : "" ?></td>

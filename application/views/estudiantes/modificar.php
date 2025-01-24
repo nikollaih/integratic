@@ -42,6 +42,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label for="nee">NEE</label>
+                                        <select name="nee" id="nee" class="form-control">
+                                            <option <?= ($estudiante && $estudiante["nee"] === '0') ? "selected" : "" ?> value="0">No</option>
+                                            <option <?= ($estudiante && $estudiante["nee"] === '1') ? "selected" : "" ?> value="1">Si</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label for="">Grado</label>
                                         <input class="form-control" name="grado" type="text" id="" value="<?= ($estudiante) ? $estudiante["grado"] : "" ?>">
                                     </div>

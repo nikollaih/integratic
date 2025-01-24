@@ -5,7 +5,7 @@
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model(["Estudiante_Model", "Respuestas_Realizar_Prueba_Model", "Realizar_Prueba_Model", "Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model", "Periodos_Model"]);
+       $this->load->model(["RespuestasRealizarPruebaAbiertas_Model", "Estudiante_Model", "Respuestas_Realizar_Prueba_Model", "Realizar_Prueba_Model", "Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model", "Periodos_Model"]);
     }
     
     public function index(){
@@ -132,6 +132,14 @@
 
     function resumen($id_prueba, $id_participante = null){
         if(is_logged()){
+
+            if(strtolower(logged_user()["rol"]) == "docente"){
+                if($this->input->post()){
+                    $data = $this->input->post();
+                    $this->RespuestasRealizarPruebaAbiertas_Model->update($data);
+                }
+            }
+
             if($id_participante == null){
                 $usuario = $this->Participantes_Prueba_Model->get(logged_user()["id"]);
                 $id_participante = $usuario["id_participante_prueba"];
@@ -146,6 +154,7 @@
             $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
             $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
             $params["respuestas"] = $this->Respuestas_Realizar_Prueba_Model->get($params["prueba_realizada"]["id_realizar_prueba"]);
+            $params["respuestas_abiertas"] = $this->RespuestasRealizarPruebaAbiertas_Model->get($params["prueba_realizada"]["id_realizar_prueba"]);
 
             if($params["prueba_realizada"]){
                 $this->load->view("pruebas/resumen_prueba", $params);
@@ -168,14 +177,24 @@
                 $participante = $this->Asignacion_Participantes_Prueba_Model->get_participante($id_participante);
                 $params["id_participante"] = $id_participante;
                 $iniciado = $this->Realizar_Prueba_Model->get($id_prueba, $id_participante);
+
                 if(!$iniciado){
-                    $iniciado = $this->Realizar_Prueba_Model->create(array("id_prueba" => $id_prueba, "id_participante" => $id_participante, "institucion" => $participante["institucion"], "grado" => $participante["grado"], "created_at" => date("Y-m-d H:i:s")));
+                    if($id_prueba !== 0){
+                        $iniciado = $this->Realizar_Prueba_Model->create(array("id_prueba" => $id_prueba, "id_participante" => $id_participante, "institucion" => $participante["institucion"], "grado" => $participante["grado"], "created_at" => date("Y-m-d H:i:s")));
+                    }
                 }
 
                 if($this->input->post()){
                     if($iniciado){
                         $data = $this->input->post();
-                        $this->Respuestas_Realizar_Prueba_Model->create(array("id_realizar_prueba" => $iniciado["id_realizar_prueba"], "id_pregunta" => $data["id_pregunta"], "id_respuesta" => $data["id_respuesta"]));
+
+                        // Si la pregunta y la respuesta es de tipo abierta
+                        if(isset($data["respuesta_abierta"])){
+                            $this->RespuestasRealizarPruebaAbiertas_Model->create(array("id_realizar_prueba" => $iniciado["id_realizar_prueba"], "id_pregunta" => $data["id_pregunta"], "respuesta" => $data["respuesta_abierta"]));
+                        }
+                        else {
+                            $this->Respuestas_Realizar_Prueba_Model->create(array("id_realizar_prueba" => $iniciado["id_realizar_prueba"], "id_pregunta" => $data["id_pregunta"], "id_respuesta" => $data["id_respuesta"]));
+                        }
                     }
                 }
 

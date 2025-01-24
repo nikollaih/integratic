@@ -70,7 +70,10 @@
             $this->Preguntas_Model->update($pregunta);
             $id_pregunta = $existsPregunta["id_pregunta_prueba"];
         }
-        else $id_pregunta = $this->Preguntas_Model->create($pregunta);
+        else {
+            unset($pregunta["id_pregunta_prueba"]);
+            $id_pregunta = $this->Preguntas_Model->create($pregunta);
+        }
 
         if($id_pregunta){
             if(isset($_FILES["pregunta_archivo"]) && $id_pregunta){
@@ -110,7 +113,10 @@
             $this->Respuestas_Preguntas_Model->update($data);
             $id_respuesta = $data["id_respuesta_pregunta_prueba"];
         }
-        else $id_respuesta = $this->Respuestas_Preguntas_Model->create($data);
+        else {
+            unset($data["id_respuesta_pregunta_prueba"]);
+            $id_respuesta = $this->Respuestas_Preguntas_Model->create($data);
+        }
 
         if(isset($_FILES[$archivo_imagen]) && $id_respuesta){
             if(isset($_FILES[$archivo_imagen]['name']['archivo_respuesta'])) {

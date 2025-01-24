@@ -44,16 +44,18 @@
         function info_prueba_realizada($id_prueba, $id_participante){
             $CI = &get_instance();
             $CI->load->library('session');
-            $CI->load->model(array("Realizar_Prueba_Model", "Asignacion_Preguntas_Prueba_Model", "Preguntas_Model", "Respuestas_Realizar_Prueba_Model"));
+            $CI->load->model(array("RespuestasRealizarPruebaAbiertas_Model", "Realizar_Prueba_Model", "Asignacion_Preguntas_Prueba_Model", "Preguntas_Model", "Respuestas_Realizar_Prueba_Model"));
             $correctas = 0;
             $preguntas = $CI->Preguntas_Model->get_preguntas_prueba($id_prueba);
             $realizar_prueba = $CI->Realizar_Prueba_Model->get($id_prueba, $id_participante);
 
             if($realizar_prueba){
                 $respuestas = $CI->Respuestas_Realizar_Prueba_Model->get($realizar_prueba["id_realizar_prueba"]);
+                $respuestas_abiertas = $CI->RespuestasRealizarPruebaAbiertas_Model->get($realizar_prueba["id_realizar_prueba"]);
             }
             else{
                 $respuestas = false;
+                $respuestas_abiertas = false;
             }
 
             if($respuestas){
@@ -63,6 +65,14 @@
                         if($respuesta["id_respuesta"] == $rp["id_respuesta_pregunta_prueba"] && $rp["tipo_respuesta"] == 1){
                             $correctas++;
                         }
+                    }
+                }
+            }
+
+            if($respuestas_abiertas){
+                foreach ($respuestas_abiertas as $respuesta) {
+                    if($respuesta["es_correcta"] == 1){
+                        $correctas++;
                     }
                 }
             }
@@ -84,5 +94,21 @@
             return $respuesta;
         }
     
+    }
+
+    if(!function_exists('get_respuesta_text_color'))
+    {
+        function get_respuesta_text_color($status) {
+            switch ($status) {
+                case 0:
+                    return 'text-primary';
+                case 1:
+                    return 'text-success';
+                case 2:
+                    return 'text-danger';
+            }
+
+            return 'text-muted';
+        }
     }
 ?>

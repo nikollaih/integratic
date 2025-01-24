@@ -421,7 +421,6 @@ function get_actividades_repositorio(){
         type: 'GET',
         success: function(data) {
             data = JSON.parse(data);
-            console.log(data)
             if(data.status) {
                 ACTIVIDADES_REPOSITORIO = data.object;
                 set_actividades_repositorio(ACTIVIDADES_REPOSITORIO);

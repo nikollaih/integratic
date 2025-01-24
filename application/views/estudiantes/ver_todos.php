@@ -28,6 +28,7 @@
                                             <td>Email acudiente</td>
                                             <td>Grado</td>
                                             <td>Clave</td>
+                                            <td>NEE</td>
                                             <td>Caracterización</td>
                                             <td></td>
                                         </tr>
@@ -37,13 +38,14 @@
                                             if(isset($estudiantes)){
                                                 foreach ($estudiantes as $e) {
                                                     ?>
-                                                        <tr id="estudiante-<?= $e["documento"] ?>">
+                                                        <tr id="estudiante-<?= $e["documento"] ?>" style="background: <?= $e["nee"] === '1' ? '#e9f3ff' : 'transparent' ?>">
                                                             <td><?= $e["documento"] ?></td>
                                                             <td><?= $e["nombre"] ?></td>
                                                             <td><?= $e["email"] ?></td>
                                                             <td><?= $e["email_acudiente"] ?></td>
                                                             <td><?= $e["grado"] ?></td>
                                                             <td><?= $e["clave"] ?></td>
+                                                            <td><?= $e["nee"] === "0" ? "<span class='text-danger'>No</span>" : "<span class='text-success'>Si</span>" ?></td>
                                                             <td>
                                                                 <?php
                                                                     if($e["id_pregunta"]) {

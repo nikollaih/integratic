@@ -434,3 +434,61 @@ ALTER TABLE `repositorio_actividades`
 --
 ALTER TABLE `repositorio_actividades`
     MODIFY `id_repositorio_actividad` int(11) NOT NULL AUTO_INCREMENT;
+
+
+ALTER TABLE `preguntas_prueba`
+    ADD COLUMN `tipo_pregunta` ENUM('multiple', 'abierta') NOT NULL DEFAULT 'multiple' AFTER `estado`;
+
+--
+-- Estructura de tabla para la tabla `respuestas_realizar_prueba_abiertas`
+--
+
+CREATE TABLE `respuestas_realizar_prueba_abiertas` (
+                                                       `id_respuesta_abierta` int(11) NOT NULL,
+                                                       `id_realizar_prueba` int(11) NOT NULL,
+                                                       `id_pregunta` int(11) NOT NULL,
+                                                       `respuesta` longtext NOT NULL,
+                                                       `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `respuestas_realizar_prueba_abiertas`
+--
+ALTER TABLE `respuestas_realizar_prueba_abiertas`
+    ADD PRIMARY KEY (`id_respuesta_abierta`),
+    ADD KEY `id_pregunta` (`id_pregunta`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `respuestas_realizar_prueba_abiertas`
+--
+ALTER TABLE `respuestas_realizar_prueba_abiertas`
+    MODIFY `id_respuesta_abierta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `respuestas_realizar_prueba_abiertas`
+--
+ALTER TABLE `respuestas_realizar_prueba_abiertas`
+    ADD CONSTRAINT `respuestas_realizar_prueba_abiertas_ibfk_1` FOREIGN KEY (`id_pregunta`) REFERENCES `preguntas_prueba` (`id_pregunta_prueba`) ON DELETE CASCADE;
+COMMIT;
+
+ALTER TABLE `respuestas_realizar_prueba_abiertas` ADD `es_correcta` TINYINT NULL DEFAULT '0' AFTER `respuesta`;
+
+ALTER TABLE `preguntas_prueba` ADD `indicio_respuesta` TEXT NULL AFTER `tipo_pregunta`;
+
+ALTER TABLE `preguntas_prueba` CHANGE `dificultad` `dificultad` VARCHAR(250) NOT NULL;
+
+ALTER TABLE `realizar_prueba` CHANGE `institucion` `institucion` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+
+ALTER TABLE `estudiante` ADD `nee` TINYINT NOT NULL DEFAULT '0' AFTER `grado`;

@@ -1094,8 +1094,7 @@ function StudentAreas(){
 		url:url,
 		type:'POST',
 		success:function(respuesta){
-			var registros = eval(respuesta);  
-            console.log(registros);          
+			var registros = eval(respuesta);
 			var html="<div class='row'>";                    
 				if(registros.length>0){ 
 						for (i=0; i<registros.length; i++) { 
@@ -1854,8 +1853,7 @@ function submenu(ruta,sub, menu_materia = "false"){
                     grupo:info_current_materia.idgrupo
                 },
                 async:false,
-                success:function(respuesta){ 
-                    console.log(respuesta);                     
+                success:function(respuesta){
                     $("#listacon").html(respuesta);              
                 },
                error:function(){alert("Ocurrió un Error!");}        
@@ -2482,7 +2480,7 @@ function cambio_menu(){
         //html+="<li><a href='javascript:cfg_docente();'>";
         //html+="<i><img src='./img/iconos/menu.png' width='60' height='40'></i><span>Administrar</span></a></li>";   
         if(configuracion.departamental == 0) {
-            if (rol.toLowerCase() == 'docente'){ 
+            if (rol.toLowerCase() === 'docente'){
                 html+="<li><a href='" + base_url+"Pruebas' class=' '>";
                 html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>"; 
 
@@ -2494,6 +2492,9 @@ function cambio_menu(){
 
                 html+="<li><a href='" + base_url+"Recuperaciones' class=' '>";
                 html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Recuperaciones</span></a></li>";
+
+                html+="<li><a href='" + base_url+"Piar' class=' '>";
+                html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>P.I.A.R.</span></a></li>";
 
                 html+="<li><a href='javascript:cfg_docente();' class=' '>";
                 html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
@@ -3489,7 +3490,7 @@ function consu_materias(){
                                     html+='<td align="center">'+registros[i]["codmateria"]+'</td>';
                                     html+='<td>'+registros[i]["nommateria"]+'</td>';  
                                     html+='<td>'+registros[i]["grado"]+'</td>';  
-                                    html+='<td class="text-center"><a href="javascript:borrarMateria(this);" onclick="borrarMateria(this)">';
+                                    html+='<td class="text-center"><a href="#" onclick="borrarMateria(this)">';
                                     html+='<img src="<?=base_url();?>img/delete.png" width="20" height="20"/></a></td>';
                                     html+='<td class="text-center"><a href="javascript:editarMateria(this);" onclick="editarMateria(this)">';
                                     html+='<img src="<?=base_url();?>img/editar.png" width="20" height="20"/></a></td>';
@@ -3692,18 +3693,22 @@ function consu_menuad(){
         });
     }
     function borrarMateria(nodo){
-        var nodoTd = nodo.parentNode; //Nodo TD
-        var nodoTr = nodoTd.parentNode; //Nodo TR
-        var nodosEnTr = nodoTr.getElementsByTagName('td');
-        var campo = nodosEnTr[0].textContent;
-        $.ajax({
-                url:"<?=site_url();?>/config/bo_materia",
-                type:"POST",
-                data:{id:campo},
-                success:function(){consultas('materias');
+        if(confirm("Al eliminar la materia se perderá su repositorio de actividades, ¿Desea continuar?")) {
+            var nodoTd = nodo.parentNode; //Nodo TD
+            var nodoTr = nodoTd.parentNode; //Nodo TR
+            var nodosEnTr = nodoTr.getElementsByTagName('td');
+            var campo = nodosEnTr[0].textContent;
+            $.ajax({
+                url: "<?=site_url();?>/config/bo_materia",
+                type: "POST",
+                data: {id: campo},
+                success: function () {
+                    consultas('materias');
                 }
-        });
-    }   
+            });
+        }
+    }
+
     function borrarMenu(nodo){
         var nodoTd = nodo.parentNode; //Nodo TD
         var nodoTr = nodoTd.parentNode; //Nodo TR
@@ -3773,8 +3778,7 @@ function consu_menuad(){
             data:{buscar:campo},
             success:function(respuesta){
                var registros = eval(respuesta); 
-                 for (i=0; i<registros.length; i++) { 
-                    console.log(registros[i])
+                 for (i=0; i<registros.length; i++) {
                     html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +    
                  
                             "<div class='form-group'>"+
@@ -4049,7 +4053,7 @@ var campo = nodosEnTr[0].textContent;
            document.getElementById("unomarea").value !== ''){
            $("#modal_editar").modal("hide");
            var formData = new FormData($("#frmeditar")[0]);
-           console.log(formData);
+
            //ruta =  document.getElementById("ruta").value;
            ruta = "./principal/areas/";
            anterior =  ruta+document.getElementById("unomareant").value;

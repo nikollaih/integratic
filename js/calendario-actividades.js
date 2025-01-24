@@ -50,7 +50,6 @@ function getAvtivitiesList(idMateria, idPeriodo) {
         success: function (data) {
             var data = JSON.parse(data);
             if (data.status) {
-                console.log(data.object);
                 setActivitiesCalendar(data.object);
             }
             else alert(data.message);
@@ -83,7 +82,6 @@ function setActivitiesCalendar(activities) {
 
 // Generate the tooltip for each event
 function calendarTooltip(info) {
-    console.log(info)
     // You can customize the tooltip content and style here
     var tooltip = new tippy(info.el, {
         content: getTooltipContent(info.event),

@@ -109,7 +109,7 @@
                         <?php
                             if($asignadas){
                                 $x = 1;
-                                for ($i=0; $i < count($asignadas); $i++) { 
+                                for ($i=0; $i < count($asignadas); $i++) {
                                     $asignadas_pregunta = obtener_respuestas_pregunta($asignadas[$i]["id_pregunta"]);
                         ?>
                                     <div class="row">
@@ -121,7 +121,56 @@
                                                 <div class="panel-body">
                                                     <div class="row">
                                                         <div class="col-md-12 col-sm-12 col-lg-12">
-                                                            <p><?= $asignadas[$i]["descripcion_pregunta"] ?><?= ($respuestas) ? "" : " - " ?> <span class="text-danger"><?= ($respuestas) ? "" : "Sin responder" ?></span></p>
+                                                            <p><?= $asignadas[$i]["descripcion_pregunta"] ?>
+                                                                <?php
+                                                                    if($asignadas[$i]["tipo_pregunta"] === "multiple") {
+                                                                        echo ($respuestas) ? "" : " - ";
+                                                                        ?><span class="text-danger"><?= ($respuestas) ? "" : "Sin responder" ?></span><?php
+                                                                    }
+                                                                ?>
+                                                                <?php
+                                                                if($asignadas[$i]["tipo_pregunta"] === "abierta") {
+                                                                   if($respuestas_abiertas){
+                                                                       for ($m = 0; $m < count($respuestas_abiertas); $m++) {
+                                                                           $respondida = false;
+                                                                           if($respuestas_abiertas[$m]["id_pregunta"] === $asignadas[$i]["id_pregunta"]){
+                                                                               echo '- ' . '<span class="'.get_respuesta_text_color($respuestas_abiertas[$m]["es_correcta"]).'">'.$respuestas_abiertas[$m]["respuesta"].'</span>';
+
+                                                                                if(strtolower(logged_user()["rol"]) === "docente"){ ?>
+                                                                                    <hr>
+                                                                                    <form method="POST" action="">
+                                                                                        <input type="hidden" value="<?= $respuestas_abiertas[$m]["id_respuesta_abierta"] ?>" name="id_respuesta_abierta">
+                                                                                        <div>
+                                                                                            <label for="calificacion_correcto_<?= $respuestas_abiertas[$m]["id_respuesta_abierta"] ?>">
+                                                                                                <input type="radio" id="calificacion_correcto_<?= $respuestas_abiertas[$m]["id_respuesta_abierta"] ?>" name="es_correcta" value="1" <?= $respuestas_abiertas[$m]["es_correcta"] === "1" ? "checked" : "" ?> required>
+                                                                                                Correcto
+                                                                                            </label>
+                                                                                            <label for="calificacion_incorrecto_<?= $respuestas_abiertas[$m]["id_respuesta_abierta"] ?>">
+                                                                                                <input type="radio" id="calificacion_incorrecto_<?= $respuestas_abiertas[$m]["id_respuesta_abierta"] ?>" name="es_correcta" value="2" <?= $respuestas_abiertas[$m]["es_correcta"] === "2" ? "checked" : "" ?>>
+                                                                                                Incorrecto
+                                                                                            </label>
+                                                                                        </div>
+
+                                                                                        <button type="submit">Guardar Calificación</button>
+                                                                                    </form>
+                                                                            <?php }
+
+                                                                            $respondida = true;
+                                                                            $m = count($respuestas_abiertas);
+
+                                                                           }
+                                                                       }
+
+                                                                       echo (!$respondida) ? '<span class="text-danger">- Sin responder</span>' : '';
+                                                                   }
+                                                                   else {
+                                                                       echo '<span class="text-danger">Sin responder</span>';
+                                                                   }
+
+                                                                }
+                                                                ?>
+                                                            </p>
+
                                                             <?php
                                                                 if($asignadas[$i]["archivo"] && $asignadas[$i]["nombre_archivo"]){
                                                             ?>

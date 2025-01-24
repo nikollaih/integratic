@@ -107,8 +107,18 @@
             $prueba = $CI->Pruebas_Model->get($id_prueba);
             $asignadas = $CI->Preguntas_Model->get_preguntas_prueba($id_prueba);
             $resueltas = $CI->Respuestas_Realizar_Prueba_Model->get_by_prueba_participante($id_prueba, $id_participante);
+            $resueltas_abiertas = $CI->RespuestasRealizarPruebaAbiertas_Model->get_by_prueba_participante($id_prueba, $id_participante);
+            $preguntas_resueltas = 0;
 
-            if($resueltas && $prueba["cantidad_preguntas"] == count($resueltas)){
+            if($resueltas){
+                $preguntas_resueltas = count($resueltas);
+            }
+
+            if($resueltas_abiertas){
+                $preguntas_resueltas += count($resueltas_abiertas);
+            }
+
+            if($prueba["cantidad_preguntas"] == $preguntas_resueltas){
                 return true;
             }
             else{
@@ -211,6 +221,7 @@
                             $nueva_pregunta["archivo"] = $pregunta[7];
                             $nueva_pregunta["nombre_archivo"] = $pregunta[8];
                             $nueva_pregunta["base64"] = $pregunta[10];
+                            $nueva_pregunta["tipo_pregunta"] = $pregunta[11];
                             array_push($preguntas, $nueva_pregunta);
                         }
                     }

@@ -62,7 +62,6 @@
                                         <div class="form-group">
                                             <label for="">Tema</label>
                                             <select name="pregunta[id_tema]" id="crear-prueba-tema" class="form-control select-tema">
-                                                <option value="">- Seleccionar</option>
                                                 <?php
                                                     if(count($temas) > 0){
                                                         foreach ($temas as $tema) { ?>
@@ -77,6 +76,15 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
+                                            <label for="">Tipo de pregunta</label>
+                                            <select name="pregunta[tipo_pregunta]" id="crear-prueba-tipo-pregunta" class="form-control">
+                                                <option value="multiple">Multiple</option>
+                                                <option value="abierta">Abierta</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                        <div class="form-group">
                                             <label for="">Agregar Imagen </label>
                                             <input type="file" name="pregunta_archivo" accept="image/*" class="form-control">
                                         </div>
@@ -88,7 +96,7 @@
                                             <?php }
                                         ?>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-6">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Nombre Autor </label>
                                             <input type="text" name="pregunta[nombre_author]" class="form-control" value="<?= ($pregunta) ? $pregunta["nombre_author"] : "" ?>">
@@ -169,7 +177,7 @@
                         ?>
                     </div>
 
-                    <div>
+                    <div id="container-agregar-respuesta">
                         <a data-pregunta="<?= $x ?>" style="cursor: pointer;" class="text-primary agregar-respuesta-pregunta"><b>Agregar Respuesta</b></a>
                         <i class="fa fa-plus text-primary"></i>
                     </div>

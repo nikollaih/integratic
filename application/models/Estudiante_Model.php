@@ -26,6 +26,14 @@ class Estudiante_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+    function getAllStudentsNEE(){
+        $this->db->from("estudiante e");
+        $this->db->where("e.nee", 1);
+        $result = $this->db->get();
+
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
 	function getStudentsByDocuments($documentos){
 		$this->db->from("estudiante");
 		$this->db->where_in("documento", $documentos);

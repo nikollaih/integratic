@@ -15,7 +15,7 @@
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12 col-lg-12">
-                                                <p><label for=""><b>Materia: </b></label> <?= $pregunta["nommateria"] ?></p>
+                                                <p><label for=""><b>Materia: </b></label> <?= $pregunta["nommateria"] ?> - (<?= $pregunta["tipo_pregunta"] ?>)</p>
                                                 <p><?= $pregunta["descripcion_pregunta"] ?></p>
                                                 <?php
                                                     if($pregunta["archivo"] && $pregunta["nombre_archivo"]){

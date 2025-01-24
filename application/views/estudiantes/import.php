@@ -19,7 +19,7 @@
                                 <div class="col-md-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="">Archivo estudiantes</label>
-                                        <input type="file" name="estudiantes" accept="*/*" class="form-control">
+                                        <input type="file" name="estudiantes" accept=".xlsx, .xls" class="form-control">
                                     </div>
                                 </div>
                             </div>  

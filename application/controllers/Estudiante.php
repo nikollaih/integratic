@@ -43,6 +43,7 @@ class Estudiante extends CI_Controller {
 			"nombre" => $data["nombre"],
 			"grado" => $data["grado"],
 			"email" => $data["email"],
+            "nee" => $data["nee"],
             "email_acudiente" => $data["email_acudiente"]
 		);
 

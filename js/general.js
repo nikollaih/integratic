@@ -7,6 +7,11 @@ $( document ).ready(function() {
         }
     });
     setAreasCaracterizacion();
+
+    $('.searchable-select').select2({
+        placeholder: "- Seleccionar",
+        allowClear: true
+    });
 });
 
 // Agrega la clase al pasar el ratón sobre el elemento

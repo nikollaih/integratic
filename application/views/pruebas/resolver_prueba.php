@@ -35,6 +35,15 @@
                                                         }
                                                     ?>
                                                     <hr>
+                                                    <!-- ESPACIO PARA INCLUIR LA RESPUESTA DE UNA PREGUNTA ABIERTA -->
+                                                    <?php
+                                                        if($pregunta["tipo_pregunta"] === 'abierta') {
+                                                            ?>
+                                                            <label for="">Escriba su respuesta</label>
+                                                            <input type="text" class="form-control" placeholder="Escriba su respuesta..." name="respuesta_abierta">
+                                                            <?php
+                                                        }
+                                                    ?>
                                                     <?php
                                                         if($respuestas){
                                                             $x = 0;

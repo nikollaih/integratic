@@ -14,7 +14,6 @@ $(document).ready(function() {
     $(document).on("change", "#tema-materias", function() {
         let materia = $(this).val();
         getAreaGrado(materia);
-        console.log(materia)
     });
 
     function eliminar_tema(id_tema) {

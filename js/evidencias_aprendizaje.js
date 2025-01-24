@@ -59,7 +59,6 @@ jQuery(document).ready(function() {
     }
 
     function useUncompletedEvidencias(idPlanAula, idEvidencia, mode, semanas) {
-        console.log(semanas)
         $("#background-loading").css("display", "flex");
         $.ajax({
             url: base_url + "EvidenciasAprendizaje/use",
