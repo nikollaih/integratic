@@ -12,6 +12,28 @@ $( document ).ready(function() {
         placeholder: "- Seleccionar",
         allowClear: true
     });
+
+    function toggleFields() {
+        $(".show-other-field").each(function() {
+            const target = $(`.${$(this).attr("data-target")}`);
+            const value = $(this).attr("data-target-value");
+            const currentValue = $(this).val();
+
+            if (currentValue === value) {
+                target.removeClass('hidden');
+            } else {
+                target.addClass('hidden');
+            }
+        });
+    }
+
+    // Execute on page load
+    toggleFields();
+
+    // Bind change event
+    $(document).on("change", ".show-other-field", function() {
+        toggleFields();
+    });
 });
 
 // Agrega la clase al pasar el ratón sobre el elemento

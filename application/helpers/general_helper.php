@@ -126,17 +126,15 @@
         }
     }
 
-if(!function_exists('get_grados'))
-{
-    function get_grados(){
-        $CI = &get_instance();
-        $CI->load->model("Estudiante_Model");
+    if(!function_exists('get_grados'))
+    {
+        function get_grados(){
+            $CI = &get_instance();
+            $CI->load->model("Estudiante_Model");
 
-        return $CI->Estudiante_Model->getGrados();
+            return $CI->Estudiante_Model->getGrados();
+        }
     }
-}
-
-
 
     if(!function_exists('getPercentFromNumber'))
     {
@@ -145,6 +143,37 @@ if(!function_exists('get_grados'))
                 return 0; // Avoid division by zero
             }
             return round(($current / $total) * 100);
+        }
+    }
+
+    if(!function_exists('getNivelesEducativos'))
+    {
+        function getNivelesEducativos(){
+            return ["Sin estudios", "Primaria", "Secundaria", "Técnico", "Tecnólogo", "Profesional", "Posgrado"];
+        }
+    }
+
+    if(!function_exists('getParentescos'))
+    {
+        function getParentescos(){
+            return ["Madre", "Padre", "Abuelo", "Abuela", "Tio", "Tia", "Profesional de salud", "Otro"];
+        }
+    }
+
+    if(!function_exists('getGrados'))
+    {
+        function getGrados(){
+            return ["Transición", "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto", "Septimo", "Octavo", "Noveno", "Décimo", "Once"];
+        }
+    }
+
+    if(!function_exists('get_years'))
+    {
+        function get_years($start_date, $end_date) {
+            $start = new DateTime($start_date);
+            $end = new DateTime($end_date);
+            $diff = $start->diff($end);
+            return $diff->y;
         }
     }
 ?>

@@ -31,7 +31,7 @@
                             <?php
                         }
 
-                        if(strtolower(logged_user()["rol"]) == "docente" || strtolower(logged_user()["rol"]) == "coordinador"){
+                        if(strtolower(logged_user()["rol"]) == "docente" || strtolower(logged_user()["rol"]) == "coordinador" || strtolower(logged_user()["rol"]) == "docente de apoyo"){
                             ?>
                                 <li>
                                     <a href='<?= base_url() ?>'>

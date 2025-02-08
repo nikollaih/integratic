@@ -114,6 +114,9 @@ h6 {
     outline: none !important;
 }
 
+.cursor-pointer{
+    cursor: pointer;
+}
 a:hover,
 a:active,
 a:focus {

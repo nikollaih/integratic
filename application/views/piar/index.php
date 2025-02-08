@@ -41,7 +41,7 @@
                                                     }
                                                     else {
                                                         echo '<a href="'.base_url().'Piar/edit/'.$e["id_piar"].'" class="btn btn-info btn-sm m-r-5">Modificar</a>';
-                                                        echo '<a href="'.base_url().'Piar/view/'.$e["id_piar"].'" class="btn btn-success btn-sm">Ver</a>';
+                                                        echo '<a target="_blank" href="'.base_url().'Piar/view/'.$e["id_piar"].'" class="btn btn-success btn-sm">Ver</a>';
                                                     }
                                                 ?>
 

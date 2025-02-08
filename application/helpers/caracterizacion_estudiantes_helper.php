@@ -65,3 +65,32 @@ if(!function_exists("get_respuesta_excel")){
         return "No completo";
     }
 }
+
+if(!function_exists("obtenerRespuesta")) {
+    function obtenerRespuesta($preguntas, $respuestas, $idPregunta)
+    {
+        $pregunta = array_values(filtrarPreguntas($preguntas, $idPregunta))[0];
+        $filtered = filtrarRespuestas($respuestas, $idPregunta);
+        return get_respuesta_excel($pregunta, array_values($filtered));
+    }
+}
+
+if(!function_exists("filtrarRespuestas")) {
+    function filtrarRespuestas($respuestas, $idPregunta)
+    {
+        // Filtrar los arrays
+        return array_filter($respuestas, function ($array) use ($idPregunta) {
+            return $array['id_pregunta'] == $idPregunta;
+        });
+    }
+}
+
+if(!function_exists("filtrarPreguntas")) {
+    function filtrarPreguntas($preguntas, $idPregunta)
+    {
+        // Filtrar los arrays
+        return array_filter($preguntas, function ($array) use ($idPregunta) {
+            return $array['id'] == $idPregunta;
+        });
+    }
+}

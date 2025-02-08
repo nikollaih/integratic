@@ -492,3 +492,84 @@ ALTER TABLE `preguntas_prueba` CHANGE `dificultad` `dificultad` VARCHAR(250) NOT
 ALTER TABLE `realizar_prueba` CHANGE `institucion` `institucion` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
 
 ALTER TABLE `estudiante` ADD `nee` TINYINT NOT NULL DEFAULT '0' AFTER `grado`;
+
+--
+-- Estructura de tabla para la tabla `piar`
+--
+
+CREATE TABLE `piar` (
+                        `id_piar` int(11) NOT NULL,
+                        `id_estudiante` int(11) NOT NULL,
+                        `id_docente_apoyo` int(11) DEFAULT NULL,
+                        `id_docente_aula` int(11) DEFAULT NULL,
+                        `fecha_elaboracion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        `fecha_modificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        `entorno_personal` longtext COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `piar`
+--
+ALTER TABLE `piar`
+    ADD PRIMARY KEY (`id_piar`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `piar`
+--
+ALTER TABLE `piar`
+    MODIFY `id_piar` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Estructura de tabla para la tabla `piar_item`
+--
+
+CREATE TABLE `piar_item` (
+                             `id_priar_item` int(11) NOT NULL,
+                             `id_piar` int(11) NOT NULL,
+                             `id_docente` int(11) NOT NULL,
+                             `id_materia` int(11) NOT NULL,
+                             `objetivos` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                             `barreras` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                             `ajustes_razonables` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                             `evaluacion` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                             `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `piar_item`
+--
+ALTER TABLE `piar_item`
+    ADD PRIMARY KEY (`id_priar_item`),
+    ADD KEY `piar_piar_item` (`id_piar`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `piar_item`
+--
+ALTER TABLE `piar_item`
+    MODIFY `id_priar_item` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `piar_item`
+--
+ALTER TABLE `piar_item`
+    ADD CONSTRAINT `piar_piar_item` FOREIGN KEY (`id_piar`) REFERENCES `piar` (`id_piar`) ON DELETE CASCADE ON UPDATE CASCADE;

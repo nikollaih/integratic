@@ -310,23 +310,3 @@
         margin-top: 25px;
         font-size: 15px;
     }
-
-<?php
-    function obtenerRespuesta($preguntas, $respuestas, $idPregunta) {
-        $pregunta = array_values(filtrarPreguntas($preguntas, $idPregunta))[0];
-        $filtered = filtrarRespuestas($respuestas, $idPregunta);
-        return get_respuesta_excel($pregunta, array_values($filtered));
-    }
-    function filtrarRespuestas($respuestas, $idPregunta) {
-        // Filtrar los arrays
-        return array_filter($respuestas, function($array) use ($idPregunta) {
-            return $array['id_pregunta'] == $idPregunta;
-        });
-    }
-
-function filtrarPreguntas($preguntas, $idPregunta) {
-    // Filtrar los arrays
-    return array_filter($preguntas, function($array) use ($idPregunta) {
-        return $array['id'] == $idPregunta;
-    });
-}
