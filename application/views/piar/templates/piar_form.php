@@ -74,14 +74,14 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="es_centro_proteccion">¿Está en centro de protección?</label>
-                        <select required name="es_centro_proteccion" id="es_centro_proteccion" class="form-control show-other-field" data-target="centro-proteccion" data-target-value="1">
+                        <select required name="es_centro_proteccion" id="es_centro_proteccion" class="form-control" data-target="centro-proteccion" data-target-value="1">
                             <option value="">- Seleccionar</option>
                             <option <?= $estudiante && $estudiante["es_centro_proteccion"] === "1" ? "selected" : "" ?> value="1">Si</option>
                             <option <?= $estudiante && $estudiante["es_centro_proteccion"] === "0" ? "selected" : "" ?> value="0">No</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 hidden centro-proteccion">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="centro_proteccion">¿Dónde? (Centro de protección)</label>
                         <input class="form-control" type="text" name="centro_proteccion" id="centro_proteccion" value="<?= $estudiante ? $estudiante["centro_proteccion"] : "" ?>">
@@ -90,38 +90,38 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="es_victima_conflicto_armado">¿Se reconoce como víctima del conflicto armado? </label>
-                        <select required name="es_victima_conflicto_armado" id="es_victima_conflicto_armado" class="form-control show-other-field" data-target="conflicto-armado" data-target-value="1">
+                        <select required name="es_victima_conflicto_armado" id="es_victima_conflicto_armado" class="form-control ">
                             <option value="">- Seleccionar</option>
                             <option <?= $estudiante && $estudiante["es_victima_conflicto_armado"] === "1" ? "selected" : "" ?> value="1">Si</option>
                             <option <?= $estudiante && $estudiante["es_victima_conflicto_armado"] === "0" ? "selected" : "" ?> value="0">No</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 conflicto-armado">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="registro_victima_conflicto_armado">¿Cuenta con el respectivo registro? </label>
                         <select required name="registro_victima_conflicto_armado" id="registro_victima_conflicto_armado" class="form-control">
-                            <option value="">- Seleccionar</option>
+                            <option value="0">- Seleccionar</option>
                             <option <?= $estudiante && $estudiante["registro_victima_conflicto_armado"] === "1" ? "selected" : "" ?> value="1">Si</option>
                             <option <?= $estudiante && $estudiante["registro_victima_conflicto_armado"] === "0" ? "selected" : "" ?> value="0">No</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 conflicto-armado">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="afiliacion_sistema_salud">¿Cuenta con afiliación al sistema de salud? </label>
-                        <select required name="afiliacion_sistema_salud" id="afiliacion_sistema_salud" class="form-control show-other-field" data-target="tipo-afiliacion-sistema-salud" data-target-value="1">>
+                        <select required name="afiliacion_sistema_salud" id="afiliacion_sistema_salud" class="form-control " data-target="tipo-afiliacion-sistema-salud" data-target-value="1">>
                             <option value="">- Seleccionar</option>
                             <option <?= $estudiante && $estudiante["afiliacion_sistema_salud"] === "1" ? "selected" : "" ?> value="1">Si</option>
                             <option <?= $estudiante && $estudiante["afiliacion_sistema_salud"] === "0" ? "selected" : "" ?> value="0">No</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 tipo-afiliacion-sistema-salud">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="tipo_afiliacion_sistema_salud">Tipo de afiliación</label>
                         <select required name="tipo_afiliacion_sistema_salud" id="tipo_afiliacion_sistema_salud" class="form-control">
-                            <option value="">- Seleccionar</option>
+                            <option value="subsidiado">- Seleccionar</option>
                             <option <?= $estudiante && $estudiante["tipo_afiliacion_sistema_salud"] === "contributivo" ? "selected" : "" ?> value="contributivo">Contributivo</option>
                             <option <?= $estudiante && $estudiante["tipo_afiliacion_sistema_salud"] === "subsidiado" ? "selected" : "" ?> value="subsidiado">Subsidiado</option>
                         </select>
@@ -137,14 +137,14 @@
                     <div class="form-group">
                         <label for="es_atendido_sector_salud">¿El niño está siendo atendido por el sector salud?
                         </label>
-                        <select required name="es_atendido_sector_salud" id="es_atendido_sector_salud" class="form-control show-other-field" data-target="atendido-frecuencia" data-target-value="1">
+                        <select required name="es_atendido_sector_salud" id="es_atendido_sector_salud" class="form-control " data-target="atendido-frecuencia" data-target-value="1">
                             <option value="">- Seleccionar</option>
                             <option <?= $estudiante && $estudiante["es_atendido_sector_salud"] === "1" ? "selected" : "" ?> value="1">Si</option>
                             <option <?= $estudiante && $estudiante["es_atendido_sector_salud"] === "0" ? "selected" : "" ?> value="0">No</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 hidden atendido-frecuencia">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="es_atendido_frecuencia">Frecuencia</label>
                         <input class="form-control" type="text" name="es_atendido_frecuencia" id="es_atendido_frecuencia" value="<?= $estudiante ? $estudiante["es_atendido_frecuencia"] : "" ?>">
@@ -155,14 +155,14 @@
                         <label for="recibe_tratamiento_enfermedad_particular">¿Actualmente recibe tratamiento médico por alguna enfermedad en particular?
 
                         </label>
-                        <select required name="recibe_tratamiento_enfermedad_particular" id="recibe_tratamiento_enfermedad_particular" class="form-control show-other-field" data-target="tratamiento-enfermedad" data-target-value="1">
+                        <select required name="recibe_tratamiento_enfermedad_particular" id="recibe_tratamiento_enfermedad_particular" class="form-control " data-target="tratamiento-enfermedad" data-target-value="1">
                             <option value="">- Seleccionar</option>
                             <option <?= $estudiante && $estudiante["recibe_tratamiento_enfermedad_particular"] === "1" ? "selected" : "" ?> value="1">Si</option>
                             <option <?= $estudiante && $estudiante["recibe_tratamiento_enfermedad_particular"] === "0" ? "selected" : "" ?> value="0">No</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 hidden tratamiento-enfermedad">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="recibe_tratamiento_enfermedad_particular_cual">¿Cúal enfermedad?</label>
                         <input class="form-control" type="text" name="recibe_tratamiento_enfermedad_particular_cual" id="recibe_tratamiento_enfermedad_particular_cual" value="<?= $estudiante ? $estudiante["recibe_tratamiento_enfermedad_particular_cual"] : "" ?>">
@@ -268,14 +268,14 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="recibe_subsidio_entidad">La familia recibe algún subsidio de alguna entidad o institución</label>
-                        <select required name="recibe_subsidio_entidad" id="recibe_subsidio_entidad" class="form-control show-other-field" data-target="subsidio-entidad" data-target-value="1">
+                        <select required name="recibe_subsidio_entidad" id="recibe_subsidio_entidad" class="form-control " data-target="subsidio-entidad" data-target-value="1">
                             <option value="">- Seleccionar</option>
                             <option <?= $estudiante && $estudiante["recibe_subsidio_entidad"] === "1" ? "selected" : "" ?> value="1">Si</option>
                             <option <?= $estudiante && $estudiante["recibe_subsidio_entidad"] === "0" ? "selected" : "" ?> value="0">No</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 hidden subsidio-entidad">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="recibe_subsidio_entidad_cual">¿Cúal subsidio?</label>
                         <input class="form-control" type="text" name="recibe_subsidio_entidad_cual" id="recibe_subsidio_entidad_cual" value="<?= $estudiante ? $estudiante["recibe_subsidio_entidad_cual"] : "" ?>">
@@ -334,14 +334,14 @@
                         <label for="recibe_informe_pedagogico">¿Se recibe informe pedagógico cualitativo que
                             describa el proceso de desarrollo y aprendizaje del
                             estudiante y/o PIAR?</label>
-                        <select required name="recibe_informe_pedagogico" id="recibe_informe_pedagogico" class="form-control show-other-field" data-target="informe-pedagogico" data-target-value="1">
+                        <select required name="recibe_informe_pedagogico" id="recibe_informe_pedagogico" class="form-control " data-target="informe-pedagogico" data-target-value="1">
                             <option value="">- Seleccionar</option>
                             <option <?= $estudiante && $estudiante["recibe_informe_pedagogico"] === "1" ? "selected" : "" ?> value="1">Si</option>
                             <option <?= $estudiante && $estudiante["recibe_informe_pedagogico"] === "0" ? "selected" : "" ?> value="0">No</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 hidden informe-pedagogico">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="recibe_informe_pedagogico_institucion">¿De qué institución o modalidad proviene el informe?</label>
                         <input class="form-control" type="text" name="recibe_informe_pedagogico_institucion" id="recibe_informe_pedagogico_institucion" value="<?= $estudiante ? $estudiante["recibe_informe_pedagogico_institucion"] : "" ?>">
@@ -350,14 +350,14 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="asiste_programas_complementarios">¿Está asistiendo en la actualidad a programas complementarios?</label>
-                        <select required name="asiste_programas_complementarios" id="asiste_programas_complementarios" class="form-control show-other-field" data-target="programas-complementarios" data-target-value="1">
+                        <select required name="asiste_programas_complementarios" id="asiste_programas_complementarios" class="form-control " data-target="programas-complementarios" data-target-value="1">
                             <option value="">- Seleccionar</option>
                             <option <?= $estudiante && $estudiante["asiste_programas_complementarios"] === "1" ? "selected" : "" ?> value="1">Si</option>
                             <option <?= $estudiante && $estudiante["asiste_programas_complementarios"] === "0" ? "selected" : "" ?> value="0">No</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 hidden programas-complementarios">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="asiste_programas_complementarios_cuales">¿Cuales programas?</label>
                         <input class="form-control" type="text" name="asiste_programas_complementarios_cuales" id="asiste_programas_complementarios_cuales" value="<?= $estudiante ? $estudiante["asiste_programas_complementarios_cuales"] : "" ?>">
