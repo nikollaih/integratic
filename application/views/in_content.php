@@ -2494,7 +2494,7 @@ function cambio_menu(){
                 html+="<li><a href='" + base_url+"Recuperaciones' class=' '>";
                 html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Recuperaciones</span></a></li>";
 
-                html+="<li><a href='" + base_url+"Piar' class=' '>";
+                html+="<li><a href='" + base_url+"PIAR' class=' '>";
                 html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>P.I.A.R.</span></a></li>";
 
                 html+="<li><a href='javascript:cfg_docente();' class=' '>";
@@ -2514,7 +2514,7 @@ function cambio_menu(){
                 html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
             }
             if (rol.toLowerCase() == 'docente de apoyo'){
-                html+="<li><a href='" + base_url+"Piar' class=' '>";
+                html+="<li><a href='" + base_url+"PIAR' class=' '>";
                 html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>P.I.A.R.</span></a></li>";
             }
             if (rol.toLowerCase() != 'estudiante' && rol.toLowerCase() != 'super'){

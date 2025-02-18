@@ -64,7 +64,7 @@ class PIAR extends CI_Controller
                         $data["id_estudiante"] = $estudianteDocumento;
                         $params["message"] = $this->save($data);
                         if($params["message"]["status"]){
-                            header("Location: ".base_url()."Piar/edit/".$params["message"]["id"]);
+                            header("Location: ".base_url()."PIAR/edit/".$params["message"]["id"]);
                         }
                     }
                     $grupo = $this->Estudiante_Model->getStudentGroupGrade($params["estudiante"]["id"]);
@@ -75,7 +75,7 @@ class PIAR extends CI_Controller
                     $params["apoyos"] = $this->Usuarios_Model->get_by_role("Docente de apoyo");
                     $this->load->view("piar/crear", $params);
                 }
-                else header("Location: ".base_url()."Piar");
+                else header("Location: ".base_url()."PIAR");
             }
             else header("Location: ".base_url());
         }
@@ -110,7 +110,7 @@ class PIAR extends CI_Controller
                     $params["item_piar"] = $this->PIAR_Item_Model->get($piarItemId);
                     $this->load->view("piar/crear", $params);
                 }
-                else header("Location: ".base_url()."Piar");
+                else header("Location: ".base_url()."PIAR");
             }
             else header("Location: ".base_url());
         }
@@ -168,14 +168,14 @@ class PIAR extends CI_Controller
                             $this->session->set_flashdata('mensaje', '<div class="alert alert-danger alert-dismissible show" role="alert">Ha ocurrido un error, intente de nuevo más tarde</div>');
                         }
 
-                        redirect(base_url()."Piar/edit/".$data["id_piar"]);
+                        redirect(base_url()."PIAR/edit/".$data["id_piar"]);
                     }
                     else {
-                        header("Location: ".base_url()."Piar");
+                        header("Location: ".base_url()."PIAR");
                     }
                 }
                 else {
-                    header("Location: ".base_url()."Piar");
+                    header("Location: ".base_url()."PIAR");
                 }
             }
         }

@@ -8,7 +8,7 @@
             <div class="row" id="migas"></div>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="<?= base_url() ?>Piar" class="btn btn-primary m-b-2">Lista de estudiantes</a>
+                    <a href="<?= base_url() ?>PIAR" class="btn btn-primary m-b-2">Lista de estudiantes</a>
                 </div>
                 <div class="col-md-12">
                     <?php
@@ -68,7 +68,7 @@
                                                         <td><?= $item["ajustes_razonables"] ?></td>
                                                         <td><?= $item["evaluacion"] ?></td>
                                                         <td>
-                                                            <a href="<?= base_url() ?>Piar/edit/<?= $estudiante["id_piar"].'/'.$item["id_piar_item"] ?>">Modificar</a>
+                                                            <a href="<?= base_url() ?>PIAR/edit/<?= $estudiante["id_piar"].'/'.$item["id_piar_item"] ?>">Modificar</a>
                                                             <span data-id="<?= $item["id_piar_item"] ?>" class="btn-delete-piar-item text-danger cursor-pointer">Eliminar</span>
                                                         </td>
                                                     </tr>
