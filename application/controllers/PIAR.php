@@ -105,6 +105,8 @@ class PIAR extends CI_Controller
                     $params["docentes"] = $this->Usuarios_Model->get_by_role("docente");
                     $params["apoyos"] = $this->Usuarios_Model->get_by_role("Docente de apoyo");
                     $params["items_piar"] = $this->PIAR_Item_Model->getAllByPiar($piarId);
+                    $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
+                    $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
                     $params["item_piar"] = $this->PIAR_Item_Model->get($piarItemId);
                     $this->load->view("piar/crear", $params);
                 }
@@ -122,9 +124,25 @@ class PIAR extends CI_Controller
                 $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($params["piar"]["documento"]);
                 $params["preguntas"] = $this->CaracterizacionEstudiantesPreguntas_Model->getPreguntas();
                 $params["respuestas"] = $this->CaracterizacionEstudiantesRespuestas_Model->getRespuestas($params["piar"]["documento"]);
+                $params["items_piar"] = $this->PIAR_Item_Model->getAllByPiar($piarId);
+                $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
+                $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
+
                 $this->load->view("piar/view", $params);
                 // Cargar HTML en dompdf (puedes cargar tu vista aquí)
                 $html = $this->output->get_output();
+
+                // Set footer margin to create space
+                $this->mpdf->SetMargins(10, 10, 35); // Left, Top, Right
+                $this->mpdf->SetAutoPageBreak(true, 20); // Bottom margin of 30 units for spacing
+
+                // Set footer
+                $footer = $this->load->view('piar/templates/pdf_footer', [], true);
+                $this->mpdf->SetHTMLFooter($footer);
+
+                // Set header
+                $header = $this->load->view('piar/templates/pdf_header', [], true);
+                $this->mpdf->SetHTMLHeader($header);
 
                 $this->mpdf->WriteHTML($html);
                 $this->mpdf->Output('documento.pdf', 'I');
@@ -141,7 +159,6 @@ class PIAR extends CI_Controller
                 if($data){
                     $piar = $this->PIAR_Model->get($data["id_piar"]);
                     if($piar){
-
                         $data["id_docente"] = logged_user()["id"];
                         $created = $this->saveItemPiar($data);
                         if(isset($created["id"])){
@@ -202,6 +219,7 @@ class PIAR extends CI_Controller
             $message = "Item modificado exitosamente";
         }
         else{
+            unset($data["id_piar_item"]);
             $created = $this->PIAR_Item_Model->create($data);
             $message = "Item creado exitosamente";
         }

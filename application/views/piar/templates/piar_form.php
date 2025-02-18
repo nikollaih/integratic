@@ -389,6 +389,27 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="richtext-descripcion-general">Descripción general del estudiante con énfasis en gustos e intereses o aspectos que le desagradan,
+                            expectativas del estudiante y la familia</label>
+                        <textarea name="descripcion_general" id="richtext-descripcion-general" rows="10" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="richtext-descripcion-que-hace">Descripción en términos de lo que hace, puede hacer o requiere apoyo el estudiante para favorecer su proceso
+                            educativo. Indique las habilidades, competencias, cualidades, aprendizajes con las que cuenta el estudiante
+                            para el grado en el que fue matriculado.</label>
+                        <textarea name="descripcion_que_hace" id="richtext-descripcion-que-hace" rows="10" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <?php

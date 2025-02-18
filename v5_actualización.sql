@@ -504,7 +504,47 @@ CREATE TABLE `piar` (
                         `id_docente_aula` int(11) DEFAULT NULL,
                         `fecha_elaboracion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
                         `fecha_modificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                        `entorno_personal` longtext COLLATE utf8_spanish2_ci NOT NULL
+                        `entorno_personal` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                        `descripcion_general` longtext COLLATE utf8_spanish2_ci,
+                        `descripcion_que_hace` longtext COLLATE utf8_spanish2_ci,
+                        `lugar_nacimiento` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+                        `departamento` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+                        `municipio` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+                        `es_centro_proteccion` tinyint(1) NOT NULL,
+                        `centro_proteccion` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+                        `es_victima_conflicto_armado` tinyint(1) NOT NULL,
+                        `registro_victima_conflicto_armado` tinyint(1) DEFAULT NULL,
+                        `afiliacion_sistema_salud` tinyint(1) NOT NULL,
+                        `tipo_afiliacion_sistema_salud` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+                        `lugar_atencion_emergencia` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+                        `es_atendido_sector_salud` tinyint(1) NOT NULL,
+                        `es_atendido_frecuencia` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+                        `frecuencia_terapias` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
+                        `recibe_tratamiento_enfermedad_particular` tinyint(1) NOT NULL,
+                        `recibe_tratamiento_enfermedad_particular_cual` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+                        `nivel_educativo_madre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+                        `nivel_educativo_padre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+                        `nombre_cuidador` varchar(150) COLLATE utf8_spanish2_ci DEFAULT NULL,
+                        `parentesco_cuidador` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+                        `nivel_educativo_cuidador` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+                        `telefono_cuidador` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
+                        `correo_electronico_cuidador` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+                        `lugar_que_ocupa_hermanos` int(11) DEFAULT '1',
+                        `quienes_apoyan_crianza` text COLLATE utf8_spanish2_ci,
+                        `esta_bajo_proteccion` tinyint(1) NOT NULL,
+                        `recibe_subsidio_entidad` tinyint(1) NOT NULL,
+                        `recibe_subsidio_entidad_cual` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+                        `es_vinculado_otra_institucion` tinyint(1) NOT NULL,
+                        `es_vinculado_otra_institucion_cual` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+                        `ultimo_grado_cursado` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+                        `ultimo_grado_cursado_aprobo` tinyint(1) NOT NULL,
+                        `ultimo_grado_cursado_observaciones` text COLLATE utf8_spanish2_ci,
+                        `recibe_informe_pedagogico` tinyint(1) NOT NULL,
+                        `recibe_informe_pedagogico_institucion` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+                        `asiste_programas_complementarios` tinyint(1) NOT NULL,
+                        `asiste_programas_complementarios_cuales` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
+                        `medio_de_transporte` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+                        `distancia_institucion_hogar` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -532,10 +572,11 @@ ALTER TABLE `piar`
 --
 
 CREATE TABLE `piar_item` (
-                             `id_priar_item` int(11) NOT NULL,
+                             `id_piar_item` int(11) NOT NULL,
                              `id_piar` int(11) NOT NULL,
                              `id_docente` int(11) NOT NULL,
-                             `id_materia` int(11) NOT NULL,
+                             `id_materia` int(11) DEFAULT NULL,
+                             `otro_materia` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
                              `objetivos` longtext COLLATE utf8_spanish2_ci NOT NULL,
                              `barreras` longtext COLLATE utf8_spanish2_ci NOT NULL,
                              `ajustes_razonables` longtext COLLATE utf8_spanish2_ci NOT NULL,
@@ -551,7 +592,7 @@ CREATE TABLE `piar_item` (
 -- Indices de la tabla `piar_item`
 --
 ALTER TABLE `piar_item`
-    ADD PRIMARY KEY (`id_priar_item`),
+    ADD PRIMARY KEY (`id_piar_item`),
     ADD KEY `piar_piar_item` (`id_piar`);
 
 --
@@ -562,7 +603,7 @@ ALTER TABLE `piar_item`
 -- AUTO_INCREMENT de la tabla `piar_item`
 --
 ALTER TABLE `piar_item`
-    MODIFY `id_priar_item` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id_piar_item` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas

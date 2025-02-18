@@ -1,4 +1,6 @@
 let editorEntornoPersonal = null;
+let editorDescripcionGeneral = null;
+let editorDescripcionQueHace = null;
 const kothingParamsPlan = {
     fontSize: [8, 10, 12, 14, 16, 18, 20], // Lista de tamaños de letra
     defaultFontSize: 10, // Tamaño de letra predeterminado
@@ -24,6 +26,18 @@ $( document ).ready(function() {
         editorEntornoPersonal = KothingEditor.create('richtext-entorno', kothingParamsPlan);
         jQuery("#richtext-entorno").addClass("hide-textarea");
     }
+
+    domElement = jQuery("#richtext-descripcion-general");
+    if(domElement.length > 0){
+        editorDescripcionGeneral = KothingEditor.create('richtext-descripcion-general', kothingParamsPlan);
+        jQuery("#richtext-descripcion-general").addClass("hide-textarea");
+    }
+
+    domElement = jQuery("#richtext-descripcion-que-hace");
+    if(domElement.length > 0){
+        editorDescripcionQueHace = KothingEditor.create('richtext-descripcion-que-hace', kothingParamsPlan);
+        jQuery("#richtext-descripcion-que-hace").addClass("hide-textarea");
+    }
 })
 
 $("#form-create-piar").on('submit', function(e) {
@@ -34,6 +48,20 @@ $("#form-create-piar").on('submit', function(e) {
     if(domElement.length) {
         entornoPersonal = editorEntornoPersonal.getContents();
         domElement.html(entornoPersonal)
+    }
+
+    domElement = jQuery("#richtext-descripcion-general");
+    let descripcionGeneral = "";
+    if(domElement.length) {
+        descripcionGeneral = editorDescripcionGeneral.getContents();
+        domElement.html(descripcionGeneral)
+    }
+
+    domElement = jQuery("#richtext-descripcion-que-hace");
+    let descripcionQueHace = "";
+    if(domElement.length) {
+        descripcionQueHace = editorDescripcionQueHace.getContents();
+        domElement.html(descripcionQueHace)
     }
 
     this.submit();

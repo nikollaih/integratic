@@ -1,18 +1,4 @@
 <div>
-    <table class="text-center">
-        <tr>
-            <td style="border: 0;">
-                <img class="logo-img" src="<?= base_url() ?>img/min_educacion.png" alt="Min Educación">
-            </td>
-            <td style="border: 0; vertical-align: middle">
-                <img style="height: 34px" src="<?= base_url() ?>img/gobierno_colombia.png" alt="Min Educación">
-            </td>
-            <td class="text-content" style="width: 130px; vertical-align: middle">
-                <p>PIAR<br>Decreto 1421/2017</p>
-            </td>
-        </tr>
-    </table>
-
     <table class="margin-top">
         <tr>
             <td style="border: 0;" class="text-center" colspan="2">
@@ -213,9 +199,284 @@
             <td class="space-to-fill">Área</td>
         </tr>
     </table>
+
+    <table class="margin-top">
+        <tr>
+            <td style="border: 0;" class="text-center" colspan="4">
+                <p class="text-content title text-center">PLAN INDIVIDUAL DE AJUSTES RAZONABLES – PIAR</p>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Fecha de elaboración:</strong><br><?= date("Y-m-d", strtotime($piar["fecha_elaboracion"])) ?></td>
+            <td><strong>Institución educativa:</strong><br><?= configuracion()["nombre_institucion"] ?></td>
+            <td><strong>Sede:</strong><br><?= configuracion()["nombre_institucion"] ?></td>
+            <td><strong>Jornada:</strong><br><?= configuracion()["nombre_institucion"] ?></td>
+        </tr>
+        <tr>
+            <td class="space-to-fill" colspan="4">
+                <strong>Docentes que elaboran y cargo:</strong><br>
+            </td>
+        </tr>
+    </table>
+
+    <table class="margin-top">
+        <tr>
+            <td style="border: 0;" class="text-center" colspan="2">
+                <p class="text-content subtitle text-center">DATOS DEL ESTUDIANTE</p>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Nombre del estudiante:</strong><br><?= $piar["nombre"] ?></td>
+            <td><strong>Documento de identificación:</strong><br><?= obtenerRespuesta($preguntas, $respuestas, 2) ?></td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Edad: </strong><?= get_years(obtenerRespuesta($preguntas, $respuestas, 7), date("Y-m-d")) ?>
+            </td>
+            <td><strong>Grado: </strong><?= $piar["grado"] ?></td>
+        </tr>
+    </table>
+
+    <h5>1. Caracteristicas del estudiante</h5>
+    <table>
+        <tr>
+            <td><strong>Entorno personal.</strong><br><br><?= $piar["entorno_personal"] ?></td>
+        </tr>
+        <tr>
+            <td><strong>Descripción general del estudiante con énfasis en gustos e intereses o aspectos que le
+                    desagradan, expectativas del estudiante y la familia.</strong><br><br><?= $piar["descripcion_general"] ?></td>
+        </tr>
+        <tr>
+            <td><strong>Descripción en términos de lo que hace, puede hacer o requiere apoyo el estudiante para
+                    favorecer su proceso educativo.
+                    Indique las habilidades, competencias, cualidades, aprendizajes con las que cuenta el
+                    estudiante para el grado en el que fue matriculado.</strong><br><br><?= $piar["descripcion_que_hace"] ?></td>
+        </tr>
+    </table>
+
+    <h5>2. Ajustes razonables</h5>
+    <table>
+        <thead>
+            <tr>
+                <td class="text-center"><strong>Áreas</td>
+                <td class="text-center"><strong>OBJETIVOS/PROPÓSITOS <br>(Estas son para todo el grado, de acuerdo con los EBC y los DBA)</td>
+                <td class="text-center"><strong>BARRERAS QUE SE EVIDENCIAN EN EL CONTEXTO SOBRE LAS QUE SE DEBEN TRABAJAR</td>
+                <td class="text-center"><strong>AJUSTES RAZONABLES <br> (Apoyos/estrategias</td>
+                <td class="text-center"><strong>EVALUACIÓN DE LOS AJUSTES</td>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            if($items_piar){
+                foreach($items_piar as $item){ ?>
+                    <tr>
+                        <td><?= $item["nomarea"] ?? "Otras" ?> <br>(<?= $item["nommateria"] ?>)</td>
+                        <td><?= $item["objetivos"] ?></td>
+                        <td><?= $item["barreras"] ?></td>
+                        <td><?= $item["ajustes_razonables"] ?></td>
+                        <td><?= $item["evaluacion"] ?></td>
+                    </tr>
+                <?php }
+            }
+        ?>
+        </tbody>
+    </table>
+
+    <p><strong>Nota: Para educación inicial y Preescolar, los propósitos se orientarán de acuerdo con las bases curriculares para la
+            educación inicial y los DBA de transición, que no son por áreas ni asignaturas.</strong></p>
+    <p><strong>Las instituciones educativas podrán ajustar de acuerdo con los avances en educación inclusiva y con el SIEE</strong></p>
 </div>
 
+<h5>5. RECOMENDACIONES PARA EL PLAN DE MEJORAMIENTO INSTITUCIONAL PARA LA ELIMINACIÓN
+DE BARRERAS Y LA CREACIÓN DE PROCESOS PARA LA PARTICIPACIÓN, EL APRENDIZAJE Y EL
+PROGRESO DE LOS ESTUDIANTES:</h5>
+
+<table>
+    <thead>
+        <tr>
+            <td style="width: 200px" class="text-center"><strong>ACTORES</strong></td>
+            <td class="text-center"><strong>ACCIONES</strong></td>
+            <td class="text-center"><strong>ESTRATEGIAS A IMPLEMENTAR</strong></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>FAMILIA, CUIDADORES O CON QUIENES VIVE</strong></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><strong>DOCENTES</strong></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><strong>DIRECTIVOS</strong></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><strong>ADMINISTRATIVOS</strong></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><strong>PARES (Compañeros)</strong></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+<p><strong>Firma y cargo de quienes realizan el proceso de valoración:</strong> Docentes, coordinadores, docente de apoyo u otro
+    profesional etc.</p>
+
+<p style="color: darkgrey">Si existen varios docentes a cargo en un mismo curso, es importante que cada uno aporte una valoración
+    del desempeño del estudiante en su respectiva área y los ajustes planteados</p>
+
+<table class="margin-top">
+    <tbody>
+        <tr>
+            <td class="space-to-fill">Nombre y firma</td>
+            <td class="space-to-fill">Nombre y firma</td>
+            <td class="space-to-fill">Nombre y firma</td>
+        </tr>
+        <tr>
+            <td class="space-to-fill">Área</td>
+            <td class="space-to-fill">Área</td>
+            <td class="space-to-fill">Área</td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="margin-top">
+    <tr>
+        <td style="border: 0;" class="text-center" colspan="3">
+            <p class="text-content title text-center">ACTA DE ACUERDO</p>
+        </td>
+    </tr>
+    <tr>
+        <td><strong>Fecha:</strong><br><?= date("Y-m-d") ?></td>
+        <td colspan="2"><strong>Institución educativa:</strong><br><?= configuracion()["nombre_institucion"] ?></td>
+    </tr>
+    <tr>
+        <td><strong>Nombre del estudiante:</strong><br><?= $piar["nombre"] ?></td>
+        <td colspan="2"><strong>Documento de identificación:</strong><br><?= obtenerRespuesta($preguntas, $respuestas, 2) ?></td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Edad: </strong><?= get_years(obtenerRespuesta($preguntas, $respuestas, 7), date("Y-m-d")) ?>
+        </td>
+        <td colspan="2"><strong>Grado: </strong><?= $piar["grado"] ?></td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width: 250px">
+            <strong>Nombres equipo directivos y de docentes: </strong>
+        </td>
+        <td colspan="2" class="space-to-fill"></td>
+    </tr>
+    <tr>
+        <td colspan="2" class="space-to-fill"></td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width: 250px">
+            <strong>Nombres familia del estudiante: </strong>
+        </td>
+        <td class="space-to-fill"></td>
+        <td class="space-to-fill" style="width: 150px"><span>Parentesco</span></td>
+    </tr>
+    <tr>
+        <td class="space-to-fill"></td>
+        <td class="space-to-fill"><span>Parentesco</span></td>
+    </tr>
+</table>
+
+<div>
+    <p>Según el Decreto 1421 de 2017 la educación inclusiva es un proceso permanente que
+        reconoce, valora y responde a la diversidad de características, intereses, posibilidades y
+        expectativas de los estudiantes para promover su desarrollo, aprendizaje y participación, en un
+        ambiente de aprendizaje común, sin discriminación o exclusión.</p>
+
+    <p>La inclusión solo es posible cuando se unen los esfuerzos del colegio, el estudiante y la familia.
+        De ahí la importancia de formalizar con las firmas, la presente Acta Acuerdo.</p>
+
+    <p><strong>El Establecimiento Educativo</strong> ha realizado la valoración y definido los ajustes razonables que
+        facilitarán al estudiante su proceso educativo</p>
+
+    <p><strong>La Familia se compromete a</strong> cumplir y firmar los compromisos señalados en el PIAR y en las
+        actas de acuerdo, para fortalecer los procesos escolares del estudiante y en particular a:</p>
+</div>
+
+<table>
+    <tr>
+        <td style="height: 300px; background-color: #f0f0f0">
+            <strong>Incluya aquí los compromisos específicos para implementar en el aula que requieran
+                ampliación o detalle adicional al incluido en el PIAR.</strong>
+        </td>
+    </tr>
+</table>
+
+<p>Y en casa apoyará con las siguientes actividades:</p>
+
+<table>
+    <tbody>
+        <tr>
+            <td><strong>Nombre de la actividad</strong></td>
+            <td><strong>Descripción de la estrategia</strong></td>
+            <td><strong>Frecuencia Diaria, Semanal ó Permanente</strong></td>
+        </tr>
+        <tr>
+            <td style="height: 100px"></td>
+            <td style="height: 100px"></td>
+            <td style="height: 100px"></td>
+        </tr>
+        <tr>
+            <td style="height: 100px"></td>
+            <td style="height: 100px"></td>
+            <td style="height: 100px"></td>
+        </tr>
+        <tr>
+            <td style="height: 100px"></td>
+            <td style="height: 100px"></td>
+            <td style="height: 100px"></td>
+        </tr>
+        <tr>
+            <td style="height: 100px"></td>
+            <td style="height: 100px"></td>
+            <td style="height: 100px"></td>
+        </tr>
+        <tr>
+            <td style="height: 100px"></td>
+            <td style="height: 100px"></td>
+            <td style="height: 100px"></td>
+        </tr>
+    </tbody>
+</table>
+
+<p><strong>Firma de los actores comprometidos:</strong></p>
+
+<hr>
+
+<p>Estudiante</p>
+<hr>
+
+<p>Acudiente / Familia</p>
+<hr>
+
+<p>Docentes</p>
+<hr>
+
+<p>Docentes</p>
+<hr>
+
+<p>Directivo docente</p>
+<hr>
+
 <style>
+    p {
+        font-size: 13px;
+    }
+
     body {
         font-family: Elegance, sans-serif, Arial !important;
         background: #fff !important;
@@ -254,7 +515,10 @@
         margin-top: 20px;
     }
     .title{
-        font-size: 15px;
+        font-size: 18px;
+    }
+    .subtitle{
+        font-size: 14px;
     }
     .space-to-fill{
         padding-bottom: 30px;
