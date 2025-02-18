@@ -16,7 +16,7 @@ class PIAR_Model extends CI_Model
     }
 
     public function create($data){
-        $this->db->insert('PIAR', $data);
+        $this->db->insert('piar', $data);
         return $this->db->insert_id();
     }
 
