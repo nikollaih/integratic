@@ -1,6 +1,7 @@
 let editorEntornoPersonal = null;
 let editorDescripcionGeneral = null;
 let editorDescripcionQueHace = null;
+let editorCompromisosEspecificos = null;
 const kothingParamsPlan = {
     fontSize: [8, 10, 12, 14, 16, 18, 20], // Lista de tamaños de letra
     defaultFontSize: 10, // Tamaño de letra predeterminado
@@ -33,6 +34,12 @@ $( document ).ready(function() {
         jQuery("#richtext-descripcion-general").addClass("hide-textarea");
     }
 
+    domElement = jQuery("#richtext-compromisos-especificos");
+    if(domElement.length > 0){
+        editorCompromisosEspecificos = KothingEditor.create('richtext-compromisos-especificos', kothingParamsPlan);
+        jQuery("#richtext-compromisos-especificos").addClass("hide-textarea");
+    }
+
     domElement = jQuery("#richtext-descripcion-que-hace");
     if(domElement.length > 0){
         editorDescripcionQueHace = KothingEditor.create('richtext-descripcion-que-hace', kothingParamsPlan);
@@ -55,6 +62,13 @@ $("#form-create-piar").on('submit', function(e) {
     if(domElement.length) {
         descripcionGeneral = editorDescripcionGeneral.getContents();
         domElement.html(descripcionGeneral)
+    }
+
+    domElement = jQuery("#richtext-compromisos-especificos");
+    let compromisosEspecificos = "";
+    if(domElement.length) {
+        compromisosEspecificos = editorCompromisosEspecificos.getContents();
+        domElement.html(compromisosEspecificos)
     }
 
     domElement = jQuery("#richtext-descripcion-que-hace");
@@ -84,6 +98,36 @@ $(".btn-delete-piar-item").on("click", function(){
                     const response = JSON.parse(data);
                     if (response.status) {
                         $("#piar-item-" + piarItemId).remove();
+                    }
+                    $("#background-loading").css("display", "none");
+                    alert(response.message);
+                },
+                error: function() {
+                    $("#background-loading").css("display", "none");
+                    alert("Error!");
+                }
+            });
+        }
+    }
+})
+
+$(".btn-delete-piar-activity").on("click", function(){
+    const piarItemId = $(this).attr("data-id");
+    if(piarItemId){
+        if (confirm("¿Está seguro que desea eliminar la actividad del P.I.A.R.?") === true) {
+            $("#background-loading").css("display", "flex");
+            const url = base_url + "PIAR/deletePiarActivity";
+            console.log(url)
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    id_piar_actividad: piarItemId,
+                },
+                success: function(data) {
+                    const response = JSON.parse(data);
+                    if (response.status) {
+                        $("#piar-activity-" + piarItemId).remove();
                     }
                     $("#background-loading").css("display", "none");
                     alert(response.message);

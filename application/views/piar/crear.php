@@ -30,7 +30,68 @@
                 </div>
             </div>
 
+
             <?php require_once('templates/piar_form.php') ?>
+
+            <?php
+            if(strtolower(logged_user()["rol"]) == "docente de apoyo"){
+            ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="<?= base_url() ?>PIAR/saveActivity" method="post">
+                            <input type="hidden" value="<?= $estudiante["id_piar"] ?>" name="id_piar">
+                            <div class="panel panel-primary">
+                                <div class="panel-body">
+                                    <h4>En casa apoyará con las siguientes actividades:</h4>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <td><strong>Nombre de la actividad</strong></td>
+                                            <td><strong>Descripción de la estrategia</strong></td>
+                                            <td><strong>Frecuencia diaria, semanal ó permanente</strong></td>
+                                            <td></td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                        if(count($activities) > 0){
+                                            foreach ($activities as $actividad) {
+                                                ?>
+                                                <tr id="piar-activity-<?= $actividad["id_piar_actividad"] ?>">
+                                                    <td><?= $actividad["actividad"] ?></td>
+                                                    <td><?= $actividad["descripcion"] ?></td>
+                                                    <td><?= $actividad["frecuencia"] ?></td>
+                                                    <td><a data-id="<?= $actividad["id_piar_actividad"] ?>" class="btn btn-sm btn-danger btn-delete-piar-activity">Eliminar</a></td>
+                                                </tr>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                        <tr>
+                                            <td><textarea required class="form-control" placeholder="Escribir aqui..." name="actividad"></textarea></td>
+                                            <td><textarea required class="form-control" placeholder="Escribir aqui..." name="descripcion"></textarea></td>
+                                            <td colspan="2">
+                                                <select class="form-control" name="frecuencia" id="frecuencia">
+                                                    <option value="Diaria">Diaria</option>
+                                                    <option value="Semanal">Semanal</option>
+                                                    <option value="Permanente">Permanente</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr>
+                                    <div class="text-end d-flex justify-end">
+                                        <button type="submit" class="btn btn-primary">Guardar actividad</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
 
             <?php require_once('templates/piar_row_form.php') ?>
 
@@ -127,6 +188,7 @@
         editorEntornoPersonal.setContents(`<?= (isset($estudiante['entorno_personal'])) ? $estudiante['entorno_personal'] : "" ?>`);
         editorDescripcionGeneral.setContents(`<?= (isset($estudiante['descripcion_general'])) ? $estudiante['descripcion_general'] : "" ?>`);
         editorDescripcionQueHace.setContents(`<?= (isset($estudiante['descripcion_que_hace'])) ? $estudiante['descripcion_que_hace'] : "" ?>`);
+        editorCompromisosEspecificos.setContents(`<?= (isset($estudiante['compromisos_especificos'])) ? $estudiante['compromisos_especificos'] : "" ?>`);
     })
 </script>
 </html>

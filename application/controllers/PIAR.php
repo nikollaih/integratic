@@ -13,6 +13,7 @@ use Mpdf\Mpdf;
  * @property Mpdf $mpdf
  * @property $CaracterizacionEstudiantesPreguntas_Model
  * @property $CaracterizacionEstudiantesRespuestas_Model
+ * @property $PIAR_Actividad_Model
  */
 class PIAR extends CI_Controller
 {
@@ -23,7 +24,7 @@ class PIAR extends CI_Controller
      */
     public function __construct() {
         parent::__construct();
-        $this->load->model(["Estudiante_Model", "Usuarios_Model", "PIAR_Model", "PIAR_Item_Model", "Materias_Model", "CaracterizacionEstudiantesPreguntas_Model", "CaracterizacionEstudiantesRespuestas_Model"]);
+        $this->load->model(["PIAR_Actividad_Model", "Estudiante_Model", "Usuarios_Model", "PIAR_Model", "PIAR_Item_Model", "Materias_Model", "CaracterizacionEstudiantesPreguntas_Model", "CaracterizacionEstudiantesRespuestas_Model"]);
         $this->USER_ROL = (is_logged()) ? strtolower(logged_user()["rol"]) : "";
 
         $this->mpdf = new Mpdf([
@@ -69,7 +70,7 @@ class PIAR extends CI_Controller
                     }
                     $grupo = $this->Estudiante_Model->getStudentGroupGrade($params["estudiante"]["id"]);
                     $grado = $this->Estudiante_Model->getStudentGrade($params["estudiante"]["id"]);
-                    $params["materias"] = $this->Materias_Model->getMateriasGrupoGrado($grado, $grupo);
+                    $params["materias"] = $this->Materias_Model->getMateriasGrupoGrado($grado, $grupo, logged_user()["id"]);
 
                     $params["docentes"] = $this->Usuarios_Model->get_by_role("docente");
                     $params["apoyos"] = $this->Usuarios_Model->get_by_role("Docente de apoyo");
@@ -101,13 +102,14 @@ class PIAR extends CI_Controller
 
                     $grupo = $this->Estudiante_Model->getStudentGroupGrade($params["estudiante"]["documento"]);
                     $grado = $this->Estudiante_Model->getStudentGrade($params["estudiante"]["documento"]);
-                    $params["materias"] = $this->Materias_Model->getMateriasGrupoGrado($grado, $grupo);
+                    $params["materias"] = $this->Materias_Model->getMateriasGrupoGrado($grado, $grupo, logged_user()["id"]);
                     $params["docentes"] = $this->Usuarios_Model->get_by_role("docente");
                     $params["apoyos"] = $this->Usuarios_Model->get_by_role("Docente de apoyo");
                     $params["items_piar"] = $this->PIAR_Item_Model->getAllByPiar($piarId);
                     $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
                     $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
                     $params["item_piar"] = $this->PIAR_Item_Model->get($piarItemId);
+                    $params["activities"] = $this->PIAR_Actividad_Model->getAllByPiar($piarId);
                     $this->load->view("piar/crear", $params);
                 }
                 else header("Location: ".base_url()."PIAR");
@@ -117,9 +119,12 @@ class PIAR extends CI_Controller
         else header("Location: ".base_url());
     }
 
-    public function view($piarId = null){
+    public function view($piarId = null, $documentType = 1){
         if(is_logged()){
             if($this->hasPermission()){
+                if($documentType === "2" && strtolower(logged_user()["rol"]) === "docente"){
+                    $documentType = 1;
+                }
                 $params["piar"] = $this->PIAR_Model->get($piarId);
                 $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($params["piar"]["documento"]);
                 $params["preguntas"] = $this->CaracterizacionEstudiantesPreguntas_Model->getPreguntas();
@@ -127,6 +132,8 @@ class PIAR extends CI_Controller
                 $params["items_piar"] = $this->PIAR_Item_Model->getAllByPiar($piarId);
                 $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
                 $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
+                $params["activities"] = $this->PIAR_Actividad_Model->getAllByPiar($piarId);
+                $params["documentType"] = $documentType;
 
                 $this->load->view("piar/view", $params);
                 // Cargar HTML en dompdf (puedes cargar tu vista aquí)
@@ -181,6 +188,29 @@ class PIAR extends CI_Controller
         }
     }
 
+    public function saveActivity() {
+        if(is_logged()){
+            if($this->hasPermission()){
+                $data = $this->input->post();
+                if($data){
+                    $created = $this->PIAR_Actividad_Model->create($data);
+                    if(isset($created)){
+                        $this->session->set_flashdata('mensaje', '<div class="alert alert-success alert-dismissible show" role="alert">Actividad creada exitosamente</div>');
+                    }
+                    else {
+                        $this->session->set_flashdata('mensaje', '<div class="alert alert-danger alert-dismissible show" role="alert">Ha ocurrido un error, intente de nuevo más tarde</div>');
+                    }
+
+                    redirect(base_url()."PIAR/edit/".$data["id_piar"]);
+                }
+                else {
+                    header("Location: ".base_url()."PIAR");
+                }
+            }
+        }
+    }
+
+
     public function deletePiarItem(){
         if(is_logged()){
             if($this->hasPermission()){
@@ -189,6 +219,23 @@ class PIAR extends CI_Controller
                     $deleted = $this->PIAR_Item_Model->delete($data["id_piar_item"]);
                     if($deleted){
                         json_response(null, true, "Item eliminado exitosamente");
+                    }
+                    else {
+                        json_response(null, false, "Ha ocurrido un error, intente de nuevo más tarde");
+                    }
+                }
+            }
+        }
+    }
+
+    public function deletePiarActivity(){
+        if(is_logged()){
+            if($this->hasPermission()){
+                $data = $this->input->post();
+                if($data){
+                    $deleted = $this->PIAR_Actividad_Model->delete($data["id_piar_actividad"]);
+                    if($deleted){
+                        json_response(null, true, "Actividad eliminada exitosamente");
                     }
                     else {
                         json_response(null, false, "Ha ocurrido un error, intente de nuevo más tarde");

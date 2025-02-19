@@ -4386,6 +4386,10 @@ div.dataTables_info {
     justify-content: space-between;
 }
 
+.justify-end {
+    justify-content: end;
+}
+
 .align-items-center {
     align-items: center;
 }

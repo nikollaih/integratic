@@ -52,12 +52,15 @@ class Materias_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
-	function getMateriasGrupoGrado($grado, $grupo){
+	function getMateriasGrupoGrado($grado, $grupo, $idDocente = null){
           $this->db->select("cm.codmateria, cm.nommateria, cm.area, cm.grado, am.materia, am.grupo");
 		$this->db->from("cfg_materias cm");
 		$this->db->join("asg_materias am", "cm.codmateria = am.materia");
 		$this->db->where("cm.grado", $grado);
 		$this->db->where("am.grupo", $grupo);
+        if($idDocente){
+            $this->db->where("am.docente", $idDocente);
+        }
         $this->db->group_by("cm.codmateria, cm.nommateria, cm.area, cm.grado, am.materia, am.grupo");
 
 		$result = $this->db->get();

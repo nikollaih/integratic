@@ -544,7 +544,18 @@ CREATE TABLE `piar` (
                         `asiste_programas_complementarios` tinyint(1) NOT NULL,
                         `asiste_programas_complementarios_cuales` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
                         `medio_de_transporte` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
-                        `distancia_institucion_hogar` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
+                        `distancia_institucion_hogar` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+                        `acciones_familia` longtext COLLATE utf8_spanish2_ci,
+                        `estrategias_familia` longtext COLLATE utf8_spanish2_ci,
+                        `acciones_docentes` longtext COLLATE utf8_spanish2_ci,
+                        `estrategias_docentes` longtext COLLATE utf8_spanish2_ci,
+                        `acciones_directivos` longtext COLLATE utf8_spanish2_ci,
+                        `estrategias_directivos` longtext COLLATE utf8_spanish2_ci,
+                        `acciones_administrativos` longtext COLLATE utf8_spanish2_ci,
+                        `estrategias_administrativos` longtext COLLATE utf8_spanish2_ci,
+                        `acciones_companeros` longtext COLLATE utf8_spanish2_ci,
+                        `estrategias_companeros` longtext COLLATE utf8_spanish2_ci,
+                        `compromisos_especificos` longtext COLLATE utf8_spanish2_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -614,3 +625,35 @@ ALTER TABLE `piar_item`
 --
 ALTER TABLE `piar_item`
     ADD CONSTRAINT `piar_piar_item` FOREIGN KEY (`id_piar`) REFERENCES `piar` (`id_piar`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Estructura de tabla para la tabla `piar_actividades`
+--
+
+CREATE TABLE `piar_actividades` (
+                                    `id_piar_actividad` int(11) NOT NULL,
+                                    `id_piar` int(11) NOT NULL,
+                                    `actividad` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                                    `descripcion` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                                    `frecuencia` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `piar_actividades`
+--
+ALTER TABLE `piar_actividades`
+    ADD PRIMARY KEY (`id_piar_actividad`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `piar_actividades`
+--
+ALTER TABLE `piar_actividades`
+    MODIFY `id_piar_actividad` int(11) NOT NULL AUTO_INCREMENT;
