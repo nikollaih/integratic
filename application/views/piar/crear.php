@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <form action="<?= base_url() ?>PIAR/saveActivity" method="post">
-                            <input type="hidden" value="<?= $estudiante["id_piar"] ?>" name="id_piar">
+                            <input type="hidden" value="<?= $estudiante["id_piar"] ?? "" ?>" name="id_piar">
                             <div class="panel panel-primary">
                                 <div class="panel-body">
                                     <h4>En casa apoyará con las siguientes actividades:</h4>
@@ -54,7 +54,7 @@
                                         </thead>
                                         <tbody>
                                         <?php
-                                        if(count($activities) > 0){
+                                        if(isset($activities) && count($activities) > 0){
                                             foreach ($activities as $actividad) {
                                                 ?>
                                                 <tr id="piar-activity-<?= $actividad["id_piar_actividad"] ?>">

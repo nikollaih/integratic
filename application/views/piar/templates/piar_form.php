@@ -56,19 +56,19 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="lugar_nacimiento">Lugar de nacimiento</label>
-                            <input class="form-control" type="text" name="lugar_nacimiento" id="lugar_nacimiento" value="<?= $estudiante ? $estudiante["lugar_nacimiento"] : "" ?>">
+                            <input class="form-control" type="text" name="lugar_nacimiento" id="lugar_nacimiento" value="<?= isset($estudiante["lugar_nacimiento"]) ?? '' ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="departamento">Departamento residencia</label>
-                            <input class="form-control" type="text" name="departamento" id="departamento" value="<?= $estudiante ? $estudiante["departamento"] : "" ?>">
+                            <input class="form-control" type="text" name="departamento" id="departamento" value="<?= $estudiante["departamento"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="municipio">Municipio residencia</label>
-                            <input class="form-control" type="text" name="municipio" id="municipio" value="<?= $estudiante ? $estudiante["municipio"] : "" ?>">
+                            <input class="form-control" type="text" name="municipio" id="municipio" value="<?= $estudiante["municipio"] ?? "" ?>">
                         </div>
                     </div>
                 </div>
@@ -79,15 +79,15 @@
                             <label for="es_centro_proteccion">¿Está en centro de protección?</label>
                             <select required name="es_centro_proteccion" id="es_centro_proteccion" class="form-control" data-target="centro-proteccion" data-target-value="1">
                                 <option value="">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["es_centro_proteccion"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["es_centro_proteccion"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["es_centro_proteccion"]) && $estudiante["es_centro_proteccion"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["es_centro_proteccion"])  && $estudiante["es_centro_proteccion"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="centro_proteccion">¿Dónde? (Centro de protección)</label>
-                            <input class="form-control" type="text" name="centro_proteccion" id="centro_proteccion" value="<?= $estudiante ? $estudiante["centro_proteccion"] : "" ?>">
+                            <input class="form-control" type="text" name="centro_proteccion" id="centro_proteccion" value="<?= $estudiante["centro_proteccion"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -95,8 +95,8 @@
                             <label for="es_victima_conflicto_armado">¿Se reconoce como víctima del conflicto armado? </label>
                             <select required name="es_victima_conflicto_armado" id="es_victima_conflicto_armado" class="form-control ">
                                 <option value="">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["es_victima_conflicto_armado"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["es_victima_conflicto_armado"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["es_victima_conflicto_armado"]) && $estudiante["es_victima_conflicto_armado"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["es_victima_conflicto_armado"]) && $estudiante["es_victima_conflicto_armado"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
@@ -105,8 +105,8 @@
                             <label for="registro_victima_conflicto_armado">¿Cuenta con el respectivo registro? </label>
                             <select required name="registro_victima_conflicto_armado" id="registro_victima_conflicto_armado" class="form-control">
                                 <option value="0">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["registro_victima_conflicto_armado"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["registro_victima_conflicto_armado"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["registro_victima_conflicto_armado"]) && $estudiante["registro_victima_conflicto_armado"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["registro_victima_conflicto_armado"]) && $estudiante["registro_victima_conflicto_armado"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
@@ -115,8 +115,8 @@
                             <label for="afiliacion_sistema_salud">¿Cuenta con afiliación al sistema de salud? </label>
                             <select required name="afiliacion_sistema_salud" id="afiliacion_sistema_salud" class="form-control " data-target="tipo-afiliacion-sistema-salud" data-target-value="1">>
                                 <option value="">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["afiliacion_sistema_salud"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["afiliacion_sistema_salud"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["afiliacion_sistema_salud"]) && $estudiante["afiliacion_sistema_salud"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["afiliacion_sistema_salud"]) && $estudiante["afiliacion_sistema_salud"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
@@ -125,15 +125,15 @@
                             <label for="tipo_afiliacion_sistema_salud">Tipo de afiliación</label>
                             <select required name="tipo_afiliacion_sistema_salud" id="tipo_afiliacion_sistema_salud" class="form-control">
                                 <option value="subsidiado">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["tipo_afiliacion_sistema_salud"] === "contributivo" ? "selected" : "" ?> value="contributivo">Contributivo</option>
-                                <option <?= $estudiante && $estudiante["tipo_afiliacion_sistema_salud"] === "subsidiado" ? "selected" : "" ?> value="subsidiado">Subsidiado</option>
+                                <option <?= isset($estudiante["tipo_afiliacion_sistema_salud"]) && $estudiante["tipo_afiliacion_sistema_salud"] === "contributivo" ? "selected" : "" ?> value="contributivo">Contributivo</option>
+                                <option <?= isset($estudiante["tipo_afiliacion_sistema_salud"]) && $estudiante["tipo_afiliacion_sistema_salud"] === "subsidiado" ? "selected" : "" ?> value="subsidiado">Subsidiado</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="lugar_atencion_emergencia">Lugar donde lo atienden en caso de emergencia:</label>
-                            <input class="form-control" type="text" name="lugar_atencion_emergencia" id="lugar_atencion_emergencia" value="<?= $estudiante ? $estudiante["lugar_atencion_emergencia"] : "" ?>">
+                            <input class="form-control" type="text" name="lugar_atencion_emergencia" id="lugar_atencion_emergencia" value="<?= $estudiante["lugar_atencion_emergencia"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -142,15 +142,15 @@
                             </label>
                             <select required name="es_atendido_sector_salud" id="es_atendido_sector_salud" class="form-control " data-target="atendido-frecuencia" data-target-value="1">
                                 <option value="">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["es_atendido_sector_salud"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["es_atendido_sector_salud"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["es_atendido_sector_salud"]) && $estudiante["es_atendido_sector_salud"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["es_atendido_sector_salud"]) && $estudiante["es_atendido_sector_salud"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="es_atendido_frecuencia">Frecuencia</label>
-                            <input class="form-control" type="text" name="es_atendido_frecuencia" id="es_atendido_frecuencia" value="<?= $estudiante ? $estudiante["es_atendido_frecuencia"] : "" ?>">
+                            <input class="form-control" type="text" name="es_atendido_frecuencia" id="es_atendido_frecuencia" value="<?= $estudiante["es_atendido_frecuencia"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -160,15 +160,15 @@
                             </label>
                             <select required name="recibe_tratamiento_enfermedad_particular" id="recibe_tratamiento_enfermedad_particular" class="form-control " data-target="tratamiento-enfermedad" data-target-value="1">
                                 <option value="">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["recibe_tratamiento_enfermedad_particular"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["recibe_tratamiento_enfermedad_particular"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["recibe_tratamiento_enfermedad_particular"]) && $estudiante["recibe_tratamiento_enfermedad_particular"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["recibe_tratamiento_enfermedad_particular"]) && $estudiante["recibe_tratamiento_enfermedad_particular"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="recibe_tratamiento_enfermedad_particular_cual">¿Cúal enfermedad?</label>
-                            <input class="form-control" type="text" name="recibe_tratamiento_enfermedad_particular_cual" id="recibe_tratamiento_enfermedad_particular_cual" value="<?= $estudiante ? $estudiante["recibe_tratamiento_enfermedad_particular_cual"] : "" ?>">
+                            <input class="form-control" type="text" name="recibe_tratamiento_enfermedad_particular_cual" id="recibe_tratamiento_enfermedad_particular_cual" value="<?= $estudiante["recibe_tratamiento_enfermedad_particular_cual"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -203,7 +203,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="nombre_cuidador">Nombre del cuidador</label>
-                            <input class="form-control" type="text" name="nombre_cuidador" id="nombre_cuidador" value="<?= $estudiante ? $estudiante["nombre_cuidador"] : "" ?>">
+                            <input class="form-control" type="text" name="nombre_cuidador" id="nombre_cuidador" value="<?= $estudiante["nombre_cuidador"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -237,25 +237,25 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="telefono_cuidador">Teléfono del cuidador</label>
-                            <input class="form-control" type="number" name="telefono_cuidador" id="telefono_cuidador" value="<?= $estudiante ? $estudiante["telefono_cuidador"] : "" ?>">
+                            <input class="form-control" type="number" name="telefono_cuidador" id="telefono_cuidador" value="<?= $estudiante["telefono_cuidador"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="correo_electronico_cuidador">Correo electrónico del cuidador</label>
-                            <input class="form-control" type="email" name="correo_electronico_cuidador" id="correo_electronico_cuidador" value="<?= $estudiante ? $estudiante["correo_electronico_cuidador"] : "" ?>">
+                            <input class="form-control" type="email" name="correo_electronico_cuidador" id="correo_electronico_cuidador" value="<?= $estudiante["correo_electronico_cuidador"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="lugar_que_ocupa_hermanos">Lugar que ocupa entre hermanos</label>
-                            <input class="form-control" type="number" name="lugar_que_ocupa_hermanos" id="lugar_que_ocupa_hermanos" value="<?= $estudiante ? $estudiante["lugar_que_ocupa_hermanos"] : "" ?>">
+                            <input class="form-control" type="number" name="lugar_que_ocupa_hermanos" id="lugar_que_ocupa_hermanos" value="<?= $estudiante["lugar_que_ocupa_hermanos"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="quienes_apoyan_crianza">¿Quiénes apoyan la crianza del estudiante? </label>
-                            <input class="form-control" type="text" name="quienes_apoyan_crianza" id="quienes_apoyan_crianza" value="<?= $estudiante ? $estudiante["quienes_apoyan_crianza"] : "" ?>">
+                            <input class="form-control" type="text" name="quienes_apoyan_crianza" id="quienes_apoyan_crianza" value="<?= $estudiante["quienes_apoyan_crianza"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -263,8 +263,8 @@
                             <label for="esta_bajo_proteccion">¿Está bajo protección?</label>
                             <select required name="esta_bajo_proteccion" id="esta_bajo_proteccion" class="form-control">
                                 <option value="">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["esta_bajo_proteccion"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["esta_bajo_proteccion"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["esta_bajo_proteccion"]) && $estudiante["esta_bajo_proteccion"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["esta_bajo_proteccion"]) && $estudiante["esta_bajo_proteccion"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
@@ -273,15 +273,15 @@
                             <label for="recibe_subsidio_entidad">La familia recibe algún subsidio de alguna entidad o institución</label>
                             <select required name="recibe_subsidio_entidad" id="recibe_subsidio_entidad" class="form-control " data-target="subsidio-entidad" data-target-value="1">
                                 <option value="">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["recibe_subsidio_entidad"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["recibe_subsidio_entidad"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["recibe_subsidio_entidad"]) && $estudiante["recibe_subsidio_entidad"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["recibe_subsidio_entidad"]) && $estudiante["recibe_subsidio_entidad"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="recibe_subsidio_entidad_cual">¿Cúal subsidio?</label>
-                            <input class="form-control" type="text" name="recibe_subsidio_entidad_cual" id="recibe_subsidio_entidad_cual" value="<?= $estudiante ? $estudiante["recibe_subsidio_entidad_cual"] : "" ?>">
+                            <input class="form-control" type="text" name="recibe_subsidio_entidad_cual" id="recibe_subsidio_entidad_cual" value="<?= $estudiante["recibe_subsidio_entidad_cual"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -291,15 +291,15 @@
                                 inicial?</label>
                             <select required name="es_vinculado_otra_institucion" id="es_vinculado_otra_institucion" class="form-control">
                                 <option value="">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["es_vinculado_otra_institucion"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["es_vinculado_otra_institucion"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["es_vinculado_otra_institucion"]) && $estudiante["es_vinculado_otra_institucion"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["es_vinculado_otra_institucion"]) && $estudiante["es_vinculado_otra_institucion"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="es_vinculado_otra_institucion_cual">(Si - ¿Cúal?) (No - ¿Por qué?)</label>
-                            <input required class="form-control" type="text" name="es_vinculado_otra_institucion_cual" id="es_vinculado_otra_institucion_cual" value="<?= $estudiante ? $estudiante["es_vinculado_otra_institucion_cual"] : "" ?>">
+                            <input required class="form-control" type="text" name="es_vinculado_otra_institucion_cual" id="es_vinculado_otra_institucion_cual" value="<?= $estudiante["es_vinculado_otra_institucion_cual"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -321,15 +321,15 @@
                             <label for="ultimo_grado_cursado_aprobo">¿Aprobó?</label>
                             <select required name="ultimo_grado_cursado_aprobo" id="ultimo_grado_cursado_aprobo" class="form-control">
                                 <option value="">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["ultimo_grado_cursado_aprobo"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["ultimo_grado_cursado_aprobo"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["ultimo_grado_cursado_aprobo"]) && $estudiante["ultimo_grado_cursado_aprobo"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["ultimo_grado_cursado_aprobo"]) && $estudiante["ultimo_grado_cursado_aprobo"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="ultimo_grado_cursado_observaciones">Observaciónes</label>
-                            <input required class="form-control" type="text" name="ultimo_grado_cursado_observaciones" id="ultimo_grado_cursado_observaciones" value="<?= $estudiante ? $estudiante["ultimo_grado_cursado_observaciones"] : "" ?>">
+                            <input required class="form-control" type="text" name="ultimo_grado_cursado_observaciones" id="ultimo_grado_cursado_observaciones" value="<?= $estudiante["ultimo_grado_cursado_observaciones"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -339,15 +339,15 @@
                                 estudiante y/o PIAR?</label>
                             <select required name="recibe_informe_pedagogico" id="recibe_informe_pedagogico" class="form-control " data-target="informe-pedagogico" data-target-value="1">
                                 <option value="">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["recibe_informe_pedagogico"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["recibe_informe_pedagogico"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["recibe_informe_pedagogico"]) && $estudiante["recibe_informe_pedagogico"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["recibe_informe_pedagogico"]) && $estudiante["recibe_informe_pedagogico"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="recibe_informe_pedagogico_institucion">¿De qué institución o modalidad proviene el informe?</label>
-                            <input class="form-control" type="text" name="recibe_informe_pedagogico_institucion" id="recibe_informe_pedagogico_institucion" value="<?= $estudiante ? $estudiante["recibe_informe_pedagogico_institucion"] : "" ?>">
+                            <input class="form-control" type="text" name="recibe_informe_pedagogico_institucion" id="recibe_informe_pedagogico_institucion" value="<?= $estudiante["recibe_informe_pedagogico_institucion"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -355,15 +355,15 @@
                             <label for="asiste_programas_complementarios">¿Está asistiendo en la actualidad a programas complementarios?</label>
                             <select required name="asiste_programas_complementarios" id="asiste_programas_complementarios" class="form-control " data-target="programas-complementarios" data-target-value="1">
                                 <option value="">- Seleccionar</option>
-                                <option <?= $estudiante && $estudiante["asiste_programas_complementarios"] === "1" ? "selected" : "" ?> value="1">Si</option>
-                                <option <?= $estudiante && $estudiante["asiste_programas_complementarios"] === "0" ? "selected" : "" ?> value="0">No</option>
+                                <option <?= isset($estudiante["asiste_programas_complementarios"]) && $estudiante["asiste_programas_complementarios"] === "1" ? "selected" : "" ?> value="1">Si</option>
+                                <option <?= isset($estudiante["asiste_programas_complementarios"]) && $estudiante["asiste_programas_complementarios"] === "0" ? "selected" : "" ?> value="0">No</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="asiste_programas_complementarios_cuales">¿Cuales programas?</label>
-                            <input class="form-control" type="text" name="asiste_programas_complementarios_cuales" id="asiste_programas_complementarios_cuales" value="<?= $estudiante ? $estudiante["asiste_programas_complementarios_cuales"] : "" ?>">
+                            <input class="form-control" type="text" name="asiste_programas_complementarios_cuales" id="asiste_programas_complementarios_cuales" value="<?= $estudiante["asiste_programas_complementarios_cuales"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -371,14 +371,14 @@
                             <label for="medio_de_transporte">Medio que usará el estudiante para transportarse
                                 a la institución educativa
                             </label>
-                            <input class="form-control" type="text" name="medio_de_transporte" id="medio_de_transporte" value="<?= $estudiante ? $estudiante["medio_de_transporte"] : "" ?>">
+                            <input class="form-control" type="text" name="medio_de_transporte" id="medio_de_transporte" value="<?= $estudiante["medio_de_transporte"] ?? "" ?>">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="distancia_institucion_hogar">Distancia entre la institución educativa o sede y el hogar
                                 del estudiante (Tiempo)</label>
-                            <input class="form-control" type="text" name="distancia_institucion_hogar" id="distancia_institucion_hogar" value="<?= $estudiante ? $estudiante["distancia_institucion_hogar"] : "" ?>">
+                            <input class="form-control" type="text" name="distancia_institucion_hogar" id="distancia_institucion_hogar" value="<?= $estudiante["distancia_institucion_hogar"] ?? "" ?>">
                         </div>
                     </div>
                 </div>
@@ -450,28 +450,28 @@
                             <tr>
                                 <td><strong>FAMILIA, CUIDADORES O
                                         CON QUIENES VIVE</strong></td>
-                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="acciones_familia"><?= $estudiante ? $estudiante["acciones_familia"] : "" ?></textarea></td>
-                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_familia"><?= $estudiante ? $estudiante["estrategias_familia"] : "" ?></textarea></td>
+                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="acciones_familia"><?= $estudiante["acciones_familia"] ?? "" ?></textarea></td>
+                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_familia"><?= $estudiante["estrategias_familia"] ?? "" ?></textarea></td>
                             </tr>
                             <tr>
                                 <td><strong>DOCENTES</strong></td>
-                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="acciones_docentes"><?= $estudiante ? $estudiante["acciones_docentes"] : "" ?></textarea></td>
-                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_docentes"><?= $estudiante ? $estudiante["estrategias_docentes"] : "" ?></textarea></td>
+                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="acciones_docentes"><?= $estudiante["acciones_docentes"] ?? "" ?></textarea></td>
+                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_docentes"><?= $estudiante["estrategias_docentes"] ?? "" ?></textarea></td>
                             </tr>
                             <tr>
                                 <td><strong>DIRECTIVOS</strong></td>
-                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="acciones_directivos"><?= $estudiante ? $estudiante["acciones_directivos"] : "" ?></textarea></td>
-                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_directivos"><?= $estudiante ? $estudiante["estrategias_directivos"] : "" ?></textarea></td>
+                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="acciones_directivos"><?= $estudiante["acciones_directivos"] ?? "" ?></textarea></td>
+                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_directivos"><?= $estudiante["estrategias_directivos"] ?? "" ?></textarea></td>
                             </tr>
                             <tr>
                                 <td><strong>ADMINISTRATIVOS</strong></td>
-                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="acciones_administrativos"><?= $estudiante ? $estudiante["acciones_administrativos"] : "" ?></textarea></td>
-                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_administrativos"><?= $estudiante ? $estudiante["estrategias_administrativos"] : "" ?></textarea></td>
+                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="acciones_administrativos"><?= $estudiante["acciones_administrativos"] ?? "" ?></textarea></td>
+                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_administrativos"><?= $estudiante["estrategias_administrativos"] ?? "" ?></textarea></td>
                             </tr>
                             <tr>
                                 <td><strong>PARES</strong></td>
-                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="acciones_companeros"><?= $estudiante ? $estudiante["acciones_companeros"] : "" ?></textarea></td>
-                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_companeros"><?= $estudiante ? $estudiante["estrategias_companeros"] : "" ?></textarea></td>
+                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="acciones_companeros"><?= $estudiante["acciones_companeros"] ?? "" ?></textarea></td>
+                                <td><textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_companeros"><?= $estudiante["estrategias_companeros"] ?? "" ?></textarea></td>
                             </tr>
                             </tbody>
                         </table>
