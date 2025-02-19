@@ -37,14 +37,14 @@
                                             <td>
                                                 <?php
                                                     if($e["id_piar"] === null){
-                                                        if(strtolower(logged_user()["rol"]) === "docente de apoyo"){
+                                                        if(strtolower(logged_user()["rol"]) === "docente de apoyo" || strtolower(logged_user()["rol"]) === "coordinador"){
                                                             echo '<a href="'.base_url().'PIAR/create/'.$e["documento"].'" class="btn btn-primary btn-sm">Crear</a>';
                                                         }
                                                     }
                                                     else {
                                                         echo '<a href="'.base_url().'PIAR/edit/'.$e["id_piar"].'" class="btn btn-info btn-sm m-r-5">Modificar</a>';
                                                         echo '<a target="_blank" href="'.base_url().'PIAR/view/'.$e["id_piar"].'/1/Documento PIAR" class="m-r-5 btn btn-success btn-sm">Ver</a>';
-                                                        if(strtolower(logged_user()["rol"]) === "docente de apoyo"){
+                                                        if(strtolower(logged_user()["rol"]) === "docente de apoyo" || strtolower(logged_user()["rol"]) === "coordinador"){
                                                             echo '<a target="_blank" href="'.base_url().'PIAR/view/'.$e["id_piar"].'/2/Documento PIAR" class="btn btn-success btn-sm">Ver completo</a>';
                                                         }
                                                     }

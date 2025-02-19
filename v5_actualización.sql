@@ -555,7 +555,8 @@ CREATE TABLE `piar` (
                         `estrategias_administrativos` longtext COLLATE utf8_spanish2_ci,
                         `acciones_companeros` longtext COLLATE utf8_spanish2_ci,
                         `estrategias_companeros` longtext COLLATE utf8_spanish2_ci,
-                        `compromisos_especificos` longtext COLLATE utf8_spanish2_ci
+                        `compromisos_especificos` longtext COLLATE utf8_spanish2_ci,
+                        `comentarios` longtext COLLATE utf8_spanish2_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --

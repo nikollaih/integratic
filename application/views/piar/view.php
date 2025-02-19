@@ -282,7 +282,7 @@
         <?php
             if($items_piar){
                 foreach($items_piar as $item){
-                    if((strtolower(logged_user()["rol"]) == "docente de apoyo") || (logged_user()["id"] == $item["id_docente"]) || $item["id_materia"] == ""){
+                    if((strtolower(logged_user()["rol"]) == "coordinador") || (strtolower(logged_user()["rol"]) == "docente de apoyo") || (logged_user()["id"] == $item["id_docente"]) || $item["id_materia"] == ""){
                     ?>
                         <tr>
                             <td><?= $item["nomarea"] ?? "Otras" ?> <br>(<?= $item["nommateria"] ?>)</td>

@@ -34,7 +34,7 @@
             <?php require_once('templates/piar_form.php') ?>
 
             <?php
-            if(strtolower(logged_user()["rol"]) == "docente de apoyo"){
+            if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_user()["rol"]) == "coordinador"){
             ?>
                 <div class="row">
                     <div class="col-md-12">
@@ -97,7 +97,7 @@
 
             <!-- ITEMS DEL PIAR -->
             <?php
-                if(strtolower(logged_user()["rol"]) === "docente" || strtolower(logged_user()["rol"]) === "docente de apoyo") {
+                if(strtolower(logged_user()["rol"]) === "docente" || strtolower(logged_user()["rol"]) === "docente de apoyo" || strtolower(logged_user()["rol"]) === "coordinador") {
                     ?>
                     <div class="panel panel-primary">
                         <div class="panel-heading text-capitalize"><b>Items del piar</b></div>

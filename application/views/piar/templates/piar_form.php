@@ -12,7 +12,7 @@
                 </div>
             </div>
             <?php
-            if(strtolower(logged_user()["rol"]) == "docente de apoyo"){
+            if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_user()["rol"]) == "coordinador"){
                 ?>
                 <div class="row">
                     <div class="col-md-12"><hr></div>
