@@ -2,6 +2,7 @@ let editorEntornoPersonal = null;
 let editorDescripcionGeneral = null;
 let editorDescripcionQueHace = null;
 let editorCompromisosEspecificos = null;
+let editorComentariosCoordinadorPIAR = null;
 const kothingParamsPlan = {
     fontSize: [8, 10, 12, 14, 16, 18, 20], // Lista de tamaños de letra
     defaultFontSize: 10, // Tamaño de letra predeterminado
@@ -20,6 +21,8 @@ const kothingParamsPlan = {
     charCounter: true,
 }
 $( document ).ready(function() {
+    editorComentariosCoordinadorPIAR = KothingEditor.create('piar-observaciones-coordinador', kothingParamsPlan);
+    jQuery("#piar-observaciones-coordinador").addClass("hide-textarea");
 
     let domElement = null;
     domElement = jQuery("#richtext-entorno");
@@ -27,6 +30,7 @@ $( document ).ready(function() {
         editorEntornoPersonal = KothingEditor.create('richtext-entorno', kothingParamsPlan);
         jQuery("#richtext-entorno").addClass("hide-textarea");
     }
+
 
     domElement = jQuery("#richtext-descripcion-general");
     if(domElement.length > 0){
@@ -46,6 +50,30 @@ $( document ).ready(function() {
         jQuery("#richtext-descripcion-que-hace").addClass("hide-textarea");
     }
 })
+
+jQuery(document).on("click", ".btn-agregar-observaciones-coordinador-piar", function() {
+    // Get the evidencia de aprendizaje ID
+    let idPiar = jQuery(this).attr("data-id");
+
+    jQuery.ajax({
+        url: base_url + "PIAR/find/" + idPiar,
+        success: function(response) {
+            let data = JSON.parse(response);
+            let object = data.object;
+            if (data.status) {
+                editorComentariosCoordinadorPIAR.setContents(object.comentarios);
+            }
+        }
+    });
+
+    jQuery("#id-piar-observaciones-coordinador").val(idPiar);
+    jQuery("#observaciones-piar-modal").modal("show");
+});
+
+$("#form-piar-observaciones-coordinador").on('submit', function(e) {
+    let descripcion = editorComentariosCoordinadorPIAR.getContents();
+    jQuery("#piar-observaciones-coordinador").val(descripcion);
+});
 
 $("#form-create-piar").on('submit', function(e) {
    e.preventDefault();

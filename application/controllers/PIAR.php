@@ -228,6 +228,25 @@ class PIAR extends CI_Controller
         }
     }
 
+    public function addComments(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) === "coordinador"){
+                $data = $this->input->post();
+                if($data){
+                    $updated = $this->PIAR_Model->update($data["id_piar"], $data);
+                    if($updated){
+                        $this->session->set_flashdata('mensaje', '<div class="alert alert-success alert-dismissible show" role="alert">Observaciones agregadas exitosamente</div>');
+                    }
+                    else {
+                        $this->session->set_flashdata('mensaje', '<div class="alert alert-danger alert-dismissible show" role="alert">Ha ocurrido un error, intente de nuevo más tarde</div>');
+                    }
+                }
+
+                header("Location: ".base_url()."PIAR");
+            }
+        }
+    }
+
     public function deletePiarActivity(){
         if(is_logged()){
             if($this->hasPermission()){
@@ -283,5 +302,17 @@ class PIAR extends CI_Controller
         return $created ?
             array("status" => true, "type" => "success", "message" => "Formulario modificado exitosamente!") :
             array("status" => false, "type" => "danger", "message" => "No se ha podido modificar el formulario");
+    }
+
+    function find($idPiar){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "coordinador"){
+                $evidencia = $this->PIAR_Model->get($idPiar);
+                if($evidencia) json_response($evidencia, true, "PIAR");
+                else json_response(array("error" => "404"), false, "No se ha encontrado el PIAR");
+            }
+            else json_response(array("error" => "permissions"), false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }
 }
