@@ -149,7 +149,11 @@
                 }
             ?>
 
-            <?php require_once('templates/piar_annual_form.php') ?>
+            <?php
+                if(strtolower(logged_user()["rol"]) === "docente"){
+                    require_once('templates/piar_annual_form.php');
+                }
+            ?>
         </div> <!-- container -->
     </div> <!-- content -->
 </div>
