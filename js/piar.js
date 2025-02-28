@@ -21,33 +21,36 @@ const kothingParamsPlan = {
     charCounter: true,
 }
 $( document ).ready(function() {
-    editorComentariosCoordinadorPIAR = KothingEditor.create('piar-observaciones-coordinador', kothingParamsPlan);
-    jQuery("#piar-observaciones-coordinador").addClass("hide-textarea");
-
     let domElement = null;
+    domElement = jQuery("#piar-observaciones-coordinador");
+    if(domElement.length > 0){
+        editorComentariosCoordinadorPIAR = KothingEditor.create('piar-observaciones-coordinador', kothingParamsPlan);
+        domElement.addClass("hide-textarea");
+    }
+
     domElement = jQuery("#richtext-entorno");
     if(domElement.length > 0){
         editorEntornoPersonal = KothingEditor.create('richtext-entorno', kothingParamsPlan);
-        jQuery("#richtext-entorno").addClass("hide-textarea");
+        domElement.addClass("hide-textarea");
     }
 
 
     domElement = jQuery("#richtext-descripcion-general");
     if(domElement.length > 0){
         editorDescripcionGeneral = KothingEditor.create('richtext-descripcion-general', kothingParamsPlan);
-        jQuery("#richtext-descripcion-general").addClass("hide-textarea");
+        domElement.addClass("hide-textarea");
     }
 
     domElement = jQuery("#richtext-compromisos-especificos");
     if(domElement.length > 0){
         editorCompromisosEspecificos = KothingEditor.create('richtext-compromisos-especificos', kothingParamsPlan);
-        jQuery("#richtext-compromisos-especificos").addClass("hide-textarea");
+        domElement.addClass("hide-textarea");
     }
 
     domElement = jQuery("#richtext-descripcion-que-hace");
     if(domElement.length > 0){
         editorDescripcionQueHace = KothingEditor.create('richtext-descripcion-que-hace', kothingParamsPlan);
-        jQuery("#richtext-descripcion-que-hace").addClass("hide-textarea");
+        domElement.addClass("hide-textarea");
     }
 })
 
@@ -126,6 +129,36 @@ $(".btn-delete-piar-item").on("click", function(){
                     const response = JSON.parse(data);
                     if (response.status) {
                         $("#piar-item-" + piarItemId).remove();
+                    }
+                    $("#background-loading").css("display", "none");
+                    alert(response.message);
+                },
+                error: function() {
+                    $("#background-loading").css("display", "none");
+                    alert("Error!");
+                }
+            });
+        }
+    }
+})
+
+$(".btn-delete-piar-annual-item").on("click", function(){
+    const piarItemId = $(this).attr("data-id");
+    if(piarItemId){
+        if (confirm("¿Está seguro que desea eliminar el item del P.I.A.R.?") === true) {
+            $("#background-loading").css("display", "flex");
+            const url = base_url + "PIAR/deletePiarAnnualItem";
+            console.log(url)
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    id_piar_annual_item: piarItemId,
+                },
+                success: function(data) {
+                    const response = JSON.parse(data);
+                    if (response.status) {
+                        $("#piar-annual-item-" + piarItemId).remove();
                     }
                     $("#background-loading").css("display", "none");
                     alert(response.message);

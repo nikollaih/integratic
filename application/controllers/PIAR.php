@@ -14,6 +14,7 @@ use Mpdf\Mpdf;
  * @property $CaracterizacionEstudiantesPreguntas_Model
  * @property $CaracterizacionEstudiantesRespuestas_Model
  * @property $PIAR_Actividad_Model
+ * @property $PIAR_Item_Annual_Model
  */
 class PIAR extends CI_Controller
 {
@@ -24,7 +25,7 @@ class PIAR extends CI_Controller
      */
     public function __construct() {
         parent::__construct();
-        $this->load->model(["PIAR_Actividad_Model", "Estudiante_Model", "Usuarios_Model", "PIAR_Model", "PIAR_Item_Model", "Materias_Model", "CaracterizacionEstudiantesPreguntas_Model", "CaracterizacionEstudiantesRespuestas_Model"]);
+        $this->load->model(["PIAR_Item_Annual_Model", "PIAR_Actividad_Model", "Estudiante_Model", "Usuarios_Model", "PIAR_Model", "PIAR_Item_Model", "Materias_Model", "CaracterizacionEstudiantesPreguntas_Model", "CaracterizacionEstudiantesRespuestas_Model"]);
         $this->USER_ROL = (is_logged()) ? strtolower(logged_user()["rol"]) : "";
 
         $this->mpdf = new Mpdf([
@@ -83,7 +84,7 @@ class PIAR extends CI_Controller
         else header("Location: ".base_url());
     }
 
-    public function edit($piarId = null, $piarItemId = null, $isNew = false){
+    public function edit($piarId = null, $piarItemId = null, $isNew = 'false', $piarItemAnnualId = null){
         if(is_logged()){
             if($this->hasPermission()){
                 $params["estudiante"] = $this->PIAR_Model->get($piarId);
@@ -96,7 +97,7 @@ class PIAR extends CI_Controller
                         $params["estudiante"] = $this->PIAR_Model->get($piarId);
                     }
 
-                    if($isNew && !$data){
+                    if($isNew != "false" && !$data){
                         $params["message"] = array("status" => true, "type" => "success", "message" => "Formulario creado exitosamente!");
                     }
 
@@ -109,6 +110,8 @@ class PIAR extends CI_Controller
                     $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
                     $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
                     $params["item_piar"] = $this->PIAR_Item_Model->get($piarItemId);
+                    $params["items_piar_annual"] = $this->PIAR_Item_Annual_Model->getAllByPiar($piarId);
+                    $params["item_piar_annual"] = $this->PIAR_Item_Annual_Model->get($piarItemAnnualId);
                     $params["activities"] = $this->PIAR_Actividad_Model->getAllByPiar($piarId);
                     $this->load->view("piar/crear", $params);
                 }
@@ -159,6 +162,33 @@ class PIAR extends CI_Controller
         else header("Location: ".base_url());
     }
 
+    public function viewAnnual($piarId = null){
+        if(is_logged()){
+            if($this->hasPermission()){
+                $params["piar"] = $this->PIAR_Model->get($piarId);
+                $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($params["piar"]["documento"]);
+                $params["items_piar"] = $this->PIAR_Item_Annual_Model->getAllByPiar($piarId);
+
+                $this->load->view("piar/view_annual", $params);
+                // Cargar HTML en dompdf (puedes cargar tu vista aquí)
+                $html = $this->output->get_output();
+
+                // Set footer margin to create space
+                $this->mpdf->SetMargins(10, 10, 40); // Left, Top, Right
+                $this->mpdf->SetAutoPageBreak(true, 20); // Bottom margin of 30 units for spacing
+
+                // Set header
+                $header = $this->load->view('piar/templates/pdf_annual_header', [], true);
+                $this->mpdf->SetHTMLHeader($header);
+
+                $this->mpdf->WriteHTML($html);
+                $this->mpdf->Output('documento.pdf', 'I');
+            }
+            else header("Location: ".base_url());
+        }
+        else header("Location: ".base_url());
+    }
+
     public function addItemPiar(){
         if(is_logged()){
             if($this->hasPermission()){
@@ -168,6 +198,35 @@ class PIAR extends CI_Controller
                     if($piar){
                         $data["id_docente"] = logged_user()["id"];
                         $created = $this->saveItemPiar($data);
+                        if(isset($created["id"])){
+                            $this->session->set_flashdata('mensaje', '<div class="alert alert-success alert-dismissible show" role="alert">'.$created["message"].'</div>');
+                        }
+                        else {
+                            $this->session->set_flashdata('mensaje', '<div class="alert alert-danger alert-dismissible show" role="alert">Ha ocurrido un error, intente de nuevo más tarde</div>');
+                        }
+
+                        redirect(base_url()."PIAR/edit/".$data["id_piar"]);
+                    }
+                    else {
+                        header("Location: ".base_url()."PIAR");
+                    }
+                }
+                else {
+                    header("Location: ".base_url()."PIAR");
+                }
+            }
+        }
+    }
+
+    public function addItemAnnualPiar(){
+        if(is_logged()){
+            if($this->hasPermission()){
+                $data = $this->input->post();
+                if($data){
+                    $piar = $this->PIAR_Model->get($data["id_piar"]);
+                    if($piar){
+                        $data["id_docente"] = logged_user()["id"];
+                        $created = $this->saveItemAnnualPiar($data);
                         if(isset($created["id"])){
                             $this->session->set_flashdata('mensaje', '<div class="alert alert-success alert-dismissible show" role="alert">'.$created["message"].'</div>');
                         }
@@ -217,6 +276,23 @@ class PIAR extends CI_Controller
                 $data = $this->input->post();
                 if($data){
                     $deleted = $this->PIAR_Item_Model->delete($data["id_piar_item"]);
+                    if($deleted){
+                        json_response(null, true, "Item eliminado exitosamente");
+                    }
+                    else {
+                        json_response(null, false, "Ha ocurrido un error, intente de nuevo más tarde");
+                    }
+                }
+            }
+        }
+    }
+
+    public function deletePiarAnnualItem(){
+        if(is_logged()){
+            if($this->hasPermission()){
+                $data = $this->input->post();
+                if($data){
+                    $deleted = $this->PIAR_Item_Annual_Model->delete($data["id_piar_annual_item"]);
                     if($deleted){
                         json_response(null, true, "Item eliminado exitosamente");
                     }
@@ -287,6 +363,25 @@ class PIAR extends CI_Controller
         else{
             unset($data["id_piar_item"]);
             $created = $this->PIAR_Item_Model->create($data);
+            $message = "Item creado exitosamente";
+        }
+
+        return $created ?
+            array("status" => true, "id" => $created, "message" => $message) :
+            array("status" => false, "type" => "danger", "message" => "No se ha podido crear el formulario");
+    }
+
+    private function saveItemAnnualPiar($data): array
+    {
+        $piarItem = $this->PIAR_Item_Annual_Model->get($data["id_piar_item_anual"]);
+
+        if($piarItem){
+            $created = $this->PIAR_Item_Annual_Model->update($data["id_piar_item_anual"], $data);
+            $message = "Item modificado exitosamente";
+        }
+        else{
+            unset($data["id_piar_item_anual"]);
+            $created = $this->PIAR_Item_Annual_Model->create($data);
             $message = "Item creado exitosamente";
         }
 

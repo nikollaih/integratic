@@ -148,6 +148,8 @@
                     <?php
                 }
             ?>
+
+            <?php require_once('templates/piar_annual_form.php') ?>
         </div> <!-- container -->
     </div> <!-- content -->
 </div>

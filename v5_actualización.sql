@@ -658,3 +658,40 @@ ALTER TABLE `piar_actividades`
 --
 ALTER TABLE `piar_actividades`
     MODIFY `id_piar_actividad` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Estructura de tabla para la tabla `piar_items_anual`
+--
+
+CREATE TABLE `piar_items_anual` (
+                                    `id_piar_item_anual` int(11) NOT NULL,
+                                    `id_piar` int(11) NOT NULL,
+                                    `id_materia` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+                                    `id_docente` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+                                    `destrezas_obtenidas` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                                    `dificultades` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                                    `comportamiento` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                                    `desempeno` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                                    `recomendaciones` longtext COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `piar_items_anual`
+--
+ALTER TABLE `piar_items_anual`
+    ADD PRIMARY KEY (`id_piar_item_anual`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `piar_items_anual`
+--
+ALTER TABLE `piar_items_anual`
+    MODIFY `id_piar_item_anual` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;

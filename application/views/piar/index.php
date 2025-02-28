@@ -53,9 +53,10 @@
                                                     }
                                                     else {
                                                         echo '<a href="'.base_url().'PIAR/edit/'.$e["id_piar"].'" class="btn btn-info btn-sm m-r-5">Modificar</a>';
-                                                        echo '<a target="_blank" href="'.base_url().'PIAR/view/'.$e["id_piar"].'/1/Documento PIAR" class="m-r-5 btn btn-success btn-sm">Ver</a>';
+                                                        echo '<a target="_blank" href="'.base_url().'PIAR/view/'.$e["id_piar"].'/Informe anual PIAR" class="m-r-5 btn btn-success btn-sm">Ver</a>';
                                                         if(strtolower(logged_user()["rol"]) === "docente de apoyo" || strtolower(logged_user()["rol"]) === "coordinador"){
                                                             echo '<a target="_blank" href="'.base_url().'PIAR/view/'.$e["id_piar"].'/2/Documento PIAR" class="btn btn-success btn-sm">Ver completo</a>';
+                                                            echo '<a target="_blank" href="'.base_url().'PIAR/viewAnnual/'.$e["id_piar"].'/1/Documento PIAR" class="m-r-5 m-t-1 btn btn-success btn-sm">Informe anual</a>';
                                                         }
                                                         if(strtolower(logged_user()["rol"]) === "coordinador"){
                                                             ?>
