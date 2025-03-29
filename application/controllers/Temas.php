@@ -1,5 +1,8 @@
 <?php
-   class Temas extends CI_Controller { 
+   /**
+    * @property $Temas_Model
+    */
+class Temas extends CI_Controller {
 
     public function __construct() {  
        parent::__construct();  
@@ -80,14 +83,23 @@
         else json_response(null, false, "Usuario no válido.");
     }
      
-    function getTemasMateria($id_materia){
+    function getTemasMateria($id_materia = null){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "docente"){
-                $temas = $this->Temas_Model->get_by_materias([$id_materia]);
+                $temas = [];
+                $data = $this->input->post();
+                if($id_materia){
+                    $temas = $this->Temas_Model->get_by_materias([$id_materia]);
+                }
+                else if($data){
+                    $temas = $this->Temas_Model->get_by_materias($data["materias_ids"]);
+                }
+
                 json_response($temas, true, "Listado de items.");
             }
             else json_response(null, false, "El tema no existe.");
         }
         else json_response(null, false, "Usuario no válido.");
     }
+
 } 

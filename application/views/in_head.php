@@ -11,6 +11,7 @@
         <link href="<?= base_url() ?>css/bootstrap.min.css" rel="stylesheet" />
         <!-- Font Icons -->
         <link href="<?= base_url() ?>assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="<?= base_url() ?>assets/fontawesome-6.7/css/all.css" rel="stylesheet" />
         <link href="<?= base_url() ?>assets/ionicon/css/ionicons.min.css" rel="stylesheet" />
         <link href="<?= base_url() ?>css/material-design-iconic-font.min.css" rel="stylesheet">
         <!-- animate css -->

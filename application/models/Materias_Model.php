@@ -15,14 +15,17 @@ class Materias_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
 	}
 
-	function getGruposMateria($ids_materia){
-		$this->db->from("asg_materias am");
-		$this->db->join("cfg_materias cm", "am.materia = cm.codmateria");
-        $this->db->where_in("materia", $ids_materia);
-		$result = $this->db->get();
+    function getGruposMateria($ids_materia){
+        $this->db->select("cm.codmateria, cm.nommateria, am.grupo, cm.grado, cm.area"); // Select relevant columns
+        $this->db->from("asg_materias am");
+        $this->db->join("cfg_materias cm", "am.materia = cm.codmateria");
+        $this->db->where_in("cm.codmateria", $ids_materia);
+        $this->db->group_by(["cm.codmateria", "cm.grado", "am.grupo"]); // Grouping by multiple columns
 
-		return ($result->num_rows() > 0) ? $result->result_array() : false;
-	}
+        $result = $this->db->get();
+
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
 
 	function getMateriaPrueba($array_materias_id){
 		$this->db->from("cfg_materias");
@@ -48,6 +51,8 @@ class Materias_Model extends CI_Model {
 		$this->db->join("cfg_materias cm", "am.materia = cm.codmateria");
         $this->db->where("am.docente", $id_docente);
 		if($group_by) {$this->db->group_by("am.materia");}
+        $this->db->order_by("cm.nommateria", "asc");
+        $this->db->order_by("am.grupo", "asc");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}

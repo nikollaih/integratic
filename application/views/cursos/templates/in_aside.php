@@ -10,21 +10,25 @@
         <div id="sidebar-menu">
             <ul>
                 <li>
-                    <a href="<?= base_url() ?>" class=" ">
-                        <i><img src='<?= base_url() ?>img/iconos/volver.png' width="50" height="50" class="rounded-img"></i><span>Volver</span></a>
+                    <a href="<?= base_url() ?>" class="menu-item-block">
+                        <i class="fa fa-arrow-left"></i>
+                        <span>Volver</span>
+                    </a>
                 </li>
                 <li>
-                            <a href="<?= base_url() ?>Cursos" class=" ">
-                                <i><img src='<?= base_url() ?>img/iconos/cursos.jpeg' width="50" height="50" class="rounded-img"></i><span>Ver todos</span>
-                            </a>
-                        </li>  
+                    <a href="<?= base_url() ?>Cursos" class="menu-item-block">
+                        <i class="fa fa-graduation-cap"></i>
+                        <span>Ver todos</span>
+                    </a>
+                </li>
                 <?php
                     if(strtolower(logged_user()["rol"]) != "estudiante"){ ?>
                         <li>
-                            <a href="<?= base_url() ?>Cursos/create" class=" ">
-                                <i><img src='<?= base_url() ?>img/iconos/nuevo_plan_aula.jpeg' width="50" height="50" class="rounded-img"></i><span>Nuevo</span>
+                            <a href="<?= base_url() ?>Cursos/create" class="menu-item-block">
+                                <i class="fa fa-circle-plus"></i>
+                                <span>Nuevo</span>
                             </a>
-                        </li>   
+                        </li>
                     <?php }
                 ?>
             </ul>

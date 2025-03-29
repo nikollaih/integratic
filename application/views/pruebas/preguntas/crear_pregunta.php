@@ -60,8 +60,8 @@
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
-                                            <label for="">Tema</label>
-                                            <select name="pregunta[id_tema]" id="crear-prueba-tema" class="form-control select-tema">
+                                            <label for="">Tema *</label>
+                                            <select required name="pregunta[id_tema]" id="crear-prueba-tema" class="form-control select-tema">
                                                 <?php
                                                     if(count($temas) > 0){
                                                         foreach ($temas as $tema) { ?>
@@ -77,9 +77,9 @@
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Tipo de pregunta</label>
-                                            <select name="pregunta[tipo_pregunta]" id="crear-prueba-tipo-pregunta" class="form-control">
-                                                <option value="multiple">Multiple</option>
-                                                <option value="abierta">Abierta</option>
+                                            <select <?= isset($pregunta["id_pregunta_prueba"]) ? 'readonly' : '' ?> name="pregunta[tipo_pregunta]" id="crear-prueba-tipo-pregunta" class="form-control <?= isset($pregunta["id_pregunta_prueba"]) ? "select-readonly" : "" ?>"">
+                                                <option <?= isset($pregunta["tipo_pregunta"]) && $pregunta["tipo_pregunta"] === 'multiple' ? 'selected' : '' ?> value="multiple">Multiple</option>
+                                                <option <?= isset($pregunta["tipo_pregunta"]) && $pregunta["tipo_pregunta"] === 'abierta' ? 'selected' : '' ?> value="abierta">Abierta</option>
                                             </select>
                                         </div>
                                     </div>
@@ -131,7 +131,8 @@
 
                     <div id="contenedor-respuestas">
                         <?php
-                            $x = 1;
+                        $x = 1;
+                        if(isset($pregunta["tipo_pregunta"]) && $pregunta["tipo_pregunta"] === 'multiple' && $respuestas){
                             foreach ($respuestas as $respuesta) { ?>
                                 <div class="panel panel-primary">
                                     <input type="hidden" name="respuesta<?= $x ?>[id_respuesta_pregunta_prueba]" id="" value="<?= $respuesta["id_respuesta_pregunta_prueba"] ?>">
@@ -174,13 +175,21 @@
                             <?php 
                             $x++;
                             }
+                        }
                         ?>
                     </div>
 
-                    <div id="container-agregar-respuesta">
-                        <a data-pregunta="<?= $x ?>" style="cursor: pointer;" class="text-primary agregar-respuesta-pregunta"><b>Agregar Respuesta</b></a>
-                        <i class="fa fa-plus text-primary"></i>
-                    </div>
+                    <?php
+                        if(isset($pregunta["tipo_pregunta"]) && $pregunta["tipo_pregunta"] === 'multiple'){
+                            ?>
+                            <div id="container-agregar-respuesta">
+                                <a data-pregunta="<?= $x ?>" style="cursor: pointer;" class="text-primary agregar-respuesta-pregunta"><b>Agregar Respuesta</b></a>
+                                <i class="fa fa-plus text-primary"></i>
+                            </div>
+                    <?php
+                        }
+                    ?>
+
                     <div class="row text-end" style="text-align:right;">
                         <div class="col-md-12 text-end">
                             <button class="btn btn-primary">Guardar</button>
@@ -205,6 +214,7 @@
             $(document).ready(() => {
                 let contents = "<?= $pregunta["descripcion_pregunta"] ?>";
                 editorRich.setContents(contents);
+                $(".select-readonly").select2({disabled: true});
             })
         </script>
     <?php }

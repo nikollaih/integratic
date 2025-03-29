@@ -76,6 +76,20 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td><b>Temas</b></td>
+                                                            <td>
+                                                                <?php
+                                                                if($temasSeleccionados){
+                                                                    echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
+                                                                    for ($i=0; $i < count($temasSeleccionados); $i++) {
+                                                                        echo "<li>".$temasSeleccionados[$i]['nombre_tema']."</li>";
+                                                                    }
+                                                                    echo "</ul>";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
                                                             <td><b>Materias</b></td>
                                                             <td>
                                                                 <?php
@@ -112,6 +126,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Pregunta</th>
+                                                            <th>Tema</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -122,6 +137,7 @@
                                                     ?>
                                                         <tr>
                                                             <td><p><?= $pregunta["descripcion_pregunta"] ?></p></td>
+                                                            <td><p><?= $pregunta["nombre_tema"] ?></p></td>
                                                             <td class="text-center" id="pregunta-<?= $pregunta["id_pregunta_prueba"] ?>">
                                                                 <?php
                                                                     if(in_array($pregunta["id_pregunta_prueba"], $asignadas_ids)){

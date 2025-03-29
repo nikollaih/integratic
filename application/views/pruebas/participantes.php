@@ -76,6 +76,20 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td><b>Temas</b></td>
+                                                            <td>
+                                                                <?php
+                                                                if($temas){
+                                                                    echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
+                                                                    for ($i=0; $i < count($temas); $i++) {
+                                                                        echo "<li>".$temas[$i]['nombre_tema']."</li>";
+                                                                    }
+                                                                    echo "</ul>";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
                                                             <td><b>Materias</b></td>
                                                             <td>
                                                                 <?php
@@ -202,7 +216,7 @@
                                                             <td class="text-center"><p><?= ($info_prueba["porcentaje"] == null) ? "" : $info_prueba["calificacion"] ?></p></td>
                                                             <td class="text-center">
                                                                 <?php
-                                                                    if($info_prueba["porcentaje"] == null){
+                                                                    if($info_prueba["porcentaje"] == null && $info_prueba["cerrada"] != 1){
                                                                         if(strtolower(logged_user()["rol"]) === "docente"){
                                                                         ?>
                                                                             <button data-prueba="<?= $prueba["id_prueba"] ?>" data-participante="<?= $participante["id_participante_prueba"] ?>" class="btn btn-danger btn-sm btn-eliminar-participante">Eliminar participante</button>

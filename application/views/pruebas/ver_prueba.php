@@ -96,6 +96,20 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td><b>Temas</b></td>
+                                                            <td>
+                                                                <?php
+                                                                if($temas){
+                                                                    echo "<ul style='margin-top: 10px;padding-left: 25px;'>";
+                                                                    for ($i=0; $i < count($temas); $i++) {
+                                                                        echo "<li>".$temas[$i]['nombre_tema']."</li>";
+                                                                    }
+                                                                    echo "</ul>";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
                                                             <td><b>Materias</b></td>
                                                             <td>
                                                                 <?php

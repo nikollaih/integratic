@@ -1,11 +1,19 @@
 <?php
   
-   class Pruebas extends CI_Controller {
+   /**
+    * @property $Pruebas_Model
+    * @property $Materias_Model
+    * @property $TipoPrueba_Model
+    * @property $AlcancePruebas_Model
+    * @property $Periodos_Model
+    * @property $input
+    */
+class Pruebas extends CI_Controller {
 	
     public function __construct() { 
        parent::__construct(); 
        $this->load->helper(array('form', 'url')); 
-       $this->load->model(["RespuestasRealizarPruebaAbiertas_Model", "Estudiante_Model", "Respuestas_Realizar_Prueba_Model", "Realizar_Prueba_Model", "Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model", "Periodos_Model"]);
+       $this->load->model(["Temas_Model", "RespuestasRealizarPruebaAbiertas_Model", "Estudiante_Model", "Respuestas_Realizar_Prueba_Model", "Realizar_Prueba_Model", "Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model", "Periodos_Model"]);
     }
     
     public function index(){
@@ -49,17 +57,20 @@
         }
     }
 
-    function guardarPrueba($post){
+    function guardarPrueba($post): array
+    {
         $prueba = $post["prueba"];
 
         if(trim($prueba["id_prueba"]) == ""){
             $prueba["materias"] = serialize($prueba["materias"]);
+            $prueba["temas"] = serialize($prueba["temas"]);
             $prueba["dificultad"] = serialize($prueba["dificultad"]);
             $prueba["created_by"] = logged_user()["id"];
         }
         else {
             unset($prueba["materias"]);
             unset($prueba["dificultad"]);
+            unset($prueba["temas"]);
         }
         
         if(isset($prueba["mostrar_respuestas"]))
@@ -73,6 +84,7 @@
         }
         else {
             unset($prueba["id_prueba"]);
+
             $id_prueba = $this->Pruebas_Model->create($prueba);
         }
 
@@ -98,6 +110,7 @@
             if($params["prueba"]["created_by"] == logged_user()["id"] || strtolower(logged_user()["rol"]) === 'coordinador'){
                 $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
                 $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
+                $params["temas"] = $this->Temas_Model->getByIds(unserialize($params["prueba"]["temas"]));
                 $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
                 $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
                 $this->load->view("pruebas/ver_prueba", $params);
@@ -171,7 +184,6 @@
     function resolver($id_prueba){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "estudiante"){
-                // TODO cambiar
                 $usuario = $this->Participantes_Prueba_Model->get(logged_user()["id"]);
                 $id_participante = $usuario["id_participante_prueba"];
                 $participante = $this->Asignacion_Participantes_Prueba_Model->get_participante($id_participante);
@@ -255,6 +267,7 @@
             $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
             $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
             $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
+            $params["temas"] = $this->Temas_Model->getByIds(unserialize($params["prueba"]["temas"]));
             $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
             $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
             $params["participantes"] = $this->Asignacion_Participantes_Prueba_Model->get_all($id_prueba);
@@ -307,9 +320,11 @@
         $params["asignadas_ids"] = [];
         $params["prueba"] = $this->Pruebas_Model->get($id_prueba);
         $params["dificultad"] = unserialize($params["prueba"]["dificultad"]);
+        $params["temas"] = unserialize($params["prueba"]["temas"]);
         $params["materias"] = $this->Materias_Model->getMateriaPrueba(unserialize($params["prueba"]["materias"]));
+        $params["temasSeleccionados"] = $this->Temas_Model->getByIds(unserialize($params["prueba"]["temas"]));
         $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
-        $params["preguntas"] = obtener_preguntas(unserialize($params["prueba"]["materias"]), unserialize($params["prueba"]["dificultad"]));
+        $params["preguntas"] = obtener_preguntas(unserialize($params["prueba"]["materias"]), unserialize($params["prueba"]["dificultad"]), false, $params["temas"]);
         if($params["asignadas"]){
             for ($i=0; $i < count($params["asignadas"]); $i++) { 
                 array_push($params["asignadas_ids"], $params["asignadas"][$i]["id_pregunta_prueba"]);

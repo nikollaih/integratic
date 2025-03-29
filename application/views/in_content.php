@@ -2482,72 +2482,149 @@ function cambio_menu(){
         //html+="<i><img src='./img/iconos/menu.png' width='60' height='40'></i><span>Administrar</span></a></li>";   
         if(configuracion.departamental == 0) {
             if (rol.toLowerCase() === 'docente'){
-                html+="<li><a href='" + base_url+"Pruebas' class=' '>";
-                html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>"; 
+                html+=`<li>
+                            <a href='<?= base_url() ?>Pruebas' class="menu-item-block">
+                                <i class="fa fa-medal"></i>
+                                <span>Pruebas</span>
+                            </a>
+                        </li>`;
 
-                html+="<li><a href='" + base_url+"PlanAula' class=' '>";
-                html+="<i><img src='./img/iconos/plan_aula.jpeg' width='50' height='50'></i><span>Plan Aula</span></a></li>";
+                html+=`<li>
+                            <a href='<?= base_url() ?>PlanAula' class="menu-item-block">
+                                <i class="fa fa-file-lines"></i>
+                                <span>Plan Aula</span>
+                            </a>
+                        </li>`;
 
-                html+="<li><a href='" + base_url+"Cursos' class=' '>";
-                html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
+                html+=`<li>
+                            <a href='<?= base_url() ?>Cursos' class="menu-item-block">
+                                <i class="fa fa-graduation-cap"></i>
+                                <span>Cursos</span>
+                            </a>
+                        </li>`;
 
-                html+="<li><a href='" + base_url+"Recuperaciones' class=' '>";
-                html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Recuperaciones</span></a></li>";
+                html+=`<li>
+                            <a href='<?= base_url() ?>Recuperaciones' class="menu-item-block">
+                                <i class="fa fa-circle-check"></i>
+                                <span>Recuperaciones</span>
+                            </a>
+                        </li>`;
 
-                html+="<li><a href='" + base_url+"PIAR' class=' '>";
-                html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>P.I.A.R.</span></a></li>";
+                html+=`<li>
+                            <a href='<?= base_url() ?>PIAR' class="menu-item-block">
+                                <i class="fa fa-star"></i>
+                                <span>P.I.A.R.</span>
+                            </a>
+                        </li>`;
 
-                html+="<li><a href='javascript:cfg_docente();' class=' '>";
-                html+="<i><img src='./img/iconos/asignacion.png' width='50' height='50'></i><span>Asignación</span></a></li>";
+                html+=`<li>
+                            <a href='javascript:cfg_docente();' class="menu-item-block">
+                                <i class="fa fa-swatchbook"></i>
+                                <span>Asignación</span>
+                            </a>
+                        </li>`;
             }
             if (rol.toLowerCase() == 'coordinador'){
-                html+="<li><a href='javascript:cfg_docente();'>";
-                html+="<i><img src='./img/iconos/menu.png' width='50' height='50'></i><span>Administrar</span></a></li>";   
+                html+=`<li>
+                            <a href='<?= base_url() ?>EvidenciasAprendizaje' class="menu-item-block">
+                                <i class="fa fa-file-circle-check"></i>
+                                <span>Evidencias de aprendizaje</span>
+                            </a>
+                        </li>`;
 
-                html+="<li><a href='" + base_url+"EvidenciasAprendizaje' class=' '>";
-                html+="<i><img src='./img/iconos/evidencias_aprendizaje.jpeg' width='50' height='50' class='rounded-img'></i><span>Evidencias de aprendizaje</span></a></li>";
+                html+=`<li>
+                            <a href='<?= base_url() ?>Recuperaciones' class="menu-item-block">
+                                <i class="fa fa-circle-check"></i>
+                                <span>Recuperaciones</span>
+                            </a>
+                        </li>`;
 
-                html+="<li><a href='" + base_url+"Recuperaciones' class=' '>";
-                html+="<i><img src='./img/iconos/recuperaciones.jpeg' width='50' height='50' class='rounded-img'></i><span>Recuperaciones</span></a></li>";
+                html+=`<li>
+                            <a href='<?= base_url() ?>Cursos' class="menu-item-block">
+                                <i class="fa fa-graduation-cap"></i>
+                                <span>Cursos</span>
+                            </a>
+                        </li>`;
 
-                html+="<li><a href='" + base_url+"Cursos' class=' '>";
-                html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
-
-                html+="<li><a href='" + base_url+"PIAR' class=' '>";
-                html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>P.I.A.R.</span></a></li>";
+                html+=`<li>
+                            <a href='<?= base_url() ?>PIAR' class="menu-item-block">
+                                <i class="fa fa-star"></i>
+                                <span>P.I.A.R.</span>
+                            </a>
+                        </li>`;
             }
             if (rol.toLowerCase() == 'docente de apoyo'){
-                html+="<li><a href='" + base_url+"PIAR' class=' '>";
-                html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>P.I.A.R.</span></a></li>";
+                html+=`<li>
+                            <a href='<?= base_url() ?>PIAR' class="menu-item-block">
+                                <i class="fa fa-star"></i>
+                                <span>P.I.A.R.</span>
+                            </a>
+                        </li>`;
             }
-            if (rol.toLowerCase() != 'estudiante' && rol.toLowerCase() != 'super'){
-                if (rol.toLowerCase() == 'administrativo'){
-                    html+="<li><a href='javascript:cfg_docente();'>";
-                    html+="<i><img src='./img/iconos/menu.png' width='50' height='50'></i><span>Administrar</span></a></li>";   
-                
-                    html+="<li><a href='" + base_url+"Cursos' class=' '>";
-                    html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
+
+            if (rol.toLowerCase() !== 'estudiante' && rol.toLowerCase() !== 'super'){
+
+                if (rol.toLowerCase() === 'administrativo'){
+                    html+=`<li>
+                            <a href='javascript:cfg_docente();' class="menu-item-block">
+                                <i class="fa fa-cog"></i>
+                                <span>Administrar</span>
+                            </a>
+                        </li>`;
+
+                    html+=`<li>
+                            <a href='<?= base_url() ?>Cursos' class="menu-item-block">
+                                <i class="fa fa-graduation-cap"></i>
+                                <span>Cursos</span>
+                            </a>
+                        </li>`;
                 }
 
-                html+="<li><a href='javascript:cfg_proyectos();' class=' '>";
-                html+="<i><img src='./img/iconos/proyectos.png' width='50' height='50'></i><span>Proyectos</span></a></li>";  
 
-                html+="<li><a href='javascript:cfg_comunicacion();' class=' '>";
-                html+="<i><img src='./img/iconos/comunicacion.png' width='50' height='50'></i><span>Comunicación</span></a></li>"; 
+                html+=`<li>
+                    <a href='javascript:cfg_proyectos();' class="menu-item-block">
+                        <i class="fa fa-folder"></i>
+                        <span>Proyectos</span>
+                    </a>
+                </li>`;
 
-                html+="<li><a href='javascript:cfg_planeacion();' class=' '>";
-                html+="<i><img src='./img/iconos/planeacion.png' width='50' height='50'></i><span>Planeación</span></a></li>";
+                html+=`<li>
+                    <a href='javascript:cfg_comunicacion();' class="menu-item-block">
+                        <i class="fa fa-bullhorn"></i>
+                        <span>Comunicación</span>
+                    </a>
+                </li>`;
 
-                html+="<li><a href='"+base_url+"CaracterizacionEstudiantes/filtrar' class=' '>";
-                html+="<i><img src='./img/iconos/caracterizacion_estudiantes.jpeg' width='50' height='50'></i><span>Caracterización</span></a></li>";
+                html+=`<li>
+                    <a href='javascript:cfg_planeacion();' class="menu-item-block">
+                        <i class="fa fa-cogs"></i>
+                        <span>Planeación</span>
+                    </a>
+                </li>`;
+
+                html+=`<li>
+                    <a href='<?= base_url() ?>CaracterizacionEstudiantes/filtrar' class="menu-item-block">
+                        <i class="fa fa-users"></i>
+                        <span>Caracterización</span>
+                    </a>
+                </li>`;
             }
         }  
 
-        html+="<li><a href='javascript:cfg_cambio_clave();' class=' '>";
-        html+="<i><img src='./img/iconos/clave.png' width='50' height='50'></i><span>Cambio Clave</span></a></li>";  
 
-        html+="<li><a href='javascript:logout();'>";
-        html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar Sesión</span></a></li>";  
+        html+=`<li>
+                <a href='javascript:cfg_cambio_clave();' class="menu-item-block">
+                    <i class="fa fa-lock"></i>
+                    <span>Cambiar clave</span>
+                </a>
+            </li>`;
+
+        html+=`<li>
+                <a href='<?= base_url() ?>Usuarios/logout' onclick='javascript:logout()' class="menu-item-block">
+                    <i class="fa fa-right-from-bracket"></i>
+                    <span>Cerrar sesión</span>
+                </a>
+            </li>`;
         html+="</ul>";
         $("#sidebar-menu").html(html); 
     }
@@ -2557,30 +2634,54 @@ function cambio_menu(){
     if(rol=== 'Estudiante'){
         menuForStudents();
     }
-    if(rol.toLowerCase() == 'acudiente'){
+    if(rol.toLowerCase() === 'acudiente'){
         menuForAcudiente();
     }
 }
 
 function menuForAcudiente(){
 	html="<ul>";
-    html+="<li><a href='" + base_url+"Pruebas' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>";
+    html+=`<li>
+                <a href='<?= base_url() ?>Pruebas' class="menu-item-block">
+                    <i class="fa fa-medal"></i>
+                    <span>Pruebas</span>
+                </a>
+            </li>`;
 
-    html+="<li><a href='" + base_url+"Recuperaciones' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Recuperaciones</span></a></li>";
+    html+=`<li>
+                <a href='<?= base_url() ?>Recuperaciones' class="menu-item-block">
+                    <i class="fa fa-circle-check"></i>
+                    <span>Recuperaciones</span>
+                </a>
+            </li>`;
 
-    html+="<li><a href='" + base_url+"Calendario/actividades' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/calendario.jpeg' width='50' height='50'></i><span>Calendario</span></a></li>"; 
+    html+=`<li>
+                <a href='<?= base_url() ?>Calendario/actividades' class="menu-item-block">
+                    <i class="fa fa-calendar-day"></i>
+                    <span>Calendario</span>
+                </a>
+            </li>`;
 
-    html+="<li><a href='" + base_url+"Reportes' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/reportes.jpeg' width='50' height='50'></i><span>Reportes</span></a></li>";
+    html+=`<li>
+                <a href='<?= base_url() ?>Reportes' class="menu-item-block">
+                    <i class="fa fa-file-pdf"></i>
+                    <span>Reportes</span>
+                </a>
+            </li>`;
 
-    html+="<li><a href='" + base_url+"CaracterizacionEstudiantes/completar' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/caracterizacion_estudiantes.jpeg' width='50' height='50'></i><span>Caracterización</span></a></li>";
+    html+=`<li>
+                    <a href='<?= base_url() ?>CaracterizacionEstudiantes/completar' class="menu-item-block">
+                        <i class="fa fa-users"></i>
+                        <span>Caracterización</span>
+                    </a>
+                </li>`;
 
-    html+="<li><a href='javascript:logout();'>";
-	html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar Sesión</span></a></li>";  
+    html+=`<li>
+                <a href='<?= base_url() ?>Usuarios/logout' onclick='javascript:logout()' class="menu-item-block">
+                    <i class="fa fa-right-from-bracket"></i>
+                    <span>Cerrar sesión</span>
+                </a>
+            </li>`;
 
 	html+="</ul>";
 	$("#sidebar-menu").html(html); 
@@ -2588,31 +2689,64 @@ function menuForAcudiente(){
 
 function menuForStudents(){
 	html="<ul>";
-    html+="<li><a href='" + base_url+"Pruebas' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/pruebas.png' width='50' height='50'></i><span>Pruebas</span></a></li>"; 
+    html+=`<li>
+            <a href='<?= base_url() ?>Pruebas' class="menu-item-block">
+                <i class="fa fa-medal"></i>
+                <span>Pruebas</span>
+            </a>
+        </li>`;
 
     if(configuracion.departamental == 0) {
-        html+="<li><a href='javascript:StudentAreas();'>";
-        html+="<i><img src='./img/iconos/areas.png' width='50' height='50'></i><span>Areas</span></a></li>"; 
+        html+=`<li>
+                            <a href='javascript:StudentAreas();' class="menu-item-block">
+                                <i class="fa fa-swatchbook"></i>
+                                <span>Áreas</span>
+                            </a>
+                        </li>`;
     }
 
-    html+="<li><a href='" + base_url+"Cursos' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Cursos</span></a></li>";
+    html+=`<li>
+                <a href='<?= base_url() ?>Cursos' class="menu-item-block">
+                    <i class="fa fa-graduation-cap"></i>
+                    <span>Cursos</span>
+                </a>
+            </li>`;
 
-    html+="<li><a href='" + base_url+"Recuperaciones' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/cursos.jpeg' width='50' height='50'></i><span>Recuperaciones</span></a></li>";
+    html+=`<li>
+                <a href='<?= base_url() ?>Recuperaciones' class="menu-item-block">
+                    <i class="fa fa-circle-check"></i>
+                    <span>Recuperaciones</span>
+                </a>
+            </li>`;
 
-    html+="<li><a href='" + base_url+"Calendario/actividades' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/calendario.jpeg' width='50' height='50'></i><span>Calendario</span></a></li>"; 
+    html+=`<li>
+                <a href='<?= base_url() ?>Calendario/actividades' class="menu-item-block">
+                    <i class="fa fa-calendar-day"></i>
+                    <span>Calendario</span>
+                </a>
+            </li>`;
 
-    html+="<li><a href='" + base_url+"Reportes' class='waves-effect'>";
-    html+="<i><img src='./img/iconos/reportes.jpeg' width='50' height='50'></i><span>Reportes</span></a></li>"; 
+    html+=`<li>
+                <a href='<?= base_url() ?>Reportes' class="menu-item-block">
+                    <i class="fa fa-file-pdf"></i>
+                    <span>Reportes</span>
+                </a>
+            </li>`;
 
-	html+="<li><a href='javascript:cfg_cambio_clave();' class='waves-effect'>";
-	html+="<i><img src='./img/iconos/clave.png' width='50' height='50'></i><span>Cambio Clave</span></a></li>";  
 
-	html+="<li><a href='javascript:logout();'>";
-	html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar Sesión</span></a></li>";  
+    html+=`<li>
+                <a href='javascript:cfg_cambio_clave();' class="menu-item-block">
+                    <i class="fa fa-lock"></i>
+                    <span>Cambiar clave</span>
+                </a>
+            </li>`;
+
+    html+=`<li>
+                <a href='<?= base_url() ?>Usuarios/logout' onclick='javascript:logout()' class="menu-item-block">
+                    <i class="fa fa-right-from-bracket"></i>
+                    <span>Cerrar sesión</span>
+                </a>
+            </li>`;
 
 	html+="</ul>";
 	$("#sidebar-menu").html(html); 
@@ -2707,7 +2841,7 @@ function administrar(){
 
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
-        html=html+"<a href='javascript:reportes();'>";
+        html=html+"<a href='"+base_url+"Ingresos'>";
         html=html+"<img src='./img/botones/menu/reporte.png' width='100%' height='100%'></a></div></div>";
 
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
@@ -2739,14 +2873,17 @@ function administrar(){
         html=html+'<div id="contenido"><div class="panel-body"><div id="listacon"></div></div></div>';
         $("#contenedor").html(html);   
         
-        html="<ul>";    
-        html+="<li><a href='javascript:administrar()' onclick='javascript:administrar()'>";
-        html+="<i><img src='./img/iconos/menu.png' width='50' height='50'></i><span>Menú<br>Principal</span></a></li>";                       
-        html+="<li><a href='./principal/manuales/manual_integra.pdf' target='_blank'>";
-        html+="<i><img src='./img/iconos/manual.png' width='50' height='50'></i><span>Manual<br> Usuario</span></a></li>";          
-        html+="<li><a href='javascript:logout()' onclick='javascript:logout()'>";
-        html+="<i><img src='./img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar<br> Sesión</span></a></li>";         
-        html+="</ul>";
+        html="<ul>";
+        html += "<li><a href='<?= base_url() ?>' class='menu-item-block'>";
+        html += "<i class='fa fa-bars'></i><span>Menú Principal</span></a></li>";
+
+        html += "<li><a href='./principal/manuales/manual_integra.pdf' class='menu-item-block' target='_blank'>";
+        html += "<i class='fa fa-book'></i><span>Manual Usuario</span></a></li>";
+
+        html += "<li><a href='<?= base_url() ?>Usuarios/logout' onclick='javascript:logout()' class='menu-item-block'>";
+        html += "<i class='fa fa-close'></i><span>Cerrar Sesión</span></a></li>";
+
+    html+="</ul>";
         $("#sidebar-menu").html(html); 
 }
 function cfg_menupri(){

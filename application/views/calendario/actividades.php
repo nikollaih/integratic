@@ -1,7 +1,7 @@
 <?php $this->load->view("in_head") ?>
 <body>
     <?php $this->load->view("in_header") ?>
-    <?php $this->load->view("in_aside") ?>
+    <?php $this->load->view("reportes/templates/in_aside") ?>
     <div class="content-page">
         <div class="content">  
             <div class="container">

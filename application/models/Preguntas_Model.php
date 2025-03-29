@@ -46,17 +46,20 @@ class Preguntas_Model extends CI_Model {
 	}
 
 	// Get the questions listing based on subject and difficult
-	function get_all_mat_dif($materias, $dificultad, $only_ids){
+	function get_all_mat_dif($materias, $dificultad, $only_ids, $temas){
 		if($only_ids){
 			$this->db->select("pp.id_pregunta_prueba");
 		}
 		$this->db->from("preguntas_prueba pp");
 		$this->db->join("cfg_materias cm", "cm.codmateria = pp.id_materia");
+        $this->db->join("temas t", "pp.id_tema = t.id_tema");
 		$this->db->where_in("id_materia", $materias);
+        if(is_array($temas)){
+            $this->db->where_in("pp.id_tema", $temas);
+        }
 		if(is_array($dificultad)){
 			$like_query = "(";
-			for ($i=0; $i < count($dificultad); $i++) { 
-				$search = ':"'.$dificultad[$i].'";';
+			for ($i=0; $i < count($dificultad); $i++) {
 				if($i == 0){
 					$like_query .= "dificultad LIKE '%".$dificultad[$i]."%'";
 				}

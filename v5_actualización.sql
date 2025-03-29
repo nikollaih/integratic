@@ -695,3 +695,7 @@ ALTER TABLE `piar_items_anual`
 ALTER TABLE `piar_items_anual`
     MODIFY `id_piar_item_anual` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
+
+INSERT INTO `tipo_prueba` (`id_tipo_prueba`, `descripcion`) VALUES ('4', 'Simulacro');
+
+ALTER TABLE `pruebas` ADD `temas` TEXT NULL AFTER `materias`;

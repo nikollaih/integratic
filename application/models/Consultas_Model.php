@@ -225,5 +225,12 @@ class Consultas_Model extends CI_Model {
     $this->db->where("i.fecha", $fecha);
     $result = $this->db->get();
     return ($result->num_rows() > 0) ? $result->result_array() : false;
-  }    
+  }
+
+  public function getRoles(){
+      $this->db->select("DISTINCT(rol)");
+      $this->db->from("usuarios");
+      $result = $this->db->get();
+      return ($result->num_rows() > 0) ? $result->result_array() : false;
+  }
 }

@@ -4394,6 +4394,10 @@ div.dataTables_info {
     align-items: center;
 }
 
+.align-items-end {
+    align-items: end;
+}
+
 .m-0 {
     margin: 0;
 }
@@ -4428,6 +4432,11 @@ div.dataTables_info {
 
 .p-b-4 {
     padding-bottom: 40px !important;
+}
+
+.menu-item-block {
+    display: flex !important;
+    gap: 10px;
 }
 
 .bg-light.card{

@@ -1,4 +1,64 @@
 <!-- ========== Left Sidebar Start ========== -->
+<?php
+$menuItems = [
+    [
+        "title" => "Volver",
+        "icon" => "fa fa-arrow-left",
+        "path" => base_url()
+    ],
+    [
+        "title" => "Lista pruebas",
+        "icon" => "fa fa-file-circle-question",
+        "path" => base_url()."Pruebas"
+    ]
+];
+
+$menuDocente = [
+    [
+        "title" => "Crear prueba",
+        "icon" => "fa fa-circle-plus",
+        "path" => base_url()."Pruebas/crearPrueba"
+    ],
+    [
+        "title" => "Lista preguntas",
+        "icon" => "fa fa-circle-question",
+        "path" => base_url()."PreguntasPrueba"
+    ],
+    [
+        "title" => "Crear pregunta",
+        "icon" => "fa fa-circle-plus",
+        "path" => base_url()."PreguntasPrueba/crearPregunta"
+    ],
+    [
+        "title" => "Temas",
+        "icon" => "fa fa-tags",
+        "path" => base_url()."Temas"
+    ],
+    [
+        "title" => "Est. Simulacros",
+        "icon" => "fa fa-chart-pie",
+        "path" => base_url()."Simulacros"
+    ],
+];
+
+$menuDepartamental = [
+    [
+        "title" => "Est. Municipios",
+        "icon" => "fa fa-line-chart",
+        "path" => base_url()."EstadisticasPruebas/municipios"
+    ],
+    [
+        "title" => "Est. Areas",
+        "icon" => "fa fa-chart-pie",
+        "path" => base_url()."EstadisticasPruebas/areas/0"
+    ],
+    [
+        "title" => "Importar participantes",
+        "icon" => "fa fa-upload",
+        "path" => base_url()."ParticipantesPrueba/importar"
+    ],
+]
+?>
 <div class="left side-menu">
     <div class="sidebar-inner slimscrollleft">
         <div class="user-details">
@@ -9,56 +69,46 @@
         <!--- Divider -->
         <div id="sidebar-menu">
             <ul>
-                <li>
-                    <a href="<?= base_url() ?>" class=" ">
-                        <i><img src='<?= base_url() ?>img/iconos/volver.png' width="50" height="50"></i><span>Volver</span></a>
-                </li>
-                <li>
-                    <a href="<?= base_url() ?>Pruebas" class=" ">
-                        <i><img src='<?= base_url() ?>img/iconos/lista_pruebas.png' width="50" height="50"></i><span>Lista pruebas</span></a>
-                </li>   
                 <?php
-                    if(strtolower(logged_user()["rol"]) == "docente"){ 
+                    foreach ($menuItems as $item) { ?>
+                        <li>
+                            <a href="<?= $item["path"] ?>" class="menu-item-block">
+                                <i class="<?= $item["icon"] ?>"></i>
+                                <span><?= $item["title"] ?></span>
+                            </a>
+                        </li>
+                   <?php }
+                ?>
+                <?php
+                    if(strtolower(logged_user()["rol"]) == "docente"){
+                        foreach ($menuDocente as $item) { ?>
+                            <li>
+                                <a href="<?= $item["path"] ?>" class="menu-item-block">
+                                    <i class="<?= $item["icon"] ?>"></i>
+                                    <span><?= $item["title"] ?></span>
+                                </a>
+                            </li>
+                        <?php }
                         ?>
-                            <li>
-                                <a href="<?= base_url() ?>PreguntasPrueba" class=" ">
-                                    <i><img src='<?= base_url() ?>img/iconos/lista_preguntas.png' width="50" height="50"></i><span>Lista preguntas</span></a>
-                            </li>
-                            <li>
-                                <a href="<?= base_url() ?>PreguntasPrueba/crearPregunta">
-                                    <i><img src='<?= base_url() ?>img/iconos/crear_pregunta.png' width="50" height="50"></i><span>Crear pregunta</span></a>
-                            </li>             
-                            <li>
-                                <a href="<?= base_url() ?>Pruebas/crearPrueba">
-                                    <i><img src='<?= base_url() ?>img/iconos/crear_prueba.png' width="50" height="50"></i><span>Crear prueba</span></a>
-                            </li>
-                            <li>
-                                <a href="<?= base_url() ?>Temas" class=" ">
-                                    <i><img src='<?= base_url() ?>img/iconos/lista_pruebas.png' width="50" height="50"></i><span>Temas</span></a>
-                            </li>
                             <?php
-                                if(configuracion()["departamental"] == 1){ ?>
-                                <li>
-                                    <a href="<?= base_url() ?>EstadisticasPruebas/municipios">
-                                        <i><img src='<?= base_url() ?>img/iconos/est_municipales.jpeg' width="50" height="50"></i><span>Est. Municipios</span></a>
-                                </li>
-                                <li>
-                                    <a href="<?= base_url() ?>EstadisticasPruebas/areas/0">
-                                        <i><img src='<?= base_url() ?>img/iconos/est_areas.jpeg' width="50" height="50"></i><span>Est. Áreas</span></a>
-                                </li>
-                                <li>
-                                    <a href="<?= base_url() ?>ParticipantesPrueba/importar">
-                                        <i><img src='<?= base_url() ?>img/iconos/importar_participantes.jpeg' width="50" height="50"></i><span>Importar participantes</span></a>
-                                </li>
-                                <?php }
+                                if(configuracion()["departamental"] == 1){
+                                    foreach ($menuDepartamental as $item) { ?>
+                                        <li>
+                                            <a href="<?= $item["path"] ?>" class="menu-item-block">
+                                                <i class="<?= $item["icon"] ?>"></i>
+                                                <span><?= $item["title"] ?></span>
+                                            </a>
+                                        </li>
+                                    <?php }
+                                }
                                 else { ?>
                                     <li>
-                                        <a href="<?= base_url() ?>EstadisticasPruebas/ver">
-                                            <i><img src='<?= base_url() ?>img/iconos/estadisticas.png' width="50" height="50"></i><span>Estadisticas</span></a>
+                                        <a href="<?= base_url() ?>EstadisticasPruebas/ver" class="menu-item-block">
+                                            <i class="fa fa-line-chart"></i>
+                                            <span>Estadisticas</span>
+                                        </a>
                                     </li>
                                 <?php }
-                            ?>
-                        <?php
                     }
                 ?>
             </ul>

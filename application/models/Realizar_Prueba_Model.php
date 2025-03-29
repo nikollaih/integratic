@@ -26,19 +26,20 @@ class Realizar_Prueba_Model extends CI_Model {
 		$this->db->join("pruebas p", "p.id_prueba = rp.id_prueba");
 		$this->db->join("core_participantes_pruebas cpp", "rp.id_participante = cpp.id_participante_prueba");
 		$this->db->join("instituciones_educativas ie", "cpp.institucion = ie.id_institucion_educativa", "left");
-		$this->db->join("municipios m", "m.id_municipio = ie.id_municipio");
+		$this->db->join("municipios m", "m.id_municipio = ie.id_municipio", "left");
 		$this->db->where("rp.id_participante", $id_participante);
 		$this->db->group_by("p.id_prueba");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+
 	function get_by_participante_materia($id_participante, $materia){
 		$this->db->from("realizar_prueba rp");
 		$this->db->join("pruebas p", "p.id_prueba = rp.id_prueba");
 		$this->db->join("core_participantes_pruebas cpp", "rp.id_participante = cpp.id_participante_prueba");
 		$this->db->join("instituciones_educativas ie", "cpp.institucion = ie.id_institucion_educativa", "left");
-		$this->db->join("municipios m", "m.id_municipio = ie.id_municipio");
+		$this->db->join("municipios m", "m.id_municipio = ie.id_municipio", "left");
 		$this->db->where("cpp.identificacion", $id_participante);
 		$this->db->group_by("p.id_prueba");
 		$this->db->where("(p.materias LIKE '%".$materia."%' )", NULL, FALSE);
@@ -47,10 +48,33 @@ class Realizar_Prueba_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+    function get_by_participante_materia_tipo_temas($id_participante, $materia, $tipo, $temas = null){
+        $this->db->from("realizar_prueba rp");
+        $this->db->join("pruebas p", "p.id_prueba = rp.id_prueba");
+        $this->db->join("core_participantes_pruebas cpp", "rp.id_participante = cpp.id_participante_prueba");
+        $this->db->join("instituciones_educativas ie", "cpp.institucion = ie.id_institucion_educativa", "left");
+        $this->db->join("municipios m", "m.id_municipio = ie.id_municipio", "left");
+        $this->db->where("cpp.identificacion", $id_participante);
+        $this->db->group_by("p.id_prueba");
+        $this->db->where("(p.materias LIKE '%".$materia."%' )", NULL, FALSE);
+        $this->db->where("p.tipo_prueba", $tipo);
+        if($temas != null){
+            for ($i = 0; $i < count($temas); $i++) {
+                $this->db->where("(p.temas LIKE '%".$temas[$i]."%' )", NULL, FALSE);
+            }
+        }
+
+        $result = $this->db->get();
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
     function create($data){
-		$data["created_at"] = date("Y-m-d H:i:s");
-        $this->db->insert("realizar_prueba", $data);
-        return $this->get_by_id($this->db->insert_id());
+      if($data["id_prueba"] > 0){
+          $data["created_at"] = date("Y-m-d H:i:s");
+          $this->db->insert("realizar_prueba", $data);
+          return $this->get_by_id($this->db->insert_id());
+      }
+      return null;
     }
 
 	function update($data){

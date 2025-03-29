@@ -10,7 +10,8 @@
             if($prueba){
                 $materias = unserialize($prueba["materias"]);
                 $dificultad = unserialize($prueba["dificultad"]);
-                $preguntas = obtener_preguntas($materias, $dificultad);
+                $temas = unserialize($prueba["temas"]);
+                $preguntas = obtener_preguntas($materias, $dificultad, false, $temas);
                 if($preguntas && count($preguntas) >= $prueba["cantidad_preguntas"]){
                     $asignadas = obtener_preguntas_asignadas_prueba($preguntas, $prueba["cantidad_preguntas"]);
                     $temp_asignadas = [];
@@ -80,18 +81,18 @@
             $porcentaje = ($correctas == 0 && !$respuestas) ? null : number_format((float)($correctas / count($preguntas)) * 100, 1, '.', '');
             $calificacion = ($porcentaje) ? ($porcentaje/100) * configuracion()["calificacion_sobre"] : 0;
 
-            $respuesta = array(
+            $parcial = (($respuestas) ? count($respuestas) : 0) + (($respuestas_abiertas) ? count($respuestas_abiertas) : 0);
+
+            return array(
                 "correctas" => $correctas,
                 "total" => (is_array($preguntas)) ? count($preguntas) : 0,
-                "parcial" => ($respuestas) ? count($respuestas) : 0,
+                "parcial" => $parcial,
                 "calificacion" => number_format($calificacion, 1, '.', ""),
                 "porcentaje" => $porcentaje,
                 "institucion" => ($realizar_prueba) ? $realizar_prueba["institucion"] : null,
                 "grado" => ($realizar_prueba) ? $realizar_prueba["grado"] : null,
                 "cerrada" => ($realizar_prueba) ? $realizar_prueba["is_closed"] : 0
             );
-
-            return $respuesta;
         }
     
     }

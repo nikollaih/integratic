@@ -73,7 +73,7 @@
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Tipo Prueba *</label>
-                                            <select required name="prueba[tipo_prueba]" id="" class="form-control">
+                                            <select required name="prueba[tipo_prueba]" id="crear-prueba-tipo-prueba" class="form-control <?= ($prueba) ? "select-readonly" : "" ?>">
                                                 <option value="">- Seleccionar</option>
                                                 <?php
                                                     if($tipo_pruebas != false){
@@ -90,7 +90,7 @@
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Materias *</label>
-                                            <select required name="prueba[materias][]" id="" class="form-control multiple-select <?= ($prueba) ? "select-readonly" : "" ?>" multiple data-live-search="true" data-size="10" data-actions-box="true">
+                                            <select required name="prueba[materias][]" id="crear-prueba-materias" class="form-control multiple-select <?= ($prueba) ? "select-readonly" : "" ?>" multiple data-live-search="true" data-size="10" data-actions-box="true">
                                                 <?php
                                                     if($materias != false){
                                                         foreach ($materias as $materia) {
@@ -101,6 +101,14 @@
                                                         }
                                                     }
                                                 ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="">Temas *</label>
+                                            <select required name="prueba[temas][]" id="crear-prueba-temas" class="form-control multiple-select <?= ($prueba) ? "select-readonly" : "" ?>" multiple data-live-search="true" data-size="10" data-actions-box="true">
+
                                             </select>
                                         </div>
                                     </div>

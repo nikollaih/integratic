@@ -14,72 +14,51 @@
                         if(strtolower(logged_user()["rol"]) == "super"){
                             ?>
                                 <li>
-                                    <a href='<?= base_url() ?>'>
-                                        <i><img src='<?= base_url() ?>img/iconos/menu.png' width='50' height='50'></i><span>Menú<br>Principal</span>
+                                    <a href="<?= base_url() ?>" class="menu-item-block">
+                                        <i class="fa fa-bars"></i>
+                                        <span>Menú principal</span>
                                     </a>
-                                </li>                      
+                                </li>
                                 <li>
-                                    <a href='./principal/manuales/manual_integra.pdf' target='_blank'>
-                                        <i><img src='<?= base_url() ?>img/iconos/manual.png' width='50' height='50'></i><span>Manual<br> Usuario</span>
+                                    <a href="./principal/manuales/manual_integra.pdf" class="menu-item-block" target="_blank">
+                                        <i class="fa fa-book"></i>
+                                        <span>Manual usuario</span>
                                     </a>
-                                </li>       
+                                </li>
                                 <li>
-                                    <a href='<?= base_url() ?>Usuarios/logout' onclick='javascript:logout()'>
-                                        <i><img src='<?= base_url() ?>img/iconos/cerrar.png' width='50' height='50'></i><span>Cerrar<br> Sesión</span>
-                                    </a>
-                                </li>   
-                            <?php
-                        }
-
-                        if(strtolower(logged_user()["rol"]) == "docente" || strtolower(logged_user()["rol"]) == "coordinador" || strtolower(logged_user()["rol"]) == "docente de apoyo"){
-                            ?>
-                                <li>
-                                    <a href='<?= base_url() ?>'>
-                                        <i><img src='<?= base_url() ?>img/iconos/volver.png' width='50' height='50'></i><span>Volver</span>
+                                    <a href='<?= base_url() ?>Usuarios/logout' onclick='javascript:logout()' class="menu-item-block">
+                                        <i class="fa fa-close"></i>
+                                        <span>Cerrar sesión</span>
                                     </a>
                                 </li>
                             <?php
                         }
 
-                        if(strtolower(logged_user()["rol"]) == "estudiante"){
+                        if(strtolower(logged_user()["rol"]) == "docente" || strtolower(logged_user()["rol"]) == "coordinador" || strtolower(logged_user()["rol"]) == "docente de apoyo"){
                             ?>
-                                <li>
-                                    <a href='<?= base_url() ?>'>
-                                        <i><img src='<?= base_url() ?>img/iconos/volver.png' width='50' height='50'></i><span>Volver</span>
-                                    </a>
-                                </li>  
-                                <li><a href="<?= base_url() ?>Pruebas" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/pruebas.png" width="50" height="50"></i><span>Pruebas</span></a></li>
-                                <li><a href="<?= base_url() ?>Recuperaciones" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/calendario.jpeg" width="50" height="50"></i><span>Recuperaciones</span></a></li>
-                                <li><a href="<?= base_url() ?>Calendario/actividades" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/calendario.jpeg" width="50" height="50"></i><span>Calendario</span></a></li>
-                                <li><a href="<?= base_url() ?>Reportes" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/reportes.jpeg" width="50" height="50"></i><span>Reportes</span></a></li>
-                            <?php
-                        }
-
-                        if(strtolower(logged_user()["rol"]) == "acudiente"){
-                            ?>
-                                <li>
-                                    <a href='<?= base_url() ?>'>
-                                        <i><img src='<?= base_url() ?>img/iconos/volver.png' width='50' height='50'></i><span>Volver</span>
-                                    </a>
-                                </li>  
-                                <li><a href="<?= base_url() ?>Pruebas" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/pruebas.png" width="50" height="50" alt=""></i><span>Pruebas</span></a></li>
-                                <li><a href="<?= base_url() ?>Calendario/actividades" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/calendario.jpeg" width="50" height="50" alt=""></i><span>Calendario</span></a></li>
-                                <li><a href="<?= base_url() ?>Reportes" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/reportes.jpeg" width="50" height="50" alt=""></i><span>Reportes</span></a></li>
-                                <li><a href="<?= base_url() ?>Recuperaciones" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/reportes.jpeg" width="50" height="50" alt=""></i><span>Recuperaciones</span></a></li>
-                                <li><a href="<?= base_url() ?>CaracterizacionEstudiantes/completar" class="waves-effect"><i><img src="<?= base_url() ?>img/iconos/caracterizacion_estudiantes.jpeg" width="50" height="50"></i><span>Caracterización</span></a></li>
+                            <li>
+                                <a href="<?= base_url() ?>" class="menu-item-block">
+                                    <i class="fa fa-arrow-left"></i>
+                                    <span>Volver</span>
+                                </a>
+                            </li>
                             <?php
                         }
                     }
                     else{
                         ?>
                         <li>
-                            <a href="javascript:prelogin();" class=" ">
-                                <i><img src='<?= base_url() ?>img/iconos/login.png' width="50" height="50"></i><span>Ingresar</span></a>
-                        </li>   
+                            <a href="javascript:prelogin();" class="menu-item-block">
+                                <i class="fa fa-right-to-bracket"></i>
+                                <span>Ingresar</span>
+                            </a>
+                        </li>
                         <li>
-                            <a href="javascript:menu();" class=" ">
-                                <i><img src='<?= base_url() ?>img/iconos/aplicativos.png' width="50" height="50"></i><span>Aplicativos</span></a>
-                        </li>                         
+                            <a href="javascript:menu();" class="menu-item-block">
+                                <i class="fa fa-home"></i>
+                                <span>Aplicativos</span>
+                            </a>
+                        </li>
                         <!--<li>
                             <a href="./principal/aprender" target='_blank'>
                                 <i><img src='<?= base_url() ?>img/iconos/aprender.png' width="50" height="50"></i><span>Aprender</span></a>

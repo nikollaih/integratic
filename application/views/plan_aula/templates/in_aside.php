@@ -10,26 +10,25 @@
         <div id="sidebar-menu">
             <ul>
                 <li>
-                    <a href="<?= base_url() ?>" class=" ">
-                        <i><img src='<?= base_url() ?>img/iconos/volver.png' width="50" height="50" class="rounded-img"></i><span>Volver</span></a>
+                    <a href="<?= base_url() ?>" class="menu-item-block">
+                        <i class="fa fa-arrow-left"></i>
+                        <span>Volver</span>
+                    </a>
                 </li>
                 <?php
                     if(strtolower(logged_user()["rol"]) == "docente"){ ?>
                         <li>
-                            <a href="<?= base_url() ?>PlanAula" class=" ">
-                                <i><img src='<?= base_url() ?>img/iconos/todos_planes_aula.jpeg' width="50" height="50" class="rounded-img"></i><span>Ver todos</span>
+                            <a href="<?= base_url() ?>PlanAula" class="menu-item-block">
+                                <i class="fa fa-file-lines"></i>
+                                <span>Ver todos</span>
                             </a>
-                        </li>  
-                        <!-- <li>
-                            <a href="<?= base_url() ?>EvidenciasAprendizaje" class=" ">
-                                <i><img src='<?= base_url() ?>img/iconos/evidencias_aprendizaje.jpeg' width="50" height="50" class="rounded-img"></i><span>Evidencias de aprendizaje</span>
-                            </a>
-                        </li>    -->
+                        </li>
                         <li>
-                            <a href="<?= base_url() ?>PlanAula/create" class=" ">
-                                <i><img src='<?= base_url() ?>img/iconos/nuevo_plan_aula.jpeg' width="50" height="50" class="rounded-img"></i><span>Nuevo</span>
+                            <a href="<?= base_url() ?>PlanAula/create" class="menu-item-block">
+                                <i class="fa fa-circle-plus"></i>
+                                <span>Nuevo</span>
                             </a>
-                        </li>   
+                        </li>
                     <?php }
                 ?>
             </ul>

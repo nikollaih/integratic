@@ -1,11 +1,11 @@
 <?php
     if(!function_exists('obtener_preguntas'))
     {
-        function obtener_preguntas($materias = null, $dificultad = null, $only_ids = false){
+        function obtener_preguntas($materias = null, $dificultad = null, $only_ids = false, $temas = null){
             $CI = &get_instance();
             $CI->load->library('session');
             $CI->load->model(array("Preguntas_Model"));
-            return $CI->Preguntas_Model->get_all_mat_dif($materias,  $dificultad, $only_ids);
+            return $CI->Preguntas_Model->get_all_mat_dif($materias,  $dificultad, $only_ids, $temas);
         }
     
     }
@@ -59,14 +59,18 @@
 
     if(!function_exists('seleccionar_siguiente_pregunta'))
     {
-        function seleccionar_siguiente_pregunta($asignadas, $resueltas){
+        function seleccionar_siguiente_pregunta($asignadas, $resueltas_multiples, $resueltas_abiertas){
+            $resueltas_multiples = $resueltas_multiples ?: [];
+            $resueltas_abiertas = $resueltas_abiertas ?: [];
             $CI = &get_instance();
             $CI->load->library('session');
             $CI->load->model(array("Respuestas_Preguntas_Model"));
 
             $restantes = [];
+
             foreach ($asignadas as $asignada) {
                 $resuelta = false;
+                $resueltas = array_merge($resueltas_multiples, $resueltas_abiertas);
 
                 if($resueltas){
                     for ($i=0; $i < count($resueltas); $i++) { 
@@ -108,6 +112,7 @@
             $asignadas = $CI->Preguntas_Model->get_preguntas_prueba($id_prueba);
             $resueltas = $CI->Respuestas_Realizar_Prueba_Model->get_by_prueba_participante($id_prueba, $id_participante);
             $resueltas_abiertas = $CI->RespuestasRealizarPruebaAbiertas_Model->get_by_prueba_participante($id_prueba, $id_participante);
+
             $preguntas_resueltas = 0;
 
             if($resueltas){
@@ -122,7 +127,7 @@
                 return true;
             }
             else{
-                return seleccionar_siguiente_pregunta($asignadas, $resueltas);
+                return seleccionar_siguiente_pregunta($asignadas, $resueltas, $resueltas_abiertas);
             }
         }
     

@@ -37,4 +37,11 @@ class Temas_Model extends CI_Model {
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
+
+    public function getByIds($ids = []) {
+        $this->db->from("temas t");
+        $this->db->where_in("t.id_tema", $ids);
+        $result = $this->db->get();
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
 }

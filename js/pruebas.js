@@ -24,6 +24,95 @@ $(document).ready(function() {
         eliminar_participante(id_participante, id_prueba);
     });
 
+    $(document).on("change", "#crear-prueba-tipo-prueba", function() {
+        const materiasSelect = $("#crear-prueba-materias");
+        materiasSelect.selectpicker('destroy');
+
+        const tipoPrueba = $(this).val();
+        if(tipoPrueba === "4"){
+            materiasSelect.removeAttr("multiple")
+        }
+        else {
+            materiasSelect.attr("multiple", "");
+            materiasSelect.selectpicker();
+        }
+    });
+
+    function loadTemasForMaterias(materiasIds, temasSelector) {
+        const temasSelect = $(temasSelector);
+        $("#background-loading").css("display", "flex");
+
+        $.ajax({
+            url: base_url + "Temas/getTemasMateria",
+            type: 'POST',
+            data: {
+                materias_ids: Array.isArray(materiasIds) ? materiasIds : [materiasIds],
+            },
+            success: function(data) {
+                temasSelect.removeAttr("multiple");
+                data = JSON.parse(data);
+                let object = data.object;
+
+                if (object && object.length > 0) {
+                    temasSelect.selectpicker('destroy');
+                    temasSelect.empty();
+
+                    for (let i = 0; i < object.length; i++) {
+                        temasSelect.append(`<option value="${object[i].id_tema}">${object[i].nombre_tema}</option>`);
+                    }
+
+                    temasSelect.attr("multiple", "");
+                    temasSelect.selectpicker();
+                }
+
+                $("#background-loading").css("display", "none");
+            },
+            error: function() { alert("Error!") }
+        });
+    }
+
+    function loadStudentsForMateria(grado, studentsSelector) {
+        const studentSelect = $(studentsSelector);
+        $("#background-loading").css("display", "flex");
+
+        $.ajax({
+            url: base_url + "Estudiante/estudiantes_grado_grupo/" + grado,
+            type: 'GET',
+            success: function(data) {
+                data = JSON.parse(data);
+                let object = data.object;
+
+                if (object && object.length > 0) {
+                    studentSelect.html("");
+                    for (let i = 0; i < object.length; i++) {
+                        studentSelect.append(`<option value="${object[i].documento}">${object[i].nombre}</option>`);
+                    }
+                }
+                else studentSelect.html("");
+
+                $("#background-loading").css("display", "none");
+            },
+            error: function() { alert("Error!") }
+        });
+    }
+
+
+    $(document).on("change", "#simulacro-materias", function() {
+        const materiasValue = $("#simulacro-materias").val();
+        if(materiasValue){
+            const splitValue = materiasValue.split("&");
+            loadTemasForMaterias([splitValue[1]], "#crear-prueba-temas");
+            loadStudentsForMateria(splitValue[0], "#simulacro-estudiante");
+        }
+    });
+
+    $(document).on("change", "#crear-prueba-materias", function() {
+        const materiasValue = $("#crear-prueba-materias").val();
+        if(materiasValue){
+            loadTemasForMaterias(materiasValue, "#crear-prueba-temas");
+        }
+    });
+
     $(document).on("click", ".btn-eliminar-intento-prueba", function() {
         let id_participante = $(this).attr("data-participante");
         let id_prueba = $(this).attr("data-prueba");
@@ -245,7 +334,7 @@ function setTemasMateria(temas){
     const selectElement = document.getElementById('crear-prueba-tema');
 
     // Limpia el select eliminando todas las opciones existentes
-    selectElement.innerHTML = '<option>- Seleccionar</option>';
+    selectElement.innerHTML = '<option value="">- Seleccionar</option>';
     // Itera sobre el arreglo y agrega nuevas opciones al select
 
     if(Array.isArray(temas)){
