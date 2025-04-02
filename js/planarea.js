@@ -239,6 +239,32 @@ jQuery(document).ready(function() {
         getSemanasPeriodo(idPeriodo);
     });
 
+    jQuery(document).on("change", "#plan-area-periodo", function() {
+        let idPeriodo = jQuery(this).val();
+        setPeriodoFechas(idPeriodo);
+    });
+
+    function setPeriodoFechas(idPeriodo){
+        $("#background-loading").css("display", "flex");
+        $.ajax({
+            url: base_url + "Periodos/getPeriodo/" + idPeriodo,
+            type: 'GET',
+            success: function(data) {
+                var data = JSON.parse(data);
+                let object = data.object;
+                if (data.status) {
+                    $("#plan-area-fecha-inicio").val(object.fecha_inicio);
+                    $("#plan-area-fecha-fin").val(object.fecha_fin);
+                }
+                $("#background-loading").css("display", "none");
+            },
+            error: function() {
+                $("#background-loading").css("display", "none");
+                alert("Error!")
+            }
+        });
+    }
+
     function completarEvidenciaAprendizaje(idEvidencia, observaciones, estadoCompletado) {
         $("#background-loading").css("display", "flex");
         $.ajax({

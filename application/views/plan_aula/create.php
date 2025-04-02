@@ -108,13 +108,13 @@
                                         <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Fecha inicio <span class="text-danger">*</span></label>
-                                                <input <?= (!$editable) ? "disabled" : "" ?> required type="date" name="plan[fecha_inicio]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["fecha_inicio"] : "" ?>">
+                                                <input readonly <?= (!$editable) ? "disabled" : "" ?> required type="date" name="plan[fecha_inicio]" class="form-control" id="plan-area-fecha-inicio" value="<?= (is_array($plan_area)) ? $plan_area["fecha_inicio"] : "" ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
                                                 <label for="">Fecha fin <span class="text-danger">*</span></label>
-                                                <input <?= (!$editable) ? "disabled" : "" ?> required type="date" name="plan[fecha_fin]" class="form-control" id="" value="<?= (is_array($plan_area)) ? $plan_area["fecha_fin"] : "" ?>">
+                                                <input readonly <?= (!$editable) ? "disabled" : "" ?> required type="date" name="plan[fecha_fin]" class="form-control" id="plan-area-fecha-fin" value="<?= (is_array($plan_area)) ? $plan_area["fecha_fin"] : "" ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-12">

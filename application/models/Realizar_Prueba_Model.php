@@ -1,4 +1,7 @@
 <?php
+/**
+ * @property $db
+ */
 class Realizar_Prueba_Model extends CI_Model {
 
   	public function __construct() {
@@ -58,13 +61,21 @@ class Realizar_Prueba_Model extends CI_Model {
         $this->db->group_by("p.id_prueba");
         $this->db->where("(p.materias LIKE '%".$materia."%' )", NULL, FALSE);
         $this->db->where("p.tipo_prueba", $tipo);
-        if($temas != null){
-            for ($i = 0; $i < count($temas); $i++) {
-                $this->db->where("(p.temas LIKE '%".$temas[$i]."%' )", NULL, FALSE);
+        if ($temas != null && count($temas) > 0) {
+            $where_temas = "(";
+            $temas_conds = [];
+
+            foreach ($temas as $tema) {
+                $temas_conds[] = "p.temas LIKE '%" . $this->db->escape_like_str($tema) . "%'";
             }
+
+            $where_temas .= implode(" OR ", $temas_conds);
+            $where_temas .= ")";
+            $this->db->where($where_temas, NULL, FALSE);
         }
 
         $result = $this->db->get();
+
         return ($result->num_rows() > 0) ? $result->result_array() : false;
     }
 

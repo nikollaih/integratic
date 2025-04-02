@@ -180,7 +180,7 @@
                     </div>
 
                     <?php
-                        if(isset($pregunta["tipo_pregunta"]) && $pregunta["tipo_pregunta"] === 'multiple'){
+                        if((isset($pregunta["tipo_pregunta"]) && $pregunta["tipo_pregunta"] === 'multiple') || !isset($pregunta["tipo_pregunta"])){
                             ?>
                             <div id="container-agregar-respuesta">
                                 <a data-pregunta="<?= $x ?>" style="cursor: pointer;" class="text-primary agregar-respuesta-pregunta"><b>Agregar Respuesta</b></a>

@@ -52,4 +52,20 @@
         }
         else json_response(null, false, "Inicie sesión para continuar.");
     }
+
+       // Elimina un periodo de la base de datos
+       function getPeriodo($idPeriodo){
+           if(is_logged()){
+               if(strtolower(logged_user()["rol"]) != "estudiante"){
+                   $periodo = $this->Periodos_Model->find($idPeriodo);
+
+                   if($periodo){
+                       json_response($periodo, true, "Periodo academico.");
+                   }
+                   json_response(null, false, "No se ha encontrado el periodo academico.");
+               }
+               else json_response(null, false, "No tiene permiso para realizar esta acción.");
+           }
+           else json_response(null, false, "Inicie sesión para continuar.");
+       }
 }

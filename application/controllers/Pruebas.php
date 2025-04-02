@@ -1,25 +1,47 @@
 <?php
-  
-   /**
-    * @property $Pruebas_Model
-    * @property $Materias_Model
-    * @property $TipoPrueba_Model
-    * @property $AlcancePruebas_Model
-    * @property $Periodos_Model
-    * @property $input
-    */
+use Mpdf\Mpdf;
+
+/**
+ * @property $Pruebas_Model
+ * @property $Materias_Model
+ * @property $TipoPrueba_Model
+ * @property $AlcancePruebas_Model
+ * @property $Periodos_Model
+ * @property $input
+ * @property $load
+ * @property $Temas_Model
+ * @property $Preguntas_Model
+ * @property $Participantes_Prueba_Model
+ * @property $Realizar_Prueba_Model
+ * @property $RespuestasRealizarPruebaAbiertas_Model
+ * @property $Respuestas_Realizar_Prueba_Model
+ * @property $Asignacion_Participantes_Prueba_Model
+ * @property $Estudiante_Model
+ * @property $Asignacion_Preguntas_Prueba_Model
+ * @property $output
+ * @property $Respuestas_Preguntas_Model
+ */
 class Pruebas extends CI_Controller {
-	
-    public function __construct() { 
-       parent::__construct(); 
-       $this->load->helper(array('form', 'url')); 
-       $this->load->model(["Temas_Model", "RespuestasRealizarPruebaAbiertas_Model", "Estudiante_Model", "Respuestas_Realizar_Prueba_Model", "Realizar_Prueba_Model", "Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model", "Periodos_Model"]);
+
+    public function __construct() {
+       parent::__construct();
+       $this->load->helper(array('form', 'url'));
+       $this->load->model(["Respuestas_Preguntas_Model", "Temas_Model", "RespuestasRealizarPruebaAbiertas_Model", "Estudiante_Model", "Respuestas_Realizar_Prueba_Model", "Realizar_Prueba_Model", "Pruebas_Model", "TipoPrueba_Model", "Consultas_Model", "AlcancePruebas_Model", "Materias_Model", "Preguntas_Model", "Asignacion_Preguntas_Prueba_Model", "Participantes_Prueba_Model", "Asignacion_Participantes_Prueba_Model", "Periodos_Model"]);
+
+        $this->mpdf = new Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4', // A4 landscape orientation
+            'margin_left' => 5,
+            'margin_right' => 5,
+            'margin_top' => 5,
+            'margin_bottom' => 5
+        ]);
     }
-    
+
     public function index(){
         if(is_logged()){
             $params["pruebas"] = false;
-            if(strtolower(logged_user()["rol"]) == "docente"){ 
+            if(strtolower(logged_user()["rol"]) == "docente"){
                 //$materias = array_column($this->Materias_Model->getMateriasDocente(logged_user()["id"], true), "materia");
                 $params["pruebas"] = $this->Pruebas_Model->get_docente_all(logged_user()["id"]);
             }
@@ -72,7 +94,7 @@ class Pruebas extends CI_Controller {
             unset($prueba["dificultad"]);
             unset($prueba["temas"]);
         }
-        
+
         if(isset($prueba["mostrar_respuestas"]))
             $prueba["mostrar_respuestas"] = ($prueba["mostrar_respuestas"] == "on") ? 1 : 0;
 
@@ -219,7 +241,7 @@ class Pruebas extends CI_Controller {
                         if($iniciado["is_closed"] == 1){
                             header("Location: ".base_url()."Pruebas/resumen/".$id_prueba);
                         }
-            
+
                         $siguiente = siguiente_pregunta($id_prueba, $id_participante);
                         if(is_array($siguiente)){
                             $params["pregunta"] = $siguiente["pregunta"];
@@ -236,7 +258,7 @@ class Pruebas extends CI_Controller {
                     else{
                         header("Location: ".base_url()."Pruebas/empezar/".$id_prueba);
                     }
-                }   
+                }
                 else{
                     header("Location: ".base_url()."Pruebas/resumen/".$id_prueba);
                 }
@@ -273,7 +295,7 @@ class Pruebas extends CI_Controller {
             $params["participantes"] = $this->Asignacion_Participantes_Prueba_Model->get_all($id_prueba);
 
             if(is_array($params["materias"])){
-                for ($i=0; $i < count($params["materias"]); $i++) { 
+                for ($i=0; $i < count($params["materias"]); $i++) {
                     array_push($ids_materias, $params["materias"][$i]["codmateria"]);
                 }
             }
@@ -326,7 +348,7 @@ class Pruebas extends CI_Controller {
         $params["asignadas"] = $this->Preguntas_Model->get_preguntas_prueba($id_prueba);
         $params["preguntas"] = obtener_preguntas(unserialize($params["prueba"]["materias"]), unserialize($params["prueba"]["dificultad"]), false, $params["temas"]);
         if($params["asignadas"]){
-            for ($i=0; $i < count($params["asignadas"]); $i++) { 
+            for ($i=0; $i < count($params["asignadas"]); $i++) {
                 array_push($params["asignadas_ids"], $params["asignadas"][$i]["id_pregunta_prueba"]);
             }
         }
@@ -346,7 +368,7 @@ class Pruebas extends CI_Controller {
 
 
             if($preguntas){
-                for ($i=0; $i < count($preguntas); $i++) { 
+                for ($i=0; $i < count($preguntas); $i++) {
                     array_push($preguntas_ids, $preguntas[$i]["id_pregunta_prueba"]);
                 }
             }
@@ -450,4 +472,28 @@ class Pruebas extends CI_Controller {
         }
         else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }
-} 
+
+    function cuadernillo($idPrueba){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+
+                $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($idPrueba);
+
+                if($params["preguntas"]){
+                    for ($i = 0; $i < count($params["preguntas"]); $i++) {
+                        $params["preguntas"][$i]["respuestas"] = $this->Respuestas_Preguntas_Model->get_all($params["preguntas"][$i]["id_pregunta"]);
+                    }
+                }
+
+
+                $this->load->view("pruebas/cuadernillo/preguntas", $params);
+
+                // Cargar HTML en dompdf (puedes cargar tu vista aquí)
+                $html = $this->output->get_output();
+
+                $this->mpdf->WriteHTML($html);
+                $this->mpdf->Output('documento.pdf', 'I');
+            }
+        }
+    }
+}
