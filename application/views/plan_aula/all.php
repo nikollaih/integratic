@@ -93,7 +93,7 @@
                                                     <td><?= $plan["nomarea"] ?></td>
                                                     <td><?= $plan["nommateria"] ?></td>
                                                     <td><?= $plan["grado"] ?></td>
-                                                    <td><?= $plan["periodo"] ?></td>
+                                                    <td><?= $plan["nombre_periodo"] ?></td>
                                                     <td><?= $plan["fecha_inicio"] ?></td>
                                                     <td><?= $plan["fecha_fin"] ?></td>
                                                     <td style="width:200px;">

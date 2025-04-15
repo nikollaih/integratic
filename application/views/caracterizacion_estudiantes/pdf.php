@@ -230,6 +230,46 @@
                 </tr>
                 </tbody>
             </table>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Información adicional del estudiante</th>
+                </tr>
+                <tr>
+                    <td><?= obtenerRespuesta($preguntas, $respuestas, 55) ?></td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Que tema le gustaría recibir en las escuelas de padres</th>
+                </tr>
+                <tr>
+                    <td><?= obtenerRespuesta($preguntas, $respuestas, 56) ?></td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Como padre de familia como podría aportar a la comunidad educativa</th>
+                </tr>
+                <tr>
+                    <td><?= obtenerRespuesta($preguntas, $respuestas, 57) ?></td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Como padre de familia de que otra forma puede aportar a la comunidad educativa?</th>
+                </tr>
+                <tr>
+                    <td><?= obtenerRespuesta($preguntas, $respuestas, 58) ?></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

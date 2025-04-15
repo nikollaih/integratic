@@ -96,6 +96,10 @@ jQuery(document).ready(function() {
         jQuery("#observaciones-plan-aula-modal").modal("show");
     });
 
+    jQuery(document).on("click", ".open-plan-aula-tooltip", function() {
+        jQuery("#plan_aula_tooltip_text").html(jQuery(this).attr("data-text"));
+        jQuery("#plan-aula-tooltip-modal").modal("show");
+    })
 
 
     jQuery(document).on("click", ".btn-agregar-evidencia-aprendizaje-soportes", function() {

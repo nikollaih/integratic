@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @property $Participantes_Prueba_Model
+ */
 class Estudiante extends CI_Controller {
 
     function __construct() 
@@ -9,7 +12,7 @@ class Estudiante extends CI_Controller {
          $this->load->helper('form');
          $this->load->helper('html');
          $this->load->helper('url');
-         $this->load->model(['Estudiante_Model', 'Usuarios_Model']);
+         $this->load->model(['Estudiante_Model', 'Usuarios_Model', 'Participantes_Prueba_Model']);
     }
 
 	public function verTodos(){
@@ -182,4 +185,21 @@ class Estudiante extends CI_Controller {
 		else
 			json_response(array("error" => "login"), false, "Iniciar sesion");
 	}
+
+    public function actualizarInformacionPruebas(){
+        if(is_logged() && strtolower(logged_user()['rol']) == 'super'){
+            $estudiantes = $this->Estudiante_Model->getAll();
+
+            if($estudiantes){
+                for ($i = 0; $i < count($estudiantes); $i++) {
+                    $this->Participantes_Prueba_Model->update(array("identificacion" => $estudiantes[$i]["id"], "grado" => $estudiantes[$i]["grado"]));
+                }
+            }
+
+            echo "Actualización exitosa";
+        }
+        else{
+            header("Location: ".base_url());
+        }
+    }
 }

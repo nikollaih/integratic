@@ -50,6 +50,7 @@
                     $params["message"] = $this->guardarPregunta($this->input->post());
 
                 $params["pregunta"] = $this->Preguntas_Model->get($idPregunta);
+
                 $params["temas"] = ($params["pregunta"]) ? $this->Temas_Model->get_by_materias([$params["pregunta"]["id_materia"]]) : [];
                 $params["respuestas"] = ($params["pregunta"]) ? $this->Respuestas_Preguntas_Model->get_all($params["pregunta"]["id_pregunta_prueba"]) : [];
                 

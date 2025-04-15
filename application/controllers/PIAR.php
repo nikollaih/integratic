@@ -46,7 +46,7 @@ class PIAR extends CI_Controller
     public function index() {
         if(is_logged()){
             if($this->hasPermission()){
-                $params["estudiantes"] = $this->PIAR_Model->getStudents();
+                $params["estudiantes"] = ($this->USER_ROL === 'docente') ? $this->PIAR_Model->getStudentsByDocente(logged_user()["id"]) : $this->PIAR_Model->getStudents();
                 $this->load->view("piar/index", $params);
             }
             else header("Location: ".base_url());

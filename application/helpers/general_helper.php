@@ -170,7 +170,8 @@
     if(!function_exists('get_years'))
     {
         function get_years($start_date, $end_date) {
-            $start = new DateTime($start_date);
+
+            $start = new DateTime($start_date !== "No completo" ?: date("Y-m-d"));
             $end = new DateTime($end_date);
             $diff = $start->diff($end);
             return $diff->y;

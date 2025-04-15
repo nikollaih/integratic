@@ -16,6 +16,8 @@ class Materias_Model extends CI_Model {
 	}
 
     function getGruposMateria($ids_materia){
+        $this->db->query("SET SESSION sql_mode = (SELECT REPLACE(@@SESSION.sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+
         $this->db->select("cm.codmateria, cm.nommateria, am.grupo, cm.grado, cm.area"); // Select relevant columns
         $this->db->from("asg_materias am");
         $this->db->join("cfg_materias cm", "am.materia = cm.codmateria");
@@ -38,6 +40,7 @@ class Materias_Model extends CI_Model {
 	function getMateriasArea($area){
 		$this->db->from("cfg_materias");
         $this->db->where("area", $area);
+        $this->db->order_by("nommateria", "asc");
 		$result = $this->db->get();
 
 		return ($result->num_rows() > 0) ? $result->result_array() : false;

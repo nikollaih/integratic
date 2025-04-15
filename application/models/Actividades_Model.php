@@ -16,8 +16,9 @@ class Actividades_Model extends CI_Model {
 		if($materia != null){
 			$this->db->where("a.materia", $materia);
 		}
+
 		if(strtolower($rol) == "estudiante" && !$all){
-			$this->db->where("a.disponible_desde <=", date("Y-m-d h:i"));
+			$this->db->where("a.disponible_desde <=", date("Y-m-d H:i"));
 		}
 		$this->db->order_by("a.created_at", "desc");
 		$result = $this->db->get();

@@ -4,7 +4,7 @@ $menuItems = [
     [
         "title" => "Volver",
         "icon" => "fa fa-arrow-left",
-        "path" => base_url()
+        "path" => 'javascript:history.back()'
     ],
     [
         "title" => "Lista pruebas",
@@ -63,7 +63,9 @@ $menuDepartamental = [
     <div class="sidebar-inner slimscrollleft">
         <div class="user-details">
             <div class="pull-left">
+                <a href="<?= base_url() ?>">
                 <img src="<?= base_url() ?>img/<?= (configuracion()) ? configuracion()["logo_institucion"] : "" ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>" class="thumb-lg">
+                </a>
             </div>
         </div>
         <!--- Divider -->

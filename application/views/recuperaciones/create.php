@@ -7,15 +7,15 @@
             <div class="container">
                 <div class="row" id="migas"></div>
                 <form action="" method="post" id="form-recuperacion" enctype="multipart/form-data">
-                    <input type="hidden" name="recuperacion[id_recuperacion]" id="" value="<?= ($recuperacion) ? $recuperacion["id_recuperacion"] : "" ?>">
+                    <input type="hidden" name="recuperacion[id_recuperacion]" id="" value="<?= (isset($recuperacion)) ? $recuperacion["id_recuperacion"] : "" ?>">
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b><?= ($recuperacion) ? "Modificar" : "Nuevo" ?> recuperacion</b></div>
+                        <div class="panel-heading text-capitalize"><b><?= (isset($recuperacion)) ? "Modificar" : "Nuevo" ?> recuperacion</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-lg-9">
                                     <div class="form-group">
                                         <label for="">Titulo *</label>
-                                        <input type="text" required name="recuperacion[title]" id="" class="form-control" value="<?= ($recuperacion) ? $recuperacion["title"] : "" ?>">
+                                        <input type="text" required name="recuperacion[title]" id="" class="form-control" value="<?= (isset($recuperacion)) ? $recuperacion["title"] : "" ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-lg-3">
@@ -69,13 +69,13 @@
                                 <div class="col-md-6 col-sm-12 col-lg-3">
                                     <div class="form-group">
                                         <label for="">Disponible desde *</label>
-                                        <input required type="datetime-local" name="recuperacion[disponible_desde]" class="form-control" id="" value="<?= ($recuperacion) ? $recuperacion["disponible_desde"] : "" ?>">
+                                        <input required type="datetime-local" name="recuperacion[disponible_desde]" class="form-control" id="" value="<?= (isset($recuperacion)) ? $recuperacion["disponible_desde"] : "" ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-lg-3">
                                     <div class="form-group">
                                         <label for="">Disponible hasta *</label>
-                                        <input required type="datetime-local" name="recuperacion[disponible_hasta]" class="form-control" id="" value="<?= ($recuperacion) ? $recuperacion["disponible_hasta"] : "" ?>">
+                                        <input required type="datetime-local" name="recuperacion[disponible_hasta]" class="form-control" id="" value="<?= (isset($recuperacion)) ? $recuperacion["disponible_hasta"] : "" ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-lg-12">
@@ -130,10 +130,10 @@
     </html>
 
 <?php
-    if($recuperacion){ ?>
+    if(isset($recuperacion)){ ?>
         <script>
             $(document).ready(() => {
-                let contents = '<?= $recuperacion["description"] ?>';
+                let contents = '<?= isset($recuperacion) ? $recuperacion["description"] : "" ?>';
                 editorRich.setContents(contents);
             })
         </script>

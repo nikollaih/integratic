@@ -78,6 +78,27 @@ class Consultas_Model extends CI_Model {
         if(!$result) {return false;}
         else {return $result->result_array();}
     }
+
+    public function allDistinctGrupos($userID = null)
+    {
+        $this->db->distinct();
+        $this->db->select('grupo');
+        $this->db->from('asg_materias');
+        $this->db->join('cfg_materias', 'codmateria = materia', 'inner');
+
+        if (!is_null($userID)) {
+            $this->db->where('docente', $userID);
+        }
+
+        $query = $this->db->get();
+
+        if (!$query) {
+            return false;
+        }
+
+        return $query->result_array();
+    }
+
     public function asignadoc($id){
     $result=$this->db->query("select codmateria,nomarea,nommateria,grado,grupo from asg_materias,cfg_materias,cfg_areas Where docente='$id' And codmateria=materia And codarea=area");
     if(!$result) {return false;}
@@ -94,7 +115,7 @@ class Consultas_Model extends CI_Model {
     else {return $result->result();}      
   }   
   public function tmaterias(){
-    $result=$this->db->query("select * from cfg_materias");
+    $result=$this->db->query("select * from cfg_materias cm JOIN cfg_areas ca ON cm.area = ca.codarea ORDER BY nommateria ASC");
     if(!$result) {return false;}
     else {return $result->result();}      
   }    

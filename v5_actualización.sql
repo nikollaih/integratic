@@ -24,7 +24,7 @@ CREATE TABLE `caracterizacion_estudiantes_preguntas` (
 INSERT INTO `caracterizacion_estudiantes_preguntas` (`id`, `pregunta`, `titulo_excel`, `tipo_etiqueta`, `tipo_input`, `placeholder`, `es_multiple`, `opciones`, `tiene_otro`, `es_obligatoria`, `orden`, `filtro`) VALUES
        (1, 'Tipo de documento', 'Tipo de documento', 'select', NULL, NULL, 0, 'a:8:{i:0;s:19:\"Registro civil \'RC\'\";i:1;s:41:\"Número de identificación personal \'NIP\'\";i:2;s:49:\"Número único de identificación personal \'NUIP\'\";i:3;s:25:\"Tarjeta de identidad \'TI\'\";i:4;s:26:\"Cedula de ciudadanía \'CC\'\";i:5;s:37:\"Permiso especial de permanencia \'PEP\'\";i:6;s:38:\"Permiso por protección temporal \'PPT\'\";i:7;s:4:\"Otro\";}', 0, 1, 1, 1),
        (2, 'Número del Documento de Identidad\n', 'Número del Documento de Identidad', 'input', 'number', '12345678', 0, NULL, 0, 1, 2, 0),
-       (3, '¿El o la estudiante usa alguno de los siguientes elementos?\n', 'Usa algún elemento', 'checkbox', NULL, NULL, 1, 'a:3:{i:0;s:5:\"Gafas\";i:1;s:18:\"Lentes de contacto\";i:2;s:10:\"Audífonos\";}', 1, 1, 12, 1),
+       (3, '¿El o la estudiante usa alguno de los siguientes elementos?\n', 'Usa algún elemento', 'checkbox', NULL, NULL, 1, 'a:3:{i:0;s:5:"Gafas";i:1;s:18:"Lentes de contacto";i:2;s:19:"Audífonos medicados";}', 1, 1, 12, 1),
        (4, '¿El o la estudiante se desplaza solo(a) hasta su casa?', 'Va solo a casa', 'select', NULL, NULL, 0, 'a:2:{i:0;s:2:\"Si\";i:1;s:2:\"No\";}', 0, 1, 4, 0),
        (5, 'Grado', 'Grado', 'select', NULL, NULL, 0, 'a:24:{i:0;s:13:\"Transición A\";i:1;s:13:\"Transición B\";i:2;s:9:\"Primero A\";i:3;s:9:\"Primero B\";i:4;s:9:\"Segundo A\";i:5;s:9:\"Segundo B\";i:6;s:9:\"Tercero A\";i:7;s:9:\"Tercero B\";i:8;s:8:\"Cuarto A\";i:9;s:8:\"Cuarto B\";i:10;s:8:\"Quinto A\";i:11;s:8:\"Quinto B\";i:12;s:7:\"Sexto A\";i:13;s:7:\"Sexto B\";i:14;s:10:\"Séptimo A\";i:15;s:10:\"Séptimo B\";i:16;s:8:\"Octavo A\";i:17;s:8:\"Octavo B\";i:18;s:8:\"Noveno A\";i:19;s:8:\"Noveno B\";i:20;s:8:\"Decimo A\";i:21;s:8:\"Decimo B\";i:22;s:11:\"Undécimo A\";i:23;s:11:\"Undécimo B\";}', 0, 1, 3, 1),
        (6, '¿Cuál es el tipo de matricula del o la estudiante?', 'Tipo de matricula', 'select', NULL, NULL, 0, 'a:7:{i:0;s:27:\"Ordinaria (sin compromisos)\";i:1;s:36:\"Con compromiso familiar e individual\";i:2;s:25:\"Con compromiso Académico\";i:3;s:27:\"Con compromiso Convivencial\";i:4;s:40:\"Con compromiso Académico y convivencial\";i:5;s:15:\"En observación\";i:6;s:24:\"En observación especial\";}', 0, 1, 4, 1),
@@ -75,8 +75,8 @@ INSERT INTO `caracterizacion_estudiantes_preguntas` (`id`, `pregunta`, `titulo_e
        (51, '¿El o la estudiante se desplaza solo(a) hasta su casa?\r\n', 'Va solo(a) a casa', 'select', NULL, NULL, 0, 'a:2:{i:0;s:2:\"Si\";i:1;s:2:\"No\";}', 0, 1, 50, 0),
        (52, 'Si el estudiante no se desplaza solo hasta su casa, por favor indique quienes serían las personas autorizadas para recogerlo(a)', 'Personas autorizadas', 'input', 'text', NULL, 0, NULL, 0, 0, 51, 0),
        (53, '¿Cuál es la tipología de la familia de o la estudiante?', 'Tipología de la familia', 'select', NULL, NULL, 0, 'a:8:{i:0;s:52:\"Familia Unipersonal: El o la estudiante vive solo(a)\";i:1;s:72:\"Compuestas: Miembros de la familia y otras personas que no son parientes\";i:2;s:99:\"Recompuesta: Jefe de hogar con pareja (padrastro – madrastra) hijos de cada uno e hijos en común\";i:3;s:27:\"Nuclear: Los padres e hijos\";i:4;s:44:\"Monoparental: Uno solo de los padres e hijos\";i:5;s:55:\"Extensa: La nuclear o monoparental con otros familiares\";i:6;s:67:\"Homoparental: Pareja del mismo sexo, con hijos propios o adoptados.\";i:7;s:24:\"Familia Sustituta (ICBF)\";}', 0, 1, 51, 1),
-       (54, 'Por favor indique la siguiente información de acuerdo a las personas con las que el o la estudiante vive: \nNombre completo, edad, parentesco', 'Con quien vive', 'textarea', NULL, NULL, 0, NULL, 0, 1, 52, 0);
-
+       (54, 'Por favor indique la siguiente información de acuerdo a las personas con las que el o la estudiante vive: \nNombre completo, edad, parentesco', 'Con quien vive', 'textarea', NULL, NULL, 0, NULL, 0, 1, 52, 0),
+       (55, 'Información adicional del estudiante', 'Información adicional del estudiante', 'textarea', NULL, NULL, 0, NULL, 0, 0, 53, 0);
 --
 -- Índices para tablas volcadas
 --
@@ -699,3 +699,13 @@ COMMIT;
 INSERT INTO `tipo_prueba` (`id_tipo_prueba`, `descripcion`) VALUES ('4', 'Simulacro');
 
 ALTER TABLE `pruebas` ADD `temas` TEXT NULL AFTER `materias`;
+
+ALTER TABLE `configuracion` ADD `logo_min_educacion` VARCHAR(250) NULL AFTER `departamental`, ADD `logo_gobierno_colombia` VARCHAR(250) NULL AFTER `logo_min_educacion`;
+
+ALTER TABLE `configuracion` ADD `logo_gobernacion_quindio` VARCHAR(200) NOT NULL AFTER `logo_gobierno_colombia`;
+
+INSERT INTO `caracterizacion_estudiantes_preguntas` (`id`, `pregunta`, `titulo_excel`, `tipo_etiqueta`, `tipo_input`, `placeholder`, `es_multiple`, `opciones`, `tiene_otro`, `es_obligatoria`, `orden`, `filtro`) VALUES (56, 'Que tema le gustaría recibir en las escuelas de padres', 'Que tema le gustaría recibir en las escuelas de padres', 'input', 'text', NULL, '0', NULL, '0', '0', '54', '0');
+
+INSERT INTO `caracterizacion_estudiantes_preguntas` (`id`, `pregunta`, `titulo_excel`, `tipo_etiqueta`, `tipo_input`, `placeholder`, `es_multiple`, `opciones`, `tiene_otro`, `es_obligatoria`, `orden`, `filtro`) VALUES ('57', 'Como padre de familia como podría aportar a la comunidad educativa', 'Como padre de familia como podría aportar a la comunidad educativa', 'checkbox', NULL, NULL, '1', 'a:10:{i:0;s:29:\"Con arte manual y decoración\";i:1;s:52:\"Con conocimientos que aporten a la escuela de padres\";i:2;s:16:\"Con arte musical\";i:3;s:30:\"Con arte por medio de la danza\";i:4;s:23:\"Con asesoría en tareas\";i:5;s:20:\"Con apoyo en deporte\";i:6;s:18:\"Con arte culinario\";i:7;s:41:\"Con obras de teatro para actos culturales\";i:8;s:47:\"Con donaciones de uniformes o útiles escolares\";i:9;s:4:\"otro\";}', '0', '1', '55', '0');
+
+INSERT INTO `caracterizacion_estudiantes_preguntas` (`id`, `pregunta`, `titulo_excel`, `tipo_etiqueta`, `tipo_input`, `placeholder`, `es_multiple`, `opciones`, `tiene_otro`, `es_obligatoria`, `orden`, `filtro`) VALUES ('58', 'Como padre de familia de que otra forma puede aportar a la comunidad educativa?', 'Como padre de familia de que otra forma puede aportar a la comunidad educativa?', 'input', 'text', NULL, '0', NULL, '0', '0', '56', '0');

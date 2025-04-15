@@ -160,6 +160,28 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group d-flex" style="align-items: center;">
+                                                <div style="flex: 1;margin-right: 20px;">
+                                                    <label for="">Logo Min Educación</label>
+                                                    <input type="file" name="logo_min_educacion" accept="image/*" class="form-control">
+                                                </div>
+                                                <img width="50px" height="50px" src="<?= base_url() ?>img/<?= configuracion()["logo_min_educacion"] ?>" alt="<?= configuracion()["nombre_institucion"] ?>" srcset="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group d-flex" style="align-items: center;">
+                                                <div style="flex: 1;margin-right: 20px;">
+                                                    <label for="">Logo Gobierno Colombia</label>
+                                                    <input type="file" name="logo_gobierno_colombia" accept="image/*" class="form-control">
+                                                </div>
+                                                <img width="50px" height="50px" src="<?= base_url() ?>img/<?= configuracion()["logo_gobierno_colombia"] ?>" alt="<?= configuracion()["nombre_institucion"] ?>" srcset="">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- <div class="row m-t-2">
                                         <div class="col-md-12">
                                             <div class="form-group">

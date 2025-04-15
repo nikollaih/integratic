@@ -5,6 +5,13 @@ use Dompdf\Options;
  * Class CaracterizacionEstudiantes
  *
  * Controlador para gestionar la caracterización de estudiantes.
+ * @property $Estudiante_Model
+ * @property $input
+ * @property $CaracterizacionEstudiantesPreguntas_Model
+ * @property $CaracterizacionEstudiantesRespuestas_Model
+ * @property $DireccionGrupo_Model
+ * @property $load
+ * @property $output
  */
 class CaracterizacionEstudiantes extends CI_Controller
 {
@@ -112,12 +119,17 @@ class CaracterizacionEstudiantes extends CI_Controller
             // Aplica el filtro de dirección de grupo si el usuario es docente.
             if(strtolower(logged_user()['rol']) == 'docente'){
                 $direccion_grupo = $this->DireccionGrupo_Model->getByDocente(logged_user()["id"]);
+
                 if($direccion_grupo) {
                     $grado = $direccion_grupo["grado"];
                     $params["grado"] = $grado;
+                    $params["estudiantes"] =  $this->Estudiante_Model->getCaracterizacionEstudiantes($params["grado"]);
+                }
+                else {
+                    $params["estudiantes"] =  false;
                 }
 
-                $params["estudiantes"] =  $this->Estudiante_Model->getCaracterizacionEstudiantes($grado);
+
             }
             else {
                 $params["estudiantes"] = (!empty($params["filtros"]))

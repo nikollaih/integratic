@@ -7,6 +7,7 @@
     <?php $this->load->view("modal/evidencia_aprendizaje_soportes_agregar") ?>
     <?php $this->load->view("modal/evidencia_aprendizaje_soportes") ?>
     <?php $this->load->view("modal/user_evidencias_aprendizaje_incompletas") ?>
+    <?php $this->load->view("modal/plan_aula_tooltip"); ?>
     <div class="content-page">
         <div class="content">  
             <div class="container">
@@ -62,7 +63,7 @@
                                     <div class="row">
                                         <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
-                                                <label for="plan[area]">Área <span class="text-danger">*</span></label>
+                                                <label for="plan[area]">Asignatura <span class="text-danger">*</span></label>
                                                 <select <?= (is_array($plan_area)) ? "disabled" : "" ?> required class="form-control" name="plan[area]" id="plan-area-area">
                                                     <option value="">- Seleccionar</option>
                                                     <?php
@@ -77,7 +78,7 @@
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
-                                                <label for="">Materia <span class="text-danger">*</span></label>
+                                                <label for="">Grado <span class="text-danger">*</span></label>
                                                 <select <?= (is_array($plan_area)) ? "disabled" : "" ?> required class="form-control" name="plan[materia]" id="plan-area-materia">
                                                     <option value="">- Seleccionar</option>
                                                     <?php
@@ -150,30 +151,37 @@
                                     <div class="row">
                                         <div class=" col-xs-12">
                                             <div class="form-group">
-                                                <label for="">Diagnostico <span class="text-danger">*</span></label>
+                                                <i data-text="Esto es una prueba" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
+                                                <label for="">Diagnostico
+                                                    <span class="text-danger">*</span>
+                                                </label>
                                                 <textarea <?= (!$editable) ? "disabled" : "" ?> name="plan[diagnostico]" id="richtext-1" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["diagnostico"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
+                                                <i data-text="Esto es una prueba" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Estado actual <span class="text-danger">*</span></label>
                                                 <textarea name="plan[estado_actual]" id="richtext-2" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["estado_actual"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
+                                                <i data-text="Esto es una prueba" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Situación deseada <span class="text-danger">*</span></label>
                                                 <textarea name="plan[situacion_deseada]" id="richtext-3" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["situacion_deseada"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
+                                                <i data-text="Esto es una prueba" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Observaciones <span class="text-danger">*</span></label>
                                                 <textarea name="plan[observaciones]" id="richtext-4" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["observaciones"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
+                                                <i data-text="Esto es una prueba" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Encuadre o pactos de clase <span class="text-danger">*</span></label>
                                                 <textarea name="plan[pactos_clase]" id="richtext-11" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["pactos_clase"] : "" ?></textarea>
                                             </div>
@@ -255,7 +263,6 @@
                                         <div class="section-header">
                                             <div>
                                                 <span class="enumerator">PARTE 4 DE 4</span>
-                                                <h4 class="section-title">Evidencias de aprendizaje</h4>
                                             </div>
                                             <i data-parte="4" class="fa fa-solid fa-chevron-down open-close-parte"></i>
                                         </div>
@@ -273,7 +280,7 @@
                                                                 <th>Transferencia</th>
                                                                 <th>Valoración</th>
                                                                 <th>Recursos</th>
-                                                                <th style="width:130px;"></th>
+                                                                <th style="width:130px;">Seguimiento y evaluación</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -320,7 +327,7 @@
                                                                                         }
                                                                                         else {
                                                                                             ?>
-                                                                                                <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="button" class="btn m-b-10 btn-sm btn-info btn-agregar-observaciones-coordinador">Modificar observaciones</button>
+                                                                                                <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="button" class="btn m-b-10 btn-sm btn-info btn-agregar-observaciones-coordinador">Agregar observaciones</button>
                                                                                             <?php
                                                                                         }
                                                                                     ?>

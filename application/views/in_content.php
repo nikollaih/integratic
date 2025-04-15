@@ -323,7 +323,7 @@
                 <div class="modal-content"> 
                     <div class="modal-header"> 
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
-                        <h4 class="modal-title">Crear Nueva Area</h4> 
+                        <h4 class="modal-title">Crear Nueva Área</h4> 
                     </div> 
                     <div class="modal-body"> 
                     <form id="frmareas" name="frmareas" enctype="multipart/form-data">  
@@ -343,8 +343,8 @@
                         <div class="row"> 
                             <div class="col-md-12"> 
                                 <div class="form-group">
-                                    <label for="nomarea" class="control-label">Nombre del Area</label>
-                                    <input id='nomarea' name='nomarea'  class='form-control input-lg' required placeholder='Nombre del Area' type='text'>                            
+                                    <label for="nomarea" class="control-label">Nombre del Área</label>
+                                    <input id='nomarea' name='nomarea'  class='form-control input-lg' required placeholder='Nombre del Área' type='text'>                            
                                 </div>                
                             </div>                
                         </div> 
@@ -405,7 +405,7 @@
                 <div class="row"> 
                     <div class="col-md-12"> 
                         <div class="form-group">
-                            <label for="areasmat" class="control-label">Nombre del Area</label>
+                            <label for="areasmat" class="control-label">Nombre del Área</label>
                             <div id="lista_areas">
                                 <select class="form-control" id="areasmat" name="areasmat">
                                 <option>Seleccione</option>    
@@ -1565,7 +1565,7 @@ function listardoc(tipo, carpeta, materia, grupo, idmateria=null, idgrupo=null, 
         case 'raiz': 
             switch(carpeta){
                 case 'documentos'   : titulo = "Comunicación Institucional"; break; 
-                case 'plan_area'    : titulo = "Planeación Académica Plan Area"; break; 
+                case 'plan_area'    : titulo = "Planeación Académica Plan Área"; break; 
                 case 'picc'         : titulo = "Programa Integración Componentes Curriculares"; break;  
                 case 'verdetopia'   : titulo = "VerdeTopía"; break; 
                 default 			: titulo = grupo; break;
@@ -3624,6 +3624,7 @@ function consu_materias(){
                     var html='<table class="table table-bordered table-hover">';
                         html+='<thead><tr style="background-color: #229678">';
                         html+='<th class="text-white text-center" width="20%">Código</th>';
+                        html+='<th class="text-white text-center">Área</th>';
                         html+='<th class="text-white text-center" width="60%">Asignatura</th>';
                         html+='<th class="text-white text-center" width="60%">Grado</th>';
                         html+='<th class="text-white text-center" width="10%">Eliminar</th>';
@@ -3633,7 +3634,8 @@ function consu_materias(){
                           for (i=0; i<registros.length; i++) { 
                                     html+='<tr>';
                                     html+='<td align="center">'+registros[i]["codmateria"]+'</td>';
-                                    html+='<td>'+registros[i]["nommateria"]+'</td>';  
+                                  html+='<td>'+registros[i]["nomarea"]+'</td>';
+                                  html+='<td>'+registros[i]["nommateria"]+'</td>';
                                     html+='<td>'+registros[i]["grado"]+'</td>';  
                                     html+='<td class="text-center"><a href="#" onclick="borrarMateria(this)">';
                                     html+='<img src="<?=base_url();?>img/delete.png" width="20" height="20"/></a></td>';
@@ -3936,11 +3938,11 @@ function consu_menuad(){
                            " </div>   "   +  
                             "<label for='codigo'>No. Código</label>" +                 
                             "<div class='input-group'>" +   
-                            "<input class='form-control' type='text' id='ucodarea' name='ucodarea' value='" + registros[i]["codarea"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                            "<input class='form-control' type='text' id='ucodarea' name='ucodarea' value='" + registros[i]["codarea"]+"'  placeholder='Código de Área' maxlength='5' readonly>" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                             "<label for='desc'>Descripción</label>" +      
                             "<div class='input-group'>" +                
-                            "<input class='form-control' type='text' id='unomarea' name='unomarea' value='" + registros[i]["nomarea"]+"' placeholder='Nombre de Area' maxlength='50'/>" + 
+                            "<input class='form-control' type='text' id='unomarea' name='unomarea' value='" + registros[i]["nomarea"]+"' placeholder='Nombre de Área' maxlength='50'/>" + 
                             "<input class='form-control' type='hidden' id='unomareant' name='unomareant' value='" + registros[i]["nomarea"]+"' />" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                             "<label for='uicoarea'>Cambiar Imagen</label>" +                                 
@@ -3976,18 +3978,18 @@ var campo = nodosEnTr[0].textContent;
             html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +          
                     "<label for='codigo'>No. Código</label>" +                 
                     "<div class='input-group'>" +   
-                    "<input class='form-control' type='text' id='ucodmat' name='ucodmat' value='" + registros[i]["codmateria"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                    "<input class='form-control' type='text' id='ucodmat' name='ucodmat' value='" + registros[i]["codmateria"]+"'  placeholder='Código de Área' maxlength='5' readonly>" + 
                     "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                     "<label for='desc'>Descripción</label>" +      
                     "<div class='input-group'>" +                
-                    "<input class='form-control' type='text' id='unommat' name='unommat' value='" + registros[i]["nommateria"]+"' placeholder='Nombre de Area' maxlength='50'/>" + 
+                    "<input class='form-control' type='text' id='unommat' name='unommat' value='" + registros[i]["nommateria"]+"' placeholder='Nombre de Área' maxlength='50'/>" + 
                     "<input class='form-control' type='hidden' id='unomarea' name='unomarea' value='" + registros[i]["nomarea"]+"'/>" +                      
                     "<input class='form-control' type='hidden' id='unommatant' name='unommatant' value='" + registros[i]["nommateria"]+"'/>" +                     
                     "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                     "<label for='desc'>Grado</label>" + 
                     "<div class='input-group'>" +                
-                    "<input class='form-control' type='text' id='ugramat' name='ugramat' value='" + registros[i]["grado"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
-                    "<input class='form-control' type='hidden' id='ugramatant' name='ugramatant' value='" + registros[i]["grado"]+"' placeholder='Nombre de Area' maxlength='50'>" +                     
+                    "<input class='form-control' type='text' id='ugramat' name='ugramat' value='" + registros[i]["grado"]+"' placeholder='Nombre de Área' maxlength='50'>" + 
+                    "<input class='form-control' type='hidden' id='ugramatant' name='ugramatant' value='" + registros[i]["grado"]+"' placeholder='Nombre de Área' maxlength='50'>" +                     
                     "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +                             
                     "<label for='uicomat'>Cambiar Imagen</label>" +                                 
                     "<input id='uicomat' name='uicomat' size='50' value='" + registros[i]["icomat"]+"' type='file'/>" +                            
@@ -4020,11 +4022,11 @@ var campo = nodosEnTr[0].textContent;
                     html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +          
                             "<label for='codigo'>No. Código</label>" +                 
                             "<div class='input-group'>" +   
-                            "<input class='form-control' type='text' id='ucodigo' name='ucodigo' value='" + registros[i]["codpro"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                            "<input class='form-control' type='text' id='ucodigo' name='ucodigo' value='" + registros[i]["codpro"]+"'  placeholder='Código de Área' maxlength='5' readonly>" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                             "<label for='desc'>Descripción</label>" +      
                             "<div class='input-group'>" +                
-                            "<input class='form-control' type='text' id='unombre' name='unombre' value='" + registros[i]["nomproyecto"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<input class='form-control' type='text' id='unombre' name='unombre' value='" + registros[i]["nomproyecto"]+"' placeholder='Nombre de Área' maxlength='50'>" + 
                             "<input class='form-control' type='hidden' id='unombreant' name='unombreant' value='" + registros[i]["nomproyecto"]+"'>" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                             "<label for='uicoarea'>Cambiar Imagen</label>" +                                 
@@ -4057,11 +4059,11 @@ var campo = nodosEnTr[0].textContent;
                     html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +          
                             "<label for='codigo'>No. Código</label>" +                 
                             "<div class='input-group'>" +   
-                            "<input class='form-control' type='text' id='ucodigo' name='ucodigo' value='" + registros[i]["codpro"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                            "<input class='form-control' type='text' id='ucodigo' name='ucodigo' value='" + registros[i]["codpro"]+"'  placeholder='Código de Área' maxlength='5' readonly>" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                             "<label for='desc'>Descripción</label>" +      
                             "<div class='input-group'>" +                
-                            "<input class='form-control' type='text' id='unombre' name='unombre' value='" + registros[i]["nomproceso"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<input class='form-control' type='text' id='unombre' name='unombre' value='" + registros[i]["nomproceso"]+"' placeholder='Nombre de Área' maxlength='50'>" + 
                             "<input class='form-control' type='hidden' id='unombreant' name='unombreant' value='" + registros[i]["nomproceso"]+"'>" +                             
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                             "<label for='uicoarea'>Cambiar Imagen</label>" +                                 
@@ -4094,35 +4096,35 @@ var campo = nodosEnTr[0].textContent;
                     html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" + 
                             "<label for='codigo'>No. Código</label>" +                 
                             "<div class='input-group'>" +   
-                            "<input class='form-control' type='text' id='ucod' name='ucod' value='" + registros[i]["id"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                            "<input class='form-control' type='text' id='ucod' name='ucod' value='" + registros[i]["id"]+"'  placeholder='Código de Área' maxlength='5' readonly>" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                             "<label for='desc'>Nombres</label>" +      
                             "<div class='input-group'>" +                
-                            "<input class='form-control' type='text' id='unom' name='unom' value='" + registros[i]["nombres"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<input class='form-control' type='text' id='unom' name='unom' value='" + registros[i]["nombres"]+"' placeholder='Nombre de Área' maxlength='50'>" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                             "<label for='desc'>Apellidos</label>" +      
                             "<div class='input-group'>" +                                 
-                            "<input class='form-control' type='text' id='uape' name='uape' value='" + registros[i]["apellidos"]+"' placeholder='Nombre de Area' maxlength='50'>" +                                                     
+                            "<input class='form-control' type='text' id='uape' name='uape' value='" + registros[i]["apellidos"]+"' placeholder='Nombre de Área' maxlength='50'>" +                                                     
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +    
                             "<label for='desc'>Cargo</label>" +      
                             "<div class='input-group'>" +                
-                            "<input class='form-control' type='text' id='unom' name='ucar' value='" + registros[i]["cargo"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<input class='form-control' type='text' id='unom' name='ucar' value='" + registros[i]["cargo"]+"' placeholder='Nombre de Área' maxlength='50'>" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +                             
                             "<label for='desc'>Rol</label>" +      
                             "<div class='input-group'>" +                
-                            "<input class='form-control' type='text' id='unom' name='urol' value='" + registros[i]["rol"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<input class='form-control' type='text' id='unom' name='urol' value='" + registros[i]["rol"]+"' placeholder='Nombre de Área' maxlength='50'>" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                             "<label for='desc'>No. Celular</label>" +      
                             "<div class='input-group'>" +                
-                            "<input class='form-control' type='text' id='unom' name='ucel' value='" + registros[i]["nocel"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<input class='form-control' type='text' id='unom' name='ucel' value='" + registros[i]["nocel"]+"' placeholder='Nombre de Área' maxlength='50'>" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +                             
                             "<label for='desc'>mail/Usuario</label>" +      
                             "<div class='input-group'>" +                
-                            "<input class='form-control' type='text' id='unom' name='uusr' value='" + registros[i]["usuario"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<input class='form-control' type='text' id='unom' name='uusr' value='" + registros[i]["usuario"]+"' placeholder='Nombre de Área' maxlength='50'>" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +   
                             "<label for='desc'>Clave</label>" +      
                             "<div class='input-group'>" +                
-                            "<input class='form-control' type='text' id='unom' name='upas' value='" + registros[i]["clave"]+"' placeholder='Nombre de Area' maxlength='50'>" + 
+                            "<input class='form-control' type='text' id='unom' name='upas' value='" + registros[i]["clave"]+"' placeholder='Nombre de Área' maxlength='50'>" + 
                             "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" +                                                         
                             "<div class='modal-footer'>" + 
                             "<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>" + 
@@ -4151,7 +4153,7 @@ var campo = nodosEnTr[0].textContent;
             html="<form id='frmeditar' name='frmeditar' enctype='multipart/form-data'>" +          
                     "<label for='codigo'>Id</label>" +                 
                     "<div class='input-group'>" +   
-                    "<input class='form-control' type='text' id='uid' name='uid' value='" + registros[i]["id"]+"'  placeholder='Código de Area' maxlength='5' readonly>" + 
+                    "<input class='form-control' type='text' id='uid' name='uid' value='" + registros[i]["id"]+"'  placeholder='Código de Área' maxlength='5' readonly>" + 
                     "<span class='input-group-addon'><i class='fa fa-check'></i></span></div>" + 
                     "<label for='desc'>Orden</label>" +   
                     "<div class='input-group'>" +                
@@ -4417,7 +4419,7 @@ html+='<div class="panel panel-default">';
 html+='<div class="panel-body">';
 html+='<div class="clearfix">';
 html+='<div class="pull-left">';
-html+='<h4 class="text-right"><img src="./img/<?= (configuracion()) ? configuracion()["logo_institucion"] : "" ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>" width="100" height="100"></h4>';                        
+html+='<h4 class="text-right"><a href="<?= base_url() ?>"><img src="./img/<?= (configuracion()) ? configuracion()["logo_institucion"] : "" ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>" width="100" height="100"></a></h4>';
 html+='</div>';
 html+='<div class="pull-right">';
 html+='<h4><?= strtoupper(configuracion()["nombre_institucion"]) ?><br>';

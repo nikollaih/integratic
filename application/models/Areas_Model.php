@@ -9,6 +9,7 @@ class Areas_Model extends CI_Model {
     function getAll(){
         $this->db->from("cfg_areas ca");
 		$this->db->group_by("ca.codarea");
+        $this->db->order_by("ca.nomarea", "asc");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
@@ -19,6 +20,7 @@ class Areas_Model extends CI_Model {
 		$this->db->join("asg_materias am", "am.materia = cm.codmateria");
         $this->db->where("am.docente", $id_docente);
 		$this->db->group_by("ca.codarea");
+        $this->db->order_by("ca.nomarea", "ASC");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}

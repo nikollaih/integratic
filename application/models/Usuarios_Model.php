@@ -45,6 +45,7 @@ class Usuarios_Model extends CI_Model {
         $this->db->where("rol", $role);
         $this->db->where("estado", "ac");
         $this->db->from("usuarios");
+        $this->db->order_by("nombres", "asc");
         $result = $this->db->get();
         return ($result->num_rows() > 0) ? $result->result_array() : false;
     }

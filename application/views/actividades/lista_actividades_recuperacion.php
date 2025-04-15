@@ -1,6 +1,6 @@
 <div>
     <div style="background-color:#33b86c;border-radius:10px;" class="d-flex justify-between align-items-center m-b-1">
-        <h3 class="title-container-foros">Actividades de recuperación</h3>
+        <h3 class="title-container-foros">Actividades de recuperaci&oacute;n</h3>
         <i class="fa fa-chevron-up open-section" data-section="recuperacion"></i>
     </div>
     <ul style="padding:0" class="section-recuperacion">
@@ -14,12 +14,14 @@
                         <h4 class='titulo-foro' style="border-bottom:0;margin:0;"><a  style="color:#33aaff;"><?= $a["titulo_actividad"] ?></a></h4>
                         <div class="text-right">
                             <p class="m-0 label label-primary">Periodo: <?= $a["periodo"] ?></p>
-                            <?= $a["es_recuperacion"] === "1" ? '<p class="m-0 label label-success">Recuperación</p>' : '' ?>
+                            <?= $a["es_recuperacion"] === "1" ? '<p class="m-0 label label-success">Recuperaci&oacute;n</p>' : '' ?>
                             <?php
                                 $respuesta_actividad = respuestas_actividad($a["id_actividad"], logged_user()["id"]);
                                 $estudiantes_habilitados = ($a["estudiantes_habilitados"]) ? unserialize($a["estudiantes_habilitados"]) : [];
+
                                 if(strtolower(logged_user()["rol"]) == "estudiante"){
-                                    if(($a["disponible_hasta"] > date("Y-m-d H:i:s")) || in_array(logged_user()["id"], $estudiantes_habilitados)){
+                                    if(($a["disponible_hasta"] > date("Y-m-d H:i:s")) && ($a["es_recuperacion"] !== "1" || ($a["es_recuperacion"] === "1" && in_array(logged_user()["id"], $estudiantes_habilitados))) ){
+
                                         if($respuesta_actividad == false || ($respuesta_actividad == false && in_array(logged_user()["id"], $estudiantes_habilitados))) {
                                             ?>
                                             <a href="javascript:subir();" class="crear-respuesta-boton d-flex align-items-center" data-actividad="<?= $a["id_actividad"] ?>" data-toggle="modal" data-target="#agregar-respuesta-actividad">

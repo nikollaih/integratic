@@ -212,7 +212,7 @@
     if($pregunta){ ?>
         <script>
             $(document).ready(() => {
-                let contents = "<?= $pregunta["descripcion_pregunta"] ?>";
+                let contents = `<?= $pregunta["descripcion_pregunta"] ?>`;
                 editorRich.setContents(contents);
                 $(".select-readonly").select2({disabled: true});
             })

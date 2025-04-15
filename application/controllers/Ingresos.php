@@ -18,9 +18,8 @@ class Ingresos extends CI_Controller
     public function index(){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) === "super"){
-
-                $params["fecha_inicial"] = NULL;
-                $params["fecha_final"] = NULL;
+                $params["fecha_inicial"] = date('Y-m-01');
+                $params["fecha_final"] = date('Y-m-d');
                 $params["rol"] = NULL;
 
                 if($this->input->post()){

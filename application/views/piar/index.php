@@ -33,7 +33,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                if(isset($estudiantes)){
+                                if(isset($estudiantes) && is_array($estudiantes)){
                                     foreach ($estudiantes as $e) {
                                         ?>
                                         <tr id="estudiante-<?= $e["documento"] ?>">

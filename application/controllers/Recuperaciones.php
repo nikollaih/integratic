@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property $Consultas_Model
+ */
 class Recuperaciones extends CI_Controller
 {
     function __construct() {
@@ -43,7 +46,7 @@ class Recuperaciones extends CI_Controller
                 $params["message"] = $this->save($data["recuperacion"]);
             }
             $params["materias"] = $this->Materias_Model->getMateriasDocente($userId);
-            $params["grupos"] = $this->Consultas_Model->allGrupos();
+            $params["grupos"] = $this->Consultas_Model->allDistinctGrupos($userId);
             $params["periodos"] = $this->Periodos_Model->getAll();
             $this->load->view("recuperaciones/create", $params);
         }
@@ -59,7 +62,7 @@ class Recuperaciones extends CI_Controller
                 $params["message"] = $this->save($data["recuperacion"]);
             }
             $params["materias"] = $this->Materias_Model->getMateriasDocente($userId);
-            $params["grupos"] = $this->Consultas_Model->allGrupos();
+            $params["grupos"] = $this->Consultas_Model->allDistinctGrupos($userId);
             $params["periodos"] = $this->Periodos_Model->getAll();
             $params["recuperacion"] = $this->Recuperacion_Model->find($idRecuperacion);
             $this->load->view("recuperaciones/create", $params);

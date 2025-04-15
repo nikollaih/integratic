@@ -25,13 +25,15 @@ class PlanAreas_Model extends CI_Model {
     }
 
     function get_all($idPlanArea){
-        $this->db->from("plan_areas");
+        $this->db->select("pa.*, p.periodo, p.id_periodo");
+        $this->db->from("plan_areas pa");
+        $this->db->join("periodos p", "p.id_periodo = pa.periodo");
         $result = $this->db->get();
         return ($result->num_rows() > 0) ? $result->result_array() : false;
     }
 
     function get_by_docente($idDocente, $area = null, $materia = null, $periodo = null){
-        $this->db->select('ca.*, cm.*, p.*, pa.*');
+        $this->db->select('ca.*, cm.*, p.*, pa.*, p.periodo as nombre_periodo');
         $this->db->from("plan_areas pa");
         $this->db->join("cfg_areas ca", "ca.codarea = pa.area");
         $this->db->join("cfg_materias cm", "cm.codmateria = pa.materia");

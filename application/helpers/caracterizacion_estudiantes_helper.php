@@ -78,10 +78,14 @@ if(!function_exists("obtenerRespuesta")) {
 if(!function_exists("filtrarRespuestas")) {
     function filtrarRespuestas($respuestas, $idPregunta)
     {
-        // Filtrar los arrays
-        return array_filter($respuestas, function ($array) use ($idPregunta) {
-            return $array['id_pregunta'] == $idPregunta;
-        });
+        if(is_array($respuestas)){
+            // Filtrar los arrays
+            return array_filter($respuestas, function ($array) use ($idPregunta) {
+                return $array['id_pregunta'] == $idPregunta;
+            });
+        }
+
+        return [];
     }
 }
 
