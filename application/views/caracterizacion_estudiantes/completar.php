@@ -31,43 +31,59 @@
                     <form action="" method="post">
                         <?php
                         if (isset($preguntas) && is_array($preguntas)) {
-                            foreach ($preguntas as $pregunta) { ?>
+                            $categoria_actual = null;
+
+                            for ($x = 0; $x < count($preguntas); $x++) {
+                                $pregunta = $preguntas[$x];
+                                $categoria = $pregunta["nombre_categoria"];
+
+                                // Si la categoría cambia (o es la primera vez), mostramos el encabezado
+                                if ($categoria !== $categoria_actual) {
+                                    if ($x !== 0) {
+                                        // Si no es la primera pregunta, cerramos el contenedor anterior
+                                        echo '</div>'; // Cierre del contenedor de categoría anterior
+                                    }
+
+                                    // Nuevo contenedor de categoría
+                                    echo '<div class="categoria-bloque" style="background: #f0f0f0;padding: 10px 15px;border-radius: 10px;margin-bottom: 20px;">';
+                                    echo '<h4 class="titulo-categoria" style="border-bottom: 1px solid #ccc;padding-bottom: 10px;">' . htmlspecialchars($categoria) . '</h4>';
+                                    $categoria_actual = $categoria;
+                                }
+                                ?>
+
                                 <div class="row m-b-30">
                                     <div class="col-md-12">
-                                        <label for=""><?= $pregunta["orden"]. ' - ' .$pregunta["pregunta"] ?><?= ($pregunta["es_obligatoria"]) ? "<span class='text-danger'> *</span>" : "" ?></label><br>
+                                        <label for=""><?= $x + 1 . ' - ' . $pregunta["pregunta"] ?>
+                                            <?= ($pregunta["es_obligatoria"]) ? "<span class='text-danger'> *</span>" : "" ?>
+                                        </label><br>
                                         <?php
-                                            switch ($pregunta["tipo_etiqueta"]) {
-                                                case "input":
-                                                    $this->load->view("caracterizacion_estudiantes/form/input", array("pregunta" => $pregunta));
-                                                    break;
+                                        switch ($pregunta["tipo_etiqueta"]) {
+                                            case "input":
+                                                $this->load->view("caracterizacion_estudiantes/form/input", array("pregunta" => $pregunta));
+                                                break;
 
-                                                case "textarea":
-                                                    $this->load->view("caracterizacion_estudiantes/form/textarea", array("pregunta" => $pregunta));
-                                                    break;
+                                            case "textarea":
+                                                $this->load->view("caracterizacion_estudiantes/form/textarea", array("pregunta" => $pregunta));
+                                                break;
 
-                                                case "checkbox":
-                                                    $this->load->view("caracterizacion_estudiantes/form/checkbox", array("pregunta" => $pregunta));
-                                                    break;
+                                            case "checkbox":
+                                                $this->load->view("caracterizacion_estudiantes/form/checkbox", array("pregunta" => $pregunta));
+                                                break;
 
-                                                case "select":
-                                                    $this->load->view("caracterizacion_estudiantes/form/select", array("pregunta" => $pregunta));
-                                                    break;
-                                            }
+                                            case "select":
+                                                $this->load->view("caracterizacion_estudiantes/form/select", array("pregunta" => $pregunta));
+                                                break;
+                                        }
                                         ?>
                                     </div>
                                 </div>
                             <?php }
+
+                            // Cerrar último contenedor de categoría
+                            echo '</div>';
                         }
                         ?>
-                        <?php
-                            if($editable) { ?>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button class="btn btn-success">Guardar</button>
-                                    </div>
-                                </div>
-                           <?php }
-                        ?>
+
 
                     </form>
                 </div>
