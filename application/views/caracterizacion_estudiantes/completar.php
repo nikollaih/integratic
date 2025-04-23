@@ -24,8 +24,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 m-b-30">
-                            <p>Señor(a) padre/madre o acudiente
-                                A continuación encontrará una serie de preguntas sobre información de su hijo(a) o del familiar del cual es acudiente, le solicitamos responder con sinceridad y responsabilidad cada una de las preguntas, para que la podamos recoger esta información que se requiere para los procesos institucionales. Toda la información aquí recolectada será tratada con privacidad.</p>
+                            <p>
+                                <b>Estimados padres de familia y acudientes:</b><br>
+                                A continuación, encontrará una serie de preguntas relacionadas con la información personal de su hijo(a) o del familiar bajo su responsabilidad. Se solicita responder con sinceridad y responsabilidad cada una de las preguntas. La información recopilada será tratada con estricta confidencialidad y utilizada únicamente para fines institucionales.
+
+                            </p>
                         </div>
                     </div>
                     <form action="" method="post">
