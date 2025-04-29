@@ -19,7 +19,7 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="">Área</label>
+                                            <label for="">Asignatura</label>
                                             <select class="form-control" name="area" id="plan-area-area">
                                                 <option value="">- Seleccionar</option>
                                                 <?php
@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="">Materia y grado</label>
+                                            <label for="">Grado</label>
                                             <select name="materia" class="form-control" id="plan-area-materia">
                                                 <option value="">- Seleccionar</option>
                                                 <?php
