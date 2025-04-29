@@ -7,7 +7,29 @@
     <?php $this->load->view("modal/evidencia_aprendizaje_soportes_agregar") ?>
     <?php $this->load->view("modal/evidencia_aprendizaje_soportes") ?>
     <?php $this->load->view("modal/user_evidencias_aprendizaje_incompletas") ?>
-    <?php $this->load->view("modal/plan_aula_tooltip"); ?>
+    <?php $this->load->view("modal/plan_aula_tooltip");
+
+    $DIAGNOSTICO_TEXT="Proceso fundamental en el ámbito educativo que permite evaluar el estado actual de un grupo de
+    estudiantes en relación con el año o periodo anterior. A través del diagnóstico se pueden identificar avances,
+    dificultades y competencias que requieren mayor atención, lo que facilita la planificación de estrategias pedagógicas más efectivas.";
+
+    $ESTADO_ACTUAL_TEXT="El estado actual del grupo describe la situación académica de los estudiantes, basada en los resultados del 
+    diagnóstico inicial o en el desempeño de períodos anteriores. Permite identificar las competencias que requieren fortalecimiento y 
+    orienta la planificación de acciones específicas para atender las necesidades reales del grupo.";
+
+    $SITUACION_DESEADA_TEXT="La situación deseada define el objetivo a alcanzar tras el análisis del estado actual del grupo. 
+    Se aspira a que los estudiantes desarrollen plenamente sus competencias académicas. Este propósito guiará la planificación y 
+    ejecución de acciones pedagógicas orientadas a atender las necesidades detectadas y a promover el desarrollo integral de todos los alumnos.";
+
+    $OBSERVACIONES_TEXT="Es fundamental realizar observaciones continuas sobre el trabajo que se llevará a cabo con el grupo de 
+    estudiantes durante el periodo. Estas observaciones permiten valorar el avance, identificar dificultades a tiempo y 
+    ajustar las estrategias de intervención según las necesidades reales del grupo.";
+
+    $ENCUADRE_PACTIOS_CLASE_TEXT="Acuerdos que se establecen al inicio del ciclo escolar o de un periodo de trabajo entre el docente y los estudiantes. 
+    Sirven para definir de manera clara las normas de convivencia, las responsabilidades, las dinámicas de trabajo y las expectativas 
+    mutuas dentro del aula.";
+
+    ?>
     <div class="content-page">
         <div class="content">  
             <div class="container">
@@ -151,7 +173,7 @@
                                     <div class="row">
                                         <div class=" col-xs-12">
                                             <div class="form-group">
-                                                <i data-text="Esto es una prueba" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
+                                                <i data-text="<?= $DIAGNOSTICO_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Diagnostico
                                                     <span class="text-danger">*</span>
                                                 </label>
@@ -160,28 +182,28 @@
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
-                                                <i data-text="Esto es una prueba" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
+                                                <i data-text="<?= $ESTADO_ACTUAL_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Estado actual <span class="text-danger">*</span></label>
                                                 <textarea name="plan[estado_actual]" id="richtext-2" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["estado_actual"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
-                                                <i data-text="Esto es una prueba" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
+                                                <i data-text="<?= $SITUACION_DESEADA_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Situación deseada <span class="text-danger">*</span></label>
                                                 <textarea name="plan[situacion_deseada]" id="richtext-3" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["situacion_deseada"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
-                                                <i data-text="Esto es una prueba" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
+                                                <i data-text="<?= $OBSERVACIONES_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Observaciones <span class="text-danger">*</span></label>
                                                 <textarea name="plan[observaciones]" id="richtext-4" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["observaciones"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
-                                                <i data-text="Esto es una prueba" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
+                                                <i data-text="<?= $ENCUADRE_PACTIOS_CLASE_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Encuadre o pactos de clase <span class="text-danger">*</span></label>
                                                 <textarea name="plan[pactos_clase]" id="richtext-11" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["pactos_clase"] : "" ?></textarea>
                                             </div>

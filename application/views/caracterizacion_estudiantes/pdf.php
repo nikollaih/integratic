@@ -24,6 +24,51 @@
 
     <div class="row">
         <div class="col-md-12">
+            <?php if (!empty($preguntas) && is_array($preguntas)): ?>
+                <?php
+                $categoria_actual = null;
+
+                foreach ($preguntas as $index => $pregunta) {
+                    $categoria = $pregunta["nombre_categoria"];
+
+                    // Si cambia la categoría, cerramos la tabla anterior y abrimos una nueva
+                    if ($categoria !== $categoria_actual) {
+                        if ($categoria_actual !== null) {
+                            // Cierra tabla y contenedor anterior
+                            echo '</tbody></table></div>';
+                        }
+
+                        // Nuevo contenedor de categoría con su tabla
+                        echo '<div class="categoria-bloque" style="padding: 10px 15px; border-radius: 10px; margin-bottom: 20px;">';
+                        echo '<h4 class="titulo-categoria" style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">' . strtoupper(htmlspecialchars($categoria)) . '</h4>';
+                        echo '<table class="table">';
+                        echo '<tbody>';
+
+                        $categoria_actual = $categoria;
+                    }
+
+                    // Agregamos fila de pregunta y respuesta
+                    echo '<tr>';
+                    echo '<th style="width: 500px">' . htmlspecialchars($pregunta["pregunta"]);
+                    if (!empty($pregunta["es_obligatoria"])) {
+                        echo ' <span class="text-danger">*</span>';
+                    }
+                    echo '</th>';
+                    echo '<td>' . obtenerRespuesta($preguntas, $respuestas, $pregunta["id"]) . '</td>';
+                    echo '</tr>';
+                }
+
+                // Cierre final del último bloque si hubo categorías
+                if ($categoria_actual !== null) {
+                    echo '</tbody></table></div>';
+                }
+                ?>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <!--<div class="row">
+        <div class="col-md-12">
             <h3>INFORMACIÓN BÁSICA</h3>
             <table>
                 <tbody>
@@ -36,9 +81,11 @@
                         <th>Teléfono</th>
                     </tr>
                     <tr>
-                        <td><?= obtenerRespuesta($preguntas, $respuestas, 1) ?></td>
+                        <td>
+                            <?= obtenerRespuesta($preguntas, $respuestas, 1)  ?>
+                        </td>
                         <td><?= obtenerRespuesta($preguntas, $respuestas, 2) ?></td>
-                        <td><?= $estudiante["nombres"]." ".$estudiante["apellidos"] ?></td>
+                        <td><?= obtenerRespuesta($preguntas, $respuestas, 59) ?></td>
                         <td><?= obtenerRespuesta($preguntas, $respuestas, 7) ?></td>
                         <td><?= obtenerRespuesta($preguntas, $respuestas, 10) ?></td>
                         <td><?= obtenerRespuesta($preguntas, $respuestas, 36) ?></td>
@@ -271,7 +318,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div>-->
 </div>
 
 <style>
@@ -281,7 +328,7 @@
     }
 
     th{
-        background: #ccc;
+        background: #e2e2e2;
     }
 
     .header > div {
@@ -291,6 +338,7 @@
     table {
         border-collapse: collapse;
         width: 100%;
+        border-bottom: 1px solid;
     }
 
     tbody, th {
@@ -299,7 +347,8 @@
 
     th, td {
         border: 1px solid black;
-        padding: 3px;
+        border-bottom: 0;
+        padding: 10px 10px;
         text-align: left;
         font-size: 13px;
     }

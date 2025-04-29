@@ -25,8 +25,8 @@
                     <div class="row">
                         <div class="col-md-12 m-b-30">
                             <p>
-                                <b>Estimados padres de familia y acudientes:</b><br>
-                                A continuación, encontrará una serie de preguntas relacionadas con la información personal de su hijo(a) o del familiar bajo su responsabilidad. Se solicita responder con sinceridad y responsabilidad cada una de las preguntas. La información recopilada será tratada con estricta confidencialidad y utilizada únicamente para fines institucionales.
+                                <b>Estimados padres de familia y/o acudientes:</b><br>
+                                A continuación, encontrará una serie de preguntas relacionadas con la información personal y familiar del o la estudiante bajo su responsabilidad. Se solicita, por favor, responder con sinceridad y responsabilidad cada una de ellas. Es importante mencionar que, la información recopilada será tratada con estricta confidencialidad y utilizada únicamente para fines institucionales.
 
                             </p>
                         </div>
@@ -86,8 +86,15 @@
                             echo '</div>';
                         }
                         ?>
-
-
+                        <?php
+                        if($editable) { ?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-success">Guardar</button>
+                                </div>
+                            </div>
+                        <?php }
+                        ?>
                     </form>
                 </div>
             </div>
