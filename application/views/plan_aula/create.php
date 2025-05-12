@@ -174,7 +174,7 @@
                                         <div class=" col-xs-12">
                                             <div class="form-group">
                                                 <i data-text="<?= $DIAGNOSTICO_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
-                                                <label for="">Diagnostico
+                                                <label for="">Diagnóstico
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <textarea <?= (!$editable) ? "disabled" : "" ?> name="plan[diagnostico]" id="richtext-1" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["diagnostico"] : "" ?></textarea>
@@ -251,7 +251,7 @@
                                         </div>
                                         <div class="col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label for="">Derecho básicos de aprendizaje</label>
+                                                <label for="">Derechos Básicos de Aprendizaje (DBA)</label>
                                                 <select <?= (!$editable) ? "disabled" : "" ?> name="plan[dbas][]" data-live-search="true" data-size="10" class="form-control select-2" multiple id="plan-area-dba">
                                                     <?php
                                                         if($dbas){
@@ -386,7 +386,7 @@
                                                 <div class="section-header">
                                                     <div>
                                                         <span class="enumerator">PARTE 4 DE 4</span>
-                                                        <h4 class="section-title"><?= (is_array($selectedEvidencia)) ? "Modificar" : "Nueva" ?> Evidencia de aprendizaje</h4>
+                                                        <h4 class="section-title"><?= (is_array($selectedEvidencia)) ? "Modificar" : "Nueva" ?> evidencia de aprendizaje</h4>
                                                     </div>
                                                 </div>
                                                 <div class="section-content">
