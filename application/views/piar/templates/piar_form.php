@@ -12,7 +12,8 @@
                 </div>
             </div>
             <?php
-            if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_user()["rol"]) == "coordinador"){
+            if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_user()["rol"]) == "coordinador" || $direccion_grupo){
+                if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_user()["rol"]) == "coordinador"){
                 ?>
                 <div class="row">
                     <div class="col-md-12"><hr></div>
@@ -25,7 +26,7 @@
                                 if($docentes){
                                     foreach($docentes as $doc){
                                         $selected = $doc["id"] === $estudiante["id_docente_aula"] ? "selected" :  "";
-                                        echo '<option '.$selected.' value="' .$doc["id"].'">'.$doc["nombres"].' '.$doc["apellidos"].'</option>';
+                                        echo '<option '.$selected.' value="' .$doc["id"].'">'.$doc["nombres"].' '.$doc["apellidos"].' - '.$doc["nommateria"].'</option>';
                                     }
                                 }
                                 ?>
@@ -383,6 +384,7 @@
                     </div>
                 </div>
 
+            <?php } ?>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -392,6 +394,10 @@
                         </div>
                     </div>
                 </div>
+
+            <?php
+            if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_user()["rol"]) == "coordinador"){
+            ?>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -423,6 +429,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <?php
@@ -477,6 +484,8 @@
                         </table>
                     </div>
                 </div>
+
+            <?php } ?>
 
                 <div class="row text-end" style="text-align:right;">
                     <div class="col-md-12 text-end">

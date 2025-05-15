@@ -27,6 +27,15 @@ class DireccionGrupo_Model extends CI_Model
         return ($result->num_rows() > 0) ? $result->row_array() : false;
     }
 
+    public function getByDocenteGrado($id_docente, $grado) {
+        $this->db->from($this->table);
+        $this->db->where('docente', $id_docente);
+        $this->db->where('grado', $grado);
+        $result = $this->db->get();
+
+        return ($result->num_rows() > 0) ? $result->row_array() : false;
+    }
+
     public function get() {
         $this->db->from($this->table);
         $this->db->join("usuarios u", "u.id = {$this->table}.docente");

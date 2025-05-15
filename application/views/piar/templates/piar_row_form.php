@@ -10,7 +10,7 @@ if(isset($estudiante["id_piar"])){ ?>
                 <div class="row">
                     <?php
                         if(strtolower(logged_user()["rol"]) === "docente"){ ?>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label for="id_materia">Seleccionar materia</label>
                                 <select class="form-control" name="id_materia" id="id_materia" required>
                                     <option value="">- Seleccionar materia</option>
@@ -19,6 +19,20 @@ if(isset($estudiante["id_piar"])){ ?>
                                         foreach($materias as $mat){
                                             $selected = ($item_piar && $item_piar["id_materia"] == $mat["codmateria"]) ? "selected" : "";
                                             echo '<option '.$selected.'  value="'.$mat["codmateria"].'">'.$mat["nommateria"].'</option>';
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_periodo">Periodo</label>
+                                <select class="form-control" name="id_periodo" id="id_periodo" required <?= isset($item_piar["id_periodo"]) ? 'disabled' : '' ?> >
+                                    <option value="">- Seleccionar periodo</option>
+                                    <?php
+                                    if($periodos){
+                                        foreach($periodos as $periodo){
+                                            $selected = ($item_piar && $item_piar["id_periodo"] == $periodo["id_periodo"]) ? "selected" : "";
+                                            echo '<option '.$selected.'  value="'.$periodo["id_periodo"].'">'.$periodo["periodo"].'</option>';
                                         }
                                     }
                                     ?>

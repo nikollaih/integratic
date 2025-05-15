@@ -15,6 +15,8 @@ use Mpdf\Mpdf;
  * @property $CaracterizacionEstudiantesRespuestas_Model
  * @property $PIAR_Actividad_Model
  * @property $PIAR_Item_Annual_Model
+ * @property $Periodos_Model
+ * @property $DireccionGrupo_Model
  */
 class PIAR extends CI_Controller
 {
@@ -25,7 +27,7 @@ class PIAR extends CI_Controller
      */
     public function __construct() {
         parent::__construct();
-        $this->load->model(["PIAR_Item_Annual_Model", "PIAR_Actividad_Model", "Estudiante_Model", "Usuarios_Model", "PIAR_Model", "PIAR_Item_Model", "Materias_Model", "CaracterizacionEstudiantesPreguntas_Model", "CaracterizacionEstudiantesRespuestas_Model"]);
+        $this->load->model(["DireccionGrupo_Model", "Periodos_Model", "PIAR_Item_Annual_Model", "PIAR_Actividad_Model", "Estudiante_Model", "Usuarios_Model", "PIAR_Model", "PIAR_Item_Model", "Materias_Model", "CaracterizacionEstudiantesPreguntas_Model", "CaracterizacionEstudiantesRespuestas_Model"]);
         $this->USER_ROL = (is_logged()) ? strtolower(logged_user()["rol"]) : "";
 
         $this->mpdf = new Mpdf([
@@ -58,6 +60,7 @@ class PIAR extends CI_Controller
         if(is_logged()){
             if($this->hasPermission()){
                 $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($estudianteDocumento);
+                $gradoGrupo = get_group_grade($params["estudiante"]["documento"]);
 
                 if(is_array($params["estudiante"]) && $params["estudiante"]["nee"] === "1"){
 
@@ -73,7 +76,7 @@ class PIAR extends CI_Controller
                     $grado = $this->Estudiante_Model->getStudentGrade($params["estudiante"]["id"]);
                     $params["materias"] = $this->Materias_Model->getMateriasGrupoGrado($grado, $grupo, logged_user()["id"]);
 
-                    $params["docentes"] = $this->Usuarios_Model->get_by_role("docente");
+                    $params["docentes"] = $this->Usuarios_Model->getDocentesByGradoGrupo($gradoGrupo["grado"], $gradoGrupo["grupo"]);
                     $params["apoyos"] = $this->Usuarios_Model->get_by_role("Docente de apoyo");
                     $this->load->view("piar/crear", $params);
                 }
@@ -90,7 +93,6 @@ class PIAR extends CI_Controller
                 $params["estudiante"] = $this->PIAR_Model->get($piarId);
 
                 if(is_array($params["estudiante"]) && $params["estudiante"]["nee"] === "1"){
-
                     $data = $this->input->post();
                     if($data){
                         $params["message"] = $this->update($piarId, $data);
@@ -113,6 +115,8 @@ class PIAR extends CI_Controller
                     $params["items_piar_annual"] = $this->PIAR_Item_Annual_Model->getAllByPiar($piarId);
                     $params["item_piar_annual"] = $this->PIAR_Item_Annual_Model->get($piarItemAnnualId);
                     $params["activities"] = $this->PIAR_Actividad_Model->getAllByPiar($piarId);
+                    $params["periodos"] = $this->Periodos_Model->getAll();
+                    $params["direccion_grupo"] = $this->DireccionGrupo_Model->getByDocenteGrado(logged_user()["id"], $params["estudiante"]["grado"]);
                     $this->load->view("piar/crear", $params);
                 }
                 else header("Location: ".base_url()."PIAR");
@@ -202,7 +206,7 @@ class PIAR extends CI_Controller
                             $this->session->set_flashdata('mensaje', '<div class="alert alert-success alert-dismissible show" role="alert">'.$created["message"].'</div>');
                         }
                         else {
-                            $this->session->set_flashdata('mensaje', '<div class="alert alert-danger alert-dismissible show" role="alert">Ha ocurrido un error, intente de nuevo más tarde</div>');
+                            $this->session->set_flashdata('mensaje', '<div class="alert alert-danger alert-dismissible show" role="alert">'.$created["message"].'</div>');
                         }
 
                         redirect(base_url()."PIAR/edit/".$data["id_piar"]);
@@ -355,20 +359,29 @@ class PIAR extends CI_Controller
     private function saveItemPiar($data): array
     {
         $piarItem = $this->PIAR_Item_Model->get($data["id_piar_item"]);
+        $message = "No se ha podido crear el formulario";
 
         if($piarItem){
             $created = $this->PIAR_Item_Model->update($data["id_piar_item"], $data);
-            $message = "Item modificado exitosamente";
+            $message = "Registro modificado exitosamente";
         }
         else{
-            unset($data["id_piar_item"]);
-            $created = $this->PIAR_Item_Model->create($data);
-            $message = "Item creado exitosamente";
+            $exists = $this->PIAR_Item_Model->getByDocenteMateriaPeriodo($data["id_docente"], $data["id_materia"], $data["id_periodo"]);
+
+            if($exists){
+                $created = false;
+                $message = "Ya existe un registro que coincide con la materia y el periodo, solo puede crear un registro por periodo.";
+            }
+            else {
+                unset($data["id_piar_item"]);
+                $created = $this->PIAR_Item_Model->create($data);
+                $message = "Registro creado exitosamente";
+            }
         }
 
         return $created ?
             array("status" => true, "id" => $created, "message" => $message) :
-            array("status" => false, "type" => "danger", "message" => "No se ha podido crear el formulario");
+            array("status" => false, "type" => "danger", "message" => $message);
     }
 
     private function saveItemAnnualPiar($data): array

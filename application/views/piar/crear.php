@@ -108,7 +108,8 @@
                                         <table class="table table-hover table-bordered">
                                             <thead>
                                             <tr>
-                                                <th>Materia</th>
+                                                <th>MATERIA</th>
+                                                <th>PERIODO</th>
                                                 <th>OBJETIVOS/PROPÓSITOS</th>
                                                 <th>BARRERAS QUE SE EVIDENCIAN EN EL CONTEXTO SOBRE LAS QUE SE DEBEN TRABAJAR </th>
                                                 <th>AJUSTES RAZONABLES</th>
@@ -124,6 +125,7 @@
                                                     ?>
                                                     <tr id="piar-item-<?= $item["id_piar_item"] ?>">
                                                         <td><?= $item["nomarea"] ?? "Otras" ?> <br>(<?= $item["nommateria"] ?>)</td>
+                                                        <td><?= $item["periodo"] ?></td>
                                                         <td><?= $item["objetivos"] ?></td>
                                                         <td><?= $item["barreras"] ?></td>
                                                         <td><?= $item["ajustes_razonables"] ?></td>

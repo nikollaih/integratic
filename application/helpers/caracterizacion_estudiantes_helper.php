@@ -69,7 +69,8 @@ if(!function_exists("get_respuesta_excel")){
 if(!function_exists("obtenerRespuesta")) {
     function obtenerRespuesta($preguntas, $respuestas, $idPregunta)
     {
-        $pregunta = array_values(filtrarPreguntas($preguntas, $idPregunta))[0];
+        $tempPregunta = array_values(filtrarPreguntas($preguntas, $idPregunta));
+        $pregunta = count($tempPregunta) > 0 ? $tempPregunta[0] : [];
         $filtered = filtrarRespuestas($respuestas, $idPregunta);
         return get_respuesta_excel($pregunta, array_values($filtered));
     }

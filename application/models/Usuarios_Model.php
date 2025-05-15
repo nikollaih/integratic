@@ -59,4 +59,18 @@ class Usuarios_Model extends CI_Model {
 		$this->db->where("id", $id);
 		return $this->db->delete("usuarios");
 	}
+
+    function getDocentesByGradoGrupo($grado, $grupo){
+        $this->db->from("usuarios u");
+        $this->db->join("asg_materias am", "u.id = am.docente");
+        $this->db->join("cfg_materias cm", "am.materia = cm.codmateria");
+        $this->db->where("u.rol", "Docente");
+        $this->db->where("cm.grado", $grado);
+        $this->db->where("am.grupo", $grupo);
+        $result = $this->db->get();
+
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+
+        return false;
+    }
 }

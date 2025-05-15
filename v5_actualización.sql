@@ -765,3 +765,5 @@ ALTER TABLE `caracterizacion_estudiantes_preguntas_categorias`
 --
 ALTER TABLE `caracterizacion_estudiantes_preguntas_categorias`
     MODIFY `id_caracterizacion_estudiantes_preguntas_categorias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+ALTER TABLE `piar_item` ADD `id_periodo` INT NOT NULL AFTER `id_materia`;

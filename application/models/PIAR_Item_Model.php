@@ -7,6 +7,7 @@
  * @property string $piar_item_table
  * @property string $materias_table
  * @property string $areas_table
+ * @property string $periodos_table
  */
 class PIAR_Item_Model extends CI_Model
 {
@@ -18,6 +19,7 @@ class PIAR_Item_Model extends CI_Model
         $this->piar_item_table = 'piar_item';
         $this->materias_table = 'cfg_materias';
         $this->areas_table = 'cfg_areas';
+        $this->periodos_table = 'periodos';
     }
 
     public function create($data){
@@ -68,11 +70,27 @@ class PIAR_Item_Model extends CI_Model
         $this->db->join($this->piar_table, $this->piar_item_table.'.id_piar = '.$this->piar_table.'.id_piar');
         $this->db->join($this->materias_table, $this->materias_table.'.codmateria = '.$this->piar_item_table.'.id_materia');
         $this->db->join($this->areas_table, $this->materias_table.'.area = '.$this->areas_table.'.codarea');
+        $this->db->join($this->periodos_table, $this->piar_item_table.'.id_periodo = '.$this->periodos_table.'.id_periodo', 'left outer');
         $this->db->where($this->piar_item_table.'.id_piar', $piarId);
 
         $result = $this->db->get();
 
         return ($result->num_rows() > 0) ? $result->result_array() : [];
+    }
+
+    public function getByDocenteMateriaPeriodo($docente, $materia, $periodo){
+        $this->db->from($this->piar_item_table);
+        $this->db->join($this->piar_table, $this->piar_item_table.'.id_piar = '.$this->piar_table.'.id_piar');
+        $this->db->join($this->materias_table, $this->materias_table.'.codmateria = '.$this->piar_item_table.'.id_materia');
+        $this->db->join($this->areas_table, $this->materias_table.'.area = '.$this->areas_table.'.codarea');
+        $this->db->join($this->periodos_table, $this->piar_item_table.'.id_periodo = '.$this->periodos_table.'.id_periodo', 'left outer');
+        $this->db->where($this->piar_item_table.'.id_docente', $docente);
+        $this->db->where($this->piar_item_table.'.id_materia', $materia);
+        $this->db->where($this->piar_item_table.'.id_periodo', $periodo);
+
+        $result = $this->db->get();
+
+        return ($result->num_rows() > 0) ? $result->row_array() : [];
     }
 
     public function getAllByPiarCategories($piarId){
