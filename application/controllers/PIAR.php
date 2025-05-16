@@ -91,6 +91,7 @@ class PIAR extends CI_Controller
         if(is_logged()){
             if($this->hasPermission()){
                 $params["estudiante"] = $this->PIAR_Model->get($piarId);
+                $gradoGrupo = get_group_grade($params["estudiante"]["documento"]);
 
                 if(is_array($params["estudiante"]) && $params["estudiante"]["nee"] === "1"){
                     $data = $this->input->post();
@@ -106,7 +107,7 @@ class PIAR extends CI_Controller
                     $grupo = $this->Estudiante_Model->getStudentGroupGrade($params["estudiante"]["documento"]);
                     $grado = $this->Estudiante_Model->getStudentGrade($params["estudiante"]["documento"]);
                     $params["materias"] = $this->Materias_Model->getMateriasGrupoGrado($grado, $grupo, logged_user()["id"]);
-                    $params["docentes"] = $this->Usuarios_Model->get_by_role("docente");
+                    $params["docentes"] = $this->Usuarios_Model->getDocentesByGradoGrupo($gradoGrupo["grado"], $gradoGrupo["grupo"]);
                     $params["apoyos"] = $this->Usuarios_Model->get_by_role("Docente de apoyo");
                     $params["items_piar"] = $this->PIAR_Item_Model->getAllByPiar($piarId);
                     $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
