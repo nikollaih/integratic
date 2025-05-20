@@ -767,3 +767,23 @@ ALTER TABLE `caracterizacion_estudiantes_preguntas_categorias`
     MODIFY `id_caracterizacion_estudiantes_preguntas_categorias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 ALTER TABLE `piar_item` ADD `id_periodo` INT NOT NULL AFTER `id_materia`;
+
+CREATE TABLE `tipo_componente_evidencia` (
+                                             `id_tipo_componente` INT NOT NULL AUTO_INCREMENT,
+                                             `nombre` VARCHAR(100) NOT NULL,
+                                             `descripcion` LONGTEXT NOT NULL,
+                                             `activo` TINYINT(1) NOT NULL DEFAULT 1,
+                                             PRIMARY KEY (`id_tipo_componente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+
+CREATE TABLE `evidencia_componentes` (
+                                         `id_componente` INT NOT NULL AUTO_INCREMENT,
+                                         `id_evidencia_aprendizaje` INT NOT NULL,
+                                         `id_tipo_componente` INT NOT NULL,
+                                         `contenido` TEXT NOT NULL,
+                                         `orden` TINYINT NOT NULL DEFAULT 1,
+                                         PRIMARY KEY (`id_componente`),
+                                         FOREIGN KEY (`id_evidencia_aprendizaje`) REFERENCES `evidencias_aprendizaje`(`id_evidencia_aprendizaje`) ON DELETE CASCADE,
+                                         FOREIGN KEY (`id_tipo_componente`) REFERENCES `tipo_componente_evidencia`(`id_tipo_componente`) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;

@@ -17,12 +17,35 @@ class EvidenciasAprendizaje_Model extends CI_Model {
         return $this->db->update("evidencias_aprendizaje", $data);
     }
 
-    function getByPlanArea($idPlanArea){
+    function getByPlanArea($idPlanArea) {
         $this->db->from("evidencias_aprendizaje ea");
+        $this->db->join("evidencia_componentes ec", "ea.id_evidencia_aprendizaje = ec.id_evidencia_aprendizaje");
         $this->db->where("ea.id_plan_area", $idPlanArea);
-		$result = $this->db->get();
-		return ($result->num_rows() > 0) ? $result->result_array() : false;
-	}
+        $result = $this->db->get();
+
+        if ($result->num_rows() === 0) {
+            return false;
+        }
+
+        $rawData = $result->result_array();
+        $evidencias = [];
+
+        foreach ($rawData as $row) {
+            $id = $row['id_evidencia_aprendizaje'];
+
+            // Si aún no existe esta evidencia, inicializamos
+            if (!isset($evidencias[$id])) {
+                $evidencias[$id] = $row;
+            }
+
+            // Agregamos el componente
+            $evidencias[$id]['componentes'][] = $row;
+        }
+
+        // Reindexar para devolver un array sin claves asociativas
+        return array_values($evidencias);
+    }
+
 
     function uncompleted(){
         $this->db->from("evidencias_aprendizaje ea");
@@ -84,11 +107,34 @@ class EvidenciasAprendizaje_Model extends CI_Model {
 	}
 
     function find($idEvidenciaAprendizaje){
-        $this->db->from("evidencias_aprendizaje");
-        $this->db->where("id_evidencia_aprendizaje", $idEvidenciaAprendizaje);
-		$result = $this->db->get();
-		return ($result->num_rows() > 0) ? $result->row_array() : false;
+        // Hacemos el join con la tabla de componentes
+        $this->db->from("evidencias_aprendizaje ea");
+        $this->db->join("evidencia_componentes ec", "ea.id_evidencia_aprendizaje = ec.id_evidencia_aprendizaje");
+        $this->db->where("ea.id_evidencia_aprendizaje", $idEvidenciaAprendizaje);
+        $result = $this->db->get();
+
+        if ($result->num_rows() === 0) {
+            return false;
+        }
+
+        $rawData = $result->result_array();
+        $data = [];
+
+        // La evidencia es única, así que podemos tomarla del primer row
+        $data = $rawData[0];
+
+        // Limpiamos posibles claves duplicadas de join (si es necesario)
+        // Luego inicializamos la lista de componentes
+        $data['componentes'] = [];
+
+        foreach ($rawData as $row) {
+            $componente = $row;
+            $data['componentes'][] = $componente;
+        }
+
+        return $data;
     }
+
 
     function delete($idEvidenciaAprendizaje){
         $this->db->where("id_evidencia_aprendizaje", $idEvidenciaAprendizaje);

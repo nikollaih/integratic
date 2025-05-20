@@ -112,21 +112,13 @@
                     <th>
                         <b class="item-title">EVIDENCIA DE APRENDIZAJE</b>
                     </th>
-                    <th>
-                        <b class="item-title">MOTIVACIÓN Y EXPLORACIÓN SABERES PREVIOS</b>
-                    </th>
-                    <th>
-                        <b class="item-title">ESTRUCTURACIÓN Y PRÁCTICA</b>
-                    </th>
-                    <th>
-                        <b class="item-title">TRANSFERENCIA</b>
-                    </th>
-                    <th>
-                        <b class="item-title">VALORACIÓN</b>
-                    </th>
-                    <th>
-                        <b class="item-title">RECURSOS</b>
-                    </th>
+                    <?php
+                    if($tipos_componentes_evidencia){
+                        foreach ($tipos_componentes_evidencia as $tipo) {
+                            echo '<th><b class="item-title">'.strtoupper($tipo["nombre"]).'</b></th>';
+                        }
+                    }
+                    ?>
                     <th>
                         <b class="item-title">ESTADO</b>
                     </th>
@@ -153,15 +145,26 @@
                                 }
                                 ?>
                             </td>
-                            <td colspan="<?= ($evidencia["is_only_row"]) ? 6 : 1 ?>"><p class="item-text"><?= $evidencia["evidencia_aprendizaje"] ?></p></td>
+                            <td colspan="<?= ($evidencia["is_only_row"]) ? count($tipos_componentes_evidencia) + 1 : 1 ?>"><p class="item-text"><?= $evidencia["evidencia_aprendizaje"] ?></p></td>
                             <?php
-                            if($evidencia["is_only_row"] != 1){ ?>
-                                <td><p class="item-text"><?= $evidencia["exploracion"] ?></p></td>
-                                <td><p class="item-text"><?= $evidencia["estructuracion"] ?></p></td>
-                                <td><p class="item-text"><?= $evidencia["transferencia"] ?></p></td>
-                                <td><p class="item-text"><?= $evidencia["valoracion"] ?></p></td>
-                                <td><p class="item-text"><?= $evidencia["recursos"] ?></p></td>
-                            <?php }
+                            if($evidencia["is_only_row"] != 1){
+                                if ($tipos_componentes_evidencia) {
+                                    foreach ($tipos_componentes_evidencia as $tipo) {
+                                        $componenteBuscado = null;
+                                        foreach ($evidencia['componentes'] as $componente) {
+                                            if ($componente['id_tipo_componente'] == $tipo["id_tipo_componente"]) {
+                                                $componenteBuscado = $componente;
+                                                break; // salimos del bucle al encontrar el componente
+                                            }
+                                        }
+
+                                        if ($componenteBuscado) {
+                                            echo "<td>" . $componente["contenido"] . "</td>";
+                                        }
+                                        else echo "<td></td>";
+                                    }
+                                }
+                            }
                             ?>
                             <td>
                                 <p class="item-text"><b><?= ($evidencia["estado_completo"] == 3) ? "Completado" : (($evidencia["estado_completo"] == 2) ? "No Completado" : "Pendiente") ?></b></p>

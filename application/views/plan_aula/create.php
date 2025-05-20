@@ -205,7 +205,7 @@
                                             <div class="form-group">
                                                 <i data-text="<?= $ENCUADRE_PACTIOS_CLASE_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Encuadre o pactos de clase <span class="text-danger">*</span></label>
-                                                <textarea name="plan[pactos_clase]" id="richtext-11" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["pactos_clase"] : "" ?></textarea>
+                                                <textarea name="plan[pactos_clase]" id="richtext-5" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["pactos_clase"] : "" ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -297,18 +297,20 @@
                                                             <tr>
                                                                 <th>Semanas</th>
                                                                 <th>Evidencia de aprendizaje</th>
-                                                                <th>Motivación y exploración saberes previos</th>
-                                                                <th>Estructuración y práctica</th>
-                                                                <th>Transferencia</th>
-                                                                <th>Valoración</th>
-                                                                <th>Recursos</th>
+                                                                <?php
+                                                                    if($tipos_componentes_evidencia){
+                                                                        foreach ($tipos_componentes_evidencia as $tipo) {
+                                                                            echo "<th>".$tipo["nombre"]."</th>";
+                                                                        }
+                                                                    }
+                                                                ?>
                                                                 <th style="width:130px;">Seguimiento y evaluación</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                         <?php 
                                                                 if($evidencias){
-                                                                    foreach ($evidencias as $evidencia) { 
+                                                                    foreach ($evidencias as $evidencia) {
                                                                         $selectedSemanas = unserialize($evidencia["semanas"]);
                                                                         $listaSemanas = get_semanas_by_ids($selectedSemanas);
                                                                         $completadoText = ($evidencia["estado_completo"] == 3) ? "Completado" : (($evidencia["estado_completo"] == 2) ? "No Completado" : "Completar");
@@ -327,15 +329,28 @@
                                                                                     }
                                                                                 ?>
                                                                             </td>
-                                                                            <td colspan="<?= ($evidencia["is_only_row"]) ? 6 : 1 ?>"><?= $evidencia["evidencia_aprendizaje"] ?></td>
+                                                                            <td colspan="<?= ($evidencia["is_only_row"]) ? count($tipos_componentes_evidencia) + 1 : 1 ?>"><?= $evidencia["evidencia_aprendizaje"] ?></td>
                                                                             <?php
-                                                                                if($evidencia["is_only_row"] != 1){ ?>
-                                                                            <td><?= $evidencia["exploracion"] ?></td>
-                                                                            <td><?= $evidencia["estructuracion"] ?></td>
-                                                                            <td><?= $evidencia["transferencia"] ?></td>
-                                                                            <td><?= $evidencia["valoracion"] ?></td>
-                                                                            <td><?= $evidencia["recursos"] ?></td>
-                                                                                <?php }
+                                                                                if($evidencia["is_only_row"] != 1){
+
+                                                                                    if ($tipos_componentes_evidencia) {
+                                                                                        foreach ($tipos_componentes_evidencia as $tipo) {
+                                                                                            $componenteBuscado = null;
+                                                                                            foreach ($evidencia['componentes'] as $componente) {
+                                                                                                if ($componente['id_tipo_componente'] == $tipo["id_tipo_componente"]) {
+                                                                                                    $componenteBuscado = $componente;
+                                                                                                    break; // salimos del bucle al encontrar el componente
+                                                                                                }
+                                                                                            }
+
+                                                                                            if ($componenteBuscado) {
+                                                                                                echo "<td>" . $componente["contenido"] . "</td>";
+                                                                                            }
+                                                                                            else echo "<td></td>";
+                                                                                        }
+                                                                                    }
+
+                                                                                }
                                                                             ?>
                                                                             <td class="text-center">
                                                                                 <div>
@@ -415,7 +430,7 @@
                                                         <div class=" col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="">Evidencia de aprendizaje</label>
-                                                                <textarea name="evidencia[evidencia_aprendizaje]" id="richtext-5" cols="30" rows="3" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["evidencia_aprendizaje"] : "" ?></textarea>
+                                                                <textarea name="evidencia[evidencia_aprendizaje]" id="richtext-6" cols="30" rows="3" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["evidencia_aprendizaje"] : "" ?></textarea>
                                                             </div>
                                                         </div>
                                                         <div class=" col-xs-12">
@@ -427,14 +442,49 @@
                                                     </div>
                                                     <div class="extra-info-evidencia" style="display:<?= (is_array($selectedEvidencia) && $selectedEvidencia["is_only_row"] == 1) ? "none;" : "block;" ?>">
                                                         <div class="row">
-                                                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                                            <?php
+                                                                if($tipos_componentes_evidencia) {
+                                                                    $x = 7;
+                                                                    foreach ($tipos_componentes_evidencia as $TCE){
+
+                                                                        $componenteBuscado = null;
+                                                                        if(is_array($selectedEvidencia)){
+                                                                            foreach ($selectedEvidencia['componentes'] as $componente) {
+                                                                                if ($componente['id_tipo_componente'] == $TCE["id_tipo_componente"]) {
+                                                                                    $componenteBuscado = $componente;
+                                                                                    break; // salimos del bucle al encontrar el componente
+                                                                                }
+                                                                            }
+                                                                        }
+
+                                                                        ?>
+                                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                                            <div style="background: #077b5d;" class="evidence-container">
+                                                                                <h5><?= $TCE["nombre"] ?></h5>
+                                                                                <div class="row">
+                                                                                    <div class=" col-xs-12">
+                                                                                        <input type="hidden" name="evidencia[<?= $TCE["id_tipo_componente"] ?>][id_componente]" value="<?= (is_array($componenteBuscado)) ? $componenteBuscado["id_componente"] : "" ?>">
+                                                                                        <div class="form-group">
+                                                                                            <label for="evidencia[<?= $TCE["id_tipo_componente"] ?>]"><?= $TCE["descripcion"] ?></label>
+                                                                                            <textarea name="evidencia[<?= $TCE["id_tipo_componente"] ?>][contenido]" id="richtext-<?= $x ?>" cols="30" rows="4" class="form-control"><?= (is_array($componenteBuscado)) ? $componenteBuscado["contenido"] : "" ?></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                            <?php
+                                                                        $x++;
+                                                                    }
+                                                                }
+                                                            ?>
+                                                            <!--<div class="col-md-4 col-sm-6 col-xs-12">
                                                                 <div style="background: #077b5d;" class="evidence-container">
                                                                     <h5>EXPLORACIÓN</h5>
                                                                     <div class="row">
                                                                         <div class=" col-xs-12">
                                                                             <div class="form-group">
                                                                                 <label for="">Motivación y exploración de saberes previos</label>
-                                                                                <textarea name="evidencia[exploracion]" id="richtext-6" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["exploracion"] : "" ?></textarea>
+                                                                                <textarea name="evidencia[exploracion]" id="richtext-7" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["exploracion"] : "" ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -448,7 +498,7 @@
                                                                         <div class=" col-xs-12">
                                                                             <div class="form-group">
                                                                                 <label for="">Momento estructuración y práctica</label>
-                                                                                <textarea name="evidencia[estructuracion]" id="richtext-7" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["estructuracion"] : "" ?></textarea>
+                                                                                <textarea name="evidencia[estructuracion]" id="richtext-8" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["estructuracion"] : "" ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -462,7 +512,7 @@
                                                                         <div class=" col-xs-12">
                                                                             <div class="form-group">
                                                                                 <label for="">Momento de transferencia</label>
-                                                                                <textarea name="evidencia[transferencia]" id="richtext-8" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["transferencia"] : "" ?></textarea>
+                                                                                <textarea name="evidencia[transferencia]" id="richtext-9" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["transferencia"] : "" ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -476,7 +526,7 @@
                                                                         <div class=" col-xs-12">
                                                                             <div class="form-group">
                                                                                 <label for="">Momento de transferencia</label>
-                                                                                <textarea name="evidencia[valoracion]" id="richtext-9" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["valoracion"] : "" ?></textarea>
+                                                                                <textarea name="evidencia[valoracion]" id="richtext-10" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["valoracion"] : "" ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -490,12 +540,12 @@
                                                                         <div class=" col-xs-12">
                                                                             <div class="form-group">
                                                                                 <label for="">Recursos</label>
-                                                                                <textarea name="evidencia[recursos]" id="richtext-10" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["recursos"] : "" ?></textarea>
+                                                                                <textarea name="evidencia[recursos]" id="richtext-11" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["recursos"] : "" ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div>-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -533,7 +583,8 @@
     }
 </style>
 <script>
-    let forLength = 12;
+    let countComponentes = Number("<?= is_array($tipos_componentes_evidencia) ? count($tipos_componentes_evidencia) : 0 ?>");
+    let forLength = 7 + countComponentes;
     let editEvidencia = "<?= (is_array($selectedEvidencia)) ? "true" : "false" ?>";
 
     $('.select-2').select2();

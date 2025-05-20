@@ -5,6 +5,34 @@ jQuery(document).ready(function() {
         jQuery("#modal-evidencias-aprendizaje-incompletas").modal("show");
     });
 
+    jQuery(document).on("click", ".btn-eliminar-tipo-componente-evidencia", function() {
+        let idTipoComponente = jQuery(this).attr("data-id");
+        eliminarTipoComponente(idTipoComponente)
+    });
+
+    // Hace el llamado al controlador para eliminar el periodo
+    function eliminarTipoComponente(idTipoComponente){
+        if (confirm("¿Está seguro que desea eliminar el componente?") === true) {
+            $("#background-loading").css("display", "flex");
+            $.ajax({
+                url: base_url + "EvidenciasAprendizajeComponentes/eliminar/" + idTipoComponente,
+                type: 'GET',
+                success: function(data) {
+                    data = JSON.parse(data);
+                    $("#background-loading").css("display", "none");
+                    alert(data.message);
+                    if (data.status) {
+                        location.reload()
+                    }
+                },
+                error: function() {
+                    $("#background-loading").css("display", "none");
+                    alert("Error!")
+                }
+            });
+        }
+    }
+
     jQuery(document).on("click", ".btn-use-evidencia-aprendizaje", function() {
         let idPlanAula = jQuery(this).attr("data-id-plan");
         let idEvidencia = jQuery(this).attr("data-id");

@@ -1,12 +1,27 @@
 <?php
 
 use Mpdf\Mpdf;
-   class PlanAula extends CI_Controller { 
+
+/**
+ * @property $TipoComponenteEvidencia_Model
+ * @property $Areas_Model
+ * @property $Periodos_Model
+ * @property $input
+ * @property $Materias_Model
+ * @property $PlanAreas_Model
+ * @property $EvidenciasAprendizaje_Model
+ * @property $load
+ * @property $Caracterizacion_Estandar_Competencia_Model
+ * @property $Caracterizacion_DBA_Model
+ * @property $SemanasPeriodo_Model
+ * @property $EvidenciasAprendizajeComponentes_Model
+ */
+class PlanAula extends CI_Controller {
 
     public function __construct() {  
         parent::__construct();
         $this->load->helper(array('form', 'url','html'));
-        $this->load->model(["Areas_Model", "Periodos_Model", "PlanAreas_Model", "Materias_Model", "Caracterizacion_Estandar_Competencia_Model", "Caracterizacion_DBA_Model", "EvidenciasAprendizaje_Model", "SemanasPeriodo_Model", "Usuarios_Model"]);
+        $this->load->model(["EvidenciasAprendizajeComponentes_Model", "TipoComponenteEvidencia_Model", "Areas_Model", "Periodos_Model", "PlanAreas_Model", "Materias_Model", "Caracterizacion_Estandar_Competencia_Model", "Caracterizacion_DBA_Model", "EvidenciasAprendizaje_Model", "SemanasPeriodo_Model", "Usuarios_Model"]);
 
         $this->mpdf = new Mpdf([
             'mode' => 'utf-8',
@@ -88,6 +103,8 @@ use Mpdf\Mpdf;
                     $params["semanas"] = $this->SemanasPeriodo_Model->getByPeriodo($params["plan_area"]["periodo"]);
                 }
 
+                $params["tipos_componentes_evidencia"] = $this->TipoComponenteEvidencia_Model->getAll();
+
                 $this->load->view("plan_aula/create", $params);
             }
             else header("Location: ".base_url());
@@ -121,14 +138,47 @@ use Mpdf\Mpdf;
 
     function saveEvidencia($evidencia, $idPlanAula){
         if($evidencia && isset($evidencia["semanas"])){
+            $componentesEvidencia = [];
+            $tiposComponenteEvidencia = $this->TipoComponenteEvidencia_Model->getAll();
             $evidencia["id_plan_area"] = $idPlanAula;
             $evidencia["semanas"] = serialize($evidencia["semanas"]);
             $evidencia["is_only_row"] = (isset($evidencia["is_only_row"])) ? 1 : 0;
 
-            if($evidencia["id_evidencia_aprendizaje"] == "null" || $evidencia["id_evidencia_aprendizaje"] == null)
-                $this->EvidenciasAprendizaje_Model->create($evidencia);
+
+            for ($x = 0; $x < count($tiposComponenteEvidencia); $x++) {
+                if(isset($evidencia[$tiposComponenteEvidencia[$x]["id_tipo_componente"]])){
+                    $exists = $evidencia[$tiposComponenteEvidencia[$x]["id_tipo_componente"]];
+
+                    if($exists){
+                        $componentesEvidencia[] = [
+                            "id_tipo_componente" => $tiposComponenteEvidencia[$x]["id_tipo_componente"],
+                            "contenido" => $exists["contenido"],
+                            "id_componente" => $exists["id_componente"],
+                        ];
+
+                        unset($evidencia[$tiposComponenteEvidencia[$x]["id_tipo_componente"]]);
+                    }
+                }
+            }
+
+            if($evidencia["id_evidencia_aprendizaje"] == "null" || $evidencia["id_evidencia_aprendizaje"] == null) {
+                $evidenciaAprendizajeID = $this->EvidenciasAprendizaje_Model->create($evidencia);
+            }
             else {
-                $this->EvidenciasAprendizaje_Model->update($evidencia);
+               $this->EvidenciasAprendizaje_Model->update($evidencia);
+                $evidenciaAprendizajeID = $evidencia["id_evidencia_aprendizaje"];
+            }
+        }
+
+        for ($i = 0; $i < count($componentesEvidencia); $i++) {
+            $componentesEvidencia[$i]["id_evidencia_aprendizaje"] = $evidenciaAprendizajeID;
+            $exists = $this->EvidenciasAprendizajeComponentes_Model->find($componentesEvidencia[$i]["id_componente"]);
+
+            if($exists)
+                $this->EvidenciasAprendizajeComponentes_Model->update($componentesEvidencia[$i]);
+            else {
+                unset($componentesEvidencia[$i]["id_componente"]);
+                $this->EvidenciasAprendizajeComponentes_Model->create($componentesEvidencia[$i]);
             }
         }
     }
@@ -146,6 +196,7 @@ use Mpdf\Mpdf;
             $params["dbas"] = $this->Caracterizacion_DBA_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
             $params["evidencias"] = $this->EvidenciasAprendizaje_Model->getByPlanArea($params["plan_area"]["id_plan_area"]);
             $params["semanas"] = $this->SemanasPeriodo_Model->getByPeriodo($params["plan_area"]["periodo"]);
+            $params["tipos_componentes_evidencia"] = $this->TipoComponenteEvidencia_Model->getAll();
         }
 
         $this->load->view("plan_aula/ver", $params);

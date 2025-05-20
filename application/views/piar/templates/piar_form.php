@@ -24,6 +24,7 @@
                                 <option value="">- Seleccionar</option>
                                 <?php
                                 if($docentes){
+                                    print_r($docentes);
                                     foreach($docentes as $doc){
                                         $selected = $doc["id"] === $estudiante["id_docente_aula"] ? "selected" :  "";
                                         echo '<option '.$selected.' value="' .$doc["id"].'">'.$doc["nombres"].' '.$doc["apellidos"].' - '.$doc["nommateria"].'</option>';
