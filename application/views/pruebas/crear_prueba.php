@@ -146,19 +146,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Fecha y hora Inicio *</label>
                                             <input required type="datetime-local"  name="prueba[fecha_inicio]" class="form-control" value="<?= ($prueba) ? $prueba["fecha_inicio"] : "" ?>">                              
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Fecha y hora Finalización *</label>
                                             <input required type="datetime-local" name="prueba[fecha_finaliza]" class="form-control" value="<?= ($prueba) ? $prueba["fecha_finaliza"] : "" ?>">
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Periodo</label>
                                             <select name="prueba[id_periodo]" id="" class="form-control" data-live-search="true" data-size="10" data-actions-box="true">
@@ -175,13 +175,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-3">
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="">Es recuperación</label>
                                             <select name="prueba[es_recuperacion]" id="" class="form-control" data-live-search="true" data-size="10" data-actions-box="true">
-                                                <option value="0">No</option>
-                                                <option value="1">Si</option>
+                                                <option <?= ($prueba && $prueba["es_recuperacion"] == "0") ? "selected" : "" ?> value="0">No</option>
+                                                <option <?= ($prueba && $prueba["es_recuperacion"] == "1") ? "selected" : "" ?> value="1">Si</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="">Porcentaje *</label>
+                                            <input type="number" name="prueba[porcentaje]" class="form-control" value="<?= ($prueba) ? $prueba["porcentaje"] : "0" ?>">
                                         </div>
                                     </div>
                                     <hr>

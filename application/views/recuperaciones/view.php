@@ -45,7 +45,10 @@
                                             <tbody>
                                             <?php
                                                 if($actividades){
-                                                    foreach($actividades as $actividad){ ?>
+                                                    $totalPercent = 0;
+                                                    foreach($actividades as $actividad){
+                                                        $totalPercent += $actividad["porcentaje"];
+                                                        ?>
                                                         <tr>
                                                             <td><?= $actividad["titulo_actividad"] ?></td>
                                                             <td><?= $actividad["porcentaje"] ?>%</td>
@@ -64,6 +67,11 @@
                                             ?>
                                             </tbody>
                                         </table>
+                                        <?php
+                                        if($totalPercent < 100 || $totalPercent > 100){ ?>
+                                            <h5 class="text-danger m-b-15">El porcentaje total asignado a las actividades debería ser de 100%, actualmente es de <?= $totalPercent ?>%</h5>
+                                        <?php }
+                                        ?>
                                         <?php
                                         if(strtolower(logged_user()["rol"]) === "docente"){ ?>
                                             <div class="text-center">
@@ -85,6 +93,7 @@
                                             <tr>
                                                 <th>Prueba</th>
                                                 <th>Preguntas</th>
+                                                <th>Porcentaje</th>
                                                 <th>Disponible desde</th>
                                                 <th>Disponible hasta</th>
                                                 <?php
@@ -97,10 +106,14 @@
                                             <tbody>
                                             <?php
                                             if($pruebas){
-                                                foreach($pruebas as $prueba){ ?>
+                                                $totalPercent = 0;
+                                                foreach($pruebas as $prueba){
+                                                    $totalPercent += $prueba["porcentaje"];
+                                                    ?>
                                                     <tr>
                                                         <td><a href="<?= base_url().'Pruebas/ver/'.$prueba["id_prueba"] ?>" target="_blank"><?= $prueba["nombre_prueba"] ?></a></td>
                                                         <td><?= $prueba["cantidad_preguntas"] ?></td>
+                                                        <td><?= $prueba["porcentaje"] ?>%</td>
                                                         <td><?= date("Y-m-d h:i a", strtotime($prueba["fecha_inicio"])) ?></td>
                                                         <td><?= date("Y-m-d h:i a", strtotime($prueba["fecha_finaliza"])) ?></td>
                                                         <?php
@@ -116,6 +129,11 @@
                                             ?>
                                             </tbody>
                                         </table>
+                                        <?php
+                                            if($totalPercent < 100 || $totalPercent > 100){ ?>
+                                                <h5 class="text-danger m-b-15">El porcentaje total asignado a las pruebas debería ser de 100%, actualmente es de <?= $totalPercent ?>%</h5>
+                                            <?php }
+                                        ?>
                                         <?php
                                         if(strtolower(logged_user()["rol"]) === "docente"){ ?>
                                             <div class="text-center">

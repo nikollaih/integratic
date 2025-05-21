@@ -787,3 +787,5 @@ CREATE TABLE `evidencia_componentes` (
                                          FOREIGN KEY (`id_evidencia_aprendizaje`) REFERENCES `evidencias_aprendizaje`(`id_evidencia_aprendizaje`) ON DELETE CASCADE,
                                          FOREIGN KEY (`id_tipo_componente`) REFERENCES `tipo_componente_evidencia`(`id_tipo_componente`) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+ALTER TABLE `pruebas` ADD `porcentaje` DOUBLE NOT NULL AFTER `es_recuperacion`;

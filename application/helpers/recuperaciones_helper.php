@@ -15,13 +15,22 @@ if(!function_exists('notas_estudiante_recuperacion')) {
         $coreParticipant = $CI->Participantes_Prueba_Model->get($id_estudiante);
         // Get the pruebas belongs to the process
         $pruebas = $CI->Pruebas_Model->getPruebasRecuperacion($id_recuperacion);
-        if(is_array($pruebas) && count($pruebas) > 0) {
-            for ($i = 0; $i < count($pruebas); $i++) {
-                $divide_by = ($i === 0) ? 1 : 2;
-                // Get the student qualification belongs to each test
-                $respuesta = $CI->Respuestas_Realizar_Prueba_Model->get_note_by_prueba_participante( $pruebas[$i]["id_prueba"], $coreParticipant["id_participante_prueba"]);
-                if($respuesta){
-                    $notas["pruebas"] = ($notas["pruebas"] + $respuesta["nota"]) / $divide_by;
+        $notas["pruebas"] = 0;
+
+        if (is_array($pruebas) && count($pruebas) > 0) {
+            foreach ($pruebas as $prueba) {
+                // Obtener la respuesta del estudiante para la prueba
+                $respuesta = $CI->Respuestas_Realizar_Prueba_Model
+                    ->get_note_by_prueba_participante($prueba["id_prueba"], $coreParticipant["id_participante_prueba"]);
+
+                if ($respuesta) {
+                    // Calcular la nota ponderada con porcentaje
+                    $nota = get_percent_value_qualification(
+                        $respuesta["nota"],
+                        configuracion()["calificacion_sobre"],
+                        $prueba["porcentaje"]
+                    );
+                    $notas["pruebas"] += $nota;
                 }
             }
         }
@@ -41,7 +50,7 @@ if(!function_exists('notas_estudiante_recuperacion')) {
             }
         }
 
-        $notas["ponderado"] = ($notas["actividades"] + $notas["pruebas"]) / 2;
+        $notas["ponderado"] = round((($notas["actividades"] + $notas["pruebas"]) / 2), 1);
 
         return $notas;
     }

@@ -3,6 +3,7 @@
     <?php $this->load->view("in_header") ?>
     <?php $this->load->view("recuperaciones/templates/in_aside") ?>
     <?php $notas = notas_estudiante_recuperacion($recuperacion["id_recuperacion"], $recuperacion["documento"]) ?>
+
     <div class="content-page">
         <div class="content">
             <div class="container">
@@ -71,6 +72,7 @@
                                             <tr>
                                                 <th>Prueba</th>
                                                 <th>Preguntas</th>
+                                                <th>Porcentaje</th>
                                                 <th>Disponible desde</th>
                                                 <th>Disponible hasta</th>
                                                 <th>Calificación</th>
@@ -84,6 +86,7 @@
                                                     <tr>
                                                         <td><?= $prueba["nombre_prueba"] ?></td>
                                                         <td><?= $prueba["cantidad_preguntas"] ?></td>
+                                                        <td><?= $prueba["porcentaje"] ?>%</td>
                                                         <td><?= date("Y-m-d h:i a", strtotime($prueba["fecha_inicio"])) ?></td>
                                                         <td><?= date("Y-m-d h:i a", strtotime($prueba["fecha_finaliza"])) ?></td>
                                                         <td>
