@@ -18,7 +18,7 @@
     orienta la planificación de acciones específicas para atender las necesidades reales del grupo.";
 
     $SITUACION_DESEADA_TEXT="La situación deseada define el objetivo a alcanzar tras el análisis del estado actual del grupo. 
-    Se aspira a que los estudiantes desarrollen plenamente sus competencias académicas. Este propósito guiará la planificación y 
+    Se aspira a que los estudiantes desarrollen plenamente sus competencias básicas y socioemocionales. Este propósito guiará la planificación y 
     ejecución de acciones pedagógicas orientadas a atender las necesidades detectadas y a promover el desarrollo integral de todos los alumnos.";
 
     $OBSERVACIONES_TEXT="Es fundamental realizar observaciones continuas sobre el trabajo que se llevará a cabo con el grupo de 
@@ -85,7 +85,7 @@
                                     <div class="row">
                                         <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
-                                                <label for="plan[area]">Asignatura <span class="text-danger">*</span></label>
+                                                <label for="plan[area]">Área / Asignatura <span class="text-danger">*</span></label>
                                                 <select <?= (is_array($plan_area)) ? "disabled" : "" ?> required class="form-control" name="plan[area]" id="plan-area-area">
                                                     <option value="">- Seleccionar</option>
                                                     <?php
@@ -174,30 +174,30 @@
                                         <div class=" col-xs-12">
                                             <div class="form-group">
                                                 <i data-text="<?= $DIAGNOSTICO_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
-                                                <label for="">Diagnóstico
+                                                <label for="">Caracterización de los estudiantes
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <textarea <?= (!$editable) ? "disabled" : "" ?> name="plan[diagnostico]" id="richtext-1" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["diagnostico"] : "" ?></textarea>
                                             </div>
                                         </div>
-                                        <div class=" col-xs-12">
+                                        <!--<div class=" col-xs-12">
                                             <div class="form-group">
                                                 <i data-text="<?= $ESTADO_ACTUAL_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Estado actual <span class="text-danger">*</span></label>
                                                 <textarea name="plan[estado_actual]" id="richtext-2" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["estado_actual"] : "" ?></textarea>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div class=" col-xs-12">
                                             <div class="form-group">
                                                 <i data-text="<?= $SITUACION_DESEADA_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
-                                                <label for="">Situación deseada <span class="text-danger">*</span></label>
+                                                <label for="">Aprendizajes por mejorar <span class="text-danger">*</span></label>
                                                 <textarea name="plan[situacion_deseada]" id="richtext-3" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["situacion_deseada"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
                                                 <i data-text="<?= $OBSERVACIONES_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
-                                                <label for="">Observaciones <span class="text-danger">*</span></label>
+                                                <label for="">Otros aprendizajes por fortalecer <span class="text-danger">*</span></label>
                                                 <textarea name="plan[observaciones]" id="richtext-4" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["observaciones"] : "" ?></textarea>
                                             </div>
                                         </div>

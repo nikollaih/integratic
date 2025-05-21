@@ -137,8 +137,8 @@ class PlanAula extends CI_Controller {
     }
 
     function saveEvidencia($evidencia, $idPlanAula){
+        $componentesEvidencia = [];
         if($evidencia && isset($evidencia["semanas"])){
-            $componentesEvidencia = [];
             $tiposComponenteEvidencia = $this->TipoComponenteEvidencia_Model->getAll();
             $evidencia["id_plan_area"] = $idPlanAula;
             $evidencia["semanas"] = serialize($evidencia["semanas"]);
@@ -170,15 +170,17 @@ class PlanAula extends CI_Controller {
             }
         }
 
-        for ($i = 0; $i < count($componentesEvidencia); $i++) {
-            $componentesEvidencia[$i]["id_evidencia_aprendizaje"] = $evidenciaAprendizajeID;
-            $exists = $this->EvidenciasAprendizajeComponentes_Model->find($componentesEvidencia[$i]["id_componente"]);
+        if($componentesEvidencia){
+            for ($i = 0; $i < count($componentesEvidencia); $i++) {
+                $componentesEvidencia[$i]["id_evidencia_aprendizaje"] = $evidenciaAprendizajeID;
+                $exists = $this->EvidenciasAprendizajeComponentes_Model->find($componentesEvidencia[$i]["id_componente"]);
 
-            if($exists)
-                $this->EvidenciasAprendizajeComponentes_Model->update($componentesEvidencia[$i]);
-            else {
-                unset($componentesEvidencia[$i]["id_componente"]);
-                $this->EvidenciasAprendizajeComponentes_Model->create($componentesEvidencia[$i]);
+                if($exists)
+                    $this->EvidenciasAprendizajeComponentes_Model->update($componentesEvidencia[$i]);
+                else {
+                    unset($componentesEvidencia[$i]["id_componente"]);
+                    $this->EvidenciasAprendizajeComponentes_Model->create($componentesEvidencia[$i]);
+                }
             }
         }
     }

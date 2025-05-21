@@ -54,15 +54,12 @@
                 <tbody>
                 <tr>
                     <td colspan="8">
-                        <p class="item-text"><b>DIAGNOSTICO: </b><?= $plan_area["diagnostico"] ?></p>
+                        <p class="item-text"><b>CARACTERIZACIÓN DE LOS ESTUDIANTES: </b><?= $plan_area["diagnostico"] ?></p>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">
-                        <p class="item-text"><b>ESTADO ACTUAL: </b><?= $plan_area["estado_actual"] ?></p>
-                    </td>
-                    <td colspan="4">
-                        <p class="item-text"><b>SITUACIÓN DESEADA: </b><?= $plan_area["situacion_deseada"] ?></p>
+                    <td colspan="8">
+                        <p class="item-text"><b>APRENDIZAJES POR MEJORAR: </b><?= $plan_area["situacion_deseada"] ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -181,7 +178,7 @@
                 <tbody>
                 <tr>
                     <td colspan="8">
-                        <p class="item-text"><b>OBSERVACIONES: </b><?= $plan_area["observaciones"] ?></p>
+                        <p class="item-text"><b>OTROS APRENDIZAJES POR FORTALECER: </b><?= $plan_area["observaciones"] ?></p>
                     </td>
                 </tr>
                 </tbody>
