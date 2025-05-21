@@ -63,7 +63,8 @@ class Configuracion extends CI_Controller {
             'banner' => ['field' => 'banner_principal'],
             'modal' => ['field' => 'modal_principal'],
             'logo_min_educacion' => ['field' => 'logo_min_educacion', 'rename' => 'logo_min_educacion'],
-            'logo_gobierno_colombia' => ['field' => 'logo_gobierno_colombia', 'rename' => 'logo_gobierno_colombia']
+            'logo_gobierno_colombia' => ['field' => 'logo_gobierno_colombia', 'rename' => 'logo_gobierno_colombia'],
+            'logo_gobernacion_quindio' => ['field' => 'logo_gobernacion_quindio', 'rename' => 'logo_gobernacion_quindio']
         ];
 
         foreach ($map as $inputName => $config) {

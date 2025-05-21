@@ -67,7 +67,7 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
-                                                <label for="">Color venta principal *</label>
+                                                <label for="">Color ventana principal *</label>
                                                 <input required type="color" name="data[color_modal]" class="form-control" value="<?= (is_array($data)) ? $data["color_modal"] : "" ?>">
                                             </div>
                                         </div>
@@ -134,7 +134,7 @@
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
                                                 <label for="">SMTP PASS</label>
-                                                <input type="text" name="data[smtp_pass]" class="form-control" value="<?= (is_array($data)) ? $data["smtp_pass"] : "" ?>">
+                                                <input type="password" name="data[smtp_pass]" class="form-control" value="<?= (is_array($data)) ? $data["smtp_pass"] : "" ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -179,6 +179,17 @@
                                                     <input type="file" name="logo_gobierno_colombia" accept="image/*" class="form-control">
                                                 </div>
                                                 <img width="50px" height="50px" src="<?= base_url() ?>img/<?= configuracion()["logo_gobierno_colombia"] ?>" alt="<?= configuracion()["nombre_institucion"] ?>" srcset="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group d-flex" style="align-items: center;">
+                                                <div style="flex: 1;margin-right: 20px;">
+                                                    <label for="">Logo Gobierno Departamental</label>
+                                                    <input type="file" name="logo_gobernacion_quindio" accept="image/*" class="form-control">
+                                                </div>
+                                                <img width="50px" height="50px" src="<?= base_url() ?>img/<?= configuracion()["logo_gobernacion_quindio"] ?>" alt="Gobierno Departamental" srcset="">
                                             </div>
                                         </div>
                                     </div>
