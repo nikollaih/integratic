@@ -44,8 +44,8 @@
                                             </thead>
                                             <tbody>
                                             <?php
+                                            $totalPercent = 0;
                                                 if($actividades){
-                                                    $totalPercent = 0;
                                                     foreach($actividades as $actividad){
                                                         $totalPercent += $actividad["porcentaje"];
                                                         ?>
@@ -67,11 +67,6 @@
                                             ?>
                                             </tbody>
                                         </table>
-                                        <?php
-                                        if($totalPercent < 100 || $totalPercent > 100){ ?>
-                                            <h5 class="text-danger m-b-15">El porcentaje total asignado a las actividades debería ser de 100%, actualmente es de <?= $totalPercent ?>%</h5>
-                                        <?php }
-                                        ?>
                                         <?php
                                         if(strtolower(logged_user()["rol"]) === "docente"){ ?>
                                             <div class="text-center">
@@ -106,7 +101,6 @@
                                             <tbody>
                                             <?php
                                             if($pruebas){
-                                                $totalPercent = 0;
                                                 foreach($pruebas as $prueba){
                                                     $totalPercent += $prueba["porcentaje"];
                                                     ?>
@@ -131,7 +125,7 @@
                                         </table>
                                         <?php
                                             if($totalPercent < 100 || $totalPercent > 100){ ?>
-                                                <h5 class="text-danger m-b-15">El porcentaje total asignado a las pruebas debería ser de 100%, actualmente es de <?= $totalPercent ?>%</h5>
+                                                <h5 class="text-danger m-b-15">El porcentaje total de la recuperación debería ser de 100%, actualmente es de <?= $totalPercent ?>%</h5>
                                             <?php }
                                         ?>
                                         <?php

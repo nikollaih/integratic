@@ -50,7 +50,9 @@ if(!function_exists('notas_estudiante_recuperacion')) {
             }
         }
 
-        $notas["ponderado"] = round((($notas["actividades"] + $notas["pruebas"]) / 2), 1);
+        $notas["actividades"] = round($notas["actividades"], 1);
+        $notas["pruebas"] = round($notas["pruebas"], 1);
+        $notas["ponderado"] = round((($notas["actividades"] + $notas["pruebas"])), 1);
 
         return $notas;
     }

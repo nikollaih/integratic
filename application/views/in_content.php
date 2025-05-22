@@ -2094,9 +2094,9 @@ function prelogin(){
     titulo = "<h4>Ingreso a Docentes</h4>";
     html="<div class='wrapper-page'>";
     html=html+"<div class='panel panel-color panel-primary panel-pages'>";
-    html=html+"<div class='panel-heading bg-img modal-colored'>";
+    html=html+"<div class='panel-heading bg-img modal-colored' style='padding: 10px;'>";
     html=html+"<div class='bg-overlay'></div>";
-    html=html+"<h3 class='text-center m-t-10 text-white'><strong></strong></h3></div>";
+    html=html+"<h3 class='text-center text-white'><strong>Inicio de sesión</strong></h3></div>";
     html=html+"<div class='panel-body'>";
     html=html+"<form id='frmlogin' class='form-horizontal m-t-20'>";                    
     html=html+"<div class='form-group '>";
@@ -2121,9 +2121,9 @@ function cambio_clave(){
     var usr= document.getElementById("usr_cambio").value;
     html="<div class='wrapper-page'>";
     html+="<div class='panel panel-color panel-primary panel-pages'>";
-    html+="<div class='panel-heading bg-img2'>";
+    html+="<div class='panel-heading bg-img2' style='padding: 10px'>";
     html+="<div class='bg-overlay'></div>";
-    html+="<h3 class='text-center m-t-10 text-white'><strong></strong></h3></div>";
+    html+="<h3 class='text-center text-white'><strong>Cambio de Contraseña</strong></h3></div>";
     html+="<div class='panel-body'>";
     html+="<form id='frmcambio' class='form-horizontal m-t-20'>";                    
     html+="<div class='form-group '>";
