@@ -81,6 +81,9 @@ class EvidenciasAprendizajeComponentes extends CI_Controller
         $newData["nombre"] = $data["nombre"];
         $newData["descripcion"] = $data["descripcion"];
         $newData["activo"] = $data["activo"];
+        if(isset($data["orden"])){
+            $newData["orden"] = $data["orden"];
+        }
         $newData["id_tipo_componente"] = $data["id_tipo_componente"];
         $exists = $this->TipoComponenteEvidencia_Model->find($newData["id_tipo_componente"]);
 

@@ -18,19 +18,19 @@
                     <div class="panel-heading text-capitalize"><b><?= (isset($componente["id_componente"])) ? "Modificar" : "Nuevo" ?> Componente</b></div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="<?= (isset($componente["id_tipo_componente"]) && $componente["id_tipo_componente"] != 1) ? 'col-md-3' : 'col-md-4'?>">
                                 <div class="form-group">
                                     <label for="">Titulo</label>
                                     <input name="nombre" class="form-control" type="text" id="" value="<?= (isset($componente["id_tipo_componente"])) ? $componente["nombre"] : "" ?>">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="<?= (isset($componente["id_tipo_componente"]) && $componente["id_tipo_componente"] != 1) ? 'col-md-3' : 'col-md-4'?>">
                                 <div class="form-group">
                                     <label for="">Descripción</label>
                                     <input name="descripcion" class="form-control" type="text" id="" value="<?= (isset($componente["id_tipo_componente"])) ? $componente["descripcion"] : "" ?>">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="<?= (isset($componente["id_tipo_componente"]) && $componente["id_tipo_componente"] != 1) ? 'col-md-3' : 'col-md-4'?>">
                                 <div class="form-group">
                                     <label for="">Estado</label>
                                     <select name="activo" id="" class="form-control">
@@ -39,6 +39,16 @@
                                     </select>
                                 </div>
                             </div>
+                            <?php if(isset($componente["id_tipo_componente"]) && $componente["id_tipo_componente"] != 1) { ?>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Órden</label>
+                                        <input name="orden" class="form-control" type="text" id="" value="<?= (isset($componente["id_tipo_componente"])) ? $componente["orden"] : "" ?>">
+                                    </div>
+                                </div>
+                            <?php }
+                            ?>
+
                         </div>
                         <div class="row">
                             <div class="col-md-12">

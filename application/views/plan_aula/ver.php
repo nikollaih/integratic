@@ -106,9 +106,6 @@
                     <th>
                         <b class="item-title">SEMANA</b>
                     </th>
-                    <th>
-                        <b class="item-title">EVIDENCIA DE APRENDIZAJE</b>
-                    </th>
                     <?php
                     if($tipos_componentes_evidencia){
                         foreach ($tipos_componentes_evidencia as $tipo) {
@@ -122,56 +119,71 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php
-                if($evidencias){
-                    foreach ($evidencias as $evidencia) {
+                <?php if ($evidencias): ?>
+                    <?php foreach ($evidencias as $evidencia): ?>
+                        <?php
                         $semanas = unserialize($evidencia["semanas"]);
                         $listaSemanas = get_semanas_by_ids($semanas);
                         ?>
                         <tr>
                             <td style="width:90px;">
-                                <?php
-                                if(is_array($listaSemanas)){
-                                    for ($i=0; $i < count($listaSemanas); $i++) { ?>
+                                <?php if (is_array($listaSemanas)): ?>
+                                    <?php foreach ($listaSemanas as $semana): ?>
                                         <div style="text-align:center;margin-bottom:10px;">
-                                            <h5 class="m-b-0"><?= $listaSemanas[$i]["semana"] ?></h5>
-                                            <span style="font-size:11px;color:#6d6d6d;"><?= $listaSemanas[$i]["fecha_inicio"] ?></span><br>
-                                            <span style="font-size:11px;color:#6d6d6d;"><?= $listaSemanas[$i]["fecha_fin"] ?></span>
+                                            <h5 class="m-b-0"><?= $semana["semana"] ?></h5>
+                                            <span style="font-size:11px;color:#6d6d6d;"><?= $semana["fecha_inicio"] ?></span><br>
+                                            <span style="font-size:11px;color:#6d6d6d;"><?= $semana["fecha_fin"] ?></span>
                                         </div>
-                                    <?php }
-                                }
-                                ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </td>
-                            <td colspan="<?= ($evidencia["is_only_row"]) ? count($tipos_componentes_evidencia) + 1 : 1 ?>"><p class="item-text"><?= $evidencia["evidencia_aprendizaje"] ?></p></td>
-                            <?php
-                            if($evidencia["is_only_row"] != 1){
-                                if ($tipos_componentes_evidencia) {
-                                    foreach ($tipos_componentes_evidencia as $tipo) {
-                                        $componenteBuscado = null;
-                                        foreach ($evidencia['componentes'] as $componente) {
-                                            if ($componente['id_tipo_componente'] == $tipo["id_tipo_componente"]) {
-                                                $componenteBuscado = $componente;
-                                                break; // salimos del bucle al encontrar el componente
-                                            }
-                                        }
 
-                                        if ($componenteBuscado) {
-                                            echo "<td>" . $componente["contenido"] . "</td>";
-                                        }
-                                        else echo "<td></td>";
+                            <?php if ($evidencia["is_only_row"] == 1): ?>
+                                <?php
+                                // Tomamos el primer tipo de componente
+                                $primerTipo = reset($tipos_componentes_evidencia); // primer elemento
+                                $contenido = '';
+                                foreach ($evidencia['componentes'] as $componente) {
+                                    if ($componente['id_tipo_componente'] == $primerTipo["id_tipo_componente"]) {
+                                        $contenido = $componente["contenido"];
+                                        break;
                                     }
                                 }
-                            }
-                            ?>
+                                ?>
+                                <td colspan="<?= count($tipos_componentes_evidencia) ?>">
+                                    <?= $contenido ?>
+                                </td>
+                            <?php else: ?>
+                                <?php foreach ($tipos_componentes_evidencia as $tipo): ?>
+                                    <?php
+                                    $componenteContenido = '';
+                                    foreach ($evidencia['componentes'] as $componente) {
+                                        if ($componente['id_tipo_componente'] == $tipo["id_tipo_componente"]) {
+                                            $componenteContenido = $componente["contenido"];
+                                            break;
+                                        }
+                                    }
+                                    ?>
+                                    <td><?= $componenteContenido ?></td>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
                             <td>
-                                <p class="item-text"><b><?= ($evidencia["estado_completo"] == 3) ? "Completado" : (($evidencia["estado_completo"] == 2) ? "No Completado" : "Pendiente") ?></b></p>
+                                <p class="item-text">
+                                    <b>
+                                        <?php
+                                        $estado = $evidencia["estado_completo"];
+                                        echo ($estado == 3) ? "Completado" : (($estado == 2) ? "No Completado" : "Pendiente");
+                                        ?>
+                                    </b>
+                                </p>
                                 <p class="item-text"><?= $evidencia["observaciones_completo"] ?></p>
                             </td>
                         </tr>
-                    <?php }
-                }
-                ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
                 </tbody>
+
             </table>
 
             <table>

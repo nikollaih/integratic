@@ -22,6 +22,7 @@
                                     <td>ID</td>
                                     <td>Nombre</td>
                                     <td>Descripción</td>
+                                    <td>Órden</td>
                                     <td>Estado</td>
                                     <td></td>
                                 </tr>
@@ -35,10 +36,14 @@
                                             <td><?= $componente["id_tipo_componente"] ?></td>
                                             <td><?= $componente["nombre"] ?></td>
                                             <td><?= $componente["descripcion"] ?></td>
+                                            <td><?= $componente["orden"] ?></td>
                                             <td><?= $componente["activo"] == 1 ? 'Activo' : 'Inactivo' ?></td>
                                             <td class="text-center">
                                                 <a class="btn btn-warning btn-sm" href="<?= base_url() ?>EvidenciasAprendizajeComponentes/modificar/<?= trim($componente["id_tipo_componente"]) ?>">Modificar</a>
-                                                <button data-id="<?= $componente["id_tipo_componente"] ?>" class="btn btn-danger btn-sm btn-eliminar-tipo-componente-evidencia">Eliminar</button>
+                                                <?php if($componente["orden"] != 1 || $componente["id_tipo_componente"] != 1){ ?>
+                                                    <button data-id="<?= $componente["id_tipo_componente"] ?>" class="btn btn-danger btn-sm btn-eliminar-tipo-componente-evidencia">Eliminar</button>
+                                                <?php }
+                                                ?>
                                             </td>
                                         </tr>
                                         <?php

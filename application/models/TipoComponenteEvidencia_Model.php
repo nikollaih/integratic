@@ -24,6 +24,7 @@ class TipoComponenteEvidencia_Model extends CI_Model {
 
     public function getAll($all = false) {
         $this->db->from("tipo_componente_evidencia");
+        $this->db->order_by("orden", "asc");
         if(!$all){
             $this->db->where("activo", 1);
         }

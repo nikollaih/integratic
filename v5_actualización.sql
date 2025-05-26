@@ -787,3 +787,5 @@ CREATE TABLE `evidencia_componentes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 ALTER TABLE `pruebas` ADD `porcentaje` DOUBLE NOT NULL AFTER `es_recuperacion`;
+
+ALTER TABLE `tipo_componente_evidencia` ADD `orden` INT NOT NULL AFTER `activo`;

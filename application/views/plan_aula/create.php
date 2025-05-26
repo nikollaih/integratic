@@ -294,92 +294,99 @@
                                                 <div class="col-md-12">
                                                     <table class="table table-bordered">
                                                         <thead>
-                                                            <tr>
-                                                                <th>Semanas</th>
-                                                                <th>Evidencia de aprendizaje</th>
-                                                                <?php
-                                                                    if($tipos_componentes_evidencia){
-                                                                        foreach ($tipos_componentes_evidencia as $tipo) {
-                                                                            echo "<th>".$tipo["nombre"]."</th>";
-                                                                        }
-                                                                    }
-                                                                ?>
-                                                                <th style="width:130px;">Seguimiento y evaluación</th>
-                                                            </tr>
+                                                        <tr>
+                                                            <th>Semanas</th>
+                                                            <?php if (!empty($tipos_componentes_evidencia)): ?>
+                                                                <?php foreach ($tipos_componentes_evidencia as $tipo): ?>
+                                                                    <th><?= $tipo["nombre"] ?></th>
+                                                                <?php endforeach; ?>
+                                                            <?php endif; ?>
+                                                            <th style="width:130px;">Seguimiento y evaluación</th>
+                                                        </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <?php 
-                                                                if($evidencias){
-                                                                    foreach ($evidencias as $evidencia) {
-                                                                        $selectedSemanas = unserialize($evidencia["semanas"]);
-                                                                        $listaSemanas = get_semanas_by_ids($selectedSemanas);
-                                                                        $completadoText = ($evidencia["estado_completo"] == 3) ? "Completado" : (($evidencia["estado_completo"] == 2) ? "No Completado" : "Completar");
-                                                                        ?>
-                                                                        <tr id="evidencia-aprendizaje-<?= $evidencia["id_evidencia_aprendizaje"] ?>">
-                                                                            <td style="width:100px;">
-                                                                                <?php
-                                                                                    if(is_array($listaSemanas)){
-                                                                                        for ($i=0; $i < count($listaSemanas); $i++) { ?>
-                                                                                            <div class="text-center">
-                                                                                                <h5 class="m-b-0"><?= $listaSemanas[$i]["semana"] ?></h5>
-                                                                                                <span class="text-muted" style="font-size:11px;"><?= $listaSemanas[$i]["fecha_inicio"] ?></span>
-                                                                                                <span class="text-muted" style="font-size:11px;"><?= $listaSemanas[$i]["fecha_fin"] ?></span>
-                                                                                            </div>
-                                                                                        <?php }
-                                                                                    }
-                                                                                ?>
-                                                                            </td>
-                                                                            <td colspan="<?= ($evidencia["is_only_row"]) ? count($tipos_componentes_evidencia) + 1 : 1 ?>"><?= $evidencia["evidencia_aprendizaje"] ?></td>
-                                                                            <?php
-                                                                                if($evidencia["is_only_row"] != 1){
-
-                                                                                    if ($tipos_componentes_evidencia) {
-                                                                                        foreach ($tipos_componentes_evidencia as $tipo) {
-                                                                                            $componenteBuscado = null;
-                                                                                            foreach ($evidencia['componentes'] as $componente) {
-                                                                                                if ($componente['id_tipo_componente'] == $tipo["id_tipo_componente"]) {
-                                                                                                    $componenteBuscado = $componente;
-                                                                                                    break; // salimos del bucle al encontrar el componente
-                                                                                                }
-                                                                                            }
-
-                                                                                            if ($componenteBuscado) {
-                                                                                                echo "<td>" . $componente["contenido"] . "</td>";
-                                                                                            }
-                                                                                            else echo "<td></td>";
-                                                                                        }
-                                                                                    }
-
-                                                                                }
-                                                                            ?>
-                                                                            <td class="text-center">
-                                                                                <div>
-                                                                                    <input <?= ($editable) ? "" : "disabled" ?> <?= ($evidencia["is_completo"]) ? "checked" : "" ?> data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="checkbox" name="" class="completar-evidencia-aprendizaje <?= ($evidencia["is_completo"]) ? "checked" : "uncheked" ?>"> <?= $completadoText ?> <br><br>
-                                                                                    <?php
-                                                                                        if($editable) {
-                                                                                            ?>
-                                                                                                <a href="<?= base_url() ?>PlanAula/create/<?= $plan_area["id_plan_area"] ?>/<?= $evidencia["id_evidencia_aprendizaje"] ?>" class="btn btn-sm btn-info m-b-1">Editar</a>
-                                                                                                <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="button" class="btn m-b-10 btn-sm btn-danger remove-evidencia-aprendizaje">Eliminar</button>
-                                                                                            <?php
-                                                                                        }
-                                                                                        else {
-                                                                                            ?>
-                                                                                                <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="button" class="btn m-b-10 btn-sm btn-info btn-agregar-observaciones-coordinador">Agregar observaciones</button>
-                                                                                            <?php
-                                                                                        }
-                                                                                    ?>
-                                                                                    <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="button" class="btn btn-sm btn-primary btn-evidencias-aprendizaje-soportes">Evidencias</button>
-                                                                                    <div class="text-left m-t-10">
-                                                                                        <p><strong>Observaciones del coordinador: </strong><?= $evidencia["observaciones_coordinador"] ?></p>
-                                                                                    </div>
+                                                        <?php if (!empty($evidencias)): ?>
+                                                            <?php foreach ($evidencias as $evidencia): ?>
+                                                                <?php
+                                                                $selectedSemanas = unserialize($evidencia["semanas"]);
+                                                                $listaSemanas = get_semanas_by_ids($selectedSemanas);
+                                                                $estado = $evidencia["estado_completo"];
+                                                                $completadoText = ($estado == 3) ? "Completado" : (($estado == 2) ? "No Completado" : "Completar");
+                                                                $isOnlyRow = $evidencia["is_only_row"] == 1;
+                                                                ?>
+                                                                <tr>
+                                                                    <td style="width:100px;">
+                                                                        <?php if (is_array($listaSemanas)): ?>
+                                                                            <?php foreach ($listaSemanas as $semana): ?>
+                                                                                <div class="text-center">
+                                                                                    <h5 class="m-b-0"><?= $semana["semana"] ?></h5>
+                                                                                    <span class="text-muted" style="font-size:11px;"><?= $semana["fecha_inicio"] ?></span>
+                                                                                    <span class="text-muted" style="font-size:11px;"><?= $semana["fecha_fin"] ?></span>
                                                                                 </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    <?php }
-                                                                }
-                                                        ?> 
+                                                                            <?php endforeach; ?>
+                                                                        <?php endif; ?>
+                                                                    </td>
+
+                                                                    <?php if ($isOnlyRow): ?>
+                                                                        <td colspan="<?= count($tipos_componentes_evidencia) ?>">
+                                                                            <?php
+                                                                            if (!empty($tipos_componentes_evidencia) && isset($tipos_componentes_evidencia[0])) {
+                                                                                $tipoComponenteId = $tipos_componentes_evidencia[0]["id_tipo_componente"];
+                                                                                foreach ($evidencia['componentes'] as $componente) {
+                                                                                    if ($componente['id_tipo_componente'] == $tipoComponenteId) {
+                                                                                        echo $componente["contenido"];
+                                                                                        break;
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                            ?>
+                                                                        </td>
+                                                                    <?php else: ?>
+                                                                        <?php foreach ($tipos_componentes_evidencia as $tipo): ?>
+                                                                            <?php
+                                                                            $contenido = '';
+                                                                            foreach ($evidencia['componentes'] as $componente) {
+                                                                                if ($componente['id_tipo_componente'] == $tipo["id_tipo_componente"]) {
+                                                                                    $contenido = $componente["contenido"];
+                                                                                    break;
+                                                                                }
+                                                                            }
+                                                                            ?>
+                                                                            <td><?= $contenido ?></td>
+                                                                        <?php endforeach; ?>
+                                                                    <?php endif; ?>
+
+                                                                    <td class="text-center">
+                                                                        <div>
+                                                                            <input
+                                                                                <?= $editable ? '' : 'disabled' ?>
+                                                                                <?= $evidencia["is_completo"] ? 'checked' : '' ?>
+                                                                                    data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>"
+                                                                                    type="checkbox"
+                                                                                    class="completar-evidencia-aprendizaje <?= $evidencia["is_completo"] ? 'checked' : 'unchecked' ?>">
+                                                                            <?= $completadoText ?>
+                                                                            <br><br>
+
+                                                                            <?php if ($editable): ?>
+                                                                                <a href="<?= base_url() ?>PlanAula/create/<?= $plan_area["id_plan_area"] ?>/<?= $evidencia["id_evidencia_aprendizaje"] ?>" class="btn btn-sm btn-info m-b-1">Editar</a>
+                                                                                <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="button" class="btn m-b-10 btn-sm btn-danger remove-evidencia-aprendizaje">Eliminar</button>
+                                                                            <?php else: ?>
+                                                                                <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="button" class="btn m-b-10 btn-sm btn-info btn-agregar-observaciones-coordinador">Agregar observaciones</button>
+                                                                            <?php endif; ?>
+
+                                                                            <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" type="button" class="btn btn-sm btn-primary btn-evidencias-aprendizaje-soportes">Evidencias</button>
+
+                                                                            <div class="text-left m-t-10">
+                                                                                <p><strong>Observaciones del coordinador: </strong><?= $evidencia["observaciones_coordinador"] ?></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
                                                         </tbody>
                                                     </table>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -427,20 +434,20 @@
                                                                 <a data-id="<?= (is_array($plan_area)) ? $plan_area["id_plan_area"] : "null" ?>" class="m-t-10 hidden pointer btn-mostrar-evidencias-aprendizaje-incompletos"><span>Seleccionar evidencia de aprendizaje no completada</span></a>
                                                             </div>
                                                         </div>
-                                                        <div class=" col-xs-12">
+                                                        <!--<div class=" col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="">Evidencia de aprendizaje</label>
                                                                 <textarea name="evidencia[evidencia_aprendizaje]" id="richtext-6" cols="30" rows="3" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["evidencia_aprendizaje"] : "" ?></textarea>
                                                             </div>
-                                                        </div>
+                                                        </div>-->
                                                         <div class=" col-xs-12">
                                                             <div class="form-group form-check">
                                                                 <input name="evidencia[is_only_row]" type="checkbox" class="form-check-input" id="only-row-input" <?= (is_array($selectedEvidencia) && $selectedEvidencia["is_only_row"] == 1) ? "checked" : "" ?>>
-                                                                <label class="form-check-label" for="exampleCheck1">Solo registrar evidencia de aprendizaje para esta(s) semana(s).</label>
+                                                                <label class="form-check-label" for="exampleCheck1">Solo registrar un componente para esta(s) semana(s).</label>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="extra-info-evidencia" style="display:<?= (is_array($selectedEvidencia) && $selectedEvidencia["is_only_row"] == 1) ? "none;" : "block;" ?>">
+                                                    <div class="extra-info-evidenci" style="display:<?= (is_array($selectedEvidencia) && $selectedEvidencia["is_only_row"] == 1) ? "none;" : "block;" ?>">
                                                         <div class="row">
                                                             <?php
                                                                 if($tipos_componentes_evidencia) {
@@ -458,7 +465,7 @@
                                                                         }
 
                                                                         ?>
-                                                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                                                        <div class="col-md-4 col-sm-6 col-xs-12 <?= $x > 7 ? 'extra-info-evidencia' : '' ?>">
                                                                             <div style="background: #077b5d;" class="evidence-container">
                                                                                 <h5><?= $TCE["nombre"] ?></h5>
                                                                                 <div class="row">

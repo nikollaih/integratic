@@ -222,6 +222,20 @@
         <tr>
             <td class="space-to-fill" colspan="4">
                 <strong>Docentes que elaboran y cargo:</strong><br>
+                <?php
+                if ($items_piar) {
+                    $combinaciones_vistas = [];
+
+                    foreach ($items_piar as $item) {
+                        $clave = $item["nombres"] . '|' . $item["apellidos"] . '|' . $item["nommateria"];
+
+                        if (!in_array($clave, $combinaciones_vistas)) {
+                            $combinaciones_vistas[] = $clave;
+                            echo $item["nombres"] . ' ' . $item["apellidos"] . ' (' . $item["nommateria"] . ')<br>';
+                        }
+                    }
+                }
+                ?>
             </td>
         </tr>
     </table>
@@ -285,7 +299,10 @@
                     if((strtolower(logged_user()["rol"]) == "coordinador") || (strtolower(logged_user()["rol"]) == "docente de apoyo") || (logged_user()["id"] == $item["id_docente"]) || $item["id_materia"] == ""){
                     ?>
                         <tr>
-                            <td><?= $item["nomarea"] ?? "Otras" ?> <br>(<?= $item["nommateria"] ?>)</td>
+                            <td>
+                                <p><strong>Periodo: </strong><?= $item["periodo"] ?></p>
+                                <?= $item["nomarea"] ?? "Otras" ?> <br>
+                                (<?= $item["nommateria"] ?>)</td>
                             <td><?= $item["objetivos"] ?></td>
                             <td><?= $item["barreras"] ?></td>
                             <td><?= $item["ajustes_razonables"] ?></td>

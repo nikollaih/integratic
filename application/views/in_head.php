@@ -53,6 +53,22 @@
     </head>
 
 <style>
+    .left.side-menu, .left.side-menu #sidebar-menu{
+        background-color: <?= configuracion()["color_principal"] ?> !important;
+    }
+
+    .left.side-menu #sidebar-menu>ul>li>a {
+        color: #f0f0f0 !important;
+    }
+
+    .left.side-menu #sidebar-menu > ul > li:hover > a {
+        color: #444 !important;
+    }
+
+    .left.side-menu #sidebar-menu > ul > li:hover > a.subdrop {
+        color: #444 !important;
+    }
+
     .panel-heading{
         background-color: <?= configuracion()["color_secundario"] ?> !important;
     }

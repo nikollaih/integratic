@@ -8,6 +8,7 @@
  * @property string $materias_table
  * @property string $areas_table
  * @property string $periodos_table
+ * @property string $usuarios_table
  */
 class PIAR_Item_Model extends CI_Model
 {
@@ -20,6 +21,7 @@ class PIAR_Item_Model extends CI_Model
         $this->materias_table = 'cfg_materias';
         $this->areas_table = 'cfg_areas';
         $this->periodos_table = 'periodos';
+        $this->usuarios_table = 'usuarios';
     }
 
     public function create($data){
@@ -68,6 +70,7 @@ class PIAR_Item_Model extends CI_Model
     public function getAllByPiar($piarId){
         $this->db->from($this->piar_item_table);
         $this->db->join($this->piar_table, $this->piar_item_table.'.id_piar = '.$this->piar_table.'.id_piar');
+        $this->db->join($this->usuarios_table, $this->piar_item_table.'.id_docente = '.$this->usuarios_table.'.id');
         $this->db->join($this->materias_table, $this->materias_table.'.codmateria = '.$this->piar_item_table.'.id_materia');
         $this->db->join($this->areas_table, $this->materias_table.'.area = '.$this->areas_table.'.codarea');
         $this->db->join($this->periodos_table, $this->piar_item_table.'.id_periodo = '.$this->periodos_table.'.id_periodo', 'left outer');
