@@ -17,7 +17,7 @@
                 ?>
                 <div class="row">
                     <div class="col-md-12"><hr></div>
-                    <div class="col-md-6">
+                    <!--<div class="col-md-6">
                         <div class="form-group">
                             <label for="id_docente_aula">Docente de aula</label>
                             <select name="id_docente_aula" id="id_docente_aula" class="form-control">
@@ -33,7 +33,7 @@
                                 ?>
                             </select>
                         </div>
-                    </div>
+                    </div>-->
 
 
                     <div class="col-md-6">

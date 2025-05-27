@@ -24,25 +24,11 @@ if(isset($estudiante["id_piar"])){ ?>
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-6">
-                                <label for="id_periodo">Periodo</label>
-                                <select class="form-control" name="id_periodo" id="id_periodo" required <?= isset($item_piar["id_periodo"]) ? 'disabled' : '' ?> >
-                                    <option value="">- Seleccionar periodo</option>
-                                    <?php
-                                    if($periodos){
-                                        foreach($periodos as $periodo){
-                                            $selected = ($item_piar && $item_piar["id_periodo"] == $periodo["id_periodo"]) ? "selected" : "";
-                                            echo '<option '.$selected.'  value="'.$periodo["id_periodo"].'">'.$periodo["periodo"].'</option>';
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                            </div>
                         <?php }
                     ?>
                     <?php
                     if(strtolower(logged_user()["rol"]) === "docente de apoyo"){ ?>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label for="otro_materia">Seleccionar categoría</label>
                             <select class="form-control" name="otro_materia" id="otro_materia" required>
                                 <option value="">- Seleccionar</option>
@@ -55,6 +41,20 @@ if(isset($estudiante["id_piar"])){ ?>
                         </div>
                     <?php }
                     ?>
+                    <div class="col-md-6">
+                        <label for="id_periodo">Periodo</label>
+                        <select class="form-control" name="id_periodo" id="id_periodo" required <?= isset($item_piar["id_periodo"]) ? 'disabled' : '' ?> >
+                            <option value="">- Seleccionar periodo</option>
+                            <?php
+                            if($periodos){
+                                foreach($periodos as $periodo){
+                                    $selected = ($item_piar && $item_piar["id_periodo"] == $periodo["id_periodo"]) ? "selected" : "";
+                                    echo '<option '.$selected.'  value="'.$periodo["id_periodo"].'">'.$periodo["periodo"].'</option>';
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="row text-end" style="text-align:right;">
                     <div class="col-md-12 text-end">

@@ -97,9 +97,10 @@ class PIAR_Item_Model extends CI_Model
     }
 
     public function getAllByPiarCategories($piarId){
-        $this->db->select($this->piar_item_table.'.*, otro_materia as nommateria');
+        $this->db->select($this->piar_item_table.'.*, otro_materia as nommateria, '.$this->periodos_table.'.periodo');
         $this->db->from($this->piar_item_table);
         $this->db->join($this->piar_table, $this->piar_item_table.'.id_piar = '.$this->piar_table.'.id_piar');
+        $this->db->join($this->periodos_table, $this->piar_item_table.'.id_periodo = '.$this->periodos_table.'.id_periodo', 'left outer');
         $this->db->where($this->piar_item_table.'.id_piar', $piarId);
         $this->db->where($this->piar_item_table.'.id_materia', NULL);
 
