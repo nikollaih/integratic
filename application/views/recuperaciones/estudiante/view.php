@@ -26,8 +26,8 @@
                                                 <tr>
                                                     <th>Actividad</th>
                                                     <th>Porcentaje</th>
-                                                    <th>Obervaciones estudiante</th>
-                                                    <th>Obervaciones docente</th>
+                                                    <th>Observaciones estudiante</th>
+                                                    <th>Observaciones docente</th>
                                                     <th>Calificación</th>
                                                     <th>Fecha de entrega</th>
                                                 </tr>
