@@ -177,7 +177,7 @@
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-lg-4">
                                         <div class="form-group">
-                                            <label for="">Es recuperación</label>
+                                            <label for="">Es nivelación</label>
                                             <select name="prueba[es_recuperacion]" id="" class="form-control" data-live-search="true" data-size="10" data-actions-box="true">
                                                 <option <?= ($prueba && $prueba["es_recuperacion"] == "0") ? "selected" : "" ?> value="0">No</option>
                                                 <option <?= ($prueba && $prueba["es_recuperacion"] == "1") ? "selected" : "" ?> value="1">Si</option>

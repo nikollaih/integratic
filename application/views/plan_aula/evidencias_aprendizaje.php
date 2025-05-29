@@ -20,7 +20,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Docente</label>
-                                            <select class="form-control" name="docente">
+                                            <select class="form-control" name="docente" id="plan-area-docente">
                                                 <option value="">- Seleccionar</option>
                                                 <?php
                                                 if($docentes){
@@ -151,7 +151,7 @@
                                                     <td><?= ($evidencia["estado_completo"] == 3) ? "Completado" : (($evidencia["estado_completo"] == 2) ? "No Completado" : "Pendiente"); ?></td>
                                                     <td><?= $evidencia["observaciones_completo"] ?></td>
                                                     <td>
-                                                        <button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" class="btn-sm m-b-10 btn btn-primary mostrar-evidencia-aprendizaje">Mostrar más</button>
+                                                        <!--<button data-id="<?= $evidencia["id_evidencia_aprendizaje"] ?>" class="btn-sm m-b-10 btn btn-primary mostrar-evidencia-aprendizaje">Mostrar más</button>-->
                                                         <a target="_blank" href="<?= base_url() ?>PlanAula/ver/<?= $evidencia["id_plan_area"] ?>">
                                                             <button class="btn-sm btn m-b-10">Ver PDF</button>
                                                         </a>

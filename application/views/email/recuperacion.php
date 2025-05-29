@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notificación de Nueva Recuperación</title>
+  <title>Notificación de Nueva Nivelación</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -30,17 +30,17 @@
 </head>
 <body>
   <div class="container">
-    <h2>Nueva Recuperación Programada</h2>
+    <h2>Nueva Nivelación Programada</h2>
     <p>Estimado/a <?= $estudiante ?>,</p>
-    <p>Te informamos que se ha creado una nueva recuperación para el grado <strong><?= $recuperacion["grado"]. $recuperacion["grupo"] ?></strong> en la plataforma Integratic. A continuación, se detallan los datos:</p>
+    <p>Te informamos que se ha creado una nueva nivelación para el grado <strong><?= $recuperacion["grado"]. $recuperacion["grupo"] ?></strong> en la plataforma Integratic. A continuación, se detallan los datos:</p>
     <ul>
         <li><strong>Materia:</strong> <?= $recuperacion["nommateria"] ?></li>
-        <li><strong>Nombre de la Recuperación:</strong> <?= $recuperacion["title"] ?></li>
+        <li><strong>Nombre de la nivelación:</strong> <?= $recuperacion["title"] ?></li>
         <li><strong>Periodo:</strong> <?= $recuperacion["periodo"] ?></li>
         <li><strong>Docente Responsable:</strong> <?= $recuperacion["nombres"]." ". $recuperacion["apellidos"] ?></li>
         <li><strong>Disponible desde:</strong> <?= $recuperacion["fecha_inicio"] ?><strong> hasta:</strong> <?= $recuperacion["fecha_fin"] ?></li>
     </ul>
-    <p>Te animamos a revisar la plataforma para obtener más detalles y asegurarte de estar preparado/a para la recuperación.</p>
+    <p>Te animamos a revisar la plataforma para obtener más detalles y asegurarte de estar preparado/a para la nivelación.</p>
     <p>¡Gracias por tu atención!</p>
     <p>Atentamente,</p>
     <p>El equipo de <?= configuracion()["nombre_institucion"] ?></p>

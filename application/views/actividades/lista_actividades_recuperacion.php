@@ -1,6 +1,6 @@
 <div>
     <div style="background-color:#33b86c;border-radius:10px;" class="d-flex justify-between align-items-center m-b-1">
-        <h3 class="title-container-foros">Actividades de recuperaci&oacute;n</h3>
+        <h3 class="title-container-foros">Actividades de nivelaci&oacute;n</h3>
         <i class="fa fa-chevron-up open-section" data-section="recuperacion"></i>
     </div>
     <ul style="padding:0" class="section-recuperacion">

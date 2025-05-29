@@ -1,12 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @property $Consultas_Model
+ * @property $Periodos_Model
+ * @property $Areas_Model
+ * @property $Usuarios_Model
+ * @property $load
+ * @property $input
+ * @property $Materias_Model
+ * @property $SemanasPeriodo_Model
+ * @property $EvidenciasAprendizaje_Model
+ * @property $session
+ * @property $PlanAreas_Model
+ */
 Class EvidenciasAprendizaje extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-        $this->load->model(["Areas_Model", "Periodos_Model", "PlanAreas_Model", "Materias_Model", "Caracterizacion_Estandar_Competencia_Model", "Caracterizacion_DBA_Model", "EvidenciasAprendizaje_Model", "SemanasPeriodo_Model", "Usuarios_Model"]);
+        $this->load->model(["Consultas_Model", "Areas_Model", "Periodos_Model", "PlanAreas_Model", "Materias_Model", "Caracterizacion_Estandar_Competencia_Model", "Caracterizacion_DBA_Model", "EvidenciasAprendizaje_Model", "SemanasPeriodo_Model", "Usuarios_Model"]);
 	}
 
     function index(){
@@ -28,6 +41,9 @@ Class EvidenciasAprendizaje extends CI_Controller
 
                 if($this->input->post()){
                     $params["docente"] = $this->input->post("docente");
+                    if($params["docente"]){
+                        $params["areas"] =  json_decode(json_encode($this->Consultas_Model->asignadoc($params["docente"], true)), true);
+                    }
                     $params["area"] = $this->input->post("area");
                     $params["materia"] = $this->input->post("materia");
                     $params["periodo"] = $this->input->post("periodo");

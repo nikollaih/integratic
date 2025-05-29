@@ -66,6 +66,13 @@ jQuery(document).ready(function() {
         }
     });
 
+    jQuery(document).on("change", "#plan-area-docente", function() {
+        let idDocente = jQuery(this).val();
+        const select = $("#plan-area-materia");
+        select.empty();
+        setDocenteMaterias(idDocente);
+    });
+
     $("#form-plan-aula-observaciones-coordinador").on('submit', function(e) {
         let descripcion = richEditorObservacionesCoordinador.getContents();
         jQuery("#plan-aula-observaciones-coordinador").val(descripcion);
@@ -268,6 +275,42 @@ jQuery(document).ready(function() {
             }
         });
     }
+
+    function setDocenteMaterias(idDocente) {
+        $("#background-loading").css("display", "flex");
+
+        $.ajax({
+            url: base_url + "Docente/asignadoc/" + idDocente,
+            type: 'GET',
+            success: function(data) {
+                data = JSON.parse(data);
+                let object = data.object;
+
+                // Limpiar el select antes de agregar nuevas opciones
+                const select = $("#plan-area-area");
+                select.empty();
+
+                if (data.status) {
+                    // Opcional: agregar una opción por defecto
+                    select.append('<option value="">- Seleccionar</option>');
+
+                    // Recorrer el array y agregar cada opción
+                    object.forEach(function(item) {
+                        const value = item.codarea;
+                        const text = item.nomarea;
+                        select.append(`<option value="${value}">${text}</option>`);
+                    });
+                }
+
+                $("#background-loading").css("display", "none");
+            },
+            error: function() {
+                $("#background-loading").css("display", "none");
+                alert("Error!");
+            }
+        });
+    }
+
 
     function completarEvidenciaAprendizaje(idEvidencia, observaciones, estadoCompletado) {
         $("#background-loading").css("display", "flex");

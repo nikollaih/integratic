@@ -68,7 +68,7 @@
                   </div>
                   <div class="col-md-4 m-t-2">
                     <div class="form-group">
-                        <label for="">Es recuperación *</label>
+                        <label for="">Es nivelación *</label>
                         <select name="" class="form-control" id="nueva-actividad-recuperacion">
                             <option value="0">No</option>
                             <option value="1">Si</option>

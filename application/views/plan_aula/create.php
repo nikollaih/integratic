@@ -9,23 +9,26 @@
     <?php $this->load->view("modal/user_evidencias_aprendizaje_incompletas") ?>
     <?php $this->load->view("modal/plan_aula_tooltip");
 
-    $DIAGNOSTICO_TEXT="Proceso fundamental en el ámbito educativo que permite evaluar el estado actual de un grupo de
-    estudiantes en relación con el año o periodo anterior. A través del diagnóstico se pueden identificar avances,
-    dificultades y competencias que requieren mayor atención, lo que facilita la planificación de estrategias pedagógicas más efectivas.";
+    $CARACTERIZACION_ESTUDIANTES_TEXT="Proceso de recopilar y analizar información relevante de los estudiantes como nivel académico, 
+    intereses y estilos de aprendizaje, con el fin de adaptar la enseñanza a sus necesidades. 
+    Se puede realizar mediante encuestas, observación en el aula, entrevistas, revisión de expedientes académicos y diálogo con padres y docentes. 
+    Esto permite una enseñanza más efectiva y personalizada.";
 
     $ESTADO_ACTUAL_TEXT="El estado actual del grupo describe la situación académica de los estudiantes, basada en los resultados del 
     diagnóstico inicial o en el desempeño de períodos anteriores. Permite identificar las competencias que requieren fortalecimiento y 
     orienta la planificación de acciones específicas para atender las necesidades reales del grupo.";
 
-    $SITUACION_DESEADA_TEXT="La situación deseada define el objetivo a alcanzar tras el análisis del estado actual del grupo. 
-    Se aspira a que los estudiantes desarrollen plenamente sus competencias básicas y socioemocionales. Este propósito guiará la planificación y 
-    ejecución de acciones pedagógicas orientadas a atender las necesidades detectadas y a promover el desarrollo integral de todos los alumnos.";
+    $APRENDIZAJE_MEJORAR_TEXT="A partir de la caracterización de los estudiantes y del análisis del proceso de aprendizaje del periodo académico anterior, 
+    se identifican ciertos aprendizajes que requieren fortalecimiento. Entre ellos se encuentran aspectos relacionados con la comprensión de contenidos, 
+    el desarrollo de habilidades cognitivas, la participación activa en clase y la autonomía en el aprendizaje. 
+    Estas áreas de mejora responden a las necesidades y características del grupo, por lo que se propone ajustar las estrategias pedagógicas 
+    para favorecer un aprendizaje más significativo y acorde con sus contextos.";
 
-    $OBSERVACIONES_TEXT="Es fundamental realizar observaciones continuas sobre el trabajo que se llevará a cabo con el grupo de 
-    estudiantes durante el periodo. Estas observaciones permiten valorar el avance, identificar dificultades a tiempo y 
-    ajustar las estrategias de intervención según las necesidades reales del grupo.";
+    $OTROS_APRENDIZAJE_MEJORAR_TEXT="Además de lo que los estudiantes ya están aprendiendo, hay ciertas habilidades o conocimientos que aún necesitan mejorar o 
+    desarrollar más. Por ejemplo, saber pensar de manera crítica, expresarse bien al hablar o escribir, controlar sus emociones y trabajar bien con otros. 
+    Estas son cosas importantes para que puedan aprender mejor y relacionarse bien con los demás.";
 
-    $ENCUADRE_PACTIOS_CLASE_TEXT="Acuerdos que se establecen al inicio del ciclo escolar o de un periodo de trabajo entre el docente y los estudiantes. 
+    $ENCUADRE_PACTOS_CLASE_TEXT="Acuerdos que se establecen al inicio del ciclo escolar o de un periodo de trabajo entre el docente y los estudiantes. 
     Sirven para definir de manera clara las normas de convivencia, las responsabilidades, las dinámicas de trabajo y las expectativas 
     mutuas dentro del aula.";
 
@@ -173,7 +176,7 @@
                                     <div class="row">
                                         <div class=" col-xs-12">
                                             <div class="form-group">
-                                                <i data-text="<?= $DIAGNOSTICO_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
+                                                <i data-text="<?= $CARACTERIZACION_ESTUDIANTES_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Caracterización de los estudiantes
                                                     <span class="text-danger">*</span>
                                                 </label>
@@ -189,21 +192,21 @@
                                         </div>-->
                                         <div class=" col-xs-12">
                                             <div class="form-group">
-                                                <i data-text="<?= $SITUACION_DESEADA_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
+                                                <i data-text="<?= $APRENDIZAJE_MEJORAR_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Aprendizajes por mejorar <span class="text-danger">*</span></label>
                                                 <textarea name="plan[situacion_deseada]" id="richtext-3" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["situacion_deseada"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
-                                                <i data-text="<?= $OBSERVACIONES_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
+                                                <i data-text="<?= $OTROS_APRENDIZAJE_MEJORAR_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Otros aprendizajes por fortalecer <span class="text-danger">*</span></label>
                                                 <textarea name="plan[observaciones]" id="richtext-4" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["observaciones"] : "" ?></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-xs-12">
                                             <div class="form-group">
-                                                <i data-text="<?= $ENCUADRE_PACTIOS_CLASE_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
+                                                <i data-text="<?= $ENCUADRE_PACTOS_CLASE_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
                                                 <label for="">Encuadre o pactos de clase <span class="text-danger">*</span></label>
                                                 <textarea name="plan[pactos_clase]" id="richtext-5" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["pactos_clase"] : "" ?></textarea>
                                             </div>

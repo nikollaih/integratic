@@ -99,11 +99,26 @@ class Consultas_Model extends CI_Model {
         return $query->result_array();
     }
 
-    public function asignadoc($id){
-    $result=$this->db->query("select codmateria,nomarea,nommateria,grado,grupo from asg_materias,cfg_materias,cfg_areas Where docente='$id' And codmateria=materia And codarea=area");
-    if(!$result) {return false;}
-    else {return $result->result();}      
-  }  
+    public function asignadoc($id, $diff = false)
+    {
+        $groupBy = $diff ? "GROUP BY codarea" : "";
+
+        $sql = "SELECT codarea, codmateria, nomarea, nommateria, grado, grupo
+            FROM asg_materias, cfg_materias, cfg_areas 
+            WHERE docente = ? 
+            AND codmateria = materia 
+            AND codarea = area 
+            $groupBy";
+
+        $result = $this->db->query($sql, array($id));
+
+        if (!$result) {
+            return false;
+        }
+
+        return $result->result();
+    }
+
   public function asignapro($id){
     $result=$this->db->query("select codpro,nomproyecto from asg_proyectos,cfg_proyectos Where docente='$id' And codpro=proyecto");
     if(!$result) {return false;}
