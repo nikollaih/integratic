@@ -14,6 +14,8 @@
                                     <a href="<?= base_url() ?>Caracterizacion/add" class="btn btn-success m-b-2">Agregar Contenido</a>
                                     <a href="<?= base_url() ?>Caracterizacion/DBA" class="btn btn-primary m-b-2">Ver DBAs</a>
                                     <a href="<?= base_url() ?>Caracterizacion/estandarCompetencia" class="btn btn-primary m-b-2">Ver Estandares de competencia</a>
+                                    <a href="<?= base_url() ?>AjustesRazonables" class="btn btn-primary m-b-2">Ver Ajustes razonables</a>
+                                    <a href="<?= base_url() ?>Barreras" class="btn btn-primary m-b-2">Ver Barreras</a>
                                 </div>
                             </div>
                         <?php

@@ -789,3 +789,144 @@ CREATE TABLE `evidencia_componentes` (
 ALTER TABLE `pruebas` ADD `porcentaje` DOUBLE NOT NULL AFTER `es_recuperacion`;
 
 ALTER TABLE `tipo_componente_evidencia` ADD `orden` INT NOT NULL AFTER `activo`;
+
+
+--
+-- Estructura de tabla para la tabla `categorias_ajustes_razonables`
+--
+
+CREATE TABLE `categorias_ajustes_razonables` (
+                                                 `id_categorias_ajustes_razonables` int(11) NOT NULL,
+                                                 `nombre_categoria` text COLLATE utf8_spanish2_ci NOT NULL,
+                                                 `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `categorias_ajustes_razonables`
+--
+
+INSERT INTO `categorias_ajustes_razonables` (`id_categorias_ajustes_razonables`, `nombre_categoria`, `created_at`) VALUES
+                                                                                                                       (2, 'Apoyo a mediaciones discursivas en el acto pedagógico', '2025-06-04 15:28:34'),
+                                                                                                                       (3, 'Apoyo a la situación de aprendizaje (Se relaciona con la didáctica con el fin de que el estudiante comprenda los saberes).', '2025-06-04 15:28:34'),
+                                                                                                                       (4, 'Apoyo productos y tecnología (Cuando requieren de ayudas técnicas que favorecen el acceso a la cotidianidad escolar).', '2025-06-04 15:28:34'),
+                                                                                                                       (5, 'Apoyo personas (Las personas que rodean al escolar son apoyo natural como guía o tutor y también profesionales como tiflólogo o monitor).', '2025-06-04 15:28:34'),
+                                                                                                                       (6, 'Apoyo entorno físico-arquitectónico (Diseño o adaptación de espacios).', '2025-06-04 15:28:34'),
+                                                                                                                       (7, 'Apoyo servicio y comunidad (Es la intervención terapéutica que requiere el estudiante y acompañamiento familiar).', '2025-06-04 15:28:34'),
+                                                                                                                       (8, 'Apoyo entorno socioeducativo (Favorece la interacción social de los niños y el aprendizaje eliminando o reduciendo barreras actitudinales).', '2025-06-04 15:28:34');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `categorias_ajustes_razonables`
+--
+ALTER TABLE `categorias_ajustes_razonables`
+    ADD PRIMARY KEY (`id_categorias_ajustes_razonables`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categorias_ajustes_razonables`
+--
+ALTER TABLE `categorias_ajustes_razonables`
+    MODIFY `id_categorias_ajustes_razonables` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Estructura de tabla para la tabla `ajustes_razonables`
+--
+
+CREATE TABLE `ajustes_razonables` (
+                                      `id_ajustes_razonables` int(11) NOT NULL,
+                                      `descripcion` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                                      `id_categoria` int(11) NOT NULL,
+                                      `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `ajustes_razonables`
+--
+ALTER TABLE `ajustes_razonables`
+    ADD PRIMARY KEY (`id_ajustes_razonables`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `ajustes_razonables`
+--
+ALTER TABLE `ajustes_razonables`
+    MODIFY `id_ajustes_razonables` int(11) NOT NULL AUTO_INCREMENT;
+
+
+--
+-- Estructura de tabla para la tabla `ajustes_razonables`
+--
+
+CREATE TABLE `barreras` (
+                            `id_barreras` int(11) NOT NULL,
+                            `descripcion` longtext COLLATE utf8_spanish2_ci NOT NULL,
+                            `id_categoria` int(11) NOT NULL,
+                            `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `ajustes_razonables`
+--
+ALTER TABLE `barreras`
+    ADD PRIMARY KEY (`id_barreras`);
+
+--
+-- Estructura de tabla para la tabla `categorias_barreras`
+--
+
+CREATE TABLE `categorias_barreras` (
+                                       `id_categoria_barrera` int(11) NOT NULL,
+                                       `nombre_categoria` text COLLATE utf8_spanish2_ci NOT NULL,
+                                       `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `categorias_barreras`
+--
+
+INSERT INTO `categorias_barreras` (`id_categoria_barrera`, `nombre_categoria`, `created_at`) VALUES
+     (1, 'Aprendizaje y aplicación del conocimiento', '2025-06-04 15:39:17'),
+     (2, 'Tareas y demandas generales', '2025-06-04 15:39:17'),
+     (3, 'Organizativas', '2025-06-04 15:39:17'),
+     (4, 'Comunicación', '2025-06-04 15:39:17'),
+     (5, 'Movilidad', '2025-06-04 15:39:17'),
+     (6, 'Autocuidado', '2025-06-04 15:39:17'),
+     (7, 'Actitudinales', '2025-06-04 15:39:17'),
+     (8, 'Sociales', '2025-06-04 15:39:17');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `categorias_barreras`
+--
+ALTER TABLE `categorias_barreras`
+    ADD PRIMARY KEY (`id_categoria_barrera`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categorias_barreras`
+--
+ALTER TABLE `categorias_barreras`
+    MODIFY `id_categoria_barrera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;

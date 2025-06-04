@@ -26,7 +26,7 @@
                                     <td>Email</td>
                                     <td>Email acudiente</td>
                                     <td>Grado</td>
-                                    <td>NEE</td>
+                                    <td>P.I.A.R.</td>
                                     <td>Comentarios coordinador</td>
                                     <td></td>
                                 </tr>

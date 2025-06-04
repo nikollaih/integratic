@@ -29,7 +29,7 @@
                                             <td>Email acudiente</td>
                                             <td>Grado</td>
                                             <td>Clave</td>
-                                            <td>NEE</td>
+                                            <td>P.I.A.R.</td>
                                             <td>Caracterización</td>
                                             <td></td>
                                         </tr>
