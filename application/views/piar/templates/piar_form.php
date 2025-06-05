@@ -17,23 +17,17 @@
                 ?>
                 <div class="row">
                     <div class="col-md-12"><hr></div>
-                    <!--<div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="id_docente_aula">Docente de aula</label>
-                            <select name="id_docente_aula" id="id_docente_aula" class="form-control">
+                            <label for="diagnostico">Diagnóstico</label>
+                            <select name="diagnostico" id="diagnostico" class="form-control" required>
                                 <option value="">- Seleccionar</option>
-                                <?php
-                                if($docentes){
-                                    print_r($docentes);
-                                    foreach($docentes as $doc){
-                                        $selected = $doc["id"] === $estudiante["id_docente_aula"] ? "selected" :  "";
-                                        echo '<option '.$selected.' value="' .$doc["id"].'">'.$doc["nombres"].' '.$doc["apellidos"].' - '.$doc["nommateria"].'</option>';
-                                    }
-                                }
-                                ?>
+                                <option <?= $estudiante["diagnostico"] === "Discapacidad" ? "selected" : "" ?> value="Discapacidad">Discapacidad</option>
+                                <option <?= $estudiante["diagnostico"] === "Trastorno" ? "selected" : "" ?> value="Trastorno">Trastorno</option>
+                                <option <?= $estudiante["diagnostico"] === "Sin diagnóstico" ? "selected" : "" ?> value="Sin diagnóstico">Sin diagnóstico</option>
                             </select>
                         </div>
-                    </div>-->
+                    </div>
 
 
                     <div class="col-md-6">

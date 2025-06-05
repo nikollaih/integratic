@@ -46,14 +46,23 @@ class PIAR extends CI_Controller
     }
 
     public function index() {
-        if(is_logged()){
-            if($this->hasPermission()){
-                $params["estudiantes"] = ($this->USER_ROL === 'docente') ? $this->PIAR_Model->getStudentsByDocente(logged_user()["id"]) : $this->PIAR_Model->getStudents();
+        if (is_logged()) {
+            if ($this->hasPermission()) {
+                $diagnostico = $this->input->get('diagnostico');
+
+                if ($this->USER_ROL === 'docente') {
+                    $params["estudiantes"] = $this->PIAR_Model->getStudentsByDocente(logged_user()["id"], $diagnostico);
+                } else {
+                    $params["estudiantes"] = $this->PIAR_Model->getStudents($diagnostico);
+                }
+
                 $this->load->view("piar/index", $params);
+            } else {
+                redirect(base_url());
             }
-            else header("Location: ".base_url());
+        } else {
+            redirect(base_url());
         }
-        else header("Location: ".base_url());
     }
 
     public function create($estudianteDocumento = null){
@@ -130,9 +139,6 @@ class PIAR extends CI_Controller
     public function view($piarId = null, $documentType = 1){
         if(is_logged()){
             if($this->hasPermission()){
-                if($documentType === "2" && strtolower(logged_user()["rol"]) === "docente"){
-                    $documentType = 1;
-                }
                 $params["piar"] = $this->PIAR_Model->get($piarId);
                 $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($params["piar"]["documento"]);
                 $params["preguntas"] = $this->CaracterizacionEstudiantesPreguntas_Model->getPreguntas();

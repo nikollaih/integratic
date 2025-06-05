@@ -1,7 +1,7 @@
 <div>
     <?php
-        if($documentType === "2") {
-            ?>
+        if($documentType === "1") {
+    ?>
             <table class="margin-top">
                 <tr>
                     <td style="border: 0;" class="text-center" colspan="2">
@@ -190,7 +190,7 @@
                     </td>
                 </tr>
             </table>
-            <table class="margin-top">
+            <!--<table class="margin-top">
                 <tr>
                     <td class="space-to-fill">Nombre y firma</td>
                     <td class="space-to-fill">Nombre y firma</td>
@@ -201,11 +201,13 @@
                     <td class="space-to-fill">Área</td>
                     <td class="space-to-fill">Área</td>
                 </tr>
-            </table>
-            <?php
-        }
-    ?>
+            </table>-->
 
+    <?php
+        }
+
+        if($documentType === "2"){
+    ?>
 
     <table class="margin-top">
         <tr>
@@ -227,11 +229,13 @@
                     $combinaciones_vistas = [];
 
                     foreach ($items_piar as $item) {
-                        $clave = $item["nombres"] . '|' . $item["apellidos"] . '|' . $item["nommateria"];
+                        if (isset($item["nombres"], $item["apellidos"], $item["nommateria"])) {
+                            $clave = $item["nombres"] . '|' . $item["apellidos"] . '|' . $item["nommateria"];
 
-                        if (!in_array($clave, $combinaciones_vistas)) {
-                            $combinaciones_vistas[] = $clave;
-                            echo $item["nombres"] . ' ' . $item["apellidos"] . ' (' . $item["nommateria"] . ')<br>';
+                            if (!in_array($clave, $combinaciones_vistas)) {
+                                $combinaciones_vistas[] = $clave;
+                                echo $item["nombres"] . ' ' . $item["apellidos"] . ' (' . $item["nommateria"] . ')<br>';
+                            }
                         }
                     }
                 }
@@ -263,9 +267,6 @@
         <tr>
             <td><strong>Entorno personal.</strong><br><br><?= $piar["entorno_personal"] ?></td>
         </tr>
-        <?php
-            if($documentType === "2") {
-            ?>
                 <tr>
                     <td><strong>Descripción general del estudiante con énfasis en gustos e intereses o aspectos que le
                             desagradan, expectativas del estudiante y la familia.</strong><br><br><?= $piar["descripcion_general"] ?></td>
@@ -276,9 +277,6 @@
                             Indique las habilidades, competencias, cualidades, aprendizajes con las que cuenta el
                             estudiante para el grado en el que fue matriculado.</strong><br><br><?= $piar["descripcion_que_hace"] ?></td>
                 </tr>
-            <?php
-            }
-        ?>
     </table>
 
     <h5>2. Ajustes razonables</h5>
@@ -361,30 +359,32 @@ PROGRESO DE LOS ESTUDIANTES:</h5>
         </tr>
     </tbody>
 </table>
+<!--<p><strong>Firma y cargo de quienes realizan el proceso de valoración:</strong> Docentes, coordinadores, docente de apoyo u otro
+    profesional etc.</p>
 
-    <?php
-        if($documentType === "2") {
+<p style="color: darkgrey">Si existen varios docentes a cargo en un mismo curso, es importante que cada uno aporte una valoración
+    del desempeño del estudiante en su respectiva área y los ajustes planteados</p>
+
+<table class="margin-top">
+    <tbody>
+    <tr>
+        <td class="space-to-fill">Nombre y firma</td>
+        <td class="space-to-fill">Nombre y firma</td>
+        <td class="space-to-fill">Nombre y firma</td>
+    </tr>
+    <tr>
+        <td class="space-to-fill">Área</td>
+        <td class="space-to-fill">Área</td>
+        <td class="space-to-fill">Área</td>
+    </tr>
+    </tbody>
+</table>-->
+
+        <?php
+            }
+
+            if($documentType === "3"){
         ?>
-            <p><strong>Firma y cargo de quienes realizan el proceso de valoración:</strong> Docentes, coordinadores, docente de apoyo u otro
-                profesional etc.</p>
-
-            <p style="color: darkgrey">Si existen varios docentes a cargo en un mismo curso, es importante que cada uno aporte una valoración
-                del desempeño del estudiante en su respectiva área y los ajustes planteados</p>
-
-            <table class="margin-top">
-                <tbody>
-                <tr>
-                    <td class="space-to-fill">Nombre y firma</td>
-                    <td class="space-to-fill">Nombre y firma</td>
-                    <td class="space-to-fill">Nombre y firma</td>
-                </tr>
-                <tr>
-                    <td class="space-to-fill">Área</td>
-                    <td class="space-to-fill">Área</td>
-                    <td class="space-to-fill">Área</td>
-                </tr>
-                </tbody>
-            </table>
 
             <table class="margin-top">
                 <tr>
@@ -483,9 +483,6 @@ PROGRESO DE LOS ESTUDIANTES:</h5>
                 </tr>
                 </tbody>
             </table>
-        <?php
-        }
-    ?>
 
 <p><strong>Firma de los actores comprometidos:</strong></p>
 
@@ -505,6 +502,10 @@ PROGRESO DE LOS ESTUDIANTES:</h5>
 
 <p>Directivo docente</p>
 <hr>
+
+                <?php
+            }
+        ?>
 
 <style>
     p {

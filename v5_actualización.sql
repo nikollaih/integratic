@@ -930,3 +930,6 @@ ALTER TABLE `categorias_barreras`
 --
 ALTER TABLE `categorias_barreras`
     MODIFY `id_categoria_barrera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+
+ALTER TABLE `piar` ADD `diagnostico` VARCHAR(100) NOT NULL AFTER `comentarios`;

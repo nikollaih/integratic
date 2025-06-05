@@ -25,16 +25,20 @@ class PIAR_Model extends CI_Model
         return $this->db->update($this->piar_table, $data);
     }
 
-    public function getStudents() {
+    public function getStudents($diagnostico = null) {
         $this->db->where($this->students_table . '.nee', 1);
-        $this->db->from($this->students_table); // Reverse table order
+        $this->db->from($this->students_table);
         $this->db->join(
             $this->piar_table,
             $this->piar_table . '.id_estudiante = ' . $this->students_table . '.documento',
             'left'
         );
-        $result = $this->db->get();
 
+        if (!empty($diagnostico)) {
+            $this->db->where($this->piar_table . '.diagnostico', $diagnostico);
+        }
+
+        $result = $this->db->get();
         return (!empty($result)) ? $result->result_array() : false;
     }
 
@@ -48,7 +52,7 @@ class PIAR_Model extends CI_Model
         return $query->num_rows() > 0 ? array_column($query->result_array(), 'grupo') : [];
     }
 
-    public function getStudentsByDocente($idDocente) {
+    public function getStudentsByDocente($idDocente, $diagnostico = null) {
         $grupos = $this->gruposDocente($idDocente);
 
         if (empty($grupos)) {
@@ -63,6 +67,10 @@ class PIAR_Model extends CI_Model
         );
         $this->db->where("{$this->students_table}.nee", 1);
         $this->db->where_in("{$this->students_table}.grado", $grupos);
+
+        if (!empty($diagnostico)) {
+            $this->db->where($this->piar_table . '.diagnostico', $diagnostico);
+        }
 
         $query = $this->db->get();
         return $query->num_rows() > 0 ? $query->result_array() : false;
