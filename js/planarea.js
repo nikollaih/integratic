@@ -504,48 +504,6 @@ jQuery(document).ready(function() {
         }
     }
 
-    // GET DBA POR AREA
-    function getDBAArea(idArea, idMateria) {
-        $("#background-loading").css("display", "flex");
-        $.ajax({
-            url: base_url + "Caracterizacion/DBAByAreaGrado",
-            type: 'POST',
-            data: {
-                area: idArea,
-                materia: idMateria
-            },
-            success: function(data) {
-                var data = JSON.parse(data);
-                let object = data.object;
-                if (data.status) setDBAArea(object);
-                $("#background-loading").css("display", "none");
-            },
-            error: function() { 
-                $("#background-loading").css("display", "none");
-                alert("Error!") 
-            }
-        });
-    }
-
-    function setDBAArea(dbas){
-        // Obtén una referencia al elemento select por su ID
-        const selectElement = document.getElementById('plan-area-dba');
-
-        // Limpia el select eliminando todas las opciones existentes
-        jQuery('#plan-area-dba').empty();
-    
-        // Itera sobre el arreglo y agrega nuevas opciones al select
-        if(dbas != false){
-            dbas.forEach((dba) => {
-                const option = document.createElement('option');
-                option.value = dba.id_dba;
-                option.textContent = dba.descripcion_dba;
-                selectElement.appendChild(option);
-            });
-        }
-        jQuery('.select-2').trigger("change");
-    }
-
     function removeEvidenciaAprendizaje(idEvidenciaAprendizaje){
         if (confirm("¿Está seguro que desea eliminar la evidencia de aprendizaje?") == true) {
             $("#background-loading").css("display", "flex");

@@ -20,6 +20,21 @@ const kothingParamsPlan = {
     ],
     charCounter: true,
 }
+
+$(document).ready(function () {
+    $('.accordion-toggle').on('click', function () {
+        var $header = $(this);
+        var $panelBody = $header.next('.panel-body');
+        var $icon = $header.find('.accordion-icon');
+
+        $panelBody.slideToggle(200, function () {
+            // Solo se ejecuta después de que la animación terminó
+            $icon.text($panelBody.is(':visible') ? '[–]' : '[+]');
+        });
+    });
+});
+
+
 $( document ).ready(function() {
     let domElement = null;
     domElement = jQuery("#piar-observaciones-coordinador");
@@ -81,6 +96,19 @@ $("#form-piar-observaciones-coordinador").on('submit', function(e) {
 $("#form-create-piar").on('submit', function(e) {
    e.preventDefault();
 
+    let domElement = jQuery("#richtext-descripcion-que-hace");
+    let descripcionQueHace = "";
+    if(domElement.length) {
+        descripcionQueHace = editorDescripcionQueHace.getContents();
+        domElement.html(descripcionQueHace)
+    }
+
+    this.submit();
+});
+
+$("#form-create-piar-2").on('submit', function(e) {
+    e.preventDefault();
+
     let domElement = jQuery("#richtext-entorno");
     let entornoPersonal = "";
     if(domElement.length) {
@@ -95,18 +123,17 @@ $("#form-create-piar").on('submit', function(e) {
         domElement.html(descripcionGeneral)
     }
 
-    domElement = jQuery("#richtext-compromisos-especificos");
+    this.submit();
+});
+
+$("#form-create-piar-3").on('submit', function(e) {
+    e.preventDefault();
+
+    let domElement = jQuery("#richtext-compromisos-especificos");
     let compromisosEspecificos = "";
     if(domElement.length) {
         compromisosEspecificos = editorCompromisosEspecificos.getContents();
         domElement.html(compromisosEspecificos)
-    }
-
-    domElement = jQuery("#richtext-descripcion-que-hace");
-    let descripcionQueHace = "";
-    if(domElement.length) {
-        descripcionQueHace = editorDescripcionQueHace.getContents();
-        domElement.html(descripcionQueHace)
     }
 
     this.submit();
@@ -215,4 +242,27 @@ $("#form-create-piar-row").on('submit', function(e) {
     }
 
     this.submit();
+});
+
+jQuery(document).on("change", ".piar-select-materia", function() {
+    let idMateria = jQuery(this).val();
+
+    $("#background-loading").css("display", "flex");
+    $.ajax({
+        url: base_url + `Materias/get/${idMateria}`,
+        type: 'GET',
+        success: function(data) {
+            data = JSON.parse(data);
+            let object = data.object;
+            if (data.status){
+                console.log(object)
+                getDBAArea(object.area, object.codmateria, 'piar-dba-select');
+            }
+            $("#background-loading").css("display", "none");
+        },
+        error: function() {
+            $("#background-loading").css("display", "none");
+            alert("Error!")
+        }
+    });
 });

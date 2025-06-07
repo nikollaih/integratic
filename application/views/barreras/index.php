@@ -26,7 +26,7 @@
                             </select>
                         </div>
                     </form>
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped datatable" id="barreras-table">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -58,3 +58,13 @@
 </div>
 </body>
 </html>
+<script>
+    $( document ).ready(function() {
+        $('#barreras-table').DataTable({
+            order: [],
+            "language": {
+                "url": base_url + "js/json/datatable_spanish.json"
+            }
+        });
+    })
+</script>

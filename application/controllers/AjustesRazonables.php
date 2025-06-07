@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @property $AjustesRazonables_Model
+ * @property $input
+ * @property $load
+ */
 class AjustesRazonables extends CI_Controller {
 
     public function __construct() {
@@ -8,7 +13,7 @@ class AjustesRazonables extends CI_Controller {
         $this->load->model('AjustesRazonables_Model');
 
         // Validación común para todos los métodos del controlador
-        if (!is_logged() || strtolower(logged_user()["rol"]) !== "super") {
+        if (!is_logged() || strtolower(logged_user()["rol"]) === "estudiante") {
             redirect(base_url());
         }
     }
@@ -53,5 +58,10 @@ class AjustesRazonables extends CI_Controller {
     public function eliminar($id) {
         $this->AjustesRazonables_Model->delete($id);
         redirect('AjustesRazonables');
+    }
+
+    public function obtenerPorCategoria($idCategoria) {
+        $ajustesRazonables = $this->AjustesRazonables_Model->get_all($idCategoria);
+        echo json_encode($ajustesRazonables);
     }
 }

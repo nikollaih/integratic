@@ -933,3 +933,5 @@ ALTER TABLE `categorias_barreras`
 
 
 ALTER TABLE `piar` ADD `diagnostico` VARCHAR(100) NOT NULL AFTER `comentarios`;
+
+ALTER TABLE `barreras` CHANGE `id_barreras` `id_barreras` INT(11) NOT NULL AUTO_INCREMENT;

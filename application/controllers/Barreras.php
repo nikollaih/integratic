@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @property $Barreras_Model
+ */
 class Barreras extends CI_Controller {
 
     public function __construct() {
@@ -8,7 +11,7 @@ class Barreras extends CI_Controller {
         $this->load->model('Barreras_Model');
 
         // Validación común para todos los métodos del controlador
-        if (!is_logged() || strtolower(logged_user()["rol"]) !== "super") {
+        if (!is_logged() || strtolower(logged_user()["rol"]) === "estudiante") {
             redirect(base_url());
         }
     }
@@ -53,5 +56,10 @@ class Barreras extends CI_Controller {
     public function eliminar($id) {
         $this->Barreras_Model->delete($id);
         redirect('Barreras');
+    }
+
+    public function obtenerPorCategoria($idCategoria) {
+        $barreras = $this->Barreras_Model->get_all($idCategoria);
+        echo json_encode($barreras);
     }
 }

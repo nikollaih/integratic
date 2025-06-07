@@ -108,8 +108,13 @@
                 $data = $this->input->post();
                 $materia = $this->Materias_Model->getMateria($data["materia"]);
                 $area = $this->Areas_Model->find($data["area"]);
-                $dbas = $this->Caracterizacion_DBA_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
-                json_response($dbas, true, "Lista de items.");
+
+                if($materia && $area){
+                    $dbas = $this->Caracterizacion_DBA_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
+                    json_response($dbas, true, "Lista de items.");
+                }
+
+                json_response(null, false, "Ha ocurrido un error, intente de nuevo más tarde.");
             }
             else json_response(null, false, "No tiene permiso para realizar esta acción.");
         }

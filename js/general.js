@@ -415,3 +415,45 @@ async function getGruposSelect(idLista = "lista_direccion_grupos", selectId = "d
     html += '</select>';
     jQuery("#" + idLista).html(html);
 }
+
+// GET DBA POR AREA
+function getDBAArea(idArea, idMateria, targetSelect = 'plan-area-dba') {
+    $("#background-loading").css("display", "flex");
+    $.ajax({
+        url: base_url + "Caracterizacion/DBAByAreaGrado",
+        type: 'POST',
+        data: {
+            area: idArea,
+            materia: idMateria
+        },
+        success: function(data) {
+            data = JSON.parse(data);
+            let object = data.object;
+            if (data.status) setDBAArea(object, targetSelect);
+            $("#background-loading").css("display", "none");
+        },
+        error: function() {
+            $("#background-loading").css("display", "none");
+            alert("Error!")
+        }
+    });
+}
+
+function setDBAArea(dbas, targetSelect = 'plan-area-dba'){
+    // Obtén una referencia al elemento select por su ID
+    const selectElement = document.getElementById(targetSelect);
+
+    // Limpia el select eliminando todas las opciones existentes
+    jQuery(`#${targetSelect}`).empty();
+
+    // Itera sobre el arreglo y agrega nuevas opciones al select
+    if(dbas != false){
+        dbas.forEach((dba) => {
+            const option = document.createElement('option');
+            option.value = dba.id_dba;
+            option.textContent = dba.descripcion_dba;
+            selectElement.appendChild(option);
+        });
+    }
+    jQuery('.select-2').trigger("change");
+}

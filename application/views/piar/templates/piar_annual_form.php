@@ -10,6 +10,9 @@ if(isset($estudiante["id_piar"])){ ?>
                 <div class="row">
                     <?php
                     if(strtolower(logged_user()["rol"]) === "docente"){ ?>
+                            <div class="col-md-12 m-b-30">
+                                <p class="alert alert-info"><strong>Nota: </strong> Aqui se debe incluir un texto...</p>
+                            </div>
                         <div class="col-md-12">
                             <label for="id_materia">Seleccionar materia</label>
                             <select class="form-control" name="id_materia" id="id_materia" required>

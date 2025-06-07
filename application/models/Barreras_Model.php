@@ -15,6 +15,15 @@ class Barreras_Model extends CI_Model {
         return $this->db->get()->result();
     }
 
+    public function get_by_ids($array_ids = []) {
+        $this->db->select('b.*, c.nombre_categoria');
+        $this->db->from('barreras b');
+        $this->db->join('categorias_barreras c', 'b.id_categoria = c.id_categoria_barrera');
+        $this->db->where_in('b.id_barreras', $array_ids);
+
+        return $this->db->get()->result();
+    }
+
     public function get($id) {
         $this->db->select('b.*, c.nombre_categoria');
         $this->db->from('barreras b');

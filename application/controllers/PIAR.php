@@ -17,6 +17,10 @@ use Mpdf\Mpdf;
  * @property $PIAR_Item_Annual_Model
  * @property $Periodos_Model
  * @property $DireccionGrupo_Model
+ * @property $Caracterizacion_DBA_Model
+ * @property $Areas_Model
+ * @property $Barreras_Model
+ * @property $AjustesRazonables_Model
  */
 class PIAR extends CI_Controller
 {
@@ -27,7 +31,7 @@ class PIAR extends CI_Controller
      */
     public function __construct() {
         parent::__construct();
-        $this->load->model(["DireccionGrupo_Model", "Periodos_Model", "PIAR_Item_Annual_Model", "PIAR_Actividad_Model", "Estudiante_Model", "Usuarios_Model", "PIAR_Model", "PIAR_Item_Model", "Materias_Model", "CaracterizacionEstudiantesPreguntas_Model", "CaracterizacionEstudiantesRespuestas_Model"]);
+        $this->load->model(["AjustesRazonables_Model", "Barreras_Model", "Areas_Model", "Caracterizacion_DBA_Model", "DireccionGrupo_Model", "Periodos_Model", "PIAR_Item_Annual_Model", "PIAR_Actividad_Model", "Estudiante_Model", "Usuarios_Model", "PIAR_Model", "PIAR_Item_Model", "Materias_Model", "CaracterizacionEstudiantesPreguntas_Model", "CaracterizacionEstudiantesRespuestas_Model"]);
         $this->USER_ROL = (is_logged()) ? strtolower(logged_user()["rol"]) : "";
 
         $this->mpdf = new Mpdf([
@@ -122,6 +126,24 @@ class PIAR extends CI_Controller
                     $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
                     $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
                     $params["item_piar"] = $this->PIAR_Item_Model->get($piarItemId);
+                    $params["barreras_categorias"] = $this->Barreras_Model->get_categorias();
+                    $params["ajustes_razonables_categorias"] = $this->AjustesRazonables_Model->get_categorias();
+
+                    if($params["item_piar"]){
+                        $params["item_piar"] = $this->getItemPiarDBAs([$params["item_piar"]])[0];
+                        $params["item_piar"]["barreras_seleccionadas"] = (strpos($params["item_piar"]["barreras"], 'a:') === 0) ?
+                            $this->Barreras_Model->get_by_ids(unserialize($params["item_piar"]["barreras"])) :
+                            $params["item_piar"]["barreras"];
+
+                        $params["item_piar"]["ajustes_razonables_seleccionados"] = (strpos($params["item_piar"]["ajustes_razonables"], 'a:') === 0) ?
+                            $this->AjustesRazonables_Model->get_by_ids(unserialize($params["item_piar"]["ajustes_razonables"])) :
+                            $params["item_piar"]["ajustes_razonables"];
+                    }
+
+                    if($params["items_piar"]){
+                        $params["items_piar"] = $this->getItemPiarDBAs($params["items_piar"]);
+                        $params["items_piar"] = $this->getItemPiarBarrerasAjustesRazonables($params["items_piar"]);
+                    }
                     $params["items_piar_annual"] = $this->PIAR_Item_Annual_Model->getAllByPiar($piarId);
                     $params["item_piar_annual"] = $this->PIAR_Item_Annual_Model->get($piarItemAnnualId);
                     $params["activities"] = $this->PIAR_Actividad_Model->getAllByPiar($piarId);
@@ -136,6 +158,38 @@ class PIAR extends CI_Controller
         else header("Location: ".base_url());
     }
 
+    private function getItemPiarBarrerasAjustesRazonables($itemsPiar){
+        if($itemsPiar){
+            for ($i = 0; $i < count($itemsPiar); $i++) {
+                $itemsPiar[$i]["barreras_seleccionadas"] = (strpos($itemsPiar[$i]["barreras"], 'a:') === 0) ?
+                    $this->Barreras_Model->get_by_ids(unserialize($itemsPiar[$i]["barreras"])) :
+                    $itemsPiar[$i]["barreras"];
+
+                $itemsPiar[$i]["ajustes_razonables_seleccionados"] = (strpos($itemsPiar[$i]["ajustes_razonables"], 'a:') === 0) ?
+                    $this->Barreras_Model->get_by_ids(unserialize($itemsPiar[$i]["ajustes_razonables"])) :
+                    $itemsPiar[$i]["ajustes_razonables"];
+            }
+        }
+        return $itemsPiar;
+
+    }
+
+    private function getItemPiarDBAs($itemsPiar) {
+        if($itemsPiar){
+            for ($i = 0; $i < count($itemsPiar); $i++) {
+                if(isset($itemsPiar[$i]["id_materia"])){
+                    $materia = $this->Materias_Model->getMateria($itemsPiar[$i]["id_materia"]);
+                    if($materia){
+                        $area = $this->Areas_Model->find($materia["area"]);
+
+                        $itemsPiar[$i]["dbas"] = $this->Caracterizacion_DBA_Model->get_all_area_grado($area["caracterizacion_area"], $materia["grado"]);
+                    }
+                }
+            }
+        }
+        return $itemsPiar;
+    }
+
     public function view($piarId = null, $documentType = 1){
         if(is_logged()){
             if($this->hasPermission()){
@@ -146,6 +200,12 @@ class PIAR extends CI_Controller
                 $params["items_piar"] = $this->PIAR_Item_Model->getAllByPiar($piarId);
                 $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
                 $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
+
+                if($params["items_piar"]){
+                    $params["items_piar"] = $this->getItemPiarDBAs($params["items_piar"]);
+                    $params["items_piar"] = $this->getItemPiarBarrerasAjustesRazonables($params["items_piar"]);
+                }
+
                 $params["activities"] = $this->PIAR_Actividad_Model->getAllByPiar($piarId);
                 $params["documentType"] = $documentType;
 
@@ -366,29 +426,44 @@ class PIAR extends CI_Controller
     private function saveItemPiar($data): array
     {
         $piarItem = $this->PIAR_Item_Model->get($data["id_piar_item"]);
-        $message = "No se ha podido crear el formulario";
+        $transformedData = $this->transformColumnsPIAR($data);
 
         if($piarItem){
-            $created = $this->PIAR_Item_Model->update($data["id_piar_item"], $data);
+            $created = $this->PIAR_Item_Model->update($transformedData["id_piar_item"], $transformedData);
             $message = "Registro modificado exitosamente";
         }
         else{
-            $exists = $this->PIAR_Item_Model->getByDocenteMateriaPeriodo($data["id_docente"], $data["id_materia"], $data["id_periodo"]);
-
-            if($exists){
-                $created = false;
-                $message = "Ya existe un registro que coincide con la materia y el periodo, solo puede crear un registro por periodo.";
-            }
-            else {
-                unset($data["id_piar_item"]);
-                $created = $this->PIAR_Item_Model->create($data);
-                $message = "Registro creado exitosamente";
-            }
+            unset($transformedData["id_piar_item"]);
+            $created = $this->PIAR_Item_Model->create($transformedData);
+            $message = "Registro creado exitosamente";
         }
 
         return $created ?
             array("status" => true, "id" => $created, "message" => $message) :
             array("status" => false, "type" => "danger", "message" => $message);
+    }
+
+    private function transformColumnsPIAR($data) {
+        if(is_array($data["objetivos"])){
+            $data["objetivos"] = serialize(
+                array(
+                    "dbas" => $data["objetivos"],
+                    "observaciones" => $data["observaciones_dbas"]
+                )
+            );
+        }
+
+        if(is_array($data["barreras"])){
+            $data["barreras"] = serialize($data["barreras"]);
+        }
+
+        if(is_array($data["ajustes_razonables"])){
+            $data["ajustes_razonables"] = serialize($data["ajustes_razonables"]);
+        }
+
+        unset($data["observaciones_dbas"]);
+
+        return $data;
     }
 
     private function saveItemAnnualPiar($data): array

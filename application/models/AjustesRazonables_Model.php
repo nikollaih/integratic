@@ -15,6 +15,15 @@ class AjustesRazonables_Model extends CI_Model {
         return $this->db->get()->result();
     }
 
+    public function get_by_ids($array_ids = null) {
+        $this->db->select('a.*, c.nombre_categoria');
+        $this->db->from('ajustes_razonables a');
+        $this->db->join('categorias_ajustes_razonables c', 'a.id_categoria = c.id_categorias_ajustes_razonables');
+        $this->db->where_in('a.id_ajustes_razonables', $array_ids);
+
+        return $this->db->get()->result();
+    }
+
     public function get($id) {
         $this->db->select('ar.*, cat.nombre_categoria');
         $this->db->from('ajustes_razonables ar');
