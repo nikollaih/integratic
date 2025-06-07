@@ -166,7 +166,7 @@ class PIAR extends CI_Controller
                     $itemsPiar[$i]["barreras"];
 
                 $itemsPiar[$i]["ajustes_razonables_seleccionados"] = (strpos($itemsPiar[$i]["ajustes_razonables"], 'a:') === 0) ?
-                    $this->Barreras_Model->get_by_ids(unserialize($itemsPiar[$i]["ajustes_razonables"])) :
+                    $this->AjustesRazonables_Model->get_by_ids(unserialize($itemsPiar[$i]["ajustes_razonables"])) :
                     $itemsPiar[$i]["ajustes_razonables"];
             }
         }

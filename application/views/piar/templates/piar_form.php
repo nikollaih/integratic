@@ -16,35 +16,47 @@
         </div>
     </div>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading text-capitalize accordion-toggle">
-            <b>INFORMACIÓN GENERAL DEL ESTUDIANTE - ANEXO 1</b>
-            <span class="accordion-icon">[-]</span>
+    <?php
+    if(strtolower(logged_user()["rol"]) !== "estudiante" && strtolower(logged_user()["rol"]) !== "docente") {
+        ?>
+        <div class="panel panel-primary">
+            <div class="panel-heading text-capitalize accordion-toggle">
+                <b>INFORMACIÓN GENERAL DEL ESTUDIANTE - ANEXO 1</b>
+                <span class="accordion-icon">[+]</span>
+            </div>
+            <div class="panel-body" style="display: none;">
+                <?php $this->load->view("piar/templates/anexos/forms/anexo1") ?>
+            </div>
         </div>
-        <div class="panel-body" style="display: block;">
-            <?php include "anexos/forms/anexo1.php" ?>
-        </div>
-    </div>
+        <?php
+    }
+    ?>
 
     <div class="panel panel-primary">
         <div class="panel-heading text-capitalize accordion-toggle">
             <b>PLAN INDIVIDUAL DE AJUSTES RAZONABLES – PIAR - ANEXO 2</b>
-            <span class="accordion-icon">[+]</span>
+            <span class="accordion-icon">[<?= isset($item_piar["id_piar_item"]) ? "–" : "+" ?>]</span>
         </div>
-        <div class="panel-body" style="display: none;">
+        <div class="panel-body" style="display: <?= isset($item_piar["id_piar_item"]) ? "block" : "none" ?>;">
             <?php include "anexos/forms/anexo2.php" ?>
         </div>
     </div>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading text-capitalize accordion-toggle">
-            <b>ACTA DE ACUERDO - ANEXO 3</b>
-            <span class="accordion-icon">[+]</span>
-        </div>
-        <div class="panel-body" style="display: none;">
-            <?php include "anexos/forms/anexo3.php" ?>
-        </div>
-    </div>
+    <?php
+        if(strtolower(logged_user()["rol"]) !== "estudiante" && strtolower(logged_user()["rol"]) !== "docente") {
+            ?>
+            <div class="panel panel-primary">
+                <div class="panel-heading text-capitalize accordion-toggle">
+                    <b>ACTA DE ACUERDO - ANEXO 3</b>
+                    <span class="accordion-icon">[+]</span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <?php include "anexos/forms/anexo3.php" ?>
+                </div>
+            </div>
+            <?php
+        }
+    ?>
 
 <style>
     #form-create-piar label {

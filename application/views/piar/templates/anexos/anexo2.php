@@ -1,7 +1,7 @@
 <table class="margin-top">
     <tr>
         <td style="border: 0;" class="text-center" colspan="4">
-            <p class="text-content title text-center">PLAN INDIVIDUAL DE AJUSTES RAZONABLES – PIAR</p>
+            <p class="text-content title text-center">PLAN INDIVIDUAL DE AJUSTES RAZONABLES – PIAR (ANEXO 2)</p>
         </td>
     </tr>
     <tr>

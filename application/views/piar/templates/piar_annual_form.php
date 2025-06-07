@@ -5,8 +5,11 @@ if(isset($estudiante["id_piar"])){ ?>
         <input type="hidden" value="<?= $estudiante["id_piar"] ?>" name="id_piar">
         <input type="hidden" value="<?= $item_piar_annual ? $item_piar_annual["id_piar_item_anual"] : "" ?>" name="id_piar_item_anual">
         <div class="panel panel-primary">
-            <div class="panel-heading text-capitalize"><b>Crear registro anual para el P.I.A.R. del estudiante</b></div>
-            <div class="panel-body">
+            <div class="panel-heading text-capitalize accordion-toggle">
+                <b>Crear registro anual para el P.I.A.R. del estudiante</b>
+                <span class="accordion-icon">[+]</span>
+            </div>
+            <div class="panel-body" style="display: <?= $item_piar_annual ? "block" : "none" ?>;">
                 <div class="row">
                     <?php
                     if(strtolower(logged_user()["rol"]) === "docente"){ ?>
@@ -100,7 +103,21 @@ if(isset($estudiante["id_piar"])){ ?>
                             </div>
                         </div>
                         <hr>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <div>
+                            <?php
+                                if($item_piar_annual) {
+                                    ?>
+                                    <a href="<?= base_url() ?>PIAR/edit/<?= $estudiante["id_piar"] ?>">
+                                        <button type="button" class="btn btn-secondary">Cancelar</button>
+                                    </a>
+                            <?php
+                                }
+                            ?>
+
+
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+
                     </div>
                 </div>
             </div>

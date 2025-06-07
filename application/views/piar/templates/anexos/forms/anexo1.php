@@ -1,7 +1,4 @@
-<?php
-if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_user()["rol"]) == "coordinador" || $direccion_grupo){
-    if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_user()["rol"]) == "coordinador"){
-        ?>
+
         <form id="form-create-piar" action="" method="post" class="form-anexo-1">
             <div class="row">
                 <div class="col-md-6">
@@ -366,8 +363,6 @@ if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_u
                 </div>
             </div>
 
-        <?php } ?>
-
         <?php
         if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_user()["rol"]) == "coordinador"){
             ?>
@@ -461,7 +456,4 @@ if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_u
             </div>
         </div>
     </form>
-        <?php
-    }
-    ?>
 

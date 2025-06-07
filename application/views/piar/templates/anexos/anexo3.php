@@ -1,7 +1,7 @@
 <table class="margin-top">
     <tr>
         <td style="border: 0;" class="text-center" colspan="3">
-            <p class="text-content title text-center">ACTA DE ACUERDO</p>
+            <p class="text-content title text-center">ACTA DE ACUERDO (ANEXO 3)</p>
         </td>
     </tr>
     <tr>

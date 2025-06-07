@@ -49,7 +49,7 @@ if(isset($estudiante["id_piar"])){ ?>
                             <?php if(strtolower(logged_user()["rol"]) === "docente"){
                                 $this->load->view("piar/templates/piar_row_teacher_form"); } ?>
 
-                            <div class="<?= strtolower(logged_user()["rol"] === "docente") ? "col-md-12" : "col-md-6 col-sm-12 col-xs-12" ?>">
+                            <div class="<?= strtolower(logged_user()["rol"]) === "docente" ? "col-sm-12" : "col-md-6 col-sm-12 col-xs-12" ?>">
                                 <div style="background:#ed7202;" class="evidence-container">
                                     <h5>EVALUACIÓN DE LOS AJUSTES</h5>
                                     <div class="row">

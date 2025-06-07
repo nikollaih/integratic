@@ -1,7 +1,7 @@
 <table class="margin-top">
     <tr>
         <td style="border: 0;" class="text-center" colspan="2">
-            <p class="text-content title text-center">INFORMACIÓN GENERAL DEL ESTUDIANTE</p>
+            <p class="text-content title text-center">INFORMACIÓN GENERAL DEL ESTUDIANTE (ANEXO 1)</p>
         </td>
     </tr>
     <tr>

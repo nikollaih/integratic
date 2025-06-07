@@ -53,7 +53,7 @@ if((strtolower(logged_user()["rol"]) === "docente" || strtolower(logged_user()["
                             <tr>
                                 <th>MATERIA</th>
                                 <th>OBJETIVOS/PROPÓSITOS</th>
-                                <th>BARRERAS QUE SE EVIDENCIAN EN EL CONTEXTO SOBRE LAS QUE SE DEBEN TRABAJAR </th>
+                                <th>BARRERAS </th>
                                 <th>AJUSTES RAZONABLES</th>
                                 <th>EVALUACIÓN DE LOS AJUSTES</th>
                                 <th></th>
