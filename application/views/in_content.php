@@ -199,9 +199,10 @@
                             <label for="rol" class="control-label">Rol</label> 
                             <select class="form-control" id="rol" name="rol">
                                 <option>Administrativo</option>
-                                <option>Docente</option>
                                 <option>Coordinador</option>
+                                <option>Docente</option>
                                 <option>Docente de apoyo</option>
+                                <option>Orientador</option>
                             </select> 
                         </div> 
                     </div> 
@@ -2553,7 +2554,7 @@ function cambio_menu(){
                             </a>
                         </li>`;
             }
-            if (rol.toLowerCase() == 'docente de apoyo'){
+            if (rol.toLowerCase() === 'docente de apoyo' || rol.toLowerCase() === 'orientador'){
                 html+=`<li>
                             <a href='<?= base_url() ?>PIAR' class="menu-item-block">
                                 <i class="fa fa-star"></i>

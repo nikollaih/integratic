@@ -17,7 +17,7 @@
     </div>
 
     <?php
-    if(strtolower(logged_user()["rol"]) !== "estudiante" && strtolower(logged_user()["rol"]) !== "docente") {
+    if(strtolower(logged_user()["rol"]) !== "estudiante" && strtolower(logged_user()["rol"]) !== "docente" && strtolower(logged_user()["rol"]) !== "orientador") {
         ?>
         <div class="panel panel-primary">
             <div class="panel-heading text-capitalize accordion-toggle">
@@ -32,6 +32,9 @@
     }
     ?>
 
+    <?php
+    if(strtolower(logged_user()["rol"]) !== "estudiante") {
+    ?>
     <div class="panel panel-primary">
         <div class="panel-heading text-capitalize accordion-toggle">
             <b>PLAN INDIVIDUAL DE AJUSTES RAZONABLES – PIAR - ANEXO 2</b>
@@ -41,16 +44,19 @@
             <?php include "anexos/forms/anexo2.php" ?>
         </div>
     </div>
+        <?php
+    }
+    ?>
 
     <?php
-        if(strtolower(logged_user()["rol"]) !== "estudiante" && strtolower(logged_user()["rol"]) !== "docente") {
+        if(strtolower(logged_user()["rol"]) !== "estudiante" && strtolower(logged_user()["rol"]) !== "docente" && strtolower(logged_user()["rol"]) !== "orientador") {
             ?>
             <div class="panel panel-primary">
                 <div class="panel-heading text-capitalize accordion-toggle">
                     <b>ACTA DE ACUERDO - ANEXO 3</b>
                     <span class="accordion-icon">[+]</span>
                 </div>
-                <div class="panel-body" style="display: none;">
+                <div class="panel-body" style="display: block;">
                     <?php include "anexos/forms/anexo3.php" ?>
                 </div>
             </div>

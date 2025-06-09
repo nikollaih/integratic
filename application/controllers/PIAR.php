@@ -46,7 +46,7 @@ class PIAR extends CI_Controller
 
     private function hasPermission(): bool
     {
-        return ($this->USER_ROL === "docente" || $this->USER_ROL === "coordinador" || $this->USER_ROL === "docente de apoyo");
+        return ($this->USER_ROL === "docente" || $this->USER_ROL === "coordinador" || $this->USER_ROL === "docente de apoyo" || $this->USER_ROL === "orientador");
     }
 
     public function index() {

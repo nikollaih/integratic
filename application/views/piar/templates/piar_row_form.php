@@ -24,7 +24,7 @@ if(isset($estudiante["id_piar"])){ ?>
                         <?php }
                     ?>
                     <?php
-                    if(strtolower(logged_user()["rol"]) === "docente de apoyo"){ ?>
+                    if(strtolower(logged_user()["rol"]) === "docente de apoyo" || strtolower(logged_user()["rol"]) === "orientador"){ ?>
                         <div class="col-md-6">
                             <label for="otro_materia">Seleccionar categoría</label>
                             <select class="form-control" name="otro_materia" id="otro_materia" required>
@@ -43,7 +43,7 @@ if(isset($estudiante["id_piar"])){ ?>
                 <div class="row text-end" style="text-align:right;">
                     <div class="col-md-12 text-end">
                         <div class="row">
-                            <?php if(strtolower(logged_user()["rol"]) === "docente de apoyo"){
+                            <?php if(strtolower(logged_user()["rol"]) === "docente de apoyo" || strtolower(logged_user()["rol"]) === "orientador"){
                             $this->load->view("piar/templates/piar_row_admin_form"); } ?>
 
                             <?php if(strtolower(logged_user()["rol"]) === "docente"){

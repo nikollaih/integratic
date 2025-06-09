@@ -36,7 +36,7 @@
                             <?php
                         }
 
-                        if(strtolower(logged_user()["rol"]) == "docente" || strtolower(logged_user()["rol"]) == "coordinador" || strtolower(logged_user()["rol"]) == "docente de apoyo"){
+                        if(strtolower(logged_user()["rol"]) == "docente" || strtolower(logged_user()["rol"]) == "coordinador" || strtolower(logged_user()["rol"]) == "orientador" || strtolower(logged_user()["rol"]) == "docente de apoyo"){
                             ?>
                             <li>
                                 <a href="javascript:history.back()" class="menu-item-block">
