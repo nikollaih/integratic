@@ -4880,3 +4880,7 @@ select {
 .modal-header button.close {
     margin-top: -20px;
 }
+
+.sidebar-inner.slimscrollleft {
+    overflow-y: scroll !important;
+}
