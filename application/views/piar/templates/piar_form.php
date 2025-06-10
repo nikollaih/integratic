@@ -56,7 +56,7 @@
                     <b>ACTA DE ACUERDO - ANEXO 3</b>
                     <span class="accordion-icon">[+]</span>
                 </div>
-                <div class="panel-body" style="display: block;">
+                <div class="panel-body" style="display: none;">
                     <?php include "anexos/forms/anexo3.php" ?>
                 </div>
             </div>
