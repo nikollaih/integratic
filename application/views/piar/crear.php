@@ -4,6 +4,7 @@
 <?php $this->load->view("in_aside") ?>
 <?php $this->load->view("modal/barreras_por_categoria") ?>
 <?php $this->load->view("modal/ajustes_razonables_por_categoria") ?>
+<?php $this->load->view("modal/actividades_casa_piar") ?>
 <div class="content-page">
     <div class="content">
         <div class="container">

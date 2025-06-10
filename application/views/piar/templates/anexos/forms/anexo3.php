@@ -30,9 +30,12 @@ if(strtolower(logged_user()["rol"]) == "docente de apoyo" || strtolower(logged_u
     <div class="row">
         <div class="col-md-12">
             <hr>
-            <form action="<?= base_url() ?>PIAR/saveActivity" method="post">
+            <form action="<?= base_url() ?>PIAR/saveActivity" method="post" id="actividad-casa-piar-form">
                 <input type="hidden" value="<?= $estudiante["id_piar"] ?? "" ?>" name="id_piar">
                         <h4>En casa apoyará con las siguientes actividades:</h4>
+                        <button type="button" class="btn btn-success m-b-10" data-toggle="modal" data-target="#actividadesCasaPiarModal">
+                            Seleccionar actividad predefinida
+                        </button>
                         <table class="table table-bordered">
                             <thead>
                             <tr>
