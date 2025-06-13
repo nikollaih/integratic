@@ -385,7 +385,7 @@
         <div class="row text-end" style="text-align:right;">
             <div class="col-md-12 text-end">
                 <hr>
-                <button type="submit" class="btn btn-primary">Guardar Anexo 1</button>
+                <button type="submit" class="btn btn-primary">Guardar anexo 1</button>
             </div>
         </div>
     </form>

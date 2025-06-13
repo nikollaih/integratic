@@ -87,33 +87,38 @@
                 ?>
                 <tr>
                     <td>
-                        <?= $item["nomarea"] ?? "Otras" ?> <br>
-                        (<?= $item["nommateria"] ?>)</td>
+                        <?= $item["nomarea"] ?? "Otras" ?>
+                    </td>
                     <td>
                         <?php
-                        if (strpos($item["objetivos"], 'a:2:') === 0) {
-                            $objetivos = unserialize($item["objetivos"]);
+                            if(isset($item["nomarea"])){
+                                if (strpos($item["objetivos"], 'a:2:') === 0) {
+                                    $objetivos = unserialize($item["objetivos"]);
 
-                            if (!empty($objetivos['dbas']) && is_array($objetivos['dbas'])) {
-                                foreach ($objetivos['dbas'] as $dba_id) {
-                                    // Buscar el dba correspondiente por ID
-                                    foreach ($item["dbas"] as $dba) {
-                                        // Si $dba es un objeto
-                                        if (is_array($dba) && $dba['id_dba'] == $dba_id) {
-                                            echo "<div>- {$dba['descripcion_dba']}</div><br>";
+                                    if (!empty($objetivos['dbas']) && is_array($objetivos['dbas'])) {
+                                        foreach ($objetivos['dbas'] as $dba_id) {
+                                            // Buscar el dba correspondiente por ID
+                                            foreach ($item["dbas"] as $dba) {
+                                                // Si $dba es un objeto
+                                                if (is_array($dba) && $dba['id_dba'] == $dba_id) {
+                                                    echo "<div>- {$dba['descripcion_dba']}</div><br>";
+                                                }
+                                            }
                                         }
                                     }
+
+                                    // Mostrar observaciones, si existen
+                                    if (!empty($objetivos['observaciones'])) {
+                                        echo "<div><strong>Observaciones:</strong> {$objetivos['observaciones']}</div>";
+                                    }
+
+                                } else {
+                                    echo $item["objetivos"];
                                 }
                             }
-
-                            // Mostrar observaciones, si existen
-                            if (!empty($objetivos['observaciones'])) {
-                                echo "<div><strong>Observaciones:</strong> {$objetivos['observaciones']}</div>";
+                            else {
+                                echo $item["nommateria"];
                             }
-
-                        } else {
-                            echo $item["objetivos"];
-                        }
                         ?>
                     </td>
                     <td>

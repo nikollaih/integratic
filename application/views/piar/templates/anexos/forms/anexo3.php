@@ -19,7 +19,7 @@
 
     <div class="row text-end" style="text-align:right;">
         <div class="col-md-12 text-end">
-            <button type="submit" class="btn btn-primary m-t-10 m-b-10">Guardar Anexo 3</button>
+            <button type="submit" class="btn btn-primary m-t-10 m-b-10">Guardar anexo 3</button>
         </div>
     </div>
 </form>

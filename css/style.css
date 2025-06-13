@@ -1766,7 +1766,7 @@ input.search-bar:-ms-input-placeholder {
 /*********** 5.SIDEBAR ***********/
 
 .side-menu {
-    width: 180px;
+    width: 200px;
     top: 0;
     bottom: 0;
     z-index: 2;
@@ -1789,7 +1789,7 @@ body.fixed-left .side-menu.left {
 }
 
 .content-page {
-    margin-left: 180px;
+    margin-left: 200px;
     position: relative;
     min-height: 940px;
 }

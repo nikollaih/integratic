@@ -1,15 +1,21 @@
-<div class="col-md-6 col-sm-12 col-xs-12">
-    <div style="background: #077b5d;" class="evidence-container">
-        <h5>OBJETIVOS/PROPÓSITOS</h5>
-        <div class="row">
-            <div class=" col-xs-12">
-                <div class="form-group">
-                    <textarea name="objetivos" id="richtext-piar-1" cols="30" rows="4" class="form-control"><?= $item_piar ? $item_piar["objetivos"] : "" ?></textarea>
+<?php
+    if(strtolower(logged_user()["rol"]) !== 'orientador') {
+        ?>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div style="background: #077b5d;" class="evidence-container">
+                <h5>OBJETIVOS/PROPÓSITOS</h5>
+                <div class="row">
+                    <div class=" col-xs-12">
+                        <div class="form-group">
+                            <textarea name="objetivos" id="richtext-piar-1" cols="30" rows="4" class="form-control"><?= $item_piar ? $item_piar["objetivos"] : "" ?></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+<?php
+    }
+?>
 
 <div class="col-md-6 col-sm-12 col-xs-12">
     <div style="background:#0171bb;" class="evidence-container">

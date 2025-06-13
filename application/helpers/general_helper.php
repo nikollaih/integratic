@@ -142,7 +142,7 @@
             if ($total == 0) {
                 return 0; // Avoid division by zero
             }
-            return round(($current / $total) * 100);
+            return min(100, round(($current / $total) * 100));
         }
     }
 

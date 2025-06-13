@@ -49,10 +49,10 @@
     <p>La inclusión solo es posible cuando se unen los esfuerzos del colegio, el estudiante y la familia.
         De ahí la importancia de formalizar con las firmas, la presente Acta Acuerdo.</p>
 
-    <p><strong>El Establecimiento Educativo</strong> ha realizado la valoración y definido los ajustes razonables que
+    <p><strong>El establecimiento educativo</strong> ha realizado la valoración y definido los ajustes razonables que
         facilitarán al estudiante su proceso educativo</p>
 
-    <p><strong>La Familia se compromete a</strong> cumplir y firmar los compromisos señalados en el PIAR y en las
+    <p><strong>La familia se compromete a</strong> cumplir y firmar los compromisos señalados en el PIAR y en las
         actas de acuerdo, para fortalecer los procesos escolares del estudiante y en particular a:</p>
 </div>
 

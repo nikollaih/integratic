@@ -10,7 +10,7 @@
     </tr>
     <tr>
         <td class="space-to-fill">
-            <strong>Nombre de la Persona que diligencia:</strong>
+            <strong>Nombre de la persona que diligencia:</strong>
         </td>
         <td class="space-to-fill">
             <strong>Rol que desempeña en la SE o la IE:</strong>

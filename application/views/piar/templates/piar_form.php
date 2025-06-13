@@ -1,6 +1,6 @@
 
     <div class="panel panel-primary">
-        <div class="panel-heading text-capitalize"><b>Información general</b></div>
+        <div class="panel-heading"><b>Información general</b></div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
@@ -20,8 +20,8 @@
     if(strtolower(logged_user()["rol"]) !== "estudiante" && strtolower(logged_user()["rol"]) !== "docente" && strtolower(logged_user()["rol"]) !== "orientador") {
         ?>
         <div class="panel panel-primary">
-            <div class="panel-heading text-capitalize accordion-toggle">
-                <b>INFORMACIÓN GENERAL DEL ESTUDIANTE - ANEXO 1</b>
+            <div class="panel-heading  accordion-toggle">
+                <b>Información general del estudiante - Anexo 1</b>
                 <span class="accordion-icon">[+]</span>
             </div>
             <div class="panel-body" style="display: none;">
@@ -36,8 +36,8 @@
     if(strtolower(logged_user()["rol"]) !== "estudiante") {
     ?>
     <div class="panel panel-primary">
-        <div class="panel-heading text-capitalize accordion-toggle">
-            <b>PLAN INDIVIDUAL DE AJUSTES RAZONABLES – PIAR - ANEXO 2</b>
+        <div class="panel-heading  accordion-toggle">
+            <b>Plan individual de ajustes razonables (P.I.A.R.) - Anexo 2</b>
             <span class="accordion-icon">[<?= isset($item_piar["id_piar_item"]) ? "–" : "+" ?>]</span>
         </div>
         <div class="panel-body" style="display: <?= isset($item_piar["id_piar_item"]) ? "block" : "none" ?>;">
@@ -52,11 +52,11 @@
         if(strtolower(logged_user()["rol"]) !== "estudiante" && strtolower(logged_user()["rol"]) !== "docente" && strtolower(logged_user()["rol"]) !== "orientador") {
             ?>
             <div class="panel panel-primary">
-                <div class="panel-heading text-capitalize accordion-toggle">
-                    <b>ACTA DE ACUERDO - ANEXO 3</b>
+                <div class="panel-heading  accordion-toggle">
+                    <b>Acta de acuerdo - Anexo 3</b>
                     <span class="accordion-icon">[+]</span>
                 </div>
-                <div class="panel-body" style="display: block;">
+                <div class="panel-body" style="display: none;">
                     <?php include "anexos/forms/anexo3.php" ?>
                 </div>
             </div>

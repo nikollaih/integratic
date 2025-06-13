@@ -8,9 +8,9 @@ if(isset($estudiante["id_piar"])){ ?>
                     <?php
                         if(strtolower(logged_user()["rol"]) === "docente"){ ?>
                             <div class="col-md-6">
-                                <label for="id_materia">Seleccionar materia</label>
+                                <label for="id_materia">Seleccionar área/asignatura</label>
                                 <select class="form-control piar-select-materia" name="id_materia" id="id_materia" required>
-                                    <option value="">- Seleccionar materia</option>
+                                    <option value="">- Seleccionar área/asignatura</option>
                                     <?php
                                     if($materias){
                                         foreach($materias as $mat){

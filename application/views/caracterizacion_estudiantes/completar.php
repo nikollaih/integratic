@@ -97,6 +97,16 @@
                                 </div>
                             </div>
                         <?php endif; ?>
+                        <?php if(!$editable): ?>
+                            <div class="row m-t-20">
+                                <div class="col-md-6 text-left">
+                                    <button type="button" id="btnAnterior2" class="btn btn-secondary" style="display:none;">Anterior</button>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button type="button" id="btnSiguiente2" class="btn btn-primary">Siguiente</button>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </form>
                 </div>
             </div>
@@ -105,22 +115,35 @@
 </div>
 </div>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    $(document).ready(function() {
         let bloqueActual = 1;
-        const totalBloques = document.querySelectorAll('.categoria-bloque').length;
+        const totalBloques = $('.categoria-bloque').length;
 
         const mostrarBloque = (num) => {
+            console.log(num);
             for (let i = 1; i <= totalBloques; i++) {
-                document.getElementById('bloque-' + i).style.display = (i === num) ? 'block' : 'none';
+                $('#bloque-' + i).css('display', (i === num) ? 'block' : 'none');
             }
-            document.getElementById('btnAnterior').style.display = (num > 1) ? 'inline-block' : 'none';
-            document.getElementById('btnSiguiente').innerText = (num === totalBloques) ? 'Guardar' : 'Siguiente';
+
+            if ($('#btnAnterior').length) {
+                $('#btnAnterior').css('display', (num > 1) ? 'inline-block' : 'none');
+            }
+
+            if ($('#btnAnterior2').length) {
+                $('#btnAnterior2').css('display', (num > 1) ? 'inline-block' : 'none');
+            }
+
+            if ($('#btnSiguiente').length) {
+                $('#btnSiguiente').text((num === totalBloques) ? 'Guardar' : 'Siguiente');
+            }
         };
 
         const validarBloque = (num) => {
-            const bloque = document.getElementById('bloque-' + num);
-            const campos = bloque.querySelectorAll('input, select, textarea');
-            for (const campo of campos) {
+            const $bloque = $('#bloque-' + num);
+            const $campos = $bloque.find('input, select, textarea');
+
+            for (let i = 0; i < $campos.length; i++) {
+                const campo = $campos[i];
                 if (!campo.checkValidity()) {
                     campo.reportValidity();
                     return false;
@@ -129,37 +152,59 @@
             return true;
         };
 
-        document.getElementById('btnSiguiente').addEventListener('click', function () {
-            if (!validarBloque(bloqueActual)) return;
-
-            if (bloqueActual < totalBloques) {
-                bloqueActual++;
-                mostrarBloque(bloqueActual);
-                // Scroll to the top of the page
-                window.scrollTo(0, 0);
-            } else {
-                // Validamos todo el formulario antes de enviar (por seguridad extra)
-                const form = jQuery("#caracterizacion-estudiante-form"); // Assuming jQuery is loaded
-                if (form[0].checkValidity()) { // Access the native DOM element to call checkValidity
-                    form.submit();
-                } else {
-                    form[0].reportValidity(); // Access the native DOM element to call reportValidity
+        if ($('#btnAnterior2').length) {
+            $('#btnAnterior2').on('click', function () {
+                if (bloqueActual > 1) {
+                    bloqueActual--;
+                    mostrarBloque(bloqueActual);
+                    window.scrollTo(0, 0);
                 }
-            }
-        });
+            });
+        }
 
-        document.getElementById('btnAnterior').addEventListener('click', function () {
-            if (bloqueActual > 1) {
-                bloqueActual--;
-                mostrarBloque(bloqueActual);
-                // Optional: Scroll to the top when going back as well
-                window.scrollTo(0, 0);
-            }
-        });
+        if ($('#btnSiguiente2').length) {
+            $('#btnSiguiente2').on('click', function () {
+                if (bloqueActual < totalBloques) {
+                    bloqueActual++;
+                    mostrarBloque(bloqueActual);
+                    window.scrollTo(0, 0);
+                }
+            });
+        }
 
-        // Initial display of the first block
+        if ($('#btnSiguiente').length) {
+            $('#btnSiguiente').on('click', function () {
+                if (!validarBloque(bloqueActual)) return;
+
+                if (bloqueActual < totalBloques) {
+                    bloqueActual++;
+                    mostrarBloque(bloqueActual);
+                    window.scrollTo(0, 0);
+                } else {
+                    const form = $('#caracterizacion-estudiante-form');
+                    if (form[0].checkValidity()) {
+                        form.submit();
+                    } else {
+                        form[0].reportValidity();
+                    }
+                }
+            });
+        }
+
+        if ($('#btnAnterior').length) {
+            $('#btnAnterior').on('click', function () {
+                if (bloqueActual > 1) {
+                    bloqueActual--;
+                    mostrarBloque(bloqueActual);
+                    window.scrollTo(0, 0);
+                }
+            });
+        }
+
+        // Mostrar el primer bloque al cargar
         mostrarBloque(bloqueActual);
     });
+
 </script>
 
 

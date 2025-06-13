@@ -5,7 +5,7 @@ if(isset($estudiante["id_piar"])){ ?>
         <input type="hidden" value="<?= $estudiante["id_piar"] ?>" name="id_piar">
         <input type="hidden" value="<?= $item_piar_annual ? $item_piar_annual["id_piar_item_anual"] : "" ?>" name="id_piar_item_anual">
         <div class="panel panel-primary">
-            <div class="panel-heading text-capitalize accordion-toggle">
+            <div class="panel-heading  accordion-toggle">
                 <b>Crear registro anual para el P.I.A.R. del estudiante</b>
                 <span class="accordion-icon">[+]</span>
             </div>
@@ -17,9 +17,9 @@ if(isset($estudiante["id_piar"])){ ?>
                                 <p class="alert alert-info"><strong>Nota: </strong> Aqui se debe incluir un texto...</p>
                             </div>
                         <div class="col-md-12">
-                            <label for="id_materia">Seleccionar materia</label>
+                            <label for="id_materia">Seleccionar área/asignatura</label>
                             <select class="form-control" name="id_materia" id="id_materia" required>
-                                <option value="">- Seleccionar materia</option>
+                                <option value="">- Seleccionar área/asignatura</option>
                                 <?php
                                 if($materias){
                                     foreach($materias as $mat){
@@ -131,7 +131,7 @@ if(isset($estudiante["id_piar"])){ ?>
 if(strtolower(logged_user()["rol"]) === "docente" || strtolower(logged_user()["rol"]) === "docente de apoyo" || strtolower(logged_user()["rol"]) === "coordinador") {
     ?>
     <div class="panel panel-primary">
-        <div class="panel-heading text-capitalize"><b>Items anuales del piar</b></div>
+        <div class="panel-heading "><b>Items anuales del piar</b></div>
         <div class="panel-body">
             <div class="row text-end">
                 <div class="col-md-12 text-end">
