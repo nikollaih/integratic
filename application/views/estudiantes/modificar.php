@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="nee">NEE</label>
+                                        <label for="nee">P.I.A.R.</label>
                                         <select name="nee" id="nee" class="form-control">
                                             <option <?= ($estudiante && $estudiante["nee"] === '0') ? "selected" : "" ?> value="0">No</option>
                                             <option <?= ($estudiante && $estudiante["nee"] === '1') ? "selected" : "" ?> value="1">Si</option>
