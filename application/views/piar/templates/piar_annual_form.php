@@ -14,7 +14,7 @@ if(isset($estudiante["id_piar"])){ ?>
                     <?php
                     if(strtolower(logged_user()["rol"]) === "docente"){ ?>
                             <div class="col-md-12 m-b-30">
-                                <p class="alert alert-info"><strong>Nota: </strong> Aqui se debe incluir un texto...</p>
+                                <p class="alert alert-info"><strong>Nota: </strong> Este informe tiene como propósito describir de manera detallada y cualitativa el progreso de cada estudiante frente a las competencias básicas y específicas, considerando los ajustes razonables implementados. Asimismo, busca visibilizar los logros alcanzados a lo largo del año en las dimensiones del desarrollo integral: cognitiva, comunicativa, motora, emocional, social y adaptativa, según corresponda al tipo de discapacidad.  Así como mencionar si el estudiante alcanzó los logros, superó el año lectivo, qué competencias adquirió y objetivos pendientes.</p>
                             </div>
                         <div class="col-md-12">
                             <label for="id_materia">Seleccionar área/asignatura</label>
