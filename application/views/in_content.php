@@ -1228,7 +1228,7 @@ function enlace_mat_est(cod, menu_materia = "false"){
                success:function(respuesta){                         
                  var registros = eval(respuesta);
                     html='<div class="panel panel-primary">';        
-                    html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica: '+registros[0]["nommateria"]+' <label style="float:right;">  Docente: ' + registros[0]["nombres"] + ' ' +registros[0]["apellidos"] +'</label></b></div>';
+                    html=html+'<div class="panel-heading"><b>Asignación académica: '+registros[0]["nommateria"]+' <label style="float:right;">  Docente: ' + registros[0]["nombres"] + ' ' +registros[0]["apellidos"] +'</label></b></div>';
                     html=html+'<div class="panel-body">';  
                       if(registros.length>0){ 
                           for (i=0; i<registros.length; i++) {                             
@@ -1472,7 +1472,7 @@ function enlace_materia(doc,cod){
                success:function(respuesta){                         
                  var registros = eval(respuesta);
                     html='<div class="panel panel-primary">';        
-                    html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica:  '+registros[0]["nommateria"]+'</b></div>';
+                    html=html+'<div class="panel-heading"><b>Asignación académica:  '+registros[0]["nommateria"]+'</b></div>';
                     html=html+'<div class="panel-body">'; 
                       if(registros.length>0){  
                           for (i=0; i<registros.length; i++) {                             
@@ -2287,7 +2287,7 @@ var rol = document.getElementById("rol").value;
                success:function(respuesta){ 
                  var registros = eval(respuesta);
                     html='<div class="panel panel-primary">';        
-                    html=html+'<div class="panel-heading text-capitalize"><b>Asignación Académica</b></div>';
+                    html=html+'<div class="panel-heading"><b>Asignación académica</b></div>';
                     html=html+'<div class="panel-body">';  
                     html=html+'<div class="row">';  
                       if(registros.length>0){ 
@@ -2329,7 +2329,7 @@ var rol = document.getElementById("rol").value;
                success:function(respuesta){ 
                  var registros = eval(respuesta);
                     html='<div class="panel panel-primary">';        
-                    html=html+'<div class="panel-heading text-capitalize"><b>Asignación de Procesos</b></div>';
+                    html=html+'<div class="panel-heading"><b>Asignación de procesos</b></div>';
                     html=html+'<div class="panel-body">';  
                       if(registros.length>0){ 
                           for (i=0; i<registros.length; i++) {
@@ -2361,7 +2361,7 @@ function listar_proyectos(id){
                success:function(respuesta){
                  var registros = eval(respuesta);
                     html='<div class="panel panel-primary">';        
-                    html=html+'<div class="panel-heading text-capitalize"s><b>Proyectos Pedagógicos</b></div>';
+                    html=html+'<div class="panel-heading"><b>Proyectos pedagógicos</b></div>';
                     html=html+'<div class="panel-body">'; 
                       if(registros.length>0){ 
                           for (i=0; i<registros.length; i++) { 
@@ -2389,7 +2389,7 @@ function listar_tproyectos(){
                success:function(respuesta){ 
                  var registros = eval(respuesta);
                     html='<div class="panel panel-primary">';        
-                    html=html+'<div class="panel-heading text-capitalize"><b>Proyectos Pedagógicos</b></div>';
+                    html=html+'<div class="panel-heading"><b>Proyectos pedagógicos</b></div>';
                     html=html+'<div class="panel-body">';  
                       if(registros.length>0){ 
                           for (i=0; i<registros.length; i++) { 
@@ -2411,7 +2411,7 @@ function listar_tproyectos(){
 
 function listar_comunica(){
     html='<div class="panel panel-primary">';        
-    html+='<div class="panel-heading text-capitalize"><b>Comunicación Institucional</b></div>';
+    html+='<div class="panel-heading"><b>Comunicación institucional</b></div>';
     html+='<div class="panel-body">';  
     html+="<div class='col-md-6 col-sm-6 col-lg-3'>";
     html+="<div class='mini-stat clearfix bx-shadow'>";
@@ -2433,7 +2433,7 @@ function listar_planeacion(){
                  var registros = eval(respuesta);
                     if(!respuesta.hasOwnProperty("status")){
                         html='<div class="panel panel-primary">';        
-                        html=html+'<div class="panel-heading text-capitalize"s><b>Planeación Institucional</b></div>';
+                        html=html+'<div class="panel-heading"><b>Planeación institucional</b></div>';
                         html=html+'<div class="panel-body">'; 
                         if(registros.length>0){ 
                             for (i=0; i<registros.length; i++) {
@@ -2768,7 +2768,7 @@ function logout(){
 }
 function administrar(){
         html='<div class="panel panel-primary">';        
-        html=html+'<div class="panel-heading text-capitalize"><b>Administrar IntegraTIC</b></div>';
+        html=html+'<div class="panel-heading"><b>Administrar IntegraTIC</b></div>';
         html=html+'<div class="panel-body">';  
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow'>";
@@ -2898,7 +2898,7 @@ $('#modal_menupri').modal('show');
 
 function subir_acti(){
     html='<div class="panel panel-primary">';
-    html=html+'<div class="panel-heading text-capitalize"><b>Cargue de Actividades académicas</b></div>';
+    html=html+'<div class="panel-heading"><b>Cargue de actividades académicas</b></div>';
     html=html+'<div class="panel-body">'; 
     html=html+'<div class="form-group">';
     html=html+'<div class="row">';
@@ -2928,7 +2928,7 @@ function subir_acti(){
     }   
 function docente_acti(id){
 var html='<div class="panel panel-primary">';
-    html+='<div class="panel-heading text-capitalize"><b>Actividades académicas presentadas</b></div>';
+    html+='<div class="panel-heading"><b>Actividades académicas presentadas</b></div>';
     html+='<div class="panel-body">'; 
     html+='<div class="form-group">';
     html+='<div class="row">';

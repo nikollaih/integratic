@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="panel panel-primary">
-                                <div class="panel-heading text-capitalize"><b>Estadisticas</b></div>
+                                <div class="panel-heading"><b>Estadisticas</b></div>
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-3 col-sm-12 col-lg-3">
@@ -55,7 +55,7 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="panel panel-primary">
-                                <div class="panel-heading text-capitalize"><b>Materias</b></div>
+                                <div class="panel-heading"><b>Materias</b></div>
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -91,7 +91,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <div class="panel panel-primary">
-                                <div class="panel-heading text-capitalize"><b>Pruebas</b></div>
+                                <div class="panel-heading"><b>Pruebas</b></div>
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-12">

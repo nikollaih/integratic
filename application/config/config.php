@@ -24,7 +24,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 //$config['base_url'] = 'http://'.$_SERVER['HTTP_HOST'].'/integratic';
-//if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){ $protocol = "https://".$_SERVER['HTTP_HOST']; } else{ $protocol='http://'.$_SERVER['HTTP_HOST']; }
+
+// IMPORTANTE:
+// Si la instalación se hará directamente en la raíz del servidor (por ejemplo: https://tudominio.com),
+// debes quitar la parte "/integratic" del path.
+// Si en cambio se instalará dentro de una subcarpeta (por ejemplo: https://tudominio.com/integratic),
+// entonces asegúrate de reemplazar "/integratic" con el nombre correcto de la carpeta.
+
 if ($_SERVER['HTTP_HOST'] === 'localhost') {
     $config['base_url'] = "http://".$_SERVER['HTTP_HOST']."/integratic";
 } else {

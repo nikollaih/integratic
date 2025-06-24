@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="panel panel-primary">
-                    <div class="panel-heading text-capitalize"><b>Reporte de ingresos al sistema (<?= $usuario["nombres"].' '.$usuario["apellidos"] ?>)</b></div>
+                    <div class="panel-heading"><b>Reporte de ingresos al sistema (<?= $usuario["nombres"].' '.$usuario["apellidos"] ?>)</b></div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">

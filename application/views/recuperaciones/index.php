@@ -8,7 +8,7 @@
                 <div class="row" id="migas">
                     <div class="col-md-12">
                         <h3>Nivelaciones</h3>
-                        <p>A continuación se muestra la lista de nivelaciones creadas por el docente.</p>
+                        <p>A continuación, se muestra la lista de nivelaciones creadas por el docente.</p>
                         <hr>
                     </div>
                 </div>

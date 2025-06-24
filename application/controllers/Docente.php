@@ -166,7 +166,7 @@ class Docente extends CI_Controller {
         $carpeta    = utf8_decode($_POST['ruta']); 
         $titulo     = utf8_decode($_POST['titulo']); 
         $html='<div class="panel panel-primary">';        
-        $html=$html.'<div class="panel-heading text-capitalize"><b><div id="titulo">'.$titulo.'</div></b></div>';
+        $html=$html.'<div class="panel-heading"><b><div id="titulo">'.$titulo.'</div></b></div>';
         $html=$html.'<div class="panel-body">';         
         $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value=".$carpeta." type='hidden'/>";
         $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
@@ -305,7 +305,7 @@ class Docente extends CI_Controller {
         $titulo     = $_POST['tit'];
                  
         $html='<div class="panel panel-primary">';        
-        $html=$html.'<div class="panel-heading text-capitalize"><b><div id="titulo">'.$titulo.'</div></b></div>';
+        $html=$html.'<div class="panel-heading"><b><div id="titulo">'.$titulo.'</div></b></div>';
         $html=$html.'<div class="panel-body">';         
         $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value='$carpeta' type='hidden'/>";
         $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
@@ -451,7 +451,7 @@ public function listar_filtro(){
     $titulo     = $_POST['titulo']; 
     $filtro     = $_POST['filtro']; 
     $html='<div class="panel panel-primary">';        
-    $html=$html.'<div class="panel-heading text-capitalize"><b><div id="titulo">'.$titulo.'</div></b></div>';
+    $html=$html.'<div class="panel-heading"><b><div id="titulo">'.$titulo.'</div></b></div>';
     $html=$html.'<div class="panel-body">';         
     $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value=".htmlentities($carpeta)." type='hidden'/>";
     $html=$html."<input id='nombre' name='nombre' type='hidden'/>";

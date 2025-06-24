@@ -9,7 +9,7 @@
                 <div class="row" id="migas">
                     <div class="col-md-12">
                         <h4>Estadisticas por institución (<?= $municipio["municipio"] ?>)</h4>
-                        <p>A continuación se muestra el ponderado de pruebas aprobadas(azul)/no aprobadas(rojo) por institución, para ver los resultados por cada área puede hacerlo a través del botón "Ver áreas".</p>
+                        <p>A continuación, se muestra el ponderado de pruebas aprobadas(azul)/no aprobadas(rojo) por institución, para ver los resultados por cada área puede hacerlo a través del botón "Ver áreas".</p>
                     </div>
                 </div>
                 <div class="row">

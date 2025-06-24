@@ -9,7 +9,7 @@
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="data[id_configuracion]" value="<?= (is_array($data)) ? $data["id_configuracion"] : "null" ?>">
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b>Configuración</b></div>
+                        <div class="panel-heading"><b>Configuración</b></div>
                         <div class="panel-body p-b-4">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">

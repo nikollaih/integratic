@@ -8,7 +8,7 @@
                 <div class="row" id="migas">
                     <div class="col-md-12">
                         <h3>Planes de aula</h3>
-                        <p>A continuación se muestra la lista de planes de aula creados por los docentes.</p>
+                        <p>A continuación, se muestra la lista de planes de aula creados por los docentes.</p>
                         <hr>
                     </div>
                 </div>

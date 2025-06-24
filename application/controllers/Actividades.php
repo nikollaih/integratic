@@ -369,7 +369,7 @@ class Actividades extends CI_Controller {
         $tit    = $_POST['titulo'];                   
         $carpeta=$mat;            
         $html='<div class="panel panel-primary">';        
-        $html=$html.'<div class="panel-heading text-capitalize"><b>'.$tit.'</b></div>';
+        $html=$html.'<div class="panel-heading"><b>'.$tit.'</b></div>';
         $html=$html.'<div class="panel-body">';         
         $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value='$carpeta' type='hidden'/>";
         $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
@@ -446,7 +446,7 @@ class Actividades extends CI_Controller {
         $tit    = $_POST['titulo'];                    
             $carpeta=$tit;            
             $html='<div class="panel panel-primary">';        
-            $html=$html.'<div class="panel-heading text-capitalize"><b>'.$tit.'</b></div>';
+            $html=$html.'<div class="panel-heading"><b>'.$tit.'</b></div>';
             $html=$html.'<div class="panel-body">';         
             $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value='$carpeta' type='hidden'/>";
             $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
@@ -585,7 +585,7 @@ class Actividades extends CI_Controller {
         $ref=utf8_decode($ref);
         $nombre=str_replace(" ", "~", $titulo);                
         $html="<div class='panel panel-primary'>";        
-        $html=$html."<div class='panel-heading text-capitalize'><b><div id='titulo'>".htmlentities($titulo)."</div></b></div>";
+        $html=$html."<div class='panel-heading'><b><div id='titulo'>".htmlentities($titulo)."</div></b></div>";
         $html=$html."<div class='panel-body'>";         
         $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value=".htmlentities($carpeta)." type='hidden'/>";
         $html=$html."<input id='nombre' name='nombre' type='hidden'/>";
@@ -737,7 +737,7 @@ class Actividades extends CI_Controller {
             foreach ($datos as $row){
             $carpeta="./principal/areas/actividades/".$row->nommateria.$row->grado;
             $html=$html.'<div class="panel panel-primary">';        
-            $html=$html.'<div class="panel-heading text-capitalize"><b>'.$row->nommateria.' '.$row->grado.'</b></div>';
+            $html=$html.'<div class="panel-heading"><b>'.$row->nommateria.' '.$row->grado.'</b></div>';
             $html=$html.'<div class="panel-body">';         
             $html=$html."<div class='row' id='migas'><input id='ruta' name='ruta' value='$carpeta' type='hidden'/>";
             $html=$html."<input id='nombre' name='nombre' type='hidden'/>";

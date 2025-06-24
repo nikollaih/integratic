@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading text-capitalize"><b>Actividades</b></div>
+                                    <div class="panel-heading"><b>Actividades</b></div>
                                     <div class="panel-body">
                                         <table class="table table-bordered">
                                             <thead>
@@ -81,7 +81,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading text-capitalize"><b>Pruebas</b></div>
+                                    <div class="panel-heading"><b>Pruebas</b></div>
                                     <div class="panel-body">
                                         <table class="table table-bordered">
                                             <thead>
@@ -144,7 +144,7 @@
                     if(strtolower(logged_user()["rol"]) === "docente" || strtolower(logged_user()["rol"]) === "coordinador"){ ?>
                         <div class="col-md-4">
                             <div class="panel panel-primary">
-                                <div class="panel-heading text-capitalize"><b>Estudiantes</b></div>
+                                <div class="panel-heading"><b>Estudiantes</b></div>
                                 <div class="panel-body">
                                     <table class="table table-bordered">
                                         <thead>

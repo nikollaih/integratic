@@ -13,7 +13,7 @@
                 </div>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b>Importar Estudiantes</b></div>
+                        <div class="panel-heading"><b>Importar Estudiantes</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-3 col-sm-12">

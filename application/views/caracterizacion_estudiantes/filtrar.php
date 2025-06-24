@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="panel panel-primary">
-                <div class="panel-heading text-capitalize"><b>Caracterización de estudiantes</b></div>
+                <div class="panel-heading"><b>Caracterización de estudiantes</b></div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
@@ -38,7 +38,7 @@
                                     echo '<button class="btn btn-primary m-b-30" data-toggle="modal" data-target="#modal_filtrar_caracterizacion">Mostrar Filtros ('. count_filters_caracterizacion($filtros) .'/29)</button>';
                                 }
                                 else {
-                                    echo '<a href="'.base_url().'Exports/exportarCaracterizacionEstudiantes/'.$grado.'" target="_blank"><button class="btn btn-primary m-b-30">Exportar excel</button></a>';
+                                    echo '<a href="'.base_url().'Exports/exportarCaracterizacionEstudiantes/'.$grado.'" target="_blank"><button class="btn btn-primary m-b-30">Exportar Excel</button></a>';
                                 }
                             ?>
                             <table id="tabla-estudiantes" class="table table-bordered table-striped">

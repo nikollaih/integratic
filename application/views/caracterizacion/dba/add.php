@@ -14,7 +14,7 @@
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id_dba" value="<?= (is_array($data)) ? $data["id_dba"] : "null" ?>">
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b><?= (is_array($data)) ? "Modificar" : "Agregar" ?> DBA</b></div>
+                        <div class="panel-heading"><b><?= (is_array($data)) ? "Modificar" : "Agregar" ?> DBA</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">

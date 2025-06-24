@@ -9,7 +9,7 @@
                 <form action="" method="post" enctype="multipart/form-data" id="form-pregunta">
                     <input type="hidden" name="pregunta[id_pregunta_prueba]" id="" value="<?= ($pregunta) ? $pregunta["id_pregunta_prueba"] : "" ?>">
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b>Nueva pregunta</b></div>
+                        <div class="panel-heading"><b>Nueva pregunta</b></div>
                         <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-lg-12">

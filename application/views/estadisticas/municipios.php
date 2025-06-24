@@ -9,7 +9,7 @@
                 <div class="row" id="migas">
                     <div class="col-md-12">
                         <h4>Estadisticas por municipios</h4>
-                        <p>A continuación se muestra el ponderado de pruebas aprobadas(azul)/no aprobadas(rojo) por municipio, para ver los resultados por cada institución puede hacerlo a través del botón "Ver instituciones".</p>
+                        <p>A continuación, se muestra el ponderado de pruebas aprobadas(azul)/no aprobadas(rojo) por municipio, para ver los resultados por cada institución puede hacerlo a través del botón "Ver instituciones".</p>
                     </div>
                 </div>
                 <div class="row">

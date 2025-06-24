@@ -18,7 +18,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="panel panel-primary">
-                                        <div class="panel-heading text-capitalize">
+                                        <div class="panel-heading">
                                             <b>Pregunta <?= (info_prueba_realizada($prueba["id_prueba"], $id_participante)["parcial"] + 1)."/".$prueba["cantidad_preguntas"] ?> </b>
                                         </div>
                                         <div class="panel-body">

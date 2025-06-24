@@ -19,3 +19,7 @@ DELETE FROM `ci_sessions` WHERE 1;
 DELETE FROM `ingresos` WHERE 1;
 DELETE FROM `asignacion_participantes_prueba` WHERE 1;
 DELETE FROM `usuarios` WHERE rol = 'Estudiante';
+DELETE FROM `notificaciones` WHERE 1;
+DELETE FROM `caracterizacion` WHERE 1;
+DELETE FROM `plan_areas` WHERE 1;
+DELETE FROM `semanas_periodo` WHERE 1;

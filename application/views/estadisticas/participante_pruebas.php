@@ -7,7 +7,7 @@
             <div class="container">
                 <div class="row" id="migas"></div>
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b>Información del participante</b></div>
+                        <div class="panel-heading"><b>Información del participante</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
@@ -46,7 +46,7 @@
 
 
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b>Pruebas realizadas</b></div>
+                        <div class="panel-heading"><b>Pruebas realizadas</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
@@ -87,7 +87,7 @@
 
 
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b>Estadisticas de pruebas realizadas</b></div>
+                        <div class="panel-heading"><b>Estadisticas de pruebas realizadas</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-3 col-xs-12">

@@ -43,7 +43,7 @@
                         </div>    
                     </div>
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b>Lista de preguntas</b></div>
+                        <div class="panel-heading"><b>Lista de preguntas</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-lg-12">

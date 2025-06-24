@@ -76,12 +76,12 @@
                                         <i class="fa fa-th"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-lg">
-                                        <li class="text-center notifi-title">Filtrar Areas</li>
+                                        <li class="text-center notifi-title">Filtrar áreas</li>
                                         <li class="list-group">
                                            <a href="javascript:filtrar_menu('MATEMATICAS');" class="list-group-item">
                                               <div class="media">
                                                  <div class="media-body clearfix">
-                                                    <div class="media-heading">Matematicas</div>
+                                                    <div class="media-heading">Matemáticas</div>
                                                  </div>
                                               </div>
                                            </a>           

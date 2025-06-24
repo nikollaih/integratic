@@ -5,7 +5,7 @@
             ?>
                 <div class="col-md-4">
                     <div class="panel panel-primary">       
-                        <div class="panel-heading text-capitalize">
+                        <div class="panel-heading">
                             <b><div id="">Anuncios</div></b>
                         </div>
                         <div class="panel-body">
@@ -38,7 +38,7 @@
     ?>
     <div class="col-md-<?= ($menu_materia == "true") ? '8' : '12' ?>">
         <div class="panel panel-primary">       
-            <div class="panel-heading text-capitalize">
+            <div class="panel-heading">
                 <b><div id="titulo"><?= $titulo ?></div></b>
             </div>
             <div class="panel-body">     

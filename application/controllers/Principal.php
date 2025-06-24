@@ -94,7 +94,7 @@ class Principal extends CI_Controller {
     function listar(){ 
         $carpeta    = $_POST['ruta'];            
         $html='<div class="panel panel-primary">';
-        $html=$html.'<div class="panel-heading text-capitalize"><b><div id="rutas"></div></b></div>';
+        $html=$html.'<div class="panel-heading"><b><div id="rutas"></div></b></div>';
         $html=$html.'<div class="panel-body">';  
         $html=$html."<table style='width:80%;'><tbody><tr>";
         $i=0;

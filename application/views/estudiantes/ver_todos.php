@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="panel panel-primary">
-                    <div class="panel-heading text-capitalize"><b>Estudiantes</b></div>
+                    <div class="panel-heading"><b>Estudiantes</b></div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12 col-sm-12">

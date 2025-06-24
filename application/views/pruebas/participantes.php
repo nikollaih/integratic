@@ -11,7 +11,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading text-capitalize"><b>Prueba</b></div>
+                                    <div class="panel-heading"><b>Prueba</b></div>
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12 col-lg-12">
@@ -118,7 +118,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="panel panel-primary">
-                                        <div class="panel-heading text-capitalize"><b>Participantes</b></div>
+                                        <div class="panel-heading"><b>Participantes</b></div>
                                         <div class="panel-body">
                                         <div class="row">
                                             <div class="col-md-12">

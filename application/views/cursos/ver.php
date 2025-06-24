@@ -7,7 +7,7 @@
             <div class="container">
                 <div class="row" id="migas"></div>
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b><?= $curso["nombre_curso"] ?></b></div>
+                        <div class="panel-heading"><b><?= $curso["nombre_curso"] ?></b></div>
                         <div class="panel-body">
                         <?php
                             if($archivos){ ?>

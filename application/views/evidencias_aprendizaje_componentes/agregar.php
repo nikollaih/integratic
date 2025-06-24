@@ -15,7 +15,7 @@
                 <input name="id_tipo_componente" class="form-control"  type="hidden" id="" value="<?= (isset($componente["id_tipo_componente"])) ? $componente["id_tipo_componente"] : "" ?>">
 
                 <div class="panel panel-primary">
-                    <div class="panel-heading text-capitalize"><b><?= (isset($componente["id_componente"])) ? "Modificar" : "Nuevo" ?> Componente</b></div>
+                    <div class="panel-heading"><b><?= (isset($componente["id_componente"])) ? "Modificar" : "Nuevo" ?> Componente</b></div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="<?= (isset($componente["id_tipo_componente"]) && $componente["id_tipo_componente"] != 1) ? 'col-md-3' : 'col-md-4'?>">

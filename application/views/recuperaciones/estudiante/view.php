@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading text-capitalize"><b>Actividades </b>(<?= $notas["actividades"] ?>)</div>
+                                    <div class="panel-heading"><b>Actividades </b>(<?= $notas["actividades"] ?>)</div>
                                     <div class="panel-body">
                                         <table class="table table-bordered">
                                             <thead>
@@ -65,7 +65,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading text-capitalize"><b>Pruebas</b> (<?= $notas["pruebas"] ?>)</div>
+                                    <div class="panel-heading"><b>Pruebas</b> (<?= $notas["pruebas"] ?>)</div>
                                     <div class="panel-body">
                                         <table class="table table-bordered">
                                             <thead>
@@ -112,7 +112,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="panel panel-primary">
-                                        <div class="panel-heading text-capitalize"><b>Observaciones del docente</b></div>
+                                        <div class="panel-heading"><b>Observaciones del docente</b></div>
                                         <div class="panel-body">
                                             <p><?= $recuperacion["observaciones"] ?></p>
                                         </div>
@@ -142,7 +142,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="panel panel-primary">
-                                            <div class="panel-heading text-capitalize"><b>Observaciones</b></div>
+                                            <div class="panel-heading"><b>Observaciones</b></div>
                                             <div class="panel-body">
                                                 <form action="" method="post">
                                                     <label for="observaciones">Agregar observaciones</label>

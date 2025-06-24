@@ -8,7 +8,7 @@
                 <div class="row" id="migas">
                     <div class="col-md-12">
                         <h3>Periodos Académicos</h3>
-                        <p>A continuación se muestra la lista de periodos académicos con sus respectivas semanas.</p>
+                        <p>A continuación, se muestra la lista de periodos académicos con sus respectivas semanas.</p>
                         <hr>
                     </div>
                 </div>

@@ -9,7 +9,7 @@
                 <form action="" method="post" id="form-recuperacion" enctype="multipart/form-data">
                     <input type="hidden" name="recuperacion[id_recuperacion]" id="" value="<?= (isset($recuperacion)) ? $recuperacion["id_recuperacion"] : "" ?>">
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b><?= (isset($recuperacion)) ? "Modificar" : "Nueva" ?> nivelación</b></div>
+                        <div class="panel-heading"><b><?= (isset($recuperacion)) ? "Modificar" : "Nueva" ?> nivelación</b></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-lg-9">

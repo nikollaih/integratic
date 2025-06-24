@@ -14,7 +14,7 @@
                 <form action="" method="post" enctype="">
                     <input  required type="hidden" name="id_tema"  class="form-control" value="<?= (isset($tema["id_tema"])) ? $tema["id_tema"] : null ?>">
                     <div class="panel panel-primary">
-                        <div class="panel-heading text-capitalize"><b><?= (isset($tema["id_tema"])) ? "Modificar" : "Nuevo" ?> tema</b></div>
+                        <div class="panel-heading"><b><?= (isset($tema["id_tema"])) ? "Modificar" : "Nuevo" ?> tema</b></div>
                         <div class="panel-body">
                                 <div class="row">
                                 <div class="col-md-6 col-sm-12">

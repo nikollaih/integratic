@@ -16,7 +16,7 @@
                                 <h4>Estadisticas por áreas</h4>
                             <?php }
                         ?>
-                        <p>A continuación se muestra el ponderado de pruebas aprobadas(azul)/no aprobadas(rojo) por area.</p>
+                        <p>A continuación, se muestra el ponderado de pruebas aprobadas(azul)/no aprobadas(rojo) por area.</p>
                     </div>
                 </div>
                 <div class="row">
