@@ -2652,7 +2652,7 @@ function menuForAcudiente(){
     html+=`<li>
                 <a href='<?= base_url() ?>Recuperaciones' class="menu-item-block">
                     <i class="fa fa-circle-check"></i>
-                    <span>Recuperaciones</span>
+                    <span>Nivelaciones</span>
                 </a>
             </li>`;
 
@@ -2716,7 +2716,7 @@ function menuForStudents(){
     html+=`<li>
                 <a href='<?= base_url() ?>Recuperaciones' class="menu-item-block">
                     <i class="fa fa-circle-check"></i>
-                    <span>Recuperaciones</span>
+                    <span>Nivelaciones</span>
                 </a>
             </li>`;
 

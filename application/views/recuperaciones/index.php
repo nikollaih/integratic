@@ -54,7 +54,7 @@
                                 <thead>
                                     <tr>
                                         <th>Titulo</th>
-                                        <th>Materia</th>
+                                        <th>Asignatura</th>
                                         <th>Grupo</th>
                                         <th>Periodo</th>
                                         <th>Fecha inicio</th>
