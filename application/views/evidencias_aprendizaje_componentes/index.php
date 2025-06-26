@@ -24,6 +24,7 @@
                                     <td>Descripción</td>
                                     <td>Órden</td>
                                     <td>Estado</td>
+                                    <td>Filas</td>
                                     <td></td>
                                 </tr>
                                 </thead>
@@ -38,6 +39,7 @@
                                             <td><?= $componente["descripcion"] ?></td>
                                             <td><?= $componente["orden"] ?></td>
                                             <td><?= $componente["activo"] == 1 ? 'Activo' : 'Inactivo' ?></td>
+                                            <td><?= $componente["cantidad_filas"] ?></td>
                                             <td class="text-center">
                                                 <a class="btn btn-warning btn-sm" href="<?= base_url() ?>EvidenciasAprendizajeComponentes/modificar/<?= trim($componente["id_tipo_componente"]) ?>">Modificar</a>
                                                 <?php if($componente["orden"] != 1 || $componente["id_tipo_componente"] != 1){ ?>

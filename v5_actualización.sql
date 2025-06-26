@@ -935,3 +935,7 @@ ALTER TABLE `categorias_barreras`
 ALTER TABLE `piar` ADD `diagnostico` VARCHAR(100) NOT NULL AFTER `comentarios`;
 
 ALTER TABLE `barreras` CHANGE `id_barreras` `id_barreras` INT(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `tipo_componente_evidencia` ADD `cantidad_filas` INT NOT NULL DEFAULT '1' AFTER `orden`;
+
+ALTER TABLE `tipo_componente_evidencia` ADD `titulos_filas` TEXT NOT NULL AFTER `cantidad_filas`;

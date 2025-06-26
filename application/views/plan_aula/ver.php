@@ -156,15 +156,34 @@
                             <?php else: ?>
                                 <?php foreach ($tipos_componentes_evidencia as $tipo): ?>
                                     <?php
-                                    $componenteContenido = '';
+                                    $contenido = '';
                                     foreach ($evidencia['componentes'] as $componente) {
                                         if ($componente['id_tipo_componente'] == $tipo["id_tipo_componente"]) {
-                                            $componenteContenido = $componente["contenido"];
+                                            $contenido = $componente["contenido"];
                                             break;
                                         }
                                     }
                                     ?>
-                                    <td><?= $componenteContenido ?></td>
+                                    <td style="padding: 0;">
+                                        <?php
+                                        if (strpos($contenido, '&-separator-$') !== false) {
+                                            $partes = explode('&-separator-$', $contenido);
+                                            array_pop($partes);
+                                            $total = count($partes);
+                                            foreach ($partes as $index => $parte) {
+                                                // Contenido con padding
+                                                echo '<table><tbody><tr style="border: 0;"><td><p style="color: #000">'.$parte.'</p></td></tr></tbody></table>';
+
+                                                // Línea divisoria sin padding (ocupa todo el ancho)
+                                                if ($index < $total - 1) {
+                                                    echo '<hr style="margin: 5px 0; height: 1px; color: #000">';
+                                                }
+                                            }
+                                        } else {
+                                            echo '<table style="border: 0"><tbody style="border: 0"><tr style="border: 0"><td><p style="color: #000">'.$contenido.'</p></td></tr></tbody></table>';
+                                        }
+                                        ?>
+                                    </td>
                                 <?php endforeach; ?>
                             <?php endif; ?>
 
@@ -199,9 +218,13 @@
     </div>
 </div>
 <style>
+    * {
+        color: #000 !important;
+    }
     p {
         margin: 0;
         font-size: 12px;
+        color: #000 !important;
     }
 
     th {
@@ -313,6 +336,10 @@
 
     .text-center {
         text-align: center;
+    }
+
+    td p {
+        padding: 20px !important;
     }
 
 </style>

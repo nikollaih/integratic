@@ -44,6 +44,7 @@ class EvidenciasAprendizajeComponentes extends CI_Controller
             if(logged_user()["rol"] === "super") {
                 $params = [];
                 $params["componente"] = $this->TipoComponenteEvidencia_Model->find($idTipoComponente);
+                $params["componente"]["titulos_filas_array"] = unserialize($params["componente"]["titulos_filas"]);
 
                 if ($params["componente"]) {
 
@@ -79,8 +80,10 @@ class EvidenciasAprendizajeComponentes extends CI_Controller
     private function saveComponente($data): array
     {
         $newData["nombre"] = $data["nombre"];
+        $newData["cantidad_filas"] = $data["cantidad_filas"];
         $newData["descripcion"] = $data["descripcion"];
         $newData["activo"] = $data["activo"];
+        $newData["titulos_filas"] = isset($data["titulos_filas"]) ? serialize($data["titulos_filas"]) : null;
         if(isset($data["orden"])){
             $newData["orden"] = $data["orden"];
         }

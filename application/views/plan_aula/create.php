@@ -355,7 +355,23 @@
                                                                                 }
                                                                             }
                                                                             ?>
-                                                                            <td><?= $contenido ?></td>
+                                                                            <td>
+                                                                                <?php
+                                                                                if (strpos($contenido, '&-separator-$') !== false) {
+                                                                                    $partes = explode('&-separator-$', $contenido);
+                                                                                    array_pop($partes);
+                                                                                    $total = count($partes);
+                                                                                    foreach ($partes as $index => $parte) {
+                                                                                        echo '<div><p><span style="font-size: 12px">' . $parte . '</span></p></div>';
+                                                                                        if ($index < $total - 1) {
+                                                                                            echo '<hr style="margin-left: -10px; margin-right: -10px;">';
+                                                                                        }
+                                                                                    }
+                                                                                } else {
+                                                                                    echo $contenido;
+                                                                                }
+                                                                                ?>
+                                                                            </td>
                                                                         <?php endforeach; ?>
                                                                     <?php endif; ?>
 
@@ -453,40 +469,83 @@
                                                     <div class="extra-info-evidenci" style="display:<?= (is_array($selectedEvidencia) && $selectedEvidencia["is_only_row"] == 1) ? "none;" : "block;" ?>">
                                                         <div class="row">
                                                             <?php
-                                                                if($tipos_componentes_evidencia) {
-                                                                    $x = 7;
-                                                                    foreach ($tipos_componentes_evidencia as $TCE){
+                                                            $hideRichTexts = [];
+                                                            if ($tipos_componentes_evidencia) {
+                                                                $x = 7;
+                                                                foreach ($tipos_componentes_evidencia as $TCE) {
 
-                                                                        $componenteBuscado = null;
-                                                                        if(is_array($selectedEvidencia)){
-                                                                            foreach ($selectedEvidencia['componentes'] as $componente) {
-                                                                                if ($componente['id_tipo_componente'] == $TCE["id_tipo_componente"]) {
-                                                                                    $componenteBuscado = $componente;
-                                                                                    break; // salimos del bucle al encontrar el componente
-                                                                                }
+                                                                    $componenteBuscado = null;
+                                                                    if (is_array($selectedEvidencia)) {
+                                                                        foreach ($selectedEvidencia['componentes'] as $componente) {
+                                                                            if ($componente['id_tipo_componente'] == $TCE["id_tipo_componente"]) {
+                                                                                $componenteBuscado = $componente;
+                                                                                break;
                                                                             }
                                                                         }
+                                                                    }
 
-                                                                        ?>
-                                                                        <div class="col-md-4 col-sm-6 col-xs-12 <?= $x > 7 ? 'extra-info-evidencia' : '' ?>">
-                                                                            <div style="background: #077b5d;" class="evidence-container">
-                                                                                <h5><?= $TCE["nombre"] ?></h5>
-                                                                                <div class="row">
-                                                                                    <div class=" col-xs-12">
-                                                                                        <input type="hidden" name="evidencia[<?= $TCE["id_tipo_componente"] ?>][id_componente]" value="<?= (is_array($componenteBuscado)) ? $componenteBuscado["id_componente"] : "" ?>">
-                                                                                        <div class="form-group">
-                                                                                            <label for="evidencia[<?= $TCE["id_tipo_componente"] ?>]"><?= $TCE["descripcion"] ?></label>
-                                                                                            <textarea name="evidencia[<?= $TCE["id_tipo_componente"] ?>][contenido]" id="richtext-<?= $x ?>" cols="30" rows="4" class="form-control"><?= (is_array($componenteBuscado)) ? $componenteBuscado["contenido"] : "" ?></textarea>
-                                                                                        </div>
+                                                                    $cantidad_filas   = isset($TCE["cantidad_filas"]) ? (int)$TCE["cantidad_filas"] : 1;
+                                                                    $titulos_filas    = isset($TCE["titulos_filas"]) ? @unserialize($TCE["titulos_filas"]) : [];
+                                                                    $contenido_total  = isset($componenteBuscado["contenido"]) ? $componenteBuscado["contenido"] : "";
+
+                                                                    ?>
+                                                                    <div class="col-md-4 col-sm-6 col-xs-12 <?= $x > 7 ? 'extra-info-evidencia' : '' ?>">
+                                                                        <div style="background: #077b5d;" class="evidence-container">
+                                                                            <h5><?= $TCE["nombre"] ?></h5>
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12">
+                                                                                    <!-- ID componente -->
+                                                                                    <input type="hidden" name="evidencia[<?= $TCE["id_tipo_componente"] ?>][id_componente]" value="<?= is_array($componenteBuscado) ? $componenteBuscado["id_componente"] : "" ?>">
+
+                                                                                    <div class="form-group">
+                                                                                        <label><?= $TCE["descripcion"] ?></label><br>
+
+                                                                                        <?php if ($cantidad_filas <= 1): ?>
+                                                                                            <!-- ✅ Modo normal: un solo textarea visible -->
+                                                                                            <textarea
+                                                                                                    name="evidencia[<?= $TCE["id_tipo_componente"] ?>][contenido]"
+                                                                                                    id="richtext-<?= $x ?>"
+                                                                                                    cols="30" rows="4"
+                                                                                                    class="form-control"
+                                                                                            ><?= htmlspecialchars($contenido_total) ?></textarea>
+                                                                                        <?php else: ?>
+                                                                                            <!-- ✅ Modo múltiple: varios textareas visibles -->
+                                                                                            <?php for ($i = 0; $i < $cantidad_filas; $i++): ?>
+                                                                                                <?php
+                                                                                                $hideRichTexts[] = $x;
+                                                                                                $titulo = isset($titulos_filas[$i]) ? $titulos_filas[$i] : "Fila " . ($i + 1);
+                                                                                                $valores_fila = explode("&-separator-$", $contenido_total);
+                                                                                                ?>
+                                                                                                <label for="sub-textarea-<?= $TCE["id_tipo_componente"] ?>-<?= $i ?>"><?= $titulo ?></label>
+                                                                                                <textarea
+                                                                                                        class="form-control sub-textarea"
+                                                                                                        data-main="#richtext-<?= $x ?>"
+                                                                                                        data-index="<?= $i ?>"
+                                                                                                        id="sub-textarea-<?= $TCE["id_tipo_componente"] ?>-<?= $i ?>"
+                                                                                                        rows="3"
+                                                                                                ><?= isset($valores_fila[$i]) && trim($valores_fila[$i]) !== "" ? htmlspecialchars($valores_fila[$i]) : $titulo.': ' ?> </textarea>
+                                                                                            <?php endfor; ?>
+
+                                                                                            <!-- ✅ Textarea oculto para concatenación final -->
+                                                                                            <textarea
+                                                                                                    name="evidencia[<?= $TCE["id_tipo_componente"] ?>][contenido]"
+                                                                                                    id="richtext-<?= $x ?>"
+                                                                                                    cols="30" rows="4"
+                                                                                                    class="form-control"
+                                                                                                    style="display: none !important;"
+                                                                                            ><?= htmlspecialchars($contenido_total) ?></textarea>
+                                                                                        <?php endif; ?>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                            <?php
-                                                                        $x++;
-                                                                    }
+                                                                    </div>
+                                                                    <?php
+                                                                    $x++;
                                                                 }
+                                                            }
                                                             ?>
+
                                                             <!--<div class="col-md-4 col-sm-6 col-xs-12">
                                                                 <div style="background: #077b5d;" class="evidence-container">
                                                                     <h5>EXPLORACIÓN</h5>
@@ -593,6 +652,7 @@
     }
 </style>
 <script>
+    let allRichtext = [];
     let countComponentes = Number("<?= is_array($tipos_componentes_evidencia) ? count($tipos_componentes_evidencia) : 0 ?>");
     let forLength = 7 + countComponentes;
     let editEvidencia = "<?= (is_array($selectedEvidencia)) ? "true" : "false" ?>";
@@ -618,12 +678,16 @@
     }
 
     $( document ).ready(function() {
-        let allRichtext = [];
         let domElement = null;
         for (let i = 1; i < forLength; i++) {
             domElement = jQuery("#richtext-" + i);
             if(domElement.length > 0){
+                let hideRichTexts = '<?=  json_encode($hideRichTexts ?? []) ?>';
+                console.log(hideRichTexts)
                 allRichtext[i] = KothingEditor.create('richtext-' + i, kothingParamsPlan);
+                if(hideRichTexts.includes(i)){
+                    allRichtext[i].getContext().element.topArea.style.display = 'none';
+                }
                 jQuery("#richtext-" + i).addClass("hide-textarea");
             }
         }
@@ -642,4 +706,41 @@
             }, 2000);
         }
     })
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const subTextareas = document.querySelectorAll(".sub-textarea");
+
+        subTextareas.forEach(function(sub) {
+            sub.addEventListener("input", function () {
+                const mainSelector = this.dataset.main;
+                console.log(mainSelector)
+                const mainTextarea = document.querySelector(mainSelector);
+
+                if (mainTextarea) {
+
+                    const related = document.querySelectorAll(`.sub-textarea[data-main='${mainSelector}']`);
+                    let combined = "";
+
+                    related.forEach(t => {
+                        const value = t.value.trim();
+                        combined += value + "&-separator-$";
+                    });
+
+                    mainTextarea.value = combined.trim();
+                    for (let i = 0; i < allRichtext.length; i++) {
+                        if(allRichtext[i]){
+                            const textareaId = allRichtext[i].getContext().element.originElement.id;
+                            if('#'+textareaId === mainSelector){
+                                allRichtext[i].getContext().element.topArea.style.display = 'none';
+                                allRichtext[i].setContents(combined.trim());
+                            }
+                        }
+
+                    }
+                }
+            });
+        });
+    });
 </script>
