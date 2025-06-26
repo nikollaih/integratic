@@ -51,7 +51,7 @@
                             <div class="<?= (isset($componente["id_tipo_componente"]) && $componente["id_tipo_componente"] != 1) ? 'col-md-3' : 'col-md-4'?>">
                                 <div class="form-group">
                                     <label for="">Cantidad de filas</label>
-                                    <input name="cantidad_filas" class="form-control" type="number" id="" value="<?= (isset($componente["id_tipo_componente"])) ? $componente["cantidad_filas"] : "" ?>">
+                                    <input name="cantidad_filas" class="form-control" type="number" max="10" id="" value="<?= (isset($componente["id_tipo_componente"])) ? $componente["cantidad_filas"] : "" ?>">
                                 </div>
                             </div>
                         </div>
@@ -104,18 +104,20 @@
         const titulosPrecargados = <?= isset($componente["titulos_filas_array"]) ? json_encode($componente["titulos_filas_array"]) : '[]' ?>;
 
         function generarCamposTitulos(cantidad) {
-            contenedorTitulos.innerHTML = "";
-            for (let i = 0; i < cantidad; i++) {
-                const titulo = titulosPrecargados[i] || ""; // Si hay título, lo ponemos
-                const col = document.createElement("div");
-                col.className = "col-md-4";
-                col.innerHTML = `
+            if(inputCantidad.value > 1){
+                contenedorTitulos.innerHTML = "";
+                for (let i = 0; i < cantidad; i++) {
+                    const titulo = titulosPrecargados[i] || ""; // Si hay título, lo ponemos
+                    const col = document.createElement("div");
+                    col.className = "col-md-4";
+                    col.innerHTML = `
                 <div class="form-group">
                     <label for="titulo_fila_${i + 1}">Título fila ${i + 1}</label>
                     <input type="text" name="titulos_filas[]" id="titulo_fila_${i + 1}" class="form-control" value="${titulo}" />
                 </div>
             `;
-                contenedorTitulos.appendChild(col);
+                    contenedorTitulos.appendChild(col);
+                }
             }
         }
 
@@ -127,7 +129,7 @@
         // Escuchar cambios dinámicos
         inputCantidad.addEventListener("input", function () {
             const cantidad = parseInt(this.value);
-            if (!isNaN(cantidad) && cantidad > 0) {
+            if (!isNaN(cantidad) && cantidad > 1) {
                 generarCamposTitulos(cantidad);
             } else {
                 contenedorTitulos.innerHTML = "";
