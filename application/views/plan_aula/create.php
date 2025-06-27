@@ -523,7 +523,7 @@
                                                                                                         data-index="<?= $i ?>"
                                                                                                         id="sub-textarea-<?= $TCE["id_tipo_componente"] ?>-<?= $i ?>"
                                                                                                         rows="3"
-                                                                                                ><?= isset($valores_fila[$i]) && trim($valores_fila[$i]) !== "" ? htmlspecialchars($valores_fila[$i]) : $titulo.': ' ?> </textarea>
+                                                                                                ><?= isset($valores_fila[$i]) && trim($valores_fila[$i]) !== "" ? htmlspecialchars($valores_fila[$i]) : '' ?> </textarea>
                                                                                             <?php endfor; ?>
 
                                                                                             <!-- ✅ Textarea oculto para concatenación final -->
