@@ -939,3 +939,5 @@ ALTER TABLE `barreras` CHANGE `id_barreras` `id_barreras` INT(11) NOT NULL AUTO_
 ALTER TABLE `tipo_componente_evidencia` ADD `cantidad_filas` INT NOT NULL DEFAULT '1' AFTER `orden`;
 
 ALTER TABLE `tipo_componente_evidencia` ADD `titulos_filas` TEXT NOT NULL AFTER `cantidad_filas`;
+
+ALTER TABLE `tipo_componente_evidencia` CHANGE `titulos_filas` `titulos_filas` TEXT CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL;
