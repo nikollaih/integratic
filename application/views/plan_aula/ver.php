@@ -116,7 +116,7 @@
                     }
                     ?>
                     <th>
-                        <b class="item-title">ESTADO</b>
+                        <b class="item-title">OBSERVACIONES</b>
                     </th>
                 </tr>
                 </thead>
@@ -129,6 +129,15 @@
                         ?>
                         <tr>
                             <td style="width:90px;">
+                                <p class="item-text m-b-10">
+                                    <b>
+                                        <?php
+                                        $estado = $evidencia["estado_completo"];
+                                        echo ($estado == 3) ? "Completado" : (($estado == 2) ? "No Completado" : "Pendiente");
+                                        ?>
+                                    </b>
+                                </p>
+                                <br>
                                 <?php if (is_array($listaSemanas)): ?>
                                     <?php foreach ($listaSemanas as $semana): ?>
                                         <div style="text-align:center;margin-bottom:10px;">
@@ -207,8 +216,10 @@
                                             }
                                             ?>
                                             <tr style="width:<?= $width ?>px; max-width:<?= $width ?>px; ">
-                                                <?php foreach ($fila as $celda): ?>
-                                                    <td style="font-size: 11px; <?= trim(strip_tags($celda)) != '' ? 'border-top: 1px solid #000;' : 'border: 0;' ?>  vertical-align: top; width:<?= $width ?>px; max-width:<?= $width ?>px; border-right: 1px solid #000; border-left: 0; border-bottom: 0;">
+                                                <?php
+
+                                                foreach ($fila as $celda): ?>
+                                                    <td style="<?= (strlen($celda) > 5 && strlen($celda) < 300 && count($filaInterna) < 2) ? 'height: 220px;' : '' ?> font-size: 11px; <?= trim(strip_tags($celda)) != '' ? 'border-top: 1px solid #000;' : 'border: 0;' ?>  vertical-align: top; width:<?= $width ?>px; max-width:<?= $width ?>px; border-right: 1px solid #000; border-left: 0; border-bottom: 0;">
                                                         <?= $celda ?>
                                                     </td>
                                                 <?php endforeach; ?>
@@ -217,17 +228,14 @@
                                     </table>
                                 </td>
                             <?php endif; ?>
-
                             <td>
-                                <p class="item-text">
-                                    <b>
-                                        <?php
-                                        $estado = $evidencia["estado_completo"];
-                                        echo ($estado == 3) ? "Completado" : (($estado == 2) ? "No Completado" : "Pendiente");
-                                        ?>
-                                    </b>
-                                </p>
-                                <p class="item-text"><?= $evidencia["observaciones_completo"] ?></p>
+                                <div class="text-left m-b-10">
+                                    <p><strong>Observaciones del coordinador: </strong><?= $evidencia["observaciones_coordinador"] ?></p>
+                                </div>
+                                <br>
+                                <div class="text-left m-t-10">
+                                    <p><strong>Observaciones al completar: </strong><?= $evidencia["observaciones_completo"] ?></p>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
