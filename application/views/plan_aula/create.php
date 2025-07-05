@@ -345,8 +345,12 @@
                                                                             ?>
                                                                         </td>
                                                                     <?php else: ?>
-                                                                        <?php foreach ($tipos_componentes_evidencia as $tipo): ?>
-                                                                            <?php
+                                                                        <?php
+// 1. Preprocesar los contenidos por tipo
+                                                                        $columnas = [];
+                                                                        $maxFilas = 0;
+
+                                                                        foreach ($tipos_componentes_evidencia as $tipo) {
                                                                             $contenido = '';
                                                                             foreach ($evidencia['componentes'] as $componente) {
                                                                                 if ($componente['id_tipo_componente'] == $tipo["id_tipo_componente"]) {
@@ -354,25 +358,42 @@
                                                                                     break;
                                                                                 }
                                                                             }
-                                                                            ?>
-                                                                            <td>
-                                                                                <?php
-                                                                                if (strpos($contenido, '&-separator-$') !== false) {
-                                                                                    $partes = explode('&-separator-$', $contenido);
-                                                                                    array_pop($partes);
-                                                                                    $total = count($partes);
-                                                                                    foreach ($partes as $index => $parte) {
-                                                                                        echo '<div><p><span style="font-size: 12px">' . $parte . '</span></p></div>';
-                                                                                        if ($index < $total - 1) {
-                                                                                            echo '<hr style="margin-left: -10px; margin-right: -10px;">';
-                                                                                        }
-                                                                                    }
-                                                                                } else {
-                                                                                    echo $contenido;
-                                                                                }
-                                                                                ?>
-                                                                            </td>
-                                                                        <?php endforeach; ?>
+
+                                                                            if (strpos($contenido, '&-separator-$') !== false) {
+                                                                                $partes = explode('&-separator-$', $contenido);
+                                                                                array_pop($partes);
+                                                                            } else {
+                                                                                $partes = [$contenido];
+                                                                            }
+
+                                                                            $columnas[] = $partes;
+                                                                            $maxFilas = max($maxFilas, count($partes));
+                                                                        }
+
+// 2. Transponer columnas en filas internas
+                                                                        $filaInterna = [];
+                                                                        for ($i = 0; $i < $maxFilas; $i++) {
+                                                                            $fila = [];
+                                                                            foreach ($columnas as $col) {
+                                                                                $fila[] = isset($col[$i]) ? $col[$i] : '';
+                                                                            }
+                                                                            $filaInterna[] = $fila;
+                                                                        }
+                                                                        ?>
+
+                                                                        <!-- Renderizar cada fila interna con flex -->
+                                                                        <td colspan="<?= count($tipos_componentes_evidencia) ?>">
+                                                                            <?php foreach ($filaInterna as $fila): ?>
+                                                                                <div style="display: flex; margin: -9px -9px -9px -8px;">
+                                                                                    <?php
+                                                                                    foreach ($fila as $celda): ?>
+                                                                                        <div style="<?= trim(strip_tags($celda)) !== '' ? 'border-top: 1px solid #ccc;' : '' ?> flex: 1; padding: 8px 8px 15px 8px; font-size: 11px; border-right: 1px solid #e0e0e0;">
+                                                                                            <?= $celda ?>
+                                                                                        </div>
+                                                                                    <?php endforeach; ?>
+                                                                                </div>
+                                                                            <?php endforeach; ?>
+                                                                        </td>
                                                                     <?php endif; ?>
 
                                                                     <td class="text-center">

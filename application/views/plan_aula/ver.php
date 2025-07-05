@@ -107,9 +107,11 @@
                         <b class="item-title">SEMANA</b>
                     </th>
                     <?php
+                    $width = 100;
                     if($tipos_componentes_evidencia){
                         foreach ($tipos_componentes_evidencia as $tipo) {
-                            echo '<th><b class="item-title">'.strtoupper($tipo["nombre"]).'</b></th>';
+                            $width = 1200 / count($tipos_componentes_evidencia);
+                            echo '<th style="width: '.$width.'px;"><b class="item-title">'.strtoupper($tipo["nombre"]).'</b></th>';
                         }
                     }
                     ?>
@@ -154,8 +156,12 @@
                                     <?= $contenido ?>
                                 </td>
                             <?php else: ?>
-                                <?php foreach ($tipos_componentes_evidencia as $tipo): ?>
-                                    <?php
+                                <?php
+// 1. Preprocesar los contenidos por tipo
+                                $columnas = [];
+                                $maxFilas = 0;
+
+                                foreach ($tipos_componentes_evidencia as $tipo) {
                                     $contenido = '';
                                     foreach ($evidencia['componentes'] as $componente) {
                                         if ($componente['id_tipo_componente'] == $tipo["id_tipo_componente"]) {
@@ -163,28 +169,53 @@
                                             break;
                                         }
                                     }
-                                    ?>
-                                    <td style="padding: 0;">
-                                        <?php
-                                        if (strpos($contenido, '&-separator-$') !== false) {
-                                            $partes = explode('&-separator-$', $contenido);
-                                            array_pop($partes);
-                                            $total = count($partes);
-                                            foreach ($partes as $index => $parte) {
-                                                // Contenido con padding
-                                                echo '<table><tbody><tr style="border: 0;"><td><p style="color: #000">'.$parte.'</p></td></tr></tbody></table>';
 
-                                                // Línea divisoria sin padding (ocupa todo el ancho)
-                                                if ($index < $total - 1) {
-                                                    echo '<hr style="margin: 5px 0; height: 1px; color: #000">';
+                                    if (strpos($contenido, '&-separator-$') !== false) {
+                                        $partes = explode('&-separator-$', $contenido);
+                                        array_pop($partes);
+                                    } else {
+                                        $partes = [$contenido];
+                                    }
+
+                                    $columnas[] = $partes;
+                                    $maxFilas = max($maxFilas, count($partes));
+                                }
+
+// 2. Transponer columnas en filas internas
+                                $filaInterna = [];
+                                for ($i = 0; $i < $maxFilas; $i++) {
+                                    $fila = [];
+                                    foreach ($columnas as $col) {
+                                        $fila[] = isset($col[$i]) ? $col[$i] : '';
+                                    }
+                                    $filaInterna[] = $fila;
+                                }
+                                ?>
+
+                                <!-- Renderizar una tabla anidada para mPDF -->
+                                <td colspan="<?= count($tipos_componentes_evidencia) ?>" style="padding: 0;">
+                                    <table style="border: 0;">
+                                        <?php foreach ($filaInterna as $fila): ?>
+                                            <?php
+                                            // Verificamos si alguna celda tiene contenido real
+                                            $tieneContenido = false;
+                                            foreach ($fila as $celda) {
+                                                if (trim(strip_tags($celda)) != '') {
+                                                    $tieneContenido = true;
+                                                    break;
                                                 }
                                             }
-                                        } else {
-                                            echo '<table style="border: 0"><tbody style="border: 0"><tr style="border: 0"><td><p style="color: #000">'.$contenido.'</p></td></tr></tbody></table>';
-                                        }
-                                        ?>
-                                    </td>
-                                <?php endforeach; ?>
+                                            ?>
+                                            <tr style="width:<?= $width ?>px; max-width:<?= $width ?>px; ">
+                                                <?php foreach ($fila as $celda): ?>
+                                                    <td style="font-size: 11px; <?= trim(strip_tags($celda)) != '' ? 'border-top: 1px solid #000;' : 'border: 0;' ?>  vertical-align: top; width:<?= $width ?>px; max-width:<?= $width ?>px; border-right: 1px solid #000; border-left: 0; border-bottom: 0;">
+                                                        <?= $celda ?>
+                                                    </td>
+                                                <?php endforeach; ?>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </table>
+                                </td>
                             <?php endif; ?>
 
                             <td>

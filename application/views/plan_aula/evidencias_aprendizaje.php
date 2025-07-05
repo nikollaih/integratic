@@ -120,7 +120,6 @@
                                         <th>Docente</th>
                                         <th>Periodo</th>
                                         <th>Semanas</th>
-                                        <th>Evidencia aprendizaje</th>
                                         <th>Estado</th>
                                         <th>Observaciones</th>
                                         <th></th>
@@ -140,14 +139,13 @@
                                                     <?php
                                                         if(is_array($listaSemanas)){
                                                             for ($i=0; $i < count($listaSemanas); $i++) { ?>
-                                                                <div class="text-center">
+                                                                <div class="">
                                                                     <h5 class="m-b-0"><?= $listaSemanas[$i]["semana"]. " - (<span style='font-size: 12px;color:#757575;'>".$listaSemanas[$i]["fecha_inicio"]."</span>)" ?></h5>
                                                                 </div>
                                                             <?php }
                                                         }
                                                     ?>
                                                     </td>
-                                                    <td><?= $evidencia["evidencia_aprendizaje"] ?></td>
                                                     <td><?= ($evidencia["estado_completo"] == 3) ? "Completado" : (($evidencia["estado_completo"] == 2) ? "No Completado" : "Pendiente"); ?></td>
                                                     <td><?= $evidencia["observaciones_completo"] ?></td>
                                                     <td>
