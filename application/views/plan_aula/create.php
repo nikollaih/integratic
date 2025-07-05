@@ -294,7 +294,7 @@
                                         <div class="section-content" id="parte-4">
                                             <hr>
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-12" style="overflow-x: auto">
                                                     <table class="table table-bordered">
                                                         <thead>
                                                         <tr>
