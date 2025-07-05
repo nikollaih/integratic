@@ -384,7 +384,7 @@
                                                                         <!-- Renderizar cada fila interna con flex -->
                                                                         <td colspan="<?= count($tipos_componentes_evidencia) ?>">
                                                                             <?php foreach ($filaInterna as $fila): ?>
-                                                                                <div style="display: flex; margin: -9px -9px -9px -8px;">
+                                                                                <div style="display: flex; margin: -9px -9px -9px -8px; min-height: 260px;">
                                                                                     <?php
                                                                                     foreach ($fila as $celda): ?>
                                                                                         <div style="<?= trim(strip_tags($celda)) !== '' ? 'border-top: 1px solid #ccc;' : '' ?> flex: 1; padding: 8px 8px 15px 8px; font-size: 11px; border-right: 1px solid #e0e0e0;">
