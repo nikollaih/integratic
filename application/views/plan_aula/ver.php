@@ -116,7 +116,7 @@
                     }
                     ?>
                     <th>
-                        <b class="item-title">OBSERVACIONES</b>
+                        <b class="item-title">SEGUIMIENTO</b>
                     </th>
                 </tr>
                 </thead>
@@ -129,15 +129,6 @@
                         ?>
                         <tr>
                             <td style="width:90px;">
-                                <p class="item-text m-b-10">
-                                    <b>
-                                        <?php
-                                        $estado = $evidencia["estado_completo"];
-                                        echo ($estado == 3) ? "Completado" : (($estado == 2) ? "No Completado" : "Pendiente");
-                                        ?>
-                                    </b>
-                                </p>
-                                <br>
                                 <?php if (is_array($listaSemanas)): ?>
                                     <?php foreach ($listaSemanas as $semana): ?>
                                         <div style="text-align:center;margin-bottom:10px;">
@@ -147,6 +138,16 @@
                                         </div>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
+                                <br>
+                                <p class="item-text m-b-10">
+                                    Estado de ejecución de la secuencia:
+                                    <b>
+                                        <?php
+                                        $estado = $evidencia["estado_completo"];
+                                        echo ($estado == 3) ? "Completado" : (($estado == 2) ? "No Completado" : "Pendiente");
+                                        ?>
+                                    </b>
+                                </p>
                             </td>
 
                             <?php if ($evidencia["is_only_row"] == 1): ?>
@@ -169,6 +170,7 @@
 // 1. Preprocesar los contenidos por tipo
                                 $columnas = [];
                                 $maxFilas = 0;
+                                $titulos_columnas = [];
 
                                 foreach ($tipos_componentes_evidencia as $tipo) {
                                     $contenido = '';
@@ -181,13 +183,15 @@
 
                                     if (strpos($contenido, '&-separator-$') !== false) {
                                         $partes = explode('&-separator-$', $contenido);
-                                        array_pop($partes);
+                                        array_pop($partes); // eliminar última vacía si viene con separador final
                                     } else {
                                         $partes = [$contenido];
                                     }
 
                                     $columnas[] = $partes;
                                     $maxFilas = max($maxFilas, count($partes));
+                                    $titulos = isset($tipo["titulos_filas"]) ? @unserialize($tipo["titulos_filas"]) : [];
+                                    $titulos_columnas[] = $titulos;
                                 }
 
 // 2. Transponer columnas en filas internas
@@ -204,22 +208,26 @@
                                 <!-- Renderizar una tabla anidada para mPDF -->
                                 <td colspan="<?= count($tipos_componentes_evidencia) ?>" style="padding: 0;">
                                     <table style="border: 0;">
-                                        <?php foreach ($filaInterna as $fila): ?>
+                                        <?php foreach ($filaInterna as $rowIndex => $fila): ?>
                                             <?php
                                             // Verificamos si alguna celda tiene contenido real
                                             $tieneContenido = false;
                                             foreach ($fila as $celda) {
-                                                if (trim(strip_tags($celda)) != '') {
+                                                if (trim(strip_tags($celda)) !== '') {
                                                     $tieneContenido = true;
                                                     break;
                                                 }
                                             }
                                             ?>
-                                            <tr style="width:<?= $width ?>px; max-width:<?= $width ?>px; ">
-                                                <?php
-
-                                                foreach ($fila as $celda): ?>
-                                                    <td style="<?= (strlen($celda) > 5 && strlen($celda) < 300 && count($filaInterna) < 2) ? 'height: 220px;' : '' ?> font-size: 11px; <?= trim(strip_tags($celda)) != '' ? 'border-top: 1px solid #000;' : 'border: 0;' ?>  vertical-align: top; width:<?= $width ?>px; max-width:<?= $width ?>px; border-right: 1px solid #000; border-left: 0; border-bottom: 0;">
+                                            <tr style="width:<?= $width ?>px; max-width:<?= $width ?>px;">
+                                                <?php foreach ($fila as $colIndex => $celda): ?>
+                                                    <?php
+                                                    $titulo = isset($titulos_columnas[$colIndex][$rowIndex]) ? $titulos_columnas[$colIndex][$rowIndex] : '';
+                                                    ?>
+                                                    <td style="<?= (strlen($celda) > 5 && strlen($celda) < 300 && count($filaInterna) < 2) ? 'height: 220px;' : '' ?> font-size: 11px; <?= trim(strip_tags($celda)) !== '' ? 'border-top: 1px solid #000;' : 'border: 0;' ?> vertical-align: top; width:<?= $width ?>px; max-width:<?= $width ?>px; border-right: 1px solid #000; border-left: 0; border-bottom: 0;">
+                                                        <?php if ($titulo): ?>
+                                                            <b><?= htmlspecialchars($titulo) ?>:</b><br>
+                                                        <?php endif; ?>
                                                         <?= $celda ?>
                                                     </td>
                                                 <?php endforeach; ?>

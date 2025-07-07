@@ -301,7 +301,7 @@
                                                             <th>Semanas</th>
                                                             <?php if (!empty($tipos_componentes_evidencia)): ?>
                                                                 <?php foreach ($tipos_componentes_evidencia as $tipo): ?>
-                                                                    <th><?= $tipo["nombre"] ?></th>
+                                                                    <th style="min-width: 200px; max-width: 200px;"><?= $tipo["nombre"] ?></th>
                                                                 <?php endforeach; ?>
                                                             <?php endif; ?>
                                                             <th style="width:130px;">Seguimiento y evaluación</th>
@@ -387,7 +387,7 @@
                                                                                 <div style="display: flex; margin: -9px -9px -9px -8px;">
                                                                                     <?php
                                                                                     foreach ($fila as $celda): ?>
-                                                                                        <div style="<?= (strlen($celda) > 5 && strlen($celda) < 300 && count($filaInterna) < 2) ? 'height: 260px;' : '' ?> <?= trim(strip_tags($celda)) !== '' ? 'border-top: 1px solid #ccc;' : '' ?> flex: 1; padding: 8px 8px 15px 8px; font-size: 11px; border-right: 1px solid #e0e0e0;">
+                                                                                        <div style="<?= (strlen($celda) > 5 && strlen($celda) < 300 && count($filaInterna) < 2) ? 'height: 260px;' : '' ?> <?= trim(strip_tags($celda)) !== '' ? 'border-top: 1px solid #ccc;' : '' ?> min-width: 200px; max-width: 200px; flex: 1; padding: 8px 8px 15px 8px; font-size: 11px; border-right: 1px solid #e0e0e0;">
                                                                                             <?= $celda ?>
                                                                                         </div>
                                                                                     <?php endforeach; ?>
