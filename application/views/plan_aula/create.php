@@ -349,6 +349,7 @@
 // 1. Preprocesar los contenidos por tipo
                                                                         $columnas = [];
                                                                         $maxFilas = 0;
+                                                                        $titulos_columnas = [];
 
                                                                         foreach ($tipos_componentes_evidencia as $tipo) {
                                                                             $contenido = '';
@@ -361,13 +362,16 @@
 
                                                                             if (strpos($contenido, '&-separator-$') !== false) {
                                                                                 $partes = explode('&-separator-$', $contenido);
-                                                                                array_pop($partes);
+                                                                                array_pop($partes); // eliminar el separador final vacío
                                                                             } else {
                                                                                 $partes = [$contenido];
                                                                             }
 
                                                                             $columnas[] = $partes;
                                                                             $maxFilas = max($maxFilas, count($partes));
+
+                                                                            $titulos = isset($tipo["titulos_filas"]) ? @unserialize($tipo["titulos_filas"]) : [];
+                                                                            $titulos_columnas[] = $titulos;
                                                                         }
 
 // 2. Transponer columnas en filas internas
@@ -383,11 +387,16 @@
 
                                                                         <!-- Renderizar cada fila interna con flex -->
                                                                         <td colspan="<?= count($tipos_componentes_evidencia) ?>">
-                                                                            <?php foreach ($filaInterna as $fila): ?>
+                                                                            <?php foreach ($filaInterna as $rowIndex => $fila): ?>
                                                                                 <div style="display: flex; margin: -9px -9px -9px -8px;">
-                                                                                    <?php
-                                                                                    foreach ($fila as $celda): ?>
+                                                                                    <?php foreach ($fila as $colIndex => $celda): ?>
+                                                                                        <?php
+                                                                                        $titulo = isset($titulos_columnas[$colIndex][$rowIndex]) ? $titulos_columnas[$colIndex][$rowIndex] : '';
+                                                                                        ?>
                                                                                         <div style="<?= (strlen($celda) > 5 && strlen($celda) < 300 && count($filaInterna) < 2) ? 'height: 260px;' : '' ?> <?= trim(strip_tags($celda)) !== '' ? 'border-top: 1px solid #ccc;' : '' ?> min-width: 200px; max-width: 200px; flex: 1; padding: 8px 8px 15px 8px; font-size: 11px; border-right: 1px solid #e0e0e0;">
+                                                                                            <?php if ($titulo): ?>
+                                                                                                <b><?= htmlspecialchars($titulo) ?>:</b><br>
+                                                                                            <?php endif; ?>
                                                                                             <?= $celda ?>
                                                                                         </div>
                                                                                     <?php endforeach; ?>

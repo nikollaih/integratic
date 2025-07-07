@@ -116,7 +116,7 @@
                     }
                     ?>
                     <th>
-                        <b class="item-title">SEGUIMIENTO</b>
+                        <b class="item-title">SEGUIMIENTO Y EVALUACIÓN</b>
                     </th>
                 </tr>
                 </thead>
