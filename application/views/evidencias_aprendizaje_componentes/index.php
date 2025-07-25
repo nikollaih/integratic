@@ -30,7 +30,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                if(isset($componentes)){
+                                if(isset($componentes) && is_array($componentes)){
                                     foreach ($componentes as $componente) {
                                         ?>
                                         <tr id="estudiante-<?= $componente["id_tipo_componente"] ?>">

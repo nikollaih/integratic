@@ -103,7 +103,7 @@
             <table>
                 <thead>
                 <tr>
-                    <th>
+                    <th class="text-center">
                         <b class="item-title">SEMANA</b>
                     </th>
                     <?php
@@ -111,11 +111,11 @@
                     if($tipos_componentes_evidencia){
                         foreach ($tipos_componentes_evidencia as $tipo) {
                             $width = 1200 / count($tipos_componentes_evidencia);
-                            echo '<th style="width: '.$width.'px;"><b class="item-title">'.strtoupper($tipo["nombre"]).'</b></th>';
+                            echo '<th style="width: '.$width.'px; text-align: center;"><b class="item-title">'.strtoupper($tipo["nombre"]).'</b></th>';
                         }
                     }
                     ?>
-                    <th>
+                    <th class="text-center">
                         <b class="item-title">SEGUIMIENTO Y EVALUACIÓN</b>
                     </th>
                 </tr>
