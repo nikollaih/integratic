@@ -83,6 +83,6 @@ class Recuperacion_Model extends CI_Model
 
     public function delete($id) {
         $this->db->where("id_recuperacion", $id);
-        $this->db->delete($this->table);
+        return $this->db->delete($this->table);
     }
 }

@@ -11,6 +11,11 @@ $( document ).ready(function() {
         deleteRecuperacionFK(idRecuperacion, idPrueba, "prueba")
     });
 
+    $(document).on("click", ".remove-recuperacion", function() {
+        let idRecuperacion = $(this).attr("data-id");
+        deleteRecuperacion(idRecuperacion)
+    });
+
     $(document).on("click", ".delete-recuperacion-estudiante", function() {
         let idEstudiante = $(this).attr("data-estudiante");
         let idRecuperacion = $(this).attr("data-recuperacion");
@@ -23,7 +28,7 @@ $( document ).ready(function() {
 });
 
 function deleteRecuperacionFK (idRecuperacion, idFK, type = "actividad") {
-    if (confirm(`¿Está seguro que desea eliminar la ${type} de la recuperación?`) === true) {
+    if (confirm(`¿Está seguro que desea eliminar la ${type} de la nivelación?`) === true) {
         $("#background-loading").css("display", "flex");
         $.ajax({
             url: base_url + "Recuperaciones/delete",
@@ -33,6 +38,32 @@ function deleteRecuperacionFK (idRecuperacion, idFK, type = "actividad") {
                 id_recuperacion: idRecuperacion,
                 id_fk: idFK
             },
+            success: function(data) {
+                const result = JSON.parse(data);
+                if (result.status) {
+                    alert(result.message);
+                    location.reload();
+                }
+                else {
+                    $("#background-loading").css("display", "none");
+                    alert(result.message);
+                }
+            },
+            error: function() {
+                $("#background-loading").css("display", "none");
+                alert("Error!")
+            }
+        });
+    }
+}
+
+function deleteRecuperacion (idRecuperacion) {
+    if (confirm(`¿Está seguro que desea eliminar la nivelación?`) === true) {
+        $("#background-loading").css("display", "flex");
+        $.ajax({
+            url: base_url + "Recuperaciones/remove/" + idRecuperacion,
+            type: 'POST',
+            data: {},
             success: function(data) {
                 const result = JSON.parse(data);
                 if (result.status) {

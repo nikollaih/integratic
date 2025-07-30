@@ -463,5 +463,10 @@ function set_actividad(actividad = null, is_repo = false){
             editorRichActividades.setContents(actividad.descripcion);
         }
     }
+    else {
+        $("#actividad-form")[0].reset();
+        editorRichActividades.setContents("");
+        $("#nueva-actividad-actividad").val("");
+    }
     jQuery("#agregar-nueva-actividad").modal("show");
 }

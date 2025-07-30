@@ -373,6 +373,32 @@ class Recuperaciones extends CI_Controller
         else json_response(null, false, "Inicie sessión para continuar");
     }
 
+    function remove($idRecuperacion){
+        if(is_logged()) {
+            // Verifica que no sea un estudiante quien hace la petición
+            if(strtolower(logged_user()["rol"]) !== "estudiante"){
+                $data = $this->input->post();
+                $existsRecuperacion = $this->Recuperacion_Model->find($idRecuperacion);
+                if($existsRecuperacion) {
+                    $deleted = $this->Recuperacion_Model->delete($idRecuperacion);
+
+                    // Verifica que el registro haya sido eliminado
+                    if($deleted) {
+                        json_response($data, true, "Nivelación eliminada exitosamente");
+                    }
+                    else {
+                        json_response(null, false, "No se pudo eliminar el registro");
+                    }
+                }
+                else {
+                    json_response(null, false, "No se pudo encontrar la nivelación");
+                }
+            }
+            else json_response(null, false, "No tiene permisos para realizar esta acción");
+        }
+        else json_response(null, false, "Inicie sessión para continuar");
+    }
+
     function estudiante($documento, $idRecuperacion) {
         if(is_logged()) {
             if($this->input->post()){

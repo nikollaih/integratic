@@ -76,7 +76,7 @@
                                                     <?php
                                                     if(strtolower(logged_user()["rol"]) === "docente"){ ?>
                                                         <a href="<?= base_url() ?>Recuperaciones/edit/<?= $recuperacion["id_recuperacion"] ?>" class="btn btn-warning btn-sm">Modificar</a>
-                                                        <button data-id="<?= $recuperacion["id_recuperacion"] ?>" class="btn btn-danger btn-sm remove-plan-aula">Eliminar</button>
+                                                        <button data-id="<?= $recuperacion["id_recuperacion"] ?>" class="btn btn-danger btn-sm remove-recuperacion">Eliminar</button>
                                                     <?php }
                                                     ?>
                                                 </td>
