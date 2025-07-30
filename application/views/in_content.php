@@ -3223,7 +3223,7 @@ function lista_asg(){
  var id=document.getElementById("docentes").value;
  $("#lista_asignadas").html('');
         $.ajax({
-               url:'<?=site_url();?>/docente/asignadoc/'+id,
+               url:'<?=site_url();?>docente/asignadoc/'+id + '/false',
                type:'POST',
                success:function(respuesta){
                     let registros = JSON.parse(respuesta);

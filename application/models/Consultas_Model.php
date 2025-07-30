@@ -99,9 +99,9 @@ class Consultas_Model extends CI_Model {
         return $query->result_array();
     }
 
-    public function asignadoc($id, $diff = false)
+    public function asignadoc($id, $diff = true)
     {
-        $groupBy = $diff ? "GROUP BY codarea" : "";
+        $groupBy = ($diff === true || $diff === 'true') ? "GROUP BY codarea" : "";
 
         $sql = "SELECT codarea, codmateria, nomarea, nommateria, grado, grupo
             FROM asg_materias, cfg_materias, cfg_areas 
