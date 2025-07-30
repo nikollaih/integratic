@@ -8,7 +8,7 @@
                 <div class="row" id="migas">
                     <div class="col-md-12">
                         <h3>Nivelaciones</h3>
-                        <p>A continuación, se muestra la lista de nivelaciones creadas por el docente.</p>
+                        <p>A continuaci&oacute;n, se muestra la lista de nivelaciones creadas por el docente.</p>
                         <hr>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
                     if(strtolower(logged_user()["rol"]) === "docente"){ ?>
                         <div class="row">
                             <div class="col-md-12 text-right m-b-10">
-                                <a href="<?= base_url() ?>Recuperaciones/create" class="btn btn-primary">Crear nivelación</a>
+                                <a href="<?= base_url() ?>Recuperaciones/create" class="btn btn-primary">Crear nivelaci&oacute;n</a>
                             </div>
                         </div>
                     <?php }
