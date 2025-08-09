@@ -139,6 +139,35 @@ $("#form-create-piar-3").on('submit', function(e) {
     this.submit();
 });
 
+$(".btn-delete-piar").on("click", function(){
+    const piarId = $(this).attr("data-id");
+    if(piarId){
+        if (confirm("¿Está seguro que desea eliminar el P.I.A.R.?") === true) {
+            $("#background-loading").css("display", "flex");
+            const url = base_url + "PIAR/delete";
+            console.log(url)
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    id_piar: piarId,
+                },
+                success: function(data) {
+                    const response = JSON.parse(data);
+                    if (response.status) {
+                        location.reload();
+                    }
+                    $("#background-loading").css("display", "none");
+                },
+                error: function() {
+                    $("#background-loading").css("display", "none");
+                    alert("Error!");
+                }
+            });
+        }
+    }
+})
+
 $(".btn-delete-piar-item").on("click", function(){
     const piarItemId = $(this).attr("data-id");
     if(piarItemId){

@@ -88,4 +88,9 @@ class PIAR_Model extends CI_Model
 
         return (!empty($result)) ? $result->row_array() : false;
     }
+
+    public function delete($piarId){
+        $this->db->where($this->piar_table . '.id_piar', $piarId);
+        return $this->db->delete($this->piar_table);
+    }
 }

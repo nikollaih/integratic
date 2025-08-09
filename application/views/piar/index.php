@@ -73,6 +73,7 @@
                                                         echo '<a target="_blank" href="'.base_url().'PIAR/view/'.$e["id_piar"].'/3/Anexo 3" class="btn btn-success btn-sm">Anexo 3</a>';
                                                         if(strtolower(logged_user()["rol"]) === "docente de apoyo" || strtolower(logged_user()["rol"]) === "coordinador"){
                                                             echo '<a target="_blank" href="'.base_url().'PIAR/viewAnnual/'.$e["id_piar"].'/1/Documento PIAR" class="btn btn-success btn-sm">Informe anual</a>';
+                                                            echo '<button data-id="'.$e["id_piar"].'" class="btn btn-sm btn-danger btn-delete-piar">Eliminar</button>';
                                                         }
                                                         if(strtolower(logged_user()["rol"]) === "coordinador"){
                                                             ?>

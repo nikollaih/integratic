@@ -375,6 +375,23 @@ class PIAR extends CI_Controller
         }
     }
 
+    public function delete(){
+        if(is_logged()){
+            if($this->hasPermission()){
+                $data = $this->input->post();
+                if($data){
+                    $deleted = $this->PIAR_Model->delete($data["id_piar"]);
+                    if($deleted){
+                        json_response(null, true, "P.I.A.R. eliminado exitosamente");
+                    }
+                    else {
+                        json_response(null, false, "Ha ocurrido un error, intente de nuevo más tarde");
+                    }
+                }
+            }
+        }
+    }
+
     public function addComments(){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) === "coordinador"){
