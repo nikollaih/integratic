@@ -128,10 +128,10 @@ Class EvidenciasAprendizaje extends CI_Controller
         header("Location: ".base_url()."PlanAula/create/".$evidencia["id_plan_area"]);
     }
 
-    function uncompleted(){
+    function uncompleted($PlanAulaId = null){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "docente"){
-                $evidencias = $this->EvidenciasAprendizaje_Model->uncompleted();
+                $evidencias = $this->EvidenciasAprendizaje_Model->uncompleted($PlanAulaId);
                 if($evidencias) json_response($evidencias, true, "Evidencias de aprendizaje incompletas");
                 else json_response(array("error" => "404"), false, "No se han encontrado evidencias de aprendizaje");
             }

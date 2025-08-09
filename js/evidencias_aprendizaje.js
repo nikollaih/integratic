@@ -44,7 +44,7 @@ jQuery(document).ready(function() {
     function getUncompletedEvidencias(idPlanAula) {
         $("#background-loading").css("display", "flex");
         $.ajax({
-            url: base_url + "EvidenciasAprendizaje/uncompleted",
+            url: base_url + "EvidenciasAprendizaje/uncompleted/" + idPlanAula,
             success: function(response) {
                 let data = JSON.parse(response);
                 let object = data.object;

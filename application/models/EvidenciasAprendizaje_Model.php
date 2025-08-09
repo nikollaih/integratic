@@ -47,10 +47,27 @@ class EvidenciasAprendizaje_Model extends CI_Model {
     }
 
 
-    function uncompleted(){
-        $this->db->from("evidencias_aprendizaje ea");
-        $this->db->where("ea.is_completo", 0);
-        $result = $this->db->get();
+    function uncompleted($PlanAulaId = null){
+        $planAula = false;
+
+        if ($PlanAulaId !== null) {
+            $query = $this->db->from("plan_areas")
+                ->where("id_plan_area", $PlanAulaId)
+                ->get(); // primera consulta cerrada
+
+            $planAula = ($query->num_rows() > 0) ? $query->row_array() : false;
+        }
+
+        // Segunda consulta
+        $this->db->from("evidencias_aprendizaje ea")
+            ->where("ea.is_completo", 0);
+
+        if ($planAula) {
+            $this->db->join("plan_areas pa", "ea.id_plan_area = pa.id_plan_area")
+                ->where("pa.materia", $planAula["materia"]);
+        }
+
+        $result = $this->db->get(); // segunda consulta cerrada
         return ($result->num_rows() > 0) ? $result->result_array() : false;
     }
 
