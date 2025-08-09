@@ -12,15 +12,16 @@
                             <?php
                             $observaciones_dbas = "";
                             if ($item_piar) {
+                                $selectedDBAS = [];
                                 if (strpos($item_piar["objetivos"], 'a:2:') === 0) {
                                     $objetivos = unserialize($item_piar["objetivos"]);
                                     $selectedDBAS = $objetivos['dbas'] ?? [];
                                     $observaciones_dbas = $objetivos['observaciones']?? "";
-                                    if (is_array($item_piar["dbas"])) {
-                                        foreach ($item_piar["dbas"] as $dba) {
-                                            $selected = in_array($dba["id_dba"], $selectedDBAS) ? 'selected' : '';
-                                            echo "<option value=\"{$dba["id_dba"]}\" $selected>{$dba["descripcion_dba"]}</option>";
-                                        }
+                                }
+                                if (is_array($item_piar["dbas"])) {
+                                    foreach ($item_piar["dbas"] as $dba) {
+                                        $selected = in_array($dba["id_dba"], $selectedDBAS) ? 'selected' : '';
+                                        echo "<option value=\"{$dba["id_dba"]}\" $selected>{$dba["descripcion_dba"]}</option>";
                                     }
                                 }
                             }
