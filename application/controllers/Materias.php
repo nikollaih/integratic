@@ -21,7 +21,13 @@
     public function getMateriasArea($id_area){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) != "estudiante"){
-                $materias = $this->Materias_Model->getMateriasArea($id_area);
+                if(strtolower(logged_user()["rol"]) != "docente"){
+                    $materias = $this->Materias_Model->getMateriasArea($id_area);
+                }
+                else {
+                    $materias = $this->Materias_Model->getMateriasAreaDocente($id_area, logged_user()["id"]);
+                }
+
                 json_response($materias, true, "Lista de items.");
             }
             else json_response(null, false, "No tiene permiso para realizar esta acción.");

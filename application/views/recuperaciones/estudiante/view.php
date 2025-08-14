@@ -10,7 +10,7 @@
                 <div class="row" id="migas">
                     <div class="col-md-12">
                         <h3><?= $recuperacion["nombre"].' - '.$recuperacion["grado"] ?></h3>
-                        <p><strong>Nota global: </strong> <?= $notas["ponderado"] ?></p>
+                        <h3><strong>Nota global: </strong> <?= $notas["ponderado"] ?></h3>
                         <hr>
                     </div>
                 </div>

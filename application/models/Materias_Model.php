@@ -46,6 +46,18 @@ class Materias_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+    function getMateriasAreaDocente($area, $id_docente){
+        $this->db->from("cfg_materias cm");
+        $this->db->join("asg_materias am", "cm.codmateria = am.materia");
+        $this->db->where("cm.area", $area);
+        $this->db->where("am.docente", $id_docente);
+        $this->db->order_by("cm.nommateria", "asc");
+        $this->db->group_by("am.materia");
+        $result = $this->db->get();
+
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
 	function getMateriasDocente($id_docente, $ids = false, $group_by = true){
 		if($ids){
 			$this->db->select("am.materia");

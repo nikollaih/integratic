@@ -18,7 +18,9 @@ class PlanAreas_Model extends CI_Model {
     }
 
     function find($idPlanArea){
-        $this->db->from("plan_areas");
+        $this->db->select("pa.*, p.periodo, p.id_periodo");
+        $this->db->from("plan_areas pa");
+        $this->db->join("periodos p", "p.id_periodo = pa.periodo");
         $this->db->where("id_plan_area", $idPlanArea);
         $result = $this->db->get();
         return ($result->num_rows() > 0) ? $result->row_array() : false;
