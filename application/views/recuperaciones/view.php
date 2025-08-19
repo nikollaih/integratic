@@ -125,7 +125,7 @@
                                         </table>
                                         <?php
                                             if($totalPercent < 100 || $totalPercent > 100){ ?>
-                                                <h5 class="text-danger m-b-15">El porcentaje total de la recuperación debería ser de 100%, actualmente es de <?= $totalPercent ?>%</h5>
+                                                <h5 class="text-danger m-b-15">El porcentaje total de la nivelación debería ser de 100%, actualmente es de <?= $totalPercent ?>%</h5>
                                             <?php }
                                         ?>
                                         <?php
