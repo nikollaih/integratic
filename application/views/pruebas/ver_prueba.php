@@ -22,7 +22,9 @@
                                                     <div class="d-flex">
                                                         <?php
                                                         if(strtolower(logged_user()["rol"]) === "docente"){ ?>
-                                                            <!--<a href="<?= base_url() ?>Pruebas/cuadernillo/<?= $prueba["id_prueba"] ?>" class="btn btn-secondary">Cuadernillo</a>-->
+                                                            <a target="_blank" href="<?= base_url() ?>Pruebas/cuadernillo/<?= $prueba["id_prueba"] ?>" class="btn btn-secondary">Cuadernillo</a>
+                                                            <a target="_blank" href="<?= base_url() ?>Pruebas/cuadernilloRespuestas/<?= $prueba["id_prueba"] ?>/0" class="btn btn-secondary">Cuadernillo respuestas</a>
+                                                            <a target="_blank" href="<?= base_url() ?>Pruebas/cuadernilloRespuestas/<?= $prueba["id_prueba"] ?>" class="btn btn-secondary">Cuadernillo soluci&oacute;n</a>
                                                             <a href="<?= base_url() ?>Pruebas/asignarPreguntas/<?= $prueba["id_prueba"] ?>" class="btn btn-info m-l-1">Configurar preguntas</a>
                                                             <a href="<?= base_url() ?>Pruebas/crearPrueba/<?= $prueba["id_prueba"] ?>" class="btn btn-warning m-l-1">Modificar</a>
                                                         <?php }

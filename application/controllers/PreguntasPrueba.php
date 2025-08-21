@@ -1,6 +1,15 @@
 <?php
   
-   class PreguntasPrueba extends CI_Controller {
+   /**
+    * @property $Respuestas_Preguntas_Model
+    * @property $Materias_Model
+    * @property $Preguntas_Model
+    * @property $Consultas_Model
+    * @property $load
+    * @property $input
+    * @property $Temas_Model
+    */
+class PreguntasPrueba extends CI_Controller {
 	
     public function __construct() { 
        parent::__construct(); 

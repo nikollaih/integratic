@@ -1,12 +1,12 @@
 <?php
-$opcionesRespuesta = ["A", "B", "C", "D", "E", "F", "G", "H"];
+$opcionesRespuesta = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q"];
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Cuadernillo de Prueba SABER</title>
+    <title>Cuadernillo de preguntas</title>
     <style>
         body {
             font-family: 'Elegance', sans-serif, Arial !important;
@@ -73,11 +73,12 @@ $opcionesRespuesta = ["A", "B", "C", "D", "E", "F", "G", "H"];
 </head>
 <body>
 
-<h1>Cuadernillo de Evaluación</h1>
-<h2>Prueba Tipo SABER</h2>
+<h1>Cuadernillo de evaluación</h1>
+<h2><?= $prueba["nombre_prueba"] ?></h2>
 
 <div class="instrucciones">
     <p><strong>Instrucciones:</strong> Lea cada pregunta con atención. Escoja la opción correcta entre las alternativas A, B, C, D (o más si aplica). Algunas preguntas pueden tener una imagen asociada.</p>
+    <p><?= $prueba["descripcion_prueba"] ?></p>
 </div>
 
 <?php
@@ -97,7 +98,7 @@ if($preguntas){
             if($p["respuestas"]){
                 for ($i = 0; $i < count($p["respuestas"]); $i++) {
                     ?>
-                    <span class="opcion"><?= $opcionesRespuesta[$i] ?>. <?= $p["respuestas"][$i]["descripcion_respuesta"] ?></span>
+                    <span class="opcion"><strong><?= $opcionesRespuesta[$i] ?>.</strong> <?= $p["respuestas"][$i]["descripcion_respuesta"] ?></span>
                     <br>
                     <?php if($p["respuestas"][$i]["archivo_respuesta"]): ?>
                         <img width="200px" src="<?= base_url() ?>uploads/respuestas/<?= $p["respuestas"][$i]["archivo_respuesta"] ?>" alt="Imagen de la respuesta">

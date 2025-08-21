@@ -3,6 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * @property $Participantes_Prueba_Model
+ * @property $Estudiante_Model
+ * @property $load
+ * @property $input
+ * @property $Usuarios_Model
  */
 class Estudiante extends CI_Controller {
 

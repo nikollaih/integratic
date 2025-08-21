@@ -20,6 +20,7 @@ use Mpdf\Mpdf;
  * @property $Asignacion_Preguntas_Prueba_Model
  * @property $output
  * @property $Respuestas_Preguntas_Model
+ * @property $session
  */
 class Pruebas extends CI_Controller {
 
@@ -473,26 +474,72 @@ class Pruebas extends CI_Controller {
         else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }
 
+    // Método principal que genera los datos con shuffle
+    private function prepararDatosCuadernillo($idPrueba) {
+        $params["prueba"] = $this->Pruebas_Model->get($idPrueba);
+        $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($idPrueba);
+
+        if($params["preguntas"]){
+            // Primero obtenemos todas las respuestas
+            for ($i = 0; $i < count($params["preguntas"]); $i++) {
+                $params["preguntas"][$i]["respuestas"] = $this->Respuestas_Preguntas_Model->get_all($params["preguntas"][$i]["id_pregunta"]);
+
+                // Hacer shuffle a las respuestas de cada pregunta
+                if(!empty($params["preguntas"][$i]["respuestas"])) {
+                    shuffle($params["preguntas"][$i]["respuestas"]);
+                }
+            }
+
+            // Hacer shuffle a las preguntas
+            shuffle($params["preguntas"]);
+        }
+
+        return $params;
+    }
+
+    // Método para generar cuadernillo de preguntas
     function cuadernillo($idPrueba){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "docente"){
 
-                $params["preguntas"] = $this->Preguntas_Model->get_preguntas_prueba($idPrueba);
+                $params = $this->prepararDatosCuadernillo($idPrueba);
 
-                if($params["preguntas"]){
-                    for ($i = 0; $i < count($params["preguntas"]); $i++) {
-                        $params["preguntas"][$i]["respuestas"] = $this->Respuestas_Preguntas_Model->get_all($params["preguntas"][$i]["id_pregunta"]);
-                    }
-                }
-
+                // Guardar los datos en sesión para compartir con el método de respuestas
+                $this->session->set_userdata('cuadernillo_data_' . $idPrueba, $params);
 
                 $this->load->view("pruebas/cuadernillo/preguntas", $params);
 
-                // Cargar HTML en dompdf (puedes cargar tu vista aquí)
                 $html = $this->output->get_output();
-
                 $this->mpdf->WriteHTML($html);
-                $this->mpdf->Output('documento.pdf', 'I');
+                $this->mpdf->Output('cuadernillo_preguntas.pdf', 'I');
+            }
+        }
+    }
+
+    // Método para generar cuadernillo de respuestas
+    function cuadernilloRespuestas($idPrueba, $mostrarRespuestas = 1){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) == "docente"){
+
+                // Intentar obtener los datos de la sesión primero
+                $params = $this->session->userdata('cuadernillo_data_' . $idPrueba);
+
+                // Si no existen en sesión, generarlos nuevamente
+                if(!$params) {
+                    echo "Primero debe generar el cuadernillo";
+                    die();
+                }
+
+                $params["mostrarRespuestas"] = $mostrarRespuestas;
+
+                $this->load->view("pruebas/cuadernillo/respuestas", $params);
+
+                $html = $this->output->get_output();
+                $this->mpdf->WriteHTML($html);
+                $this->mpdf->Output('cuadernillo_respuestas.pdf', 'I');
+
+                // Limpiar los datos de la sesión después de usar
+                $this->session->unset_userdata('cuadernillo_data_' . $idPrueba);
             }
         }
     }
