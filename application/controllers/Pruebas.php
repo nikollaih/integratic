@@ -537,9 +537,6 @@ class Pruebas extends CI_Controller {
                 $html = $this->output->get_output();
                 $this->mpdf->WriteHTML($html);
                 $this->mpdf->Output('cuadernillo_respuestas.pdf', 'I');
-
-                // Limpiar los datos de la sesión después de usar
-                $this->session->unset_userdata('cuadernillo_data_' . $idPrueba);
             }
         }
     }
