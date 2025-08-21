@@ -31,7 +31,7 @@ class Pruebas extends CI_Controller {
 
         $this->mpdf = new Mpdf([
             'mode' => 'utf-8',
-            'format' => 'A4', // A4 landscape orientation
+            'format' => 'A4',
             'margin_left' => 5,
             'margin_right' => 5,
             'margin_top' => 5,

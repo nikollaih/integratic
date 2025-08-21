@@ -77,7 +77,7 @@ $opcionesRespuesta = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"
 <h2><?= $prueba["nombre_prueba"] ?></h2>
 
 <div class="instrucciones">
-    <p><strong>Instrucciones:</strong> Lea cada pregunta con atención. Escoja la opción correcta entre las alternativas A, B, C, D (o más si aplica). Algunas preguntas pueden tener una imagen asociada.</p>
+    <p><strong>Instrucciones:</strong> Lea cada pregunta con atenci&oacute;n. Escoja la opci&oacute;n correcta entre las alternativas A, B, C, D (o m&aacute;s si aplica). Algunas preguntas pueden tener una imagen asociada.</p>
     <p><?= $prueba["descripcion_prueba"] ?></p>
 </div>
 

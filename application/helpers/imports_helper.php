@@ -77,6 +77,7 @@ function importar_estudiantes($FILES){
                     if(trim($estudiante[2]) != "" && trim($estudiante[4]) != "" && trim($estudiante[1]) != ""){
                         $nuevo_estudiante["documento"] = $estudiante[2];
                         $nuevo_estudiante["nombre"] = $estudiante[1];
+                        $nuevo_estudiante["email_acudiente"] = $estudiante[3];
                         $nuevo_estudiante["grado"] = $estudiante[4];
                         $nuevo_estudiante["email"] = $estudiante[5];
                         $nuevo_estudiante["nee"] = $estudiante[6];
