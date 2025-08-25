@@ -36,7 +36,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="lugar_nacimiento">Lugar de nacimiento</label>
-                        <input class="form-control" type="text" name="lugar_nacimiento" id="lugar_nacimiento" value="<?= isset($estudiante["lugar_nacimiento"]) ?? '' ?>">
+                        <input class="form-control" type="text" name="lugar_nacimiento" id="lugar_nacimiento" value="<?= $estudiante["lugar_nacimiento"] ?? '' ?>">
                     </div>
                 </div>
                 <div class="col-md-4">

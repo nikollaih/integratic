@@ -93,19 +93,6 @@ $("#form-piar-observaciones-coordinador").on('submit', function(e) {
     jQuery("#piar-observaciones-coordinador").val(descripcion);
 });
 
-$("#form-create-piar").on('submit', function(e) {
-   e.preventDefault();
-
-    let domElement = jQuery("#richtext-descripcion-que-hace");
-    let descripcionQueHace = "";
-    if(domElement.length) {
-        descripcionQueHace = editorDescripcionQueHace.getContents();
-        domElement.html(descripcionQueHace)
-    }
-
-    this.submit();
-});
-
 $("#form-create-piar-2").on('submit', function(e) {
     e.preventDefault();
 
@@ -121,6 +108,13 @@ $("#form-create-piar-2").on('submit', function(e) {
     if(domElement.length) {
         descripcionGeneral = editorDescripcionGeneral.getContents();
         domElement.html(descripcionGeneral)
+    }
+
+     domElement = jQuery("#richtext-descripcion-que-hace");
+    let descripcionQueHace = "";
+    if(domElement.length) {
+        descripcionQueHace = editorDescripcionQueHace.getContents();
+        domElement.html(descripcionQueHace)
     }
 
     this.submit();
