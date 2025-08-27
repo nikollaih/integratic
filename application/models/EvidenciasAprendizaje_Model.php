@@ -47,29 +47,90 @@ class EvidenciasAprendizaje_Model extends CI_Model {
     }
 
 
-    function uncompleted($PlanAulaId = null){
+    public function uncompleted($PlanAulaId = null)
+    {
+        // 1) Si llega PlanAulaId, obtenemos la materia del plan
         $planAula = false;
-
         if ($PlanAulaId !== null) {
-            $query = $this->db->from("plan_areas")
-                ->where("id_plan_area", $PlanAulaId)
-                ->get(); // primera consulta cerrada
-
-            $planAula = ($query->num_rows() > 0) ? $query->row_array() : false;
+            $q = $this->db->from('plan_areas')
+                ->where('id_plan_area', $PlanAulaId)
+                ->get();
+            $planAula = ($q->num_rows() > 0) ? $q->row_array() : false;
         }
 
-        // Segunda consulta
-        $this->db->from("evidencias_aprendizaje ea")
-            ->where("ea.is_completo", 0);
+        // 2) Construimos el SELECT dinámico para los componentes (ec.* AS comp_*)
+        $componentFields = $this->db->list_fields('evidencia_componentes'); // <- dinámico
+        $select = ['ea.*', 'pa.materia'];
+        foreach ($componentFields as $f) {
+            $select[] = "ec.$f AS comp_$f";
+        }
+
+        $this->db->select($select);
+        $this->db->from('evidencias_aprendizaje ea');
+        $this->db->join(
+            'evidencia_componentes ec',
+            'ec.id_evidencia_aprendizaje = ea.id_evidencia_aprendizaje',
+            'left'
+        );
 
         if ($planAula) {
-            $this->db->join("plan_areas pa", "ea.id_plan_area = pa.id_plan_area")
-                ->where("pa.materia", $planAula["materia"]);
+            $this->db->join('plan_areas pa', 'ea.id_plan_area = pa.id_plan_area', 'inner');
+            $this->db->where('pa.materia', $planAula['materia']);
+        } else {
+            $this->db->join('plan_areas pa', 'ea.id_plan_area = pa.id_plan_area', 'left');
         }
 
-        $result = $this->db->get(); // segunda consulta cerrada
-        return ($result->num_rows() > 0) ? $result->result_array() : false;
+        $this->db->where('ea.is_completo', 0);
+        $this->db->order_by('ea.id_evidencia_aprendizaje', 'desc'); // quitamos orden por ec.id (puede no existir)
+
+        $result = $this->db->get();
+        if ($result->num_rows() === 0) {
+            return false;
+        }
+
+        $rows = $result->result_array();
+        $byEvidencia = [];
+
+        foreach ($rows as $r) {
+            $evidId = $r['id_evidencia_aprendizaje'];
+
+            // Inicializa la evidencia si no existe aún
+            if (!isset($byEvidencia[$evidId])) {
+                // Copiamos todos los campos de ea.* y pa.materia
+                $evid = $r;
+
+                // Limpiamos del objeto principal todos los comp_* para no contaminar la evidencia
+                foreach ($componentFields as $f) {
+                    unset($evid["comp_$f"]);
+                }
+
+                $evid['componentes'] = [];
+                $byEvidencia[$evidId] = $evid;
+            }
+
+            // ¿Existe un componente en esta fila? (todos comp_* vendrían NULL si no hay match)
+            $hasComponent = false;
+            foreach ($componentFields as $f) {
+                if ($r["comp_$f"] !== null) {
+                    $hasComponent = true;
+                    break;
+                }
+            }
+
+            if ($hasComponent) {
+                // Reconstruimos el componente con sus nombres de campo originales
+                $comp = [];
+                foreach ($componentFields as $f) {
+                    $comp[$f] = $r["comp_$f"];
+                }
+                $byEvidencia[$evidId]['componentes'][] = $comp;
+            }
+        }
+
+        return array_values($byEvidencia);
     }
+
+
 
     // Obtiene la lista de evidencias de aprendizaje basados
     // en los fintros establecidos por el usuario

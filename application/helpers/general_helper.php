@@ -167,14 +167,80 @@
         }
     }
 
-    if(!function_exists('get_years'))
+if (!function_exists('get_years')) {
+    /**
+     * Diferencia en años entre dos fechas (solo años enteros).
+     *
+     * @param string $start_date Fecha inicio en formato Y-m-d (p.ej., "2021-02-05")
+     * @param string $end_date   Fecha fin en formato Y-m-d (p.ej., "2025-08-27")
+     * @param bool   $absolute   true = siempre positivo (por defecto), false = respeta el signo
+     * @return int               Años de diferencia (enteros)
+     *
+     * @throws InvalidArgumentException Si el formato/fecha es inválido o los parámetros no son string.
+     */
+    function get_years($start_date, $end_date, $absolute = true)
     {
-        function get_years($start_date, $end_date) {
-
-            $start = new DateTime($start_date !== "No completo" ?: date("Y-m-d"));
-            $end = new DateTime($end_date);
-            $diff = $start->diff($end);
-            return $diff->y;
+        // 1) Tipo y vacío
+        if (!is_string($start_date) || !is_string($end_date)) {
+            return 0;
         }
+        $start_date = trim($start_date);
+        $end_date   = trim($end_date);
+        if ($start_date === '' || $end_date === '') {
+            return 0;
+        }
+
+        // 2) Parseo estricto con createFromFormat y verificación de errores
+        $start = DateTime::createFromFormat('Y-m-d', $start_date);
+        $startErrors = DateTime::getLastErrors();
+
+        $end = DateTime::createFromFormat('Y-m-d', $end_date);
+        $endErrors = DateTime::getLastErrors();
+
+        // 3) Validar formato exacto (incluye ceros a la izquierda) y fechas reales
+        $isStartValid = $start instanceof DateTime
+            && $startErrors['warning_count'] === 0
+            && $startErrors['error_count'] === 0
+            && $start->format('Y-m-d') === $start_date;
+
+        $isEndValid = $end instanceof DateTime
+            && $endErrors['warning_count'] === 0
+            && $endErrors['error_count'] === 0
+            && $end->format('Y-m-d') === $end_date;
+
+        if (!$isStartValid) {
+            return 0;
+        }
+        if (!$isEndValid) {
+            return 0;
+        }
+
+        // 4) Diferencia en años (enteros)
+        $diff = $start->diff($end);
+        $years = (int) $diff->y;
+
+        // 5) Signo opcional
+        if (!$absolute && $diff->invert === 1) {
+            $years = -$years;
+        }
+
+        return $years;
     }
+}
+
+
+if (!function_exists('tipos_documento')) {
+    function tipos_documento(): array {
+        return [
+            'RC'   => "Registro Civil (RC)",
+            'NIP'  => "Número de Identificación Personal (NIP)",
+            'NUIP' => "Número Único de Identificación Personal (NUIP)",
+            'TI'   => "Tarjeta de Identidad (TI)",
+            'CC'   => "Cédula de Ciudadanía (CC)",
+            'PEP'  => "Permiso Especial de Permanencia (PEP)",
+            'PPT'  => "Permiso por Protección Temporal (PPT)",
+            'Otro' => "Otro",
+        ];
+    }
+}
 ?>

@@ -43,7 +43,7 @@
                                     <td>Grado</td>
                                     <td>P.I.A.R.</td>
                                     <td>Comentarios coordinador</td>
-                                    <td></td>
+                                    <td>Anexos P.I.A.R.</td>
                                 </tr>
                                 </thead>
                                 <tbody>

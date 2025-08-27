@@ -11,15 +11,7 @@
                     <div class="col-md-12">
                         <table id="table-evidencias-aprendizaje-incompletas" class="table table-hover">
                             <thead class="sticky-table-header bg-white">
-                                <tr>
-                                    <th>Evidencia de aprendizaje</th>
-                                    <th>Motivación y exploración saberes previos</th>
-                                    <th>Estructuración y práctica</th>
-                                    <th>Transferencia</th>
-                                    <th>Valoración</th>
-                                    <th>Recursos</th>
-                                    <th style="width: 100px"></th>
-                                </tr>
+
                             </thead>
                             <tbody>
                             </tbody>

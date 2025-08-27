@@ -77,6 +77,21 @@ class EvidenciasAprendizajeComponentes extends CI_Controller
         json_response(null, false, "No se puede realizar esta acción");
     }
 
+    public function getTipos(){
+        if(is_logged()){
+            if(strtolower(logged_user()["rol"]) === "docente") {
+                $componentes = $this->TipoComponenteEvidencia_Model->getAll(true);
+
+                if ($componentes) {
+                    json_response($componentes, true, "Componentes");
+                }
+                json_response(null, false, "No se han encontrado los componentes");
+            }
+            json_response(null, false, "No tiene permisos para obtener estos datos");
+        }
+        json_response(null, false, "No se puede realizar esta acción");
+    }
+
     private function saveComponente($data): array
     {
         $newData["nombre"] = $data["nombre"];
