@@ -184,6 +184,18 @@ class EvidenciasAprendizaje_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
+    function findOne($idEvidenciaAprendizaje){
+        $this->db->from("evidencias_aprendizaje ea");
+        $this->db->where("ea.id_evidencia_aprendizaje", $idEvidenciaAprendizaje);
+        $result = $this->db->get();
+
+        if ($result->num_rows() === 0) {
+            return false;
+        }
+
+        return $result->row_array();
+    }
+
     function find($idEvidenciaAprendizaje){
         // Hacemos el join con la tabla de componentes
         $this->db->from("evidencias_aprendizaje ea");

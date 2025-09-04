@@ -22,6 +22,13 @@ class EvidenciasAprendizajeComponentes_Model extends CI_Model {
         return ($result->num_rows() > 0) ? $result->row_array() : false;
     }
 
+    public function getAllByEvidencia($idEvidenciaAprendizaje) {
+        $this->db->from("evidencia_componentes");
+        $this->db->where("id_evidencia_aprendizaje", $idEvidenciaAprendizaje);
+        $result = $this->db->get();
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
+
     public function getAll() {
         $this->db->from("evidencia_componentes");
         $result = $this->db->get();

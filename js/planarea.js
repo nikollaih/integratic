@@ -1,4 +1,24 @@
 jQuery(document).ready(function() {
+
+    // Obtener el primer header
+    let $headerTable = $(".header-content-component").first();
+
+    if ($headerTable.length) {
+        // Obtener el ancho del header
+        var headerWidth = $headerTable.outerWidth();
+        // Alternativa más precisa:
+        // var headerWidth = $header[0].getBoundingClientRect().width;
+
+        // Aplicar a todos los container
+        $(".container-content-component").css("width", headerWidth + "px");
+    }
+
+    // Si quieres que se actualice al redimensionar la ventana
+    $(window).on("resize", function () {
+        var headerWidth = $headerTable.outerWidth();
+        $(".container-content-component").css("width", headerWidth + "px");
+    });
+
     let tabla_plan_aula = $('#tabla-plan-aula').DataTable({
         order: [],
         "language": {
@@ -513,7 +533,7 @@ jQuery(document).ready(function() {
                 success: function(data) {
                     var data = JSON.parse(data);
                     if (data.status) {
-                        jQuery("#evidencia-aprendizaje-" + idEvidenciaAprendizaje).remove();
+                        window.location.reload();
                     }
                     $("#background-loading").css("display", "none");
                     alert(data.message);

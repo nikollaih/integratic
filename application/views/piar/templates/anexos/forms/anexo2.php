@@ -47,6 +47,7 @@
                             </tr>
                             </thead>
                             <tbody>
+
                             <tr>
                                 <td><strong>FAMILIA, CUIDADORES O
                                         CON QUIENES VIVE</strong></td>
@@ -56,7 +57,7 @@
                                         : "- Participar activamente en las reuniones de seguimiento.\n- Establecer rutinas en casa que refuercen hábitos escolares.\n- Reportar avances y dificultades del estudiante." ?></textarea>
                                 </td>
                                 <td>
-                              <textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_familia"><?= $estudiante["estrategias_familia"] ? $estudiante["estrategias_familia"] :
+                              <textarea class="form-control" placeholder="Escribir aqui..." name="estrategias_familia"><?= !empty($estudiante["estrategias_familia"]) ? $estudiante["estrategias_familia"] :
                                       "- Escuela para padres sobre inclusión, neurodiversidad y apoyo en casa.\n" .
                                       "- Guía de apoyo con pictogramas o agendas visuales.\n" .
                                       "- Comunicación constante con el colegio (cuaderno viajero o grupos de WhatsApp)."

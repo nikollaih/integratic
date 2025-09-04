@@ -9,27 +9,27 @@
     <?php $this->load->view("modal/user_evidencias_aprendizaje_incompletas") ?>
     <?php $this->load->view("modal/plan_aula_tooltip");
 
-    $CARACTERIZACION_ESTUDIANTES_TEXT="Proceso de recopilar y analizar información relevante de los estudiantes como nivel académico, 
+    $CARACTERIZACION_ESTUDIANTES_TEXT="Proceso de recopilar y analizar informaci&oacute;n relevante de los estudiantes como nivel acad&eacute;mico, 
     intereses y estilos de aprendizaje, con el fin de adaptar la enseñanza a sus necesidades. 
-    Se puede realizar mediante encuestas, observación en el aula, entrevistas, revisión de expedientes académicos y diálogo con padres y docentes. 
-    Esto permite una enseñanza más efectiva y personalizada.";
+    Se puede realizar mediante encuestas, observaci&oacute;n en el aula, entrevistas, revisi&oacute;n de expedientes acad&eacute;micos y di&aacute;logo con padres y docentes. 
+    Esto permite una enseñanza m&aacute;s efectiva y personalizada.";
 
-    $ESTADO_ACTUAL_TEXT="El estado actual del grupo describe la situación académica de los estudiantes, basada en los resultados del 
-    diagnóstico inicial o en el desempeño de períodos anteriores. Permite identificar las competencias que requieren fortalecimiento y 
-    orienta la planificación de acciones específicas para atender las necesidades reales del grupo.";
+    $ESTADO_ACTUAL_TEXT="El estado actual del grupo describe la situaci&oacute;n acad&eacute;mica de los estudiantes, basada en los resultados del 
+    diagn&oacute;stico inicial o en el desempeño de per&iacute;odos anteriores. Permite identificar las competencias que requieren fortalecimiento y 
+    orienta la planificaci&oacute;n de acciones espec&iacute;ficas para atender las necesidades reales del grupo.";
 
-    $APRENDIZAJE_MEJORAR_TEXT="A partir de la caracterización de los estudiantes y del análisis del proceso de aprendizaje del periodo académico anterior, 
-    se identifican ciertos aprendizajes que requieren fortalecimiento. Entre ellos se encuentran aspectos relacionados con la comprensión de contenidos, 
-    el desarrollo de habilidades cognitivas, la participación activa en clase y la autonomía en el aprendizaje. 
-    Estas áreas de mejora responden a las necesidades y características del grupo, por lo que se propone ajustar las estrategias pedagógicas 
-    para favorecer un aprendizaje más significativo y acorde con sus contextos.";
+    $APRENDIZAJE_MEJORAR_TEXT="A partir de la caracterizaci&oacute;n de los estudiantes y del an&aacute;lisis del proceso de aprendizaje del periodo acad&eacute;mico anterior, 
+    se identifican ciertos aprendizajes que requieren fortalecimiento. Entre ellos se encuentran aspectos relacionados con la comprensi&oacute;n de contenidos, 
+    el desarrollo de habilidades cognitivas, la participaci&oacute;n activa en clase y la autonom&iacute;a en el aprendizaje. 
+    Estas &aacute;reas de mejora responden a las necesidades y caracter&iacute;sticas del grupo, por lo que se propone ajustar las estrategias pedag&oacute;gicas 
+    para favorecer un aprendizaje m&aacute;s significativo y acorde con sus contextos.";
 
-    $OTROS_APRENDIZAJE_MEJORAR_TEXT="Además de lo que los estudiantes ya están aprendiendo, hay ciertas habilidades o conocimientos que aún necesitan mejorar o 
-    desarrollar más. Por ejemplo, saber pensar de manera crítica, expresarse bien al hablar o escribir, controlar sus emociones y trabajar bien con otros. 
-    Estas son cosas importantes para que puedan aprender mejor y relacionarse bien con los demás.";
+    $OTROS_APRENDIZAJE_MEJORAR_TEXT="Adem&aacute;s de lo que los estudiantes ya est&aacute;n aprendiendo, hay ciertas habilidades o conocimientos que a&uacute;n necesitan mejorar o 
+    desarrollar m&aacute;s. Por ejemplo, saber pensar de manera cr&iacute;tica, expresarse bien al hablar o escribir, controlar sus emociones y trabajar bien con otros. 
+    Estas son cosas importantes para que puedan aprender mejor y relacionarse bien con los dem&aacute;s.";
 
     $ENCUADRE_PACTOS_CLASE_TEXT="Acuerdos que se establecen al inicio del ciclo escolar o de un periodo de trabajo entre el docente y los estudiantes. 
-    Sirven para definir de manera clara las normas de convivencia, las responsabilidades, las dinámicas de trabajo y las expectativas 
+    Sirven para definir de manera clara las normas de convivencia, las responsabilidades, las din&aacute;micas de trabajo y las expectativas 
     mutuas dentro del aula.";
 
     ?>
@@ -88,7 +88,7 @@
                                     <div class="row">
                                         <div class="col-md-4 col-sm-4 col-xs-12">
                                             <div class="form-group">
-                                                <label for="plan[area]">Área / Asignatura <span class="text-danger">*</span></label>
+                                                <label for="plan[area]">&aacute;rea / Asignatura <span class="text-danger">*</span></label>
                                                 <select <?= (is_array($plan_area)) ? "disabled" : "" ?> required class="form-control" name="plan[area]" id="plan-area-area">
                                                     <option value="">- Seleccionar</option>
                                                     <?php
@@ -167,7 +167,7 @@
                                 <div class="section-header">
                                     <div>
                                         <span class="enumerator">PARTE 2 DE 4</span>
-                                        <h4 class="section-title">Descripción</h4>
+                                        <h4 class="section-title">Descripci&oacute;n</h4>
                                     </div>
                                     <i data-parte="2" class="fa fa-solid fa-chevron-down open-close-parte"></i>
                                 </div>
@@ -177,7 +177,7 @@
                                         <div class=" col-xs-12">
                                             <div class="form-group">
                                                 <i data-text="<?= $CARACTERIZACION_ESTUDIANTES_TEXT ?>" class="open-plan-aula-tooltip fa fa-info-circle m-r-5 text-info cursor-pointer"></i>
-                                                <label for="">Caracterización de los estudiantes
+                                                <label for="">Caracterizaci&oacute;n de los estudiantes
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <textarea <?= (!$editable) ? "disabled" : "" ?> name="plan[diagnostico]" id="richtext-1" cols="30" rows="3" class="form-control"><?= (is_array($plan_area)) ? $plan_area["diagnostico"] : "" ?></textarea>
@@ -229,7 +229,7 @@
                                 <div class="section-header">
                                     <div>
                                         <span class="enumerator">PARTE 3 DE 4</span>
-                                        <h4 class="section-title">Estandares básicos de competencia & DBAs</h4>
+                                        <h4 class="section-title">Estandares b&aacute;sicos de competencia & DBAs</h4>
                                     </div>
                                     <i data-parte="3" class="fa fa-solid fa-chevron-down open-close-parte"></i>
                                 </div>
@@ -238,7 +238,7 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label for="">Estandar básico de competencia</label>
+                                                <label for="">Estandar b&aacute;sico de competencia</label>
                                                 <select <?= (!$editable) ? "disabled" : "" ?> name="plan[estandares_basicos][]" data-live-search="true" data-size="10" class="form-control select-2" multiple id="plan-area-estandar">
                                                     <?php
                                                         if($estandares){
@@ -254,7 +254,7 @@
                                         </div>
                                         <div class="col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label for="">Derechos Básicos de Aprendizaje (DBA)</label>
+                                                <label for="">Derechos B&aacute;sicos de Aprendizaje (DBA)</label>
                                                 <select <?= (!$editable) ? "disabled" : "" ?> name="plan[dbas][]" data-live-search="true" data-size="10" class="form-control select-2" multiple id="plan-area-dba">
                                                     <?php
                                                         if($dbas){
@@ -301,10 +301,10 @@
                                                             <th>Semanas</th>
                                                             <?php if (!empty($tipos_componentes_evidencia)): ?>
                                                                 <?php foreach ($tipos_componentes_evidencia as $tipo): ?>
-                                                                    <th style="min-width: 200px; max-width: 200px;"><?= $tipo["nombre"] ?></th>
+                                                                    <th class="header-content-component" style="min-width: 200px; max-width: 200px; width: 200px;"><?= $tipo["nombre"] ?></th>
                                                                 <?php endforeach; ?>
                                                             <?php endif; ?>
-                                                            <th style="width:130px;">Seguimiento y evaluación</th>
+                                                            <th style="width:130px;">Seguimiento y evaluaci&oacute;n</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -362,7 +362,7 @@
 
                                                                             if (strpos($contenido, '&-separator-$') !== false) {
                                                                                 $partes = explode('&-separator-$', $contenido);
-                                                                                array_pop($partes); // eliminar el separador final vacío
+                                                                                array_pop($partes); // eliminar el separador final vac&iacute;o
                                                                             } else {
                                                                                 $partes = [$contenido];
                                                                             }
@@ -393,7 +393,7 @@
                                                                                         <?php
                                                                                         $titulo = isset($titulos_columnas[$colIndex][$rowIndex]) ? $titulos_columnas[$colIndex][$rowIndex] : '';
                                                                                         ?>
-                                                                                        <div style="<?= (strlen($celda) > 5 && strlen($celda) < 300 && count($filaInterna) < 2) ? 'height: 260px;' : '' ?> <?= trim(strip_tags($celda)) !== '' ? 'border-top: 1px solid #ccc;' : '' ?> min-width: 200px; max-width: 200px; flex: 1; padding: 8px 8px 15px 8px; font-size: 11px; border-right: 1px solid #e0e0e0;">
+                                                                                        <div class="container-content-component" style="<?= (strlen($celda) > 5 && strlen($celda) < 300 && count($filaInterna) < 2) ? 'height: 260px;' : '' ?> <?= trim(strip_tags($celda)) !== '' ? 'border-top: 1px solid #ccc;' : '' ?> flex: 1; padding: 8px 8px 15px 8px; font-size: 11px; border-right: 1px solid #e0e0e0;">
                                                                                             <?php if ($titulo): ?>
                                                                                                 <b><?= htmlspecialchars($titulo) ?>:</b><br>
                                                                                             <?php endif; ?>
@@ -539,7 +539,7 @@
                                                                                                     class="form-control"
                                                                                             ><?= htmlspecialchars($contenido_total) ?></textarea>
                                                                                         <?php else: ?>
-                                                                                            <!-- ✅ Modo múltiple: varios textareas visibles -->
+                                                                                            <!-- ✅ Modo m&uacute;ltiple: varios textareas visibles -->
                                                                                             <?php for ($i = 0; $i < $cantidad_filas; $i++): ?>
                                                                                                 <?php
                                                                                                 $hideRichTexts[] = $x;
@@ -556,7 +556,7 @@
                                                                                                 ><?= isset($valores_fila[$i]) && trim($valores_fila[$i]) !== "" ? htmlspecialchars($valores_fila[$i]) : '' ?> </textarea>
                                                                                             <?php endfor; ?>
 
-                                                                                            <!-- ✅ Textarea oculto para concatenación final -->
+                                                                                            <!-- ✅ Textarea oculto para concatenaci&oacute;n final -->
                                                                                             <textarea
                                                                                                     name="evidencia[<?= $TCE["id_tipo_componente"] ?>][contenido]"
                                                                                                     id="richtext-<?= $x ?>"
@@ -578,11 +578,11 @@
 
                                                             <!--<div class="col-md-4 col-sm-6 col-xs-12">
                                                                 <div style="background: #077b5d;" class="evidence-container">
-                                                                    <h5>EXPLORACIÓN</h5>
+                                                                    <h5>EXPLORACI&oacute;N</h5>
                                                                     <div class="row">
                                                                         <div class=" col-xs-12">
                                                                             <div class="form-group">
-                                                                                <label for="">Motivación y exploración de saberes previos</label>
+                                                                                <label for="">Motivaci&oacute;n y exploraci&oacute;n de saberes previos</label>
                                                                                 <textarea name="evidencia[exploracion]" id="richtext-7" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["exploracion"] : "" ?></textarea>
                                                                             </div>
                                                                         </div>
@@ -592,11 +592,11 @@
 
                                                             <div class="col-md-4 col-sm-6 col-xs-12">
                                                                 <div style="background:#0171bb;" class="evidence-container">
-                                                                    <h5>ESTRUCTURACIÓN</h5>
+                                                                    <h5>ESTRUCTURACI&oacute;N</h5>
                                                                     <div class="row">
                                                                         <div class=" col-xs-12">
                                                                             <div class="form-group">
-                                                                                <label for="">Momento estructuración y práctica</label>
+                                                                                <label for="">Momento estructuraci&oacute;n y pr&aacute;ctica</label>
                                                                                 <textarea name="evidencia[estructuracion]" id="richtext-8" cols="30" rows="4" class="form-control"><?= (is_array($selectedEvidencia)) ? $selectedEvidencia["estructuracion"] : "" ?></textarea>
                                                                             </div>
                                                                         </div>
@@ -620,7 +620,7 @@
 
                                                             <div class="col-md-4 col-sm-6 col-xs-12">
                                                                 <div style="background:#ed7202;" class="evidence-container">
-                                                                    <h5>VALORACIÓN</h5>
+                                                                    <h5>VALORACI&oacute;N</h5>
                                                                     <div class="row">
                                                                         <div class=" col-xs-12">
                                                                             <div class="form-group">

@@ -13,13 +13,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property $EvidenciasAprendizaje_Model
  * @property $session
  * @property $PlanAreas_Model
+ * @property $EvidenciasAprendizajeComponentes_Model
  */
 Class EvidenciasAprendizaje extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-        $this->load->model(["Consultas_Model", "Areas_Model", "Periodos_Model", "PlanAreas_Model", "Materias_Model", "Caracterizacion_Estandar_Competencia_Model", "Caracterizacion_DBA_Model", "EvidenciasAprendizaje_Model", "SemanasPeriodo_Model", "Usuarios_Model"]);
+        $this->load->model(["EvidenciasAprendizajeComponentes_Model", "Consultas_Model", "Areas_Model", "Periodos_Model", "PlanAreas_Model", "Materias_Model", "Caracterizacion_Estandar_Competencia_Model", "Caracterizacion_DBA_Model", "EvidenciasAprendizaje_Model", "SemanasPeriodo_Model", "Usuarios_Model"]);
 	}
 
     function index(){
@@ -144,7 +145,8 @@ Class EvidenciasAprendizaje extends CI_Controller
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) == "docente"){
                 $data = $this->input->post();
-                $evidencia = $this->EvidenciasAprendizaje_Model->find($data["id_evidencia_aprendizaje"]);
+                $evidencia = $this->EvidenciasAprendizaje_Model->findOne($data["id_evidencia_aprendizaje"]);
+                $evidenciaComponentes = $this->EvidenciasAprendizajeComponentes_Model->getAllByEvidencia($data["id_evidencia_aprendizaje"]);
                 $planAula = $this->PlanAreas_Model->find($data["id_plan_aula"]);
                 $idEvidenciaAprendizaje = $data["id_evidencia_aprendizaje"];
 
@@ -155,10 +157,21 @@ Class EvidenciasAprendizaje extends CI_Controller
                     $evidencia["observaciones_coordinador"] = "";
                     unset($evidencia["id_evidencia_aprendizaje"]);
 
-                    if($this->EvidenciasAprendizaje_Model->create($evidencia)){
+                    $newIdEvidenciaAprendizaje = $this->EvidenciasAprendizaje_Model->create($evidencia);
+
+                    if($newIdEvidenciaAprendizaje){
                         if($data["mode"] == "true") {
                             $this->EvidenciasAprendizaje_Model->update(array("id_evidencia_aprendizaje" => $idEvidenciaAprendizaje, "is_completo" => 1));
                         }
+
+                        if($evidenciaComponentes){
+                            foreach ($evidenciaComponentes as $evidenciaComponente) {
+                                unset($evidenciaComponente["id_componente"]);
+                                $evidenciaComponente["id_evidencia_aprendizaje"] = $newIdEvidenciaAprendizaje;
+                                $this->EvidenciasAprendizajeComponentes_Model->create($evidenciaComponente);
+                            }
+                        }
+
                         json_response($evidencia, true, "Evidencia de aprendizaje copiada exitosamente");
                     }
                 }
