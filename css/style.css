@@ -3437,6 +3437,10 @@ div.dataTables_info {
     opacity: 1;
 }
 
+.label-barrera, .label-ajuste-razonable {
+    cursor: alias;
+}
+
 .bg-img {
     background-size: 68%;
     background-repeat: no-repeat;

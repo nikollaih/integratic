@@ -108,7 +108,7 @@ class Docente extends CI_Controller {
             $temp_ruta = "";
             for ($i=0; $i < count($split_ruta); $i++) { 
                 $temp_ruta.= $split_ruta[$i]."/";
-                if (string_to_folder_name($temp_ruta)) {
+                if (string_to_folder_name($temp_ruta) && !is_dir(string_to_folder_name($temp_ruta))) {
                     mkdir(string_to_folder_name($temp_ruta), 0755);
                 }
             }

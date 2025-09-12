@@ -17,3 +17,19 @@ ALTER TABLE piar
     ADD COLUMN madre_ocupacion VARCHAR(150) NULL,
     ADD COLUMN padre_nombre VARCHAR(150) NULL,
     ADD COLUMN padre_ocupacion VARCHAR(150) NULL;
+
+DELETE r
+FROM respuestas_realizar_prueba r
+JOIN (
+  SELECT id_realizar_prueba, id_pregunta, id_respuesta,
+         MIN(id_respuesta_realizar_prueba) AS keep_id
+  FROM respuestas_realizar_prueba
+  GROUP BY id_realizar_prueba, id_pregunta, id_respuesta
+  HAVING COUNT(*) > 1
+) d ON d.id_realizar_prueba = r.id_realizar_prueba
+   AND d.id_pregunta        = r.id_pregunta
+   AND d.id_respuesta       = r.id_respuesta
+WHERE r.id_respuesta_realizar_prueba <> d.keep_id;
+
+ALTER TABLE respuestas_realizar_prueba
+    ADD UNIQUE unique_respuesta (id_realizar_prueba, id_pregunta, id_respuesta);

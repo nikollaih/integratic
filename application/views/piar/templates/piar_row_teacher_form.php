@@ -60,7 +60,7 @@
                                     if (is_array($seleccionadas)) {
                                         foreach ($seleccionadas as $barrera) {
                                             if($barrera->descripcion) {
-                                                echo '<span class="badge bg-secondary m-r-5" id="label-' . htmlspecialchars($barrera->id_barreras) . '">' . htmlspecialchars($barrera->descripcion) . '</span>';
+                                                echo '<span data-id="'.$barrera->id_barreras.'" class="label-barrera badge bg-secondary m-r-5" id="label-' . htmlspecialchars($barrera->id_barreras) . '">' . htmlspecialchars($barrera->descripcion) . '</span>';
                                             }
                                         }
                                     } else {
@@ -120,7 +120,7 @@
                                     if (is_array($seleccionadas)) {
                                         foreach ($seleccionadas as $ajusteRazonable) {
                                             if($ajusteRazonable->descripcion) {
-                                                echo '<span class="badge bg-secondary m-r-5" id="label-' . htmlspecialchars($ajusteRazonable->id_ajustes_razonables) . '">' . htmlspecialchars($ajusteRazonable->descripcion) . '</span>';
+                                                echo '<span data-id="'.$ajusteRazonable->id_ajustes_razonables.'" class="label-ajuste-razonable badge bg-secondary m-r-5" id="label-ar' . htmlspecialchars($ajusteRazonable->id_ajustes_razonables) . '">' . htmlspecialchars($ajusteRazonable->descripcion) . '</span>';
                                             }
                                         }
                                     } else {
@@ -144,7 +144,7 @@
                                         // Si es un objeto, accede a su propiedad
                                         $ajuste_razonable_id = is_object($ajusteRazonable) ? $ajusteRazonable->id_ajustes_razonables : $ajusteRazonable;
 
-                                        echo "<input type=\"hidden\" name=\"ajustes_razonables[]\" value=\"{$ajuste_razonable_id}\" id=\"barrera-hidden-{$ajuste_razonable_id}\">";
+                                        echo "<input type=\"hidden\" name=\"ajustes_razonables[]\" value=\"{$ajuste_razonable_id}\" id=\"ajuste-razonable-hidden-{$ajuste_razonable_id}\">";
                                     }
                                 }
                             }
@@ -230,7 +230,8 @@ if(isset($item_piar["ajustes_razonables"])){
                                 if (!$('#label-' + barrera.id_barreras).length) {
                                     const label = $('<span>')
                                         .text(barrera.descripcion)
-                                        .addClass('badge bg-secondary m-r-5')
+                                        .addClass('label-barrera badge bg-secondary m-r-5')
+                                        .attr('data-id', barrera.id_barreras)
                                         .attr('id', 'label-' + barrera.id_barreras);
                                     $('#barrerasResumen').append(label);
                                 }
@@ -299,8 +300,9 @@ if(isset($item_piar["ajustes_razonables"])){
                                 if (!$('#label-' + ajusteRazonable.id_ajustes_razonables).length) {
                                     const label = $('<span>')
                                         .text(ajusteRazonable.descripcion)
-                                        .addClass('badge bg-secondary m-r-5')
-                                        .attr('id', 'label-' + ajusteRazonable.id_ajustes_razonables);
+                                        .addClass('badge bg-secondary m-r-5 label-ajuste-razonable')
+                                        .attr('data-id', ajusteRazonable.id_ajustes_razonables)
+                                        .attr('id', 'label-ar' + ajusteRazonable.id_ajustes_razonables);
                                     $('#ajustesRazonablesResumen').append(label);
                                 }
 
@@ -309,11 +311,11 @@ if(isset($item_piar["ajustes_razonables"])){
                                         .attr('type', 'hidden')
                                         .attr('name', 'ajustes_razonables[]')
                                         .attr('value', ajusteRazonable.id_ajustes_razonables)
-                                        .attr('id', 'ajustes-razonable-hidden-' + ajusteRazonable.id_ajustes_razonables);
+                                        .attr('id', 'ajuste-razonable-hidden-' + ajusteRazonable.id_ajustes_razonables);
                                     $('#ajustesRazonablesHiddenInputs').append(input);
                                 }
                             } else {
-                                $('#label-' + ajusteRazonable.id_ajustes_razonables).remove();
+                                $('#label-ar' + ajusteRazonable.id_ajustes_razonables).remove();
                                 $('#ajuste-razonable-hidden-' + ajusteRazonable.id_ajustes_razonables).remove();
                             }
                         });

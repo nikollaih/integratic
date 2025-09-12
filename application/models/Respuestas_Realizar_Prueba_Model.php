@@ -32,10 +32,19 @@ class Respuestas_Realizar_Prueba_Model extends CI_Model {
 		return ($result->num_rows() > 0) ? $result->result_array() : false;
 	}
 
-	function create($data){
-		$this->db->insert("respuestas_realizar_prueba", $data);
-		return $this->db->insert_id();
-	}
+    function create($data){
+        $this->db->where('id_realizar_prueba', $data['id_realizar_prueba']);
+        $this->db->where('id_pregunta', $data['id_pregunta']);
+        $this->db->where('id_respuesta', $data['id_respuesta']);
+        $query = $this->db->get('respuestas_realizar_prueba');
+
+        if ($query->num_rows() > 0) {
+            return false; // Ya existe
+        }
+
+        $this->db->insert("respuestas_realizar_prueba", $data);
+        return $this->db->insert_id();
+    }
 
 	function deleteRespuestas($id_realizar_prueba){
 		$this->db->where("id_realizar_prueba", $id_realizar_prueba);

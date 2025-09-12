@@ -76,13 +76,45 @@
      }
 
     // Print a json response for ajax calls
-    if(!function_exists('string_to_folder_name'))
+if (!function_exists('string_to_folder_name')) {
+    function string_to_folder_name(string $value): string
     {
-        function string_to_folder_name($stringName){
-            return strtr(utf8_decode($stringName), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+        // 1) Asegurar UTF-8
+        $enc = mb_detect_encoding($value, ['UTF-8', 'ISO-8859-1', 'Windows-1252'], true);
+        if ($enc && $enc !== 'UTF-8') {
+            $value = mb_convert_encoding($value, 'UTF-8', $enc);
         }
-    
+
+        // 2) Mejor opción: intl (si está disponible)
+        if (function_exists('transliterator_transliterate')) {
+            $value = transliterator_transliterate('Any-Latin; Latin-ASCII', $value);
+        } else {
+            // 3) iconv con fallback
+            $tmp = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $value);
+            if ($tmp !== false) {
+                $value = $tmp;
+            } else {
+                // 4) Fallback sin iconv: elimina diacríticos por descomposición
+                if (class_exists('Normalizer')) {
+                    $norm = Normalizer::normalize($value, Normalizer::FORM_D);
+                    // Eliminar marcas diacríticas
+                    $value = preg_replace('/\p{Mn}+/u', '', $norm);
+                } else {
+                    // Último recurso: mapeo manual
+                    $from = 'áàäâãÁÀÄÂÃéèëêÉÈËÊíìïîÍÌÏÎóòöôõÓÒÖÔÕúùüûÚÙÜÛñÑçÇ';
+                    $to   = 'aaaaaAAAAeeeeEEEEiiiiIIIIoooooOOOOuuuuUUUUnNcC';
+                    $value = strtr($value, $from, $to);
+                }
+            }
+        }
+
+        // Opcional: limpieza básica extra (espacios múltiples)
+        $value = preg_replace('/\s+/u', ' ', trim($value));
+
+        return $value;
     }
+}
+
 
     if(!function_exists('encrypt_string'))
     {

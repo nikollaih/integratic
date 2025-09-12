@@ -93,6 +93,20 @@ $("#form-piar-observaciones-coordinador").on('submit', function(e) {
     jQuery("#piar-observaciones-coordinador").val(descripcion);
 });
 
+$(".label-ajuste-razonable").on('click', function(e) {
+    let ajusteRazonableId = jQuery(this).attr("data-id");
+    $('#label-ar' + ajusteRazonableId).remove();
+    $('#ajuste-razonable-hidden-' + ajusteRazonableId).remove();
+    $('#ajuste-razonable-' + ajusteRazonableId).prop('checked', false);
+})
+
+$(".label-barrera").on('click', function(e) {
+    let barreraId = jQuery(this).attr("data-id");
+    $('#label-' + barreraId).remove();
+    $('#barrera-hidden-' + barreraId).remove();
+    $('#barrera-' + barreraId).prop('checked', false);
+})
+
 $("#form-create-piar-2").on('submit', function(e) {
     e.preventDefault();
 

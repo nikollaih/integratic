@@ -8,58 +8,90 @@
          $this->load->model('Consultas_Model');
       }
 
-function do_upload(){
-    // Revisamos si se ha subido algo
-    // Cargamos la libreria Upload
-    $this->load->library('upload');
-    //$ruta=utf8_encode($this->input->post("dir"));
-    $ruta=utf8_decode($this->input->post("dir"));
-    $split_ruta = explode("/", $ruta);
+       public function do_upload()
+       {
+           // 1) Directorio base en el servidor (ajústalo a tu caso)
+           $basePath = FCPATH . DIRECTORY_SEPARATOR; // p.ej. /var/www/html/uploads/
 
-    if(is_array($split_ruta)){
-        $temp_ruta = "";
-        for ($i=0; $i < count($split_ruta); $i++) { 
-            $temp_ruta.= $split_ruta[$i]."/";
-            if (string_to_folder_name($temp_ruta) && !is_dir($temp_ruta)) {
-                mkdir(string_to_folder_name($temp_ruta), 0755);
-            }
-        }
-    }
-    /*
-        * Revisamos si el archivo fue subido
-        * Comprobamos si existen errores en el archivo subido
-        */
-    if (!empty($_FILES['archivo']['name'])){
-        // Configuración para el Archivo 1
-        $config['upload_path'] = $ruta;
-        $config['allowed_types'] = '*';
-        $config['max_execution_time'] = '1000';
-        $config['max_input_time'] = '1000';
-        $config['post_max_size'] = '10M';
-        $config['upload_max_filesize'] = '10M';
-        $config['remove_spaces'] = FALSE;
+           // 2) Leer dir del POST y normalizar (quitar acentos/raros)
+           $rawDir = $this->input->post('dir', true) ?? '';
+           $normalizedDir = string_to_folder_name($rawDir);               // "MATEMATICAS GENERALES PS"
+           // Asegurar separadores y evitar dobles slashes
+           $normalizedDir = trim($normalizedDir, "/\\");
+           $targetPath = $basePath . $normalizedDir . DIRECTORY_SEPARATOR;
 
-        // Cargamos la configuración del Archivo 1
-        $this->upload->initialize($config);
+           // 3) Crear recursivamente el directorio destino si no existe
+           if (!is_dir($targetPath)) {
+               if (!mkdir($targetPath, 0755, true) && !is_dir($targetPath)) {
+                   return json_response(null, false, "No se pudo crear la ruta destino: {$targetPath}");
+               }
+           }
 
-        $files = $_FILES;
-        $cpt = count($_FILES ['archivo'] ['name']);
+           // 4) Validar que venga al menos un archivo
+           if (empty($_FILES['archivo']['name'])) {
+               return json_response(null, false, "No se ha seleccionado ningún archivo");
+           }
 
-        for ($i = 0; $i < $cpt; $i ++) {
-            $_FILES ['archivo'] ['name'] = $files ['archivo'] ['name'] [$i];;
-            $_FILES ['archivo'] ['type'] = $files ['archivo'] ['type'] [$i];
-            $_FILES ['archivo'] ['tmp_name'] = $files ['archivo'] ['tmp_name'] [$i];
-            $_FILES ['archivo'] ['error'] = $files ['archivo'] ['error'] [$i];
-            $_FILES ['archivo'] ['size'] = $files ['archivo'] ['size'] [$i];
-            $this->upload->do_upload('archivo');
-        }
+           // 5) Config del Upload (válida para CI)
+           $config = [
+               'upload_path'      => $targetPath,                   // ¡La ruta normalizada que sí existe!
+               'allowed_types'    => '*',                           // Mejor especificar: 'jpg|jpeg|png|pdf|doc|docx|xls|xlsx|zip'
+               'max_size'         => 10240,                         // 10 MB en KB (CI usa KB)
+               'remove_spaces'    => false,
+               'file_ext_tolower' => true,
+               // 'encrypt_name'   => true, // activa si quieres nombres aleatorios
+           ];
+           $this->load->library('upload');
+           $this->upload->initialize($config);
 
-        json_response(null, true, "Archivo subido exitosamente");
-    }
-    else{
-        json_response(null, false, "No se ha selecionado ningun archivo");
-    }
-}    
+           // 6) Manejo de múltiples archivos: asegúrate que el input sea name="archivo[]"
+           $files = $_FILES['archivo'];
+           $count = is_array($files['name']) ? count($files['name']) : 1;
+
+           $subidos = [];
+           $errores = [];
+
+           for ($i = 0; $i < $count; $i++) {
+               // Re-mapear el $_FILES para cada iteración (formato que espera CI)
+               $_FILES['archivo_single']['name']     = is_array($files['name']) ? $files['name'][$i] : $files['name'];
+               $_FILES['archivo_single']['type']     = is_array($files['type']) ? $files['type'][$i] : $files['type'];
+               $_FILES['archivo_single']['tmp_name'] = is_array($files['tmp_name']) ? $files['tmp_name'][$i] : $files['tmp_name'];
+               $_FILES['archivo_single']['error']    = is_array($files['error']) ? $files['error'][$i] : $files['error'];
+               $_FILES['archivo_single']['size']     = is_array($files['size']) ? $files['size'][$i] : $files['size'];
+
+               // Re-inicializar por si cambiaste algo
+               $this->upload->initialize($config);
+
+               if ($this->upload->do_upload('archivo_single')) {
+                   $data = $this->upload->data();
+                   // $data['full_path'] te da la ruta completa del archivo guardado
+                   $subidos[] = [
+                       'file_name' => $data['file_name'],
+                       'full_path' => $data['full_path'],
+                       'file_size' => $data['file_size'],
+                       'file_ext'  => $data['file_ext'],
+                   ];
+               } else {
+                   $errores[] = [
+                       'archivo' => $_FILES['archivo_single']['name'],
+                       'error'   => $this->upload->display_errors('', ''),
+                   ];
+               }
+           }
+
+           if (!empty($subidos) && empty($errores)) {
+               return json_response(['files' => $subidos, 'path' => $targetPath], true, "Archivo(s) subido(s) exitosamente");
+           } elseif (!empty($subidos) && !empty($errores)) {
+               return json_response(
+                   ['files_ok' => $subidos, 'files_error' => $errores, 'path' => $targetPath],
+                   true,
+                   "Algunos archivos se subieron y otros fallaron"
+               );
+           } else {
+               return json_response(['errors' => $errores, 'path' => $targetPath], false, "Ningún archivo se pudo subir");
+           }
+       }
+
     
 function do_upload_act(){
     // Revisamos si se ha subido algo
