@@ -16,6 +16,10 @@ class Barreras_Model extends CI_Model {
     }
 
     public function get_by_ids($array_ids = []) {
+        if(!is_array($array_ids) || empty($array_ids)) {
+            return [];
+        }
+
         $this->db->select('b.*, c.nombre_categoria');
         $this->db->from('barreras b');
         $this->db->join('categorias_barreras c', 'b.id_categoria = c.id_categoria_barrera');

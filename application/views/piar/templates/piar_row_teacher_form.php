@@ -50,48 +50,119 @@
                     <div class="mt-3">
                         <label>Barreras seleccionadas</label>
                         <div id="barrerasResumen" class="form-control" style="background-color: #e9ecef; min-height: 38px; height: auto;">
-                            <?php if ($item_piar && !empty($item_piar["barreras"])): ?>
-                                <?php
-                                $barrerasRaw = $item_piar["barreras"];
-                                $seleccionadas = $item_piar["barreras_seleccionadas"];
+                            <?php
+                            // valores por defecto
+                            $observaciones_barreras = "";
+                            $barrerasRaw = null;
+                            $seleccionadas = null;
 
-                                // Verificar si es string serializado que empieza por 'a:1' (o cualquier array)
-                                if (is_string($barrerasRaw) && strpos($barrerasRaw, 'a:') === 0) {
-                                    if (is_array($seleccionadas)) {
-                                        foreach ($seleccionadas as $barrera) {
-                                            if($barrera->descripcion) {
-                                                echo '<span data-id="'.$barrera->id_barreras.'" class="label-barrera badge bg-secondary m-r-5" id="label-' . htmlspecialchars($barrera->id_barreras) . '">' . htmlspecialchars($barrera->descripcion) . '</span>';
-                                            }
+                            if ($item_piar && isset($item_piar["barreras"])) {
+                                $barrerasRaw = $item_piar["barreras"];
+
+                                // Si es string y parece un serialized PHP, intentar unserialize
+                                if (is_string($barrerasRaw) && (strpos($barrerasRaw, 'a:') === 0 || strpos($barrerasRaw, 's:') === 0)) {
+                                    $un = @unserialize($barrerasRaw, ['allowed_classes' => false]);
+                                    if ($un !== false && is_array($un)) {
+                                        // Si la estructura es como a:2:{ s:8:"barreras"; ... }
+                                        if (array_key_exists('barreras', $un)) {
+                                            $seleccionadas = $un['barreras'];
+                                        }
+                                        if (array_key_exists('observaciones', $un)) {
+                                            $observaciones_barreras = (string) $un['observaciones'];
                                         }
                                     } else {
-                                        echo '[BARRERAS VACÍAS]';
+                                        // intentar reinterpretar como JSON si acaso
+                                        $maybeJson = json_decode($barrerasRaw, true);
+                                        if (json_last_error() === JSON_ERROR_NONE && is_array($maybeJson)) {
+                                            if (isset($maybeJson['barreras'])) $seleccionadas = $maybeJson['barreras'];
+                                            if (isset($maybeJson['observaciones'])) $observaciones_barreras = (string)$maybeJson['observaciones'];
+                                        } else {
+                                            // si no se pudo unserialize ni json, lo dejamos como texto plano
+                                            echo htmlspecialchars($barrerasRaw);
+                                        }
                                     }
+                                } elseif (is_array($barrerasRaw)) {
+                                    // si ya es array (posible)
+                                    $seleccionadas = $barrerasRaw;
                                 } else {
-                                    // Mostrar directamente lo que haya en barreras (por si ya es un texto)
-                                    echo htmlspecialchars((string) $barrerasRaw);
+                                    // si es string plano (por ejemplo "1,2,3" o texto)
+                                    // si tiene comas, lo interpretamos como lista de ids
+                                    if (is_string($barrerasRaw) && strpos($barrerasRaw, ',') !== false) {
+                                        $seleccionadas = array_map('trim', explode(',', $barrerasRaw));
+                                    } else {
+                                        // texto libre: mostrarlo directamente
+                                        echo htmlspecialchars((string)$barrerasRaw);
+                                    }
                                 }
-                                ?>
-                            <?php endif; ?>
+                            }
+
+                            // Si existe la propiedad barreras_seleccionadas en el origen, priorizarla
+                            if ($item_piar && !empty($item_piar["barreras_seleccionadas"])) {
+                                $seleccionadas = $item_piar["barreras_seleccionadas"];
+                            }
+
+                            // Ahora renderizamos las etiquetas si $seleccionadas es un array/iterable
+                            if (!empty($seleccionadas) && (is_array($seleccionadas) || $seleccionadas instanceof Traversable)) {
+                                foreach ($seleccionadas as $barrera) {
+                                    // barrera puede ser objeto (con id_barreras y descripcion) o id simple o array asociativo
+                                    $id = null;
+                                    $desc = null;
+
+                                    if (is_object($barrera)) {
+                                        $id = $barrera->id_barreras ?? $barrera->id ?? null;
+                                        $desc = $barrera->descripcion ?? (property_exists($barrera, 'descripcion') ? $barrera->descripcion : null);
+                                    } elseif (is_array($barrera)) {
+                                        $id = $barrera['id_barreras'] ?? $barrera['id'] ?? null;
+                                        $desc = $barrera['descripcion'] ?? $barrera['label'] ?? null;
+                                    } else {
+                                        // valor escalar: lo tratamos como id (o texto)
+                                        $id = $barrera;
+                                    }
+
+                                    // si no tenemos descripcion, podemos usar el id como texto
+                                    $display = $desc !== null ? $desc : (string)$id;
+
+                                    if ($display !== "") {
+                                        $safeId = htmlspecialchars((string)$id);
+                                        $safeDisplay = htmlspecialchars((string)$display);
+                                        echo '<span data-id="' . $safeId . '" class="label-barrera badge bg-secondary m-r-5" id="label-' . $safeId . '">' . $safeDisplay . '</span>';
+                                    }
+                                }
+                            } elseif (empty($seleccionadas) && empty($barrerasRaw) && $item_piar) {
+                                // si no hay nada y no se imprimió antes, mostrar vacío
+                                echo '[BARRERAS VACÍAS]';
+                            }
+                            ?>
                         </div>
 
                         <div id="barrerasHiddenInputs">
                             <?php
-                            if ($item_piar && !empty($item_piar["barreras_seleccionadas"])) {
-                                $barrerasSeleccionadas = $item_piar["barreras_seleccionadas"];
+                            // Generar hidden inputs a partir de $seleccionadas
+                            if (!empty($seleccionadas) && (is_array($seleccionadas) || $seleccionadas instanceof Traversable)) {
+                                foreach ($seleccionadas as $barrera) {
+                                    $barrera_id = null;
+                                    if (is_object($barrera)) {
+                                        $barrera_id = $barrera->id_barreras ?? $barrera->id ?? null;
+                                    } elseif (is_array($barrera)) {
+                                        $barrera_id = $barrera['id_barreras'] ?? $barrera['id'] ?? null;
+                                    } else {
+                                        $barrera_id = $barrera;
+                                    }
 
-                                if (is_array($barrerasSeleccionadas)) {
-                                    foreach ($barrerasSeleccionadas as $barrera) {
-                                        // Si es un objeto, accede a su propiedad
-                                        $barrera_id = is_object($barrera) ? $barrera->id_barreras : $barrera;
-
-                                        echo "<input type=\"hidden\" name=\"barreras[]\" value=\"{$barrera_id}\" id=\"barrera-hidden-{$barrera_id}\">";
+                                    if ($barrera_id !== null && $barrera_id !== '') {
+                                        $safeId = htmlspecialchars((string)$barrera_id);
+                                        echo "<input type=\"hidden\" name=\"barreras[]\" value=\"{$safeId}\" id=\"barrera-hidden-{$safeId}\">";
                                     }
                                 }
                             }
                             ?>
                         </div>
 
+                        <div class="form-group text-left m-t-5">
+                            <textarea name="observaciones_barreras" cols="30" rows="4" class="form-control"><?= htmlspecialchars($observaciones_barreras) ?></textarea>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -110,48 +181,116 @@
                     <div class="mt-3">
                         <label>Ajustes razonables seleccionados</label>
                         <div id="ajustesRazonablesResumen" class="form-control" style="background-color: #e9ecef; min-height: 38px; height: auto;">
-                            <?php if ($item_piar && !empty($item_piar["ajustes_razonables"])): ?>
-                                <?php
-                                $ajustesRazonablesRaw = $item_piar["ajustes_razonables"];
-                                $seleccionadas = $item_piar["ajustes_razonables_seleccionados"];
+                            <?php
+                            // valores por defecto
+                            $observaciones_ajustes_razonables = "";
+                            $ajustesRazonablesRaw = null;
+                            $seleccionadas = null;
 
-                                // Verificar si es string serializado que empieza por 'a:1' (o cualquier array)
-                                if (is_string($ajustesRazonablesRaw) && strpos($ajustesRazonablesRaw, 'a:') === 0) {
-                                    if (is_array($seleccionadas)) {
-                                        foreach ($seleccionadas as $ajusteRazonable) {
-                                            if($ajusteRazonable->descripcion) {
-                                                echo '<span data-id="'.$ajusteRazonable->id_ajustes_razonables.'" class="label-ajuste-razonable badge bg-secondary m-r-5" id="label-ar' . htmlspecialchars($ajusteRazonable->id_ajustes_razonables) . '">' . htmlspecialchars($ajusteRazonable->descripcion) . '</span>';
-                                            }
+                            if ($item_piar && isset($item_piar["ajustes_razonables"])) {
+                                $ajustesRazonablesRaw = $item_piar["ajustes_razonables"];
+
+                                // Si es string y parece un serialized PHP, intentar unserialize
+                                if (is_string($ajustesRazonablesRaw) && (strpos($ajustesRazonablesRaw, 'a:') === 0 || strpos($ajustesRazonablesRaw, 's:') === 0)) {
+                                    $un = @unserialize($ajustesRazonablesRaw, ['allowed_classes' => false]);
+                                    if ($un !== false && is_array($un)) {
+                                        // Si la estructura contiene claves esperadas
+                                        if (array_key_exists('ajustes_razonables', $un)) {
+                                            $seleccionadas = $un['ajustes_razonables'];
+                                        }
+                                        if (array_key_exists('observaciones', $un)) {
+                                            $observaciones_ajustes_razonables = (string) $un['observaciones'];
                                         }
                                     } else {
-                                        echo '[AJUESTES RAZONABLES VACÍOS]';
+                                        // intentar interpretar como JSON si acaso
+                                        $maybeJson = json_decode($ajustesRazonablesRaw, true);
+                                        if (json_last_error() === JSON_ERROR_NONE && is_array($maybeJson)) {
+                                            if (isset($maybeJson['ajustes_razonables'])) $seleccionadas = $maybeJson['ajustes_razonables'];
+                                            if (isset($maybeJson['observaciones'])) $observaciones_ajustes_razonables = (string)$maybeJson['observaciones'];
+                                        } else {
+                                            // si no se pudo interpretar, mostrar texto plano
+                                            echo htmlspecialchars($ajustesRazonablesRaw);
+                                        }
                                     }
+                                } elseif (is_array($ajustesRazonablesRaw)) {
+                                    // si ya es array
+                                    $seleccionadas = $ajustesRazonablesRaw;
                                 } else {
-                                    // Mostrar directamente lo que haya en barreras (por si ya es un texto)
-                                    echo htmlspecialchars((string) $ajustesRazonablesRaw);
+                                    // si es string plano (por ejemplo "1,2,3" o texto)
+                                    if (is_string($ajustesRazonablesRaw) && strpos($ajustesRazonablesRaw, ',') !== false) {
+                                        $seleccionadas = array_map('trim', explode(',', $ajustesRazonablesRaw));
+                                    } else {
+                                        // texto libre: mostrarlo directamente
+                                        echo htmlspecialchars((string)$ajustesRazonablesRaw);
+                                    }
                                 }
-                                ?>
-                            <?php endif; ?>
+                            }
+
+                            // Si existe la propiedad ajustes_razonables_seleccionados en el origen, priorizarla
+                            if ($item_piar && !empty($item_piar["ajustes_razonables_seleccionados"])) {
+                                $seleccionadas = $item_piar["ajustes_razonables_seleccionados"];
+                            }
+
+                            // Renderizar etiquetas si $seleccionadas es iterable
+                            if (!empty($seleccionadas) && (is_array($seleccionadas) || $seleccionadas instanceof Traversable)) {
+                                foreach ($seleccionadas as $ajuste) {
+                                    // ajuste puede ser objeto (con id_ajustes_razonables y descripcion) o id simple o array asociativo
+                                    $id = null;
+                                    $desc = null;
+
+                                    if (is_object($ajuste)) {
+                                        $id = $ajuste->id_ajustes_razonables ?? $ajuste->id ?? null;
+                                        $desc = $ajuste->descripcion ?? (property_exists($ajuste, 'descripcion') ? $ajuste->descripcion : null);
+                                    } elseif (is_array($ajuste)) {
+                                        $id = $ajuste['id_ajustes_razonables'] ?? $ajuste['id'] ?? null;
+                                        $desc = $ajuste['descripcion'] ?? $ajuste['label'] ?? null;
+                                    } else {
+                                        // valor escalar: lo tratamos como id (o texto)
+                                        $id = $ajuste;
+                                    }
+
+                                    $display = $desc !== null ? $desc : (string)$id;
+
+                                    if ($display !== "") {
+                                        $safeId = htmlspecialchars((string)$id);
+                                        $safeDisplay = htmlspecialchars((string)$display);
+                                        echo '<span data-id="' . $safeId . '" class="label-ajuste-razonable badge bg-secondary m-r-5" id="label-ar' . $safeId . '">' . $safeDisplay . '</span>';
+                                    }
+                                }
+                            } elseif (empty($seleccionadas) && empty($ajustesRazonablesRaw) && $item_piar) {
+                                echo '[AJUSTES RAZONABLES VACÍOS]';
+                            }
+                            ?>
                         </div>
 
                         <div id="ajustesRazonablesHiddenInputs">
                             <?php
-                            if ($item_piar && !empty($item_piar["ajustes_razonables_seleccionados"])) {
-                                $ajustesRazonablesSeleccionadas = $item_piar["ajustes_razonables_seleccionados"];
+                            // Generar hidden inputs a partir de $seleccionadas
+                            if (!empty($seleccionadas) && (is_array($seleccionadas) || $seleccionadas instanceof Traversable)) {
+                                foreach ($seleccionadas as $ajuste) {
+                                    $ajuste_id = null;
+                                    if (is_object($ajuste)) {
+                                        $ajuste_id = $ajuste->id_ajustes_razonables ?? $ajuste->id ?? null;
+                                    } elseif (is_array($ajuste)) {
+                                        $ajuste_id = $ajuste['id_ajustes_razonables'] ?? $ajuste['id'] ?? null;
+                                    } else {
+                                        $ajuste_id = $ajuste;
+                                    }
 
-                                if (is_array($ajustesRazonablesSeleccionadas)) {
-                                    foreach ($ajustesRazonablesSeleccionadas as $ajusteRazonable) {
-                                        // Si es un objeto, accede a su propiedad
-                                        $ajuste_razonable_id = is_object($ajusteRazonable) ? $ajusteRazonable->id_ajustes_razonables : $ajusteRazonable;
-
-                                        echo "<input type=\"hidden\" name=\"ajustes_razonables[]\" value=\"{$ajuste_razonable_id}\" id=\"ajuste-razonable-hidden-{$ajuste_razonable_id}\">";
+                                    if ($ajuste_id !== null && $ajuste_id !== '') {
+                                        $safeId = htmlspecialchars((string)$ajuste_id);
+                                        echo "<input type=\"hidden\" name=\"ajustes_razonables[]\" value=\"{$safeId}\" id=\"ajuste-razonable-hidden-{$safeId}\">";
                                     }
                                 }
                             }
                             ?>
                         </div>
 
+                        <div class="form-group text-left m-t-5">
+                            <textarea name="observaciones_ajustes_razonables" cols="30" rows="4" class="form-control"><?= htmlspecialchars($observaciones_ajustes_razonables) ?></textarea>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>

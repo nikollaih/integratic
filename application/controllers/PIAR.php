@@ -40,7 +40,7 @@ class PIAR extends CI_Controller
             'margin_left' => 5,
             'margin_right' => 5,
             'margin_top' => 5,
-            'margin_bottom' => 5
+            'margin_bottom' => 40
         ]);
     }
 
@@ -131,13 +131,17 @@ class PIAR extends CI_Controller
 
                     if($params["item_piar"]){
                         $params["item_piar"] = $this->getItemPiarDBAs([$params["item_piar"]])[0];
-                        $params["item_piar"]["barreras_seleccionadas"] = (strpos($params["item_piar"]["barreras"], 'a:') === 0) ?
+                        $params["item_piar"]["barreras_seleccionadas"] = (!str_contains($params["item_piar"]["barreras"], "observaciones") && (strpos($params["item_piar"]["barreras"], 'a:') === 0)) ?
                             $this->Barreras_Model->get_by_ids(unserialize($params["item_piar"]["barreras"])) :
-                            $params["item_piar"]["barreras"];
+                            ((strpos($params["item_piar"]["barreras"], 'a:2:') === 0) ?
+                                $this->Barreras_Model->get_by_ids(unserialize($params["item_piar"]["barreras"])["barreras"]) :
+                            $params["item_piar"]["barreras"]);
 
-                        $params["item_piar"]["ajustes_razonables_seleccionados"] = (strpos($params["item_piar"]["ajustes_razonables"], 'a:') === 0) ?
+                        $params["item_piar"]["ajustes_razonables_seleccionados"] = (!str_contains($params["item_piar"]["ajustes_razonables"], "observaciones") && strpos($params["item_piar"]["ajustes_razonables"], 'a:') === 0) ?
                             $this->AjustesRazonables_Model->get_by_ids(unserialize($params["item_piar"]["ajustes_razonables"])) :
-                            $params["item_piar"]["ajustes_razonables"];
+                            ((strpos($params["item_piar"]["ajustes_razonables"], 'a:2:') === 0) ?
+                                $this->AjustesRazonables_Model->get_by_ids(unserialize($params["item_piar"]["ajustes_razonables"])["ajustes_razonables"]) :
+                            $params["item_piar"]["ajustes_razonables"]);
                     }
 
                     if($params["items_piar"]){
@@ -161,13 +165,17 @@ class PIAR extends CI_Controller
     private function getItemPiarBarrerasAjustesRazonables($itemsPiar){
         if($itemsPiar){
             for ($i = 0; $i < count($itemsPiar); $i++) {
-                $itemsPiar[$i]["barreras_seleccionadas"] = (strpos($itemsPiar[$i]["barreras"], 'a:') === 0) ?
+                $itemsPiar[$i]["barreras_seleccionadas"] = (!str_contains($itemsPiar[$i]["barreras"], "observaciones") && (strpos($itemsPiar[$i]["barreras"], 'a:') === 0)) ?
                     $this->Barreras_Model->get_by_ids(unserialize($itemsPiar[$i]["barreras"])) :
-                    $itemsPiar[$i]["barreras"];
+                    ((strpos($itemsPiar[$i]["barreras"], 'a:2:') === 0) ?
+                        $this->Barreras_Model->get_by_ids(unserialize($itemsPiar[$i]["barreras"])["barreras"]) :
+                    $itemsPiar[$i]["barreras"]);
 
-                $itemsPiar[$i]["ajustes_razonables_seleccionados"] = (strpos($itemsPiar[$i]["ajustes_razonables"], 'a:') === 0) ?
+                $itemsPiar[$i]["ajustes_razonables_seleccionados"] = (!str_contains($itemsPiar[$i]["ajustes_razonables"], "observaciones") && (strpos($itemsPiar[$i]["ajustes_razonables"], 'a:') === 0)) ?
                     $this->AjustesRazonables_Model->get_by_ids(unserialize($itemsPiar[$i]["ajustes_razonables"])) :
-                    $itemsPiar[$i]["ajustes_razonables"];
+                    ((strpos($itemsPiar[$i]["ajustes_razonables"], 'a:2:') === 0) ?
+                        $this->AjustesRazonables_Model->get_by_ids(unserialize($itemsPiar[$i]["ajustes_razonables"])["ajustes_razonables"]) :
+                    $itemsPiar[$i]["ajustes_razonables"]);
             }
         }
         return $itemsPiar;
@@ -224,6 +232,8 @@ class PIAR extends CI_Controller
                 // Set header
                 $header = $this->load->view('piar/templates/pdf_header', [], true);
                 $this->mpdf->SetHTMLHeader($header);
+                $this->mpdf->shrink_tables_to_fit = 1;
+                $this->mpdf->tableMinSizePriority = true;
 
                 $this->mpdf->WriteHTML($html);
                 $this->mpdf->Output('documento.pdf', 'I');
@@ -461,24 +471,31 @@ class PIAR extends CI_Controller
     }
 
     private function transformColumnsPIAR($data) {
-        if(is_array($data["objetivos"])){
-            $data["objetivos"] = serialize(
-                array(
-                    "dbas" => $data["objetivos"],
-                    "observaciones" => $data["observaciones_dbas"]
-                )
-            );
-        }
+        print_r($data);
+        $data["objetivos"] = serialize(
+            array(
+                "dbas" => $data["objetivos"] ?? [],
+                "observaciones" => $data["observaciones_dbas"]
+            )
+        );
 
-        if(is_array($data["barreras"])){
-            $data["barreras"] = serialize($data["barreras"]);
-        }
+        $data["barreras"] = serialize(
+            array(
+                "barreras" => $data["barreras"] ?? [],
+                "observaciones" => $data["observaciones_barreras"]
+            )
+        );
 
-        if(is_array($data["ajustes_razonables"])){
-            $data["ajustes_razonables"] = serialize($data["ajustes_razonables"]);
-        }
+        $data["ajustes_razonables"] = serialize(
+            array(
+                "ajustes_razonables" => $data["ajustes_razonables"] ?? [],
+                "observaciones" => $data["observaciones_ajustes_razonables"]
+            )
+        );
 
         unset($data["observaciones_dbas"]);
+        unset($data["observaciones_barreras"]);
+        unset($data["observaciones_ajustes_razonables"]);
 
         return $data;
     }

@@ -18,11 +18,16 @@
         else json_response(null, false, "Inicie sesión para continuar.");
     }
 
-    public function getMateriasArea($id_area){
+    public function getMateriasArea($id_area, $id_docente = null){
         if(is_logged()){
             if(strtolower(logged_user()["rol"]) != "estudiante"){
                 if(strtolower(logged_user()["rol"]) != "docente"){
-                    $materias = $this->Materias_Model->getMateriasArea($id_area);
+                    if($id_docente && $id_docente != "null"){
+                        $materias = $this->Materias_Model->getMateriasAreaDocente($id_area, $id_docente);
+                    }
+                    else{
+                        $materias = $this->Materias_Model->getMateriasArea($id_area);
+                    }
                 }
                 else {
                     $materias = $this->Materias_Model->getMateriasAreaDocente($id_area, logged_user()["id"]);

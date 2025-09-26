@@ -169,7 +169,12 @@ if((strtolower(logged_user()["rol"]) === "docente" || strtolower(logged_user()["
                                             </td>
                                             <td>
                                                 <?php
-                                                if (isset($item["barreras_seleccionadas"]) && strpos($item["barreras"], 'a:') === 0 && is_array($item["barreras_seleccionadas"])) {
+                                                $barreras = [];
+                                                if (strpos($item["barreras"], 'a:') === 0 && is_array($item["barreras_seleccionadas"])) {
+                                                    if (str_contains($item["barreras"], "observaciones")){
+                                                        $barreras = unserialize($item["barreras"]);
+                                                    }
+
                                                     foreach ($item["barreras_seleccionadas"] as $barrera) {
                                                         echo "<div>- {$barrera->descripcion}</div><br>";
                                                     }
@@ -177,17 +182,31 @@ if((strtolower(logged_user()["rol"]) === "docente" || strtolower(logged_user()["
                                                 else {
                                                     echo $item["barreras"];
                                                 }
+
+                                                // Mostrar observaciones, si existen
+                                                if (!empty($barreras['observaciones'])) {
+                                                    echo "<div>{$barreras['observaciones']}</div>";
+                                                }
                                                 ?>
                                             </td>
                                             <td>
                                                 <?php
-                                                if (isset($item["ajustes_razonables_seleccionados"]) && strpos($item["ajustes_razonables"], 'a:') === 0 && is_array($item["ajustes_razonables_seleccionados"])) {
+                                                if (strpos($item["ajustes_razonables"], 'a:') === 0 && is_array($item["ajustes_razonables_seleccionados"])) {
+                                                    if (str_contains($item["ajustes_razonables"], "observaciones")) {
+                                                        $ajustes_razonables = unserialize($item["ajustes_razonables"]);
+                                                    }
+
                                                     foreach ($item["ajustes_razonables_seleccionados"] as $ajusteRazonable) {
                                                         echo "<div>- {$ajusteRazonable->descripcion}</div><br>";
                                                     }
                                                 }
                                                 else {
                                                     echo $item["ajustes_razonables"];
+                                                }
+
+                                                // Mostrar observaciones, si existen
+                                                if (!empty($ajustes_razonables['observaciones'])) {
+                                                    echo "<div>{$ajustes_razonables['observaciones']}</div>";
                                                 }
                                                 ?>
                                             </td>

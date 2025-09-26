@@ -70,9 +70,10 @@ jQuery(document).ready(function() {
     jQuery(document).on("change", "#plan-area-area", function() {
         let idArea = jQuery(this).val();
         let idMateria = jQuery("#plan-area-materia").val();
-        if(idArea.trim() != ""){
-            getMateriasArea(idArea);
-            if(idMateria.trim() != ""){
+        let idDocente = jQuery("#plan-area-docente").val();
+        if(idArea.trim() !== ""){
+            getMateriasArea(idArea, idDocente);
+            if(idMateria.trim() !== ""){
                 getEstandaresArea(idArea, idMateria);
                 getDBAArea(idArea, idMateria);
             }
@@ -426,10 +427,10 @@ jQuery(document).ready(function() {
         jQuery("#evidencia-aprendizaje-modal").modal("show");
     }
 
-    function getMateriasArea(id_area) {
+    function getMateriasArea(id_area, id_docente = null) {
         $("#background-loading").css("display", "flex");
         $.ajax({
-            url: base_url + "Materias/getMateriasArea/" + id_area,
+            url: base_url + "Materias/getMateriasArea/" + id_area + "/" + id_docente,
             type: 'GET',
             success: function(data) {
                 var data = JSON.parse(data);
