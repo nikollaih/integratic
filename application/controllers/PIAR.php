@@ -1,6 +1,9 @@
 <?php
 
 use Mpdf\Mpdf;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 
 /**
  * @property $load
@@ -237,6 +240,139 @@ class PIAR extends CI_Controller
 
                 $this->mpdf->WriteHTML($html);
                 $this->mpdf->Output('documento.pdf', 'I');
+            }
+            else header("Location: ".base_url());
+        }
+        else header("Location: ".base_url());
+    }
+
+    public function viewDOM($piarId = null, $documentType = 1){
+        if(is_logged()){
+            if($this->hasPermission()){
+                $params["piar"] = $this->PIAR_Model->get($piarId);
+                $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($params["piar"]["documento"]);
+                $params["preguntas"] = $this->CaracterizacionEstudiantesPreguntas_Model->getPreguntas();
+                $params["respuestas"] = $this->CaracterizacionEstudiantesRespuestas_Model->getRespuestas($params["piar"]["documento"]);
+                $params["items_piar"] = $this->PIAR_Item_Model->getAllByPiar($piarId);
+                $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
+                $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
+
+                if($params["items_piar"]){
+                    $params["items_piar"] = $this->getItemPiarDBAs($params["items_piar"]);
+                    $params["items_piar"] = $this->getItemPiarBarrerasAjustesRazonables($params["items_piar"]);
+                }
+
+                $params["activities"] = $this->PIAR_Actividad_Model->getAllByPiar($piarId);
+                $params["documentType"] = $documentType;
+
+                // Carga la vista para obtener HTML
+                $this->load->view("piar/view", $params);
+                $html = $this->output->get_output();
+
+                // --- Opciones Dompdf ---
+                $options = new Options();
+                $options->set('isHtml5ParserEnabled', true);
+                $options->set('isRemoteEnabled', true); // necesario si usas imágenes/css remotos
+                // Ajustes adicionales opcionales
+                $options->set('defaultFont', 'DejaVu Sans'); // o la que prefieras, para soporte utf-8
+
+                $dompdf = new Dompdf($options);
+                // Tamaño de papel y orientación (A4 portrait/landscape)
+                $dompdf->setPaper('A4', 'portrait');
+
+                // Si tienes header/footer como vistas separadas, lo ideal es incluirlos dentro del HTML
+                // Ejemplo: cargar header y footer y concatenar al HTML (ver sección CSS abajo para posición fija)
+                $header = $this->load->view('piar/templates/pdf_header', [], true);
+                $footer = $this->load->view('piar/templates/pdf_footer', [], true);
+
+                // Ensamblar HTML completo: header + body + footer
+                // Asegúrate de que tu vista 'piar/view' no incluya <html><body> ... si vas a concatenar.
+                // Si tu vista ya incluye <html><head>... estructura, adapta según corresponda.
+                $fullHtml = '
+                    <!doctype html>
+                    <html>
+                    <head>
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                        <style>
+                          @page {
+                              margin: 100px 20px 100px 20px; /* top right bottom left */
+                              overflow: hidden;
+                            }
+                            
+                            .no-margin {
+                                margin: 0;
+                            }
+                            
+                            .small-block * {
+                                font-size: 10px !important;
+                            }
+                            
+                            /* Básicos */
+                            table { width:100%; border-collapse: collapse; margin-top: 8px; border: 1px solid #000; }
+                            
+                            header { position: fixed; top: -90px; left: 0; right: 0; height: 50px; }
+                                                      footer { position: fixed; bottom: -100px; left: 0; right: 0; height: 60px; font-size: 10px; }
+                            
+                            /* Repetir encabezados */
+                            thead { display: table-header-group;  }
+                            tfoot { display: table-footer-group; }
+                            
+                            /* --- IMPORTANTE: permitir quiebres donde sea necesario --- */
+                            /* No fuerces que toda la fila se mantenga junta; deja que Dompdf decida */
+                            tr {
+                              page-break-inside: auto;      /* PERMITIR quiebre entre filas */
+                              break-inside: auto;
+                              border: 1px solid #000;
+                            }
+                            
+                            /* Por defecto, celdas con contenido corto no se deberían partir forzosamente.
+                               Pero NO impedirás el rompimiento de contenido largo: eso lo controlamos con .allow-break */
+                            td, th {
+                              vertical-align: top;
+                              padding: 6px;
+                              border: 1px solid #000;
+                              overflow-wrap: break-word;
+                              word-wrap: break-word;
+                              /* *No* usar page-break-inside: avoid globalmente aquí */
+                            }
+                            
+                            /* Esta clase permite EXPLÍCITAMENTE que el contenido se rompa en varias páginas.
+                               Aplícala al DIV dentro del TD cuyo contenido puede superar la altura de página. */
+                            .allow-break {
+                              display: block;               /* imprescindible para que Dompdf rompa el contenido */
+                              page-break-inside: auto !important;
+                              break-inside: auto !important;
+                              -webkit-column-break-inside: auto !important;
+                              overflow-wrap: break-word;
+                              white-space: normal;
+                            }
+                            
+                            .small-text { font-size: 8px }
+                            
+                            /* Si deseas evitar que ciertos elementos concretos se partan (pocos),
+                               puedes añadir .no-break a su wrapper con page-break-inside: avoid */
+                            .no-break {
+                              page-break-inside: avoid !important;
+                              break-inside: avoid !important;
+                            }
+                            
+                            /* Evita elementos con position:absolute o floats dentro de celdas */
+                            pre, code { white-space: pre-wrap; word-wrap: break-word; }
+                        </style>
+                    </head>
+                    <body>
+                        <header>' . $header . '</header>
+                        <main>' . $html . '</main>
+                        <footer>' . $footer . '</footer>
+                    </body>
+                    </html>
+                ';
+
+                $dompdf->loadHtml($fullHtml);
+                $dompdf->render();
+
+                // Stream al navegador inline (I) o descarga (D)
+                $dompdf->stream('documento.pdf', array("Attachment" => false)); // false -> mostrar en navegador
             }
             else header("Location: ".base_url());
         }
