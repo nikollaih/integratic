@@ -1176,7 +1176,7 @@ function StudentMaterias(area){
                                 html += "<h3>"+capitalizeTheFirstLetterOfEachWord(registros[i]["nommateria"])+"</h3>"
                                 html += "<h1>"+registros[i]["grado"]+"</h1>"
                                 html += "</div>"
-                                "</a></div></div>";                             
+                                html += "</a></div></div>";
 							}                              
 						}
 						html+="</div>";    
