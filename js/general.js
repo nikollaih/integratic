@@ -36,6 +36,35 @@ $( document ).ready(function() {
     });
 });
 
+$(document).on("click", ".piar-backup-modal-open", function() {
+    jQuery("#piar-backup-modal").modal("show");
+});
+
+$(document).on("click", ".backup-piar-generate-button", function() {
+    generatePIARBackup();
+});
+
+function generatePIARBackup() {
+    let year = $("#backup-piar-year").val()
+    $("#background-loading").css("display", "flex");
+    let url = base_url + "PIAR/saveLocalPDF/" + year;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(response) {
+            response = response.object;
+            if (response.status === 'ok') {
+                alert("Backup realizado con exito, "+response.processed+" archivos generados.")
+            }
+            if (response.errors_count > 0) {
+                alert("Se encontraron " + response.errors_count + " errores.")
+            }
+            $("#background-loading").css("display", "none");
+        },
+        error: function() { alert("Error!"); $("#background-loading").css("display", "node"); }
+    });
+}
+
 // Agrega la clase al pasar el ratón sobre el elemento
 $(".periodo-container.item-periodo").hover(function() {
     $(this).removeClass("bg-light");

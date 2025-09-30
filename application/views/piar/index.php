@@ -69,7 +69,7 @@
                                                     else {
                                                         echo '<a href="'.base_url().'PIAR/edit/'.$e["id_piar"].'" class="btn btn-info btn-sm">Modificar</a>';
                                                         echo '<a target="_blank" href="'.base_url().'PIAR/view/'.$e["id_piar"].'/1/Anexo 1" class="btn btn-success btn-sm">Anexo 1</a>';
-                                                        echo '<a target="_blank" href="'.base_url().'PIAR/view/'.$e["id_piar"].'/2/Anexo 2" class="btn btn-success btn-sm">Anexo 2</a>';
+                                                        echo '<a target="_blank" href="'.base_url().'PIAR/viewDOM/'.$e["id_piar"].'/2/Anexo 2" class="btn btn-success btn-sm">Anexo 2</a>';
                                                         echo '<a target="_blank" href="'.base_url().'PIAR/view/'.$e["id_piar"].'/3/Anexo 3" class="btn btn-success btn-sm">Anexo 3</a>';
                                                         if(strtolower(logged_user()["rol"]) === "docente de apoyo" || strtolower(logged_user()["rol"]) === "coordinador"){
                                                             echo '<a target="_blank" href="'.base_url().'PIAR/viewAnnual/'.$e["id_piar"].'/1/Documento PIAR" class="btn btn-success btn-sm">Informe anual</a>';

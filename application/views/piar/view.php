@@ -1,15 +1,16 @@
 <div>
+
     <?php
-        if($documentType === "1") {
-            include "templates/anexos/anexo1.php";
+        if($documentType == "1") {
+            require "templates/anexos/anexo1.php";
         }
 
-        if($documentType === "2") {
-            include "templates/anexos/anexo2.php";
+        if($documentType == "2") {
+            require "templates/anexos/anexo2.php";
         }
 
-        if($documentType === "3") {
-            include "templates/anexos/anexo3.php";
+        if($documentType == "3") {
+            require "templates/anexos/anexo3.php";
         }
     ?>
 </div>

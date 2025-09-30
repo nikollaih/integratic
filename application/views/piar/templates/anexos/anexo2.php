@@ -166,7 +166,7 @@
                             </div>
                         </td>
 
-                        <td><div class="allow-break small-text"><?= $item["evaluacion"] ?></div></td>
+                        <td><div class="allow-break small-text"><?= strip_tags(str_replace(["\r", "\n"], '', $item['evaluacion'])) ?></div></td>
                     </tr>
                     <?php
                 }

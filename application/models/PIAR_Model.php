@@ -89,6 +89,21 @@ class PIAR_Model extends CI_Model
         return (!empty($result)) ? $result->row_array() : false;
     }
 
+    public function getByYear($year = null) {
+        $year = $year ?? date("Y");
+        $this->db->select('id_piar, id_estudiante, nombre, grado');
+        $this->db->where($this->piar_table . '.fecha_elaboracion >=', $year.'-01-01');
+        $this->db->where($this->piar_table . '.fecha_elaboracion <=', $year.'-12-31');
+        $this->db->from($this->piar_table); // Reverse table order
+        $this->db->join(
+            $this->students_table,
+            $this->piar_table . '.id_estudiante = ' . $this->students_table . '.documento'
+        );
+        $result = $this->db->get();
+
+        return (!empty($result)) ? $result->result_array() : false;
+    }
+
     public function delete($piarId){
         $this->db->where($this->piar_table . '.id_piar', $piarId);
         return $this->db->delete($this->piar_table);

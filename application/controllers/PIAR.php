@@ -49,7 +49,7 @@ class PIAR extends CI_Controller
 
     private function hasPermission(): bool
     {
-        return ($this->USER_ROL === "docente" || $this->USER_ROL === "coordinador" || $this->USER_ROL === "docente de apoyo" || $this->USER_ROL === "orientador");
+        return ($this->USER_ROL === "docente" || $this->USER_ROL === "coordinador" || $this->USER_ROL === "docente de apoyo" || $this->USER_ROL === "orientador" || $this->USER_ROL === "super");
     }
 
     public function index() {
@@ -201,99 +201,172 @@ class PIAR extends CI_Controller
         return $itemsPiar;
     }
 
-    public function view($piarId = null, $documentType = 1){
-        if(is_logged()){
-            if($this->hasPermission()){
-                $params["piar"] = $this->PIAR_Model->get($piarId);
-                $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($params["piar"]["documento"]);
-                $params["preguntas"] = $this->CaracterizacionEstudiantesPreguntas_Model->getPreguntas();
-                $params["respuestas"] = $this->CaracterizacionEstudiantesRespuestas_Model->getRespuestas($params["piar"]["documento"]);
-                $params["items_piar"] = $this->PIAR_Item_Model->getAllByPiar($piarId);
-                $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
-                $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
+    public function view($piarId = null, $documentType = 1, $outputMode = 'stream', $savePath = null){
+        // Seguridad / permisos
+        if(!is_logged()){
+            header("Location: ".base_url());
+            return;
+        }
+        if(!$this->hasPermission()){
+            header("Location: ".base_url());
+            return;
+        }
 
-                if($params["items_piar"]){
-                    $params["items_piar"] = $this->getItemPiarDBAs($params["items_piar"]);
-                    $params["items_piar"] = $this->getItemPiarBarrerasAjustesRazonables($params["items_piar"]);
+        // --- Carga de datos (igual que antes) ---
+        $params["piar"] = $this->PIAR_Model->get($piarId);
+        $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($params["piar"]["documento"]);
+        $params["preguntas"] = $this->CaracterizacionEstudiantesPreguntas_Model->getPreguntas();
+        $params["respuestas"] = $this->CaracterizacionEstudiantesRespuestas_Model->getRespuestas($params["piar"]["documento"]);
+        $params["items_piar"] = $this->PIAR_Item_Model->getAllByPiar($piarId);
+        $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
+        $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
+
+        if($params["items_piar"]){
+            $params["items_piar"] = $this->getItemPiarDBAs($params["items_piar"]);
+            $params["items_piar"] = $this->getItemPiarBarrerasAjustesRazonables($params["items_piar"]);
+        }
+
+        $params["activities"] = $this->PIAR_Actividad_Model->getAllByPiar($piarId);
+        $params["documentType"] = $documentType;
+
+        // --- OJO: pedir la vista como string para NO imprimir nada en el buffer ---
+        $html = $this->load->view("piar/view", $params, true); // retorna el HTML como string
+
+        // --- Configuración mPDF ---
+        // Asumo que $this->mpdf ya está inicializado en tu controller; si no,
+        // créalo: $this->mpdf = new \Mpdf\Mpdf([...]);
+        $this->mpdf->SetMargins(10, 10, 35); // Left, Top, Right
+        $this->mpdf->SetAutoPageBreak(true, 20); // margen inferior
+        $this->mpdf->shrink_tables_to_fit = 1;
+        $this->mpdf->tableMinSizePriority = true;
+
+        // Header y footer como HTML (devueltos por la vista)
+        $header = $this->load->view('piar/templates/pdf_header', [], true);
+        $footer = $this->load->view('piar/templates/pdf_footer', [], true);
+
+        $this->mpdf->SetHTMLHeader($header);
+        $this->mpdf->SetHTMLFooter($footer);
+
+        // Escribir contenido (body)
+        $this->mpdf->WriteHTML($html);
+
+        // Nombre por defecto
+        $fileName = 'anexo' . $documentType . '.pdf';
+
+        // Normalizamos el modo
+        $mode = strtolower(trim($outputMode));
+
+        if($mode === 'save'){
+            // savePath obligatorio para 'save'
+            if(empty($savePath)){
+                header("HTTP/1.1 500 Internal Server Error");
+                return;
+            }
+
+            // Determinar path completo
+            $isDir = (substr($savePath, -1) === DIRECTORY_SEPARATOR) || is_dir($savePath);
+            if($isDir){
+                $dir = rtrim($savePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+                $saveFullPath = $dir . $fileName;
+            } else {
+                $saveFullPath = $savePath;
+                $dir = dirname($saveFullPath);
+            }
+
+            // Crear directorio si no existe
+            if(!is_dir($dir)){
+                if(!mkdir($dir, 0755, true)){
+                    header("HTTP/1.1 500 Internal Server Error");
+                    return;
+                }
+            }
+
+            // Generar PDF a string y grabar en disco
+            try {
+                // Obtener contenido PDF en memoria (S -> retorna string)
+                $pdfString = $this->mpdf->Output($fileName, 'S');
+                $bytes = file_put_contents($saveFullPath, $pdfString);
+                if($bytes === false){
+                    header("HTTP/1.1 500 Internal Server Error");
+                    return;
                 }
 
-                $params["activities"] = $this->PIAR_Actividad_Model->getAllByPiar($piarId);
-                $params["documentType"] = $documentType;
-
-                $this->load->view("piar/view", $params);
-                // Cargar HTML en dompdf (puedes cargar tu vista aquí)
-                $html = $this->output->get_output();
-
-                // Set footer margin to create space
-                $this->mpdf->SetMargins(10, 10, 35); // Left, Top, Right
-                $this->mpdf->SetAutoPageBreak(true, 20); // Bottom margin of 30 units for spacing
-
-                // Set footer
-                $footer = $this->load->view('piar/templates/pdf_footer', [], true);
-                $this->mpdf->SetHTMLFooter($footer);
-
-                // Set header
-                $header = $this->load->view('piar/templates/pdf_header', [], true);
-                $this->mpdf->SetHTMLHeader($header);
-                $this->mpdf->shrink_tables_to_fit = 1;
-                $this->mpdf->tableMinSizePriority = true;
-
-                $this->mpdf->WriteHTML($html);
-                $this->mpdf->Output('documento.pdf', 'I');
+                // Respuesta JSON con info de guardado
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode([
+                    'success' => true,
+                    'path' => $saveFullPath,
+                    'bytes' => $bytes
+                ]);
+                return;
+            } catch (\Mpdf\MpdfException $e){
+                header("HTTP/1.1 500 Internal Server Error");
+                return;
             }
-            else header("Location: ".base_url());
         }
-        else header("Location: ".base_url());
+
+        if($mode === 'download'){
+            // Forzar descarga al navegador
+            $this->mpdf->Output($fileName, 'D'); // D => download
+            return;
+        }
+
+        // Por defecto 'stream' => mostrar inline en el navegador
+        $this->mpdf->Output($fileName, 'I'); // I => inline
+        return;
     }
 
-    public function viewDOM($piarId = null, $documentType = 1){
-        if(is_logged()){
-            if($this->hasPermission()){
-                $params["piar"] = $this->PIAR_Model->get($piarId);
-                $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($params["piar"]["documento"]);
-                $params["preguntas"] = $this->CaracterizacionEstudiantesPreguntas_Model->getPreguntas();
-                $params["respuestas"] = $this->CaracterizacionEstudiantesRespuestas_Model->getRespuestas($params["piar"]["documento"]);
-                $params["items_piar"] = $this->PIAR_Item_Model->getAllByPiar($piarId);
-                $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
-                $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
 
-                if($params["items_piar"]){
-                    $params["items_piar"] = $this->getItemPiarDBAs($params["items_piar"]);
-                    $params["items_piar"] = $this->getItemPiarBarrerasAjustesRazonables($params["items_piar"]);
-                }
+    public function viewDOM($piarId = null, $documentType = 1, $outputMode = 'save', $savePath = null){
+        if(!is_logged()){
+            header("Location: ".base_url());
+            return;
+        }
 
-                $params["activities"] = $this->PIAR_Actividad_Model->getAllByPiar($piarId);
-                $params["documentType"] = $documentType;
+        if(!$this->hasPermission()){
+            header("Location: ".base_url());
+            return;
+        }
 
-                // Carga la vista para obtener HTML
-                $this->load->view("piar/view", $params);
-                $html = $this->output->get_output();
+        // Carga de datos
+        $params["piar"] = $this->PIAR_Model->get($piarId);
+        $params["estudiante"] = $this->Estudiante_Model->getStudentUserByDocument($params["piar"]["documento"]);
+        $params["preguntas"] = $this->CaracterizacionEstudiantesPreguntas_Model->getPreguntas();
+        $params["respuestas"] = $this->CaracterizacionEstudiantesRespuestas_Model->getRespuestas($params["piar"]["documento"]);
+        $params["items_piar"] = $this->PIAR_Item_Model->getAllByPiar($piarId);
+        $params["items_piar_category"] = $this->PIAR_Item_Model->getAllByPiarCategories($piarId);
+        $params["items_piar"] = array_merge($params["items_piar"], $params["items_piar_category"]);
 
-                // --- Opciones Dompdf ---
-                $options = new Options();
-                $options->set('isHtml5ParserEnabled', true);
-                $options->set('isRemoteEnabled', true); // necesario si usas imágenes/css remotos
-                // Ajustes adicionales opcionales
-                $options->set('defaultFont', 'DejaVu Sans'); // o la que prefieras, para soporte utf-8
+        if($params["items_piar"]){
+            $params["items_piar"] = $this->getItemPiarDBAs($params["items_piar"]);
+            $params["items_piar"] = $this->getItemPiarBarrerasAjustesRazonables($params["items_piar"]);
+        }
 
-                $dompdf = new Dompdf($options);
-                // Tamaño de papel y orientación (A4 portrait/landscape)
-                $dompdf->setPaper('A4', 'portrait');
+        $params["activities"] = $this->PIAR_Actividad_Model->getAllByPiar($piarId);
+        $params["documentType"] = $documentType;
 
-                // Si tienes header/footer como vistas separadas, lo ideal es incluirlos dentro del HTML
-                // Ejemplo: cargar header y footer y concatenar al HTML (ver sección CSS abajo para posición fija)
-                $header = $this->load->view('piar/templates/pdf_header', [], true);
-                $footer = $this->load->view('piar/templates/pdf_footer', [], true);
+        // Carga la vista para obtener HTML
+        $html = $this->load->view("piar/view", $params, true);
 
-                // Ensamblar HTML completo: header + body + footer
-                // Asegúrate de que tu vista 'piar/view' no incluya <html><body> ... si vas a concatenar.
-                // Si tu vista ya incluye <html><head>... estructura, adapta según corresponda.
-                $fullHtml = '
-                    <!doctype html>
-                    <html>
-                    <head>
-                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-                        <style>
+        // --- Opciones Dompdf ---
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $options->set('defaultFont', 'DejaVu Sans');
+
+        $dompdf = new Dompdf($options);
+        $dompdf->setPaper('A4', 'portrait');
+
+        // header/footer (si los usas)
+        $header = $this->load->view('piar/templates/pdf_header', [], true);
+        $footer = $this->load->view('piar/templates/pdf_footer', [], true);
+
+        $fullHtml = '
+        <!doctype html>
+        <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <style>
                           @page {
                               margin: 100px 20px 100px 20px; /* top right bottom left */
                               overflow: hidden;
@@ -359,25 +432,71 @@ class PIAR extends CI_Controller
                             /* Evita elementos con position:absolute o floats dentro de celdas */
                             pre, code { white-space: pre-wrap; word-wrap: break-word; }
                         </style>
-                    </head>
-                    <body>
-                        <header>' . $header . '</header>
-                        <main>' . $html . '</main>
-                        <footer>' . $footer . '</footer>
-                    </body>
-                    </html>
-                ';
+        </head>
+        <body>
+            <header>' . $header . '</header>
+            <main>' . $html . '</main>
+            <footer>' . $footer . '</footer>
+        </body>
+        </html>
+    ';
 
-                $dompdf->loadHtml($fullHtml);
-                $dompdf->render();
+        $dompdf->loadHtml($fullHtml);
+        $dompdf->render();
 
-                // Stream al navegador inline (I) o descarga (D)
-                $dompdf->stream('documento.pdf', array("Attachment" => false)); // false -> mostrar en navegador
+        // Determinar nombre de archivo
+        $fileName = 'anexo' . $documentType . '.pdf';
+
+        if(strtolower($outputMode) === 'save'){
+            if(empty($savePath)){
+                // Si pediste 'save' pero no diste ruta, lanzamos error o hacemos fallback a stream
+                // Aquí enviamos un 500 simple con mensaje (ajusta según tu manejo de errores)
+                header("HTTP/1.1 500 Internal Server Error");
+                echo "Save path no especificado.";
+                return;
             }
-            else header("Location: ".base_url());
+
+            // Si $savePath es un directorio, añade el nombre del archivo; si es un archivo, úsalo tal cual
+            $isDir = (substr($savePath, -1) === DIRECTORY_SEPARATOR) || is_dir($savePath);
+            if($isDir){
+                // aseguramos trailing slash
+                $dir = rtrim($savePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+                $saveFullPath = $dir . $fileName;
+            } else {
+                // Se pasó una ruta/filename completa
+                $saveFullPath = $savePath;
+                $dir = dirname($saveFullPath);
+            }
+
+            // Crear directorio si no existe
+            if(!is_dir($dir)){
+                if(!mkdir($dir, 0755, true)){
+                    header("HTTP/1.1 500 Internal Server Error");
+                    echo "No se pudo crear el directorio: {$dir}";
+                    return;
+                }
+            }
+
+            // Escribir archivo
+            $pdfOutput = $dompdf->output();
+            $bytes = file_put_contents($saveFullPath, $pdfOutput);
+
+            if($bytes === false){
+                header("HTTP/1.1 500 Internal Server Error");
+                echo "Error al guardar el PDF en: {$saveFullPath}";
+                return;
+            }
+
+            // Opcional: devolver la ruta o redirigir; aquí devolvemos JSON con status
+            header('Content-Type: application/json; charset=utf-8');
+            return;
         }
-        else header("Location: ".base_url());
+
+        // Por defecto stream al navegador (inline). Si quieres forzar descarga, cambia Attachment => true
+        $dompdf->stream($fileName, array("Attachment" => false));
+        return;
     }
+
 
     public function viewAnnual($piarId = null){
         if(is_logged()){
@@ -675,4 +794,84 @@ class PIAR extends CI_Controller
         }
         else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }
+
+    public function saveLocalPDF($year = null) {
+        $year = $year ?? date("Y");
+
+        // Ajustes para procesamiento largo
+        set_time_limit(0);
+        ini_set('memory_limit', '1024M');
+
+        $PIARs = $this->PIAR_Model->getByYear($year);
+
+        $baseRel = 'principal/piar/PIAR ' . $year . '/';
+        $baseFull = rtrim(FCPATH, '/\\') . '/' . trim($baseRel, '/\\') . '/';
+
+        $piarList = array_values($PIARs);
+        $chunkSize = 10;                // controla memoria/IO
+        $docTypes  = [1,2,3];           // tipos a generar por PIAR
+        $processed = 0;
+        $errors    = [];
+
+        foreach (array_chunk($piarList, $chunkSize) as $chunk) {
+            foreach ($chunk as $item) {
+                $processed++;
+
+                // Extraer id_piar y id_estudiante de forma flexible
+                if (is_array($item)) {
+                    $piarId = $item['id_piar'] ?? $item['id'] ?? null;
+                    $idEst  = $item['grado'] ?? $item['id_estudiante'] ?? $item['student_id'] ?? null;
+                } else {
+                    $piarId = $item->id_piar ?? $item->id ?? null;
+                    $idEst  = $item->id_estudiante ?? $item->documento ?? $item->student_id ?? null;
+                }
+
+                if (empty($piarId)) {
+                    $errors[] = "Índice {$processed}: faltó id_piar";
+                    continue;
+                }
+
+                $folder = $idEst ? preg_replace('/[^A-Za-z0-9_\-]/', '_', $idEst) : "piar_{$piarId}";
+                $saveRel = rtrim($baseRel, '/\\') . '/' . $folder . '/'.$item["nombre"].'/';
+
+                // Llamadas a viewDOM en modo 'save' manteniendo la firma original
+                foreach ($docTypes as $type) {
+                    try {
+                        // viewDOM manejará la creación/validación de paths si lo necesita,
+                        // pero aquí nos aseguramos que la carpeta exista por si viewDOM no la crea.
+                        $saveFull = rtrim(FCPATH, '/\\') . '/' . trim($saveRel, '/\\') . '/';
+                        if (!is_dir($saveFull) && !mkdir($saveFull, 0755, true)) {
+                            throw new Exception("No se pudo crear carpeta {$saveFull}");
+                        }
+
+                        // Mantener exactamente la llamada a viewDOM como pediste
+                        $this->viewDOM($piarId, $type, 'save', $saveRel);
+
+                        // Pequeña pausa para aliviar I/O
+                        usleep(40000); // 40ms
+                    } catch (Exception $e) {
+                        $msg = "Error PIAR {$piarId} type {$type}: " . $e->getMessage();
+                        $errors[] = $msg;
+                        // continuar con siguiente docType o PIAR
+                    }
+                }
+
+                // Liberar ciclos de GC entre PIARs
+                if (function_exists('gc_collect_cycles')) gc_collect_cycles();
+                usleep(80000); // 80ms
+            }
+            // Pausa entre chunks
+            usleep(200000); // 200ms
+        }
+
+        // Resultado
+        json_response([
+            'status' => empty($errors) ? 'ok' : 'partial',
+            'processed' => $processed,
+            'errors_count' => count($errors),
+            'errors' => $errors,
+            'base_path' => $baseFull
+        ], true);
+    }
+
 }

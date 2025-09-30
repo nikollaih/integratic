@@ -1,5 +1,7 @@
  <div id="background-loading">
  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+     <br>
+     <p class="text-white" id="background-loading-text">Cargando, esto podría tardar varios minutos!</p>
  </div>
 <body class="fixed-left" onload="javascript:inicio();">         
         <!-- Begin page -->
