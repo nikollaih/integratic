@@ -317,7 +317,7 @@ class PIAR extends CI_Controller
     }
 
 
-    public function viewDOM($piarId = null, $documentType = 1, $outputMode = 'save', $savePath = null){
+    public function viewDOM($piarId = null, $documentType = 1, $outputMode = 'stream', $savePath = null){
         if(!is_logged()){
             header("Location: ".base_url());
             return;
@@ -795,14 +795,14 @@ class PIAR extends CI_Controller
         else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }
 
-    public function saveLocalPDF($year = null) {
+    public function saveLocalPDF($year = null, $grado = 0) {
         $year = $year ?? date("Y");
 
         // Ajustes para procesamiento largo
         set_time_limit(0);
         ini_set('memory_limit', '1024M');
 
-        $PIARs = $this->PIAR_Model->getByYear($year);
+        $PIARs = $this->PIAR_Model->getByYear($year, $grado);
 
         $baseRel = 'principal/piar/PIAR ' . $year . '/';
         $baseFull = rtrim(FCPATH, '/\\') . '/' . trim($baseRel, '/\\') . '/';

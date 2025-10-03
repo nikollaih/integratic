@@ -46,13 +46,16 @@ $(document).on("click", ".backup-piar-generate-button", function() {
 
 function generatePIARBackup() {
     let year = $("#backup-piar-year").val()
+    let grado = $("#backup-piar-grado").val()
     $("#background-loading").css("display", "flex");
-    let url = base_url + "PIAR/saveLocalPDF/" + year;
+    let url = base_url + "PIAR/saveLocalPDF/" + year + "/" + grado;
     $.ajax({
         url: url,
         type: 'GET',
+        dataType: 'json',
         success: function(response) {
             response = response.object;
+
             if (response.status === 'ok') {
                 alert("Backup realizado con exito, "+response.processed+" archivos generados.")
             }

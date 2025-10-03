@@ -89,7 +89,7 @@ class PIAR_Model extends CI_Model
         return (!empty($result)) ? $result->row_array() : false;
     }
 
-    public function getByYear($year = null) {
+    public function getByYear($year = null, $grado = null) {
         $year = $year ?? date("Y");
         $this->db->select('id_piar, id_estudiante, nombre, grado');
         $this->db->where($this->piar_table . '.fecha_elaboracion >=', $year.'-01-01');
@@ -99,6 +99,26 @@ class PIAR_Model extends CI_Model
             $this->students_table,
             $this->piar_table . '.id_estudiante = ' . $this->students_table . '.documento'
         );
+
+        if ($grado !== null) {
+            // Normalizamos el grado (por si acaso tiene espacios)
+            $gradoTrim = trim($grado);
+
+            // Construimos un patrón REGEXP distinto según el contenido de $grado
+            if (ctype_digit($gradoTrim)) {
+                // Si el grado solo contiene dígitos: después no puede venir otro dígito
+                $pattern = '^' . $this->db->escape_str($gradoTrim) . '([^0-9]|$)';
+            } elseif (ctype_alpha($gradoTrim)) {
+                // Si el grado solo contiene letras: después no puede venir otra letra
+                $pattern = '^' . $this->db->escape_str($gradoTrim) . '([^A-Za-z]|$)';
+            } else {
+                // Mixto u otros: después no puede venir un caracter alfanumérico
+                $pattern = '^' . $this->db->escape_str($gradoTrim) . '([^A-Za-z0-9]|$)';
+            }
+
+            // Aplicamos la cláusula REGEXP. Usamos where con dos parámetros para generar "campo REGEXP 'patrón'"
+            $this->db->where($this->students_table . '.grado REGEXP', $pattern);
+        }
         $result = $this->db->get();
 
         return (!empty($result)) ? $result->result_array() : false;
