@@ -1,3 +1,9 @@
+<?php
+    function cleanList($text) {
+        return str_replace('>         <', '>  <', $text);
+    }
+?>
+
 <table class="margin-top">
     <tr>
         <td style="border: 0;" class="text-center" colspan="4">
@@ -54,13 +60,13 @@
     <h5>1. Caracteristicas del estudiante</h5>
     <table>
         <tr>
-            <td><div class="allow-break"><strong>Entorno personal.</strong><br><br><div class="small-block"><?= $piar["entorno_personal"] ?></div></div></td>
+            <td><div class="allow-break"><strong>Entorno personal.</strong><br><br><div class="small-block"><?= cleanList($piar["entorno_personal"]) ?></div></div></td>
         </tr>
         <tr>
-            <td><div class="allow-break"><strong>Descripción general del estudiante con énfasis en gustos e intereses o aspectos que le desagradan, expectativas del estudiante y la familia.</strong><br><br><div class="small-block"><?= $piar["descripcion_general"] ?></div></div></td>
+            <td><div class="allow-break"><strong>Descripción general del estudiante con énfasis en gustos e intereses o aspectos que le desagradan, expectativas del estudiante y la familia.</strong><br><br><div class="small-block"><?= cleanList($piar["descripcion_general"]) ?></div></div></td>
         </tr>
         <tr>
-            <td><div class="allow-break"><strong>Descripción en términos de lo que hace, puede hacer o requiere apoyo el estudiante para favorecer su proceso educativo. Indique las habilidades, competencias, cualidades, aprendizajes con las que cuenta el estudiante para el grado en el que fue matriculado.</strong><br><br><div class="small-block"><?= $piar["descripcion_que_hace"] ?></div></div></td>
+            <td><div class="allow-break"><strong>Descripción en términos de lo que hace, puede hacer o requiere apoyo el estudiante para favorecer su proceso educativo. Indique las habilidades, competencias, cualidades, aprendizajes con las que cuenta el estudiante para el grado en el que fue matriculado.</strong><br><br><div class="small-block"><?= cleanList($piar["descripcion_que_hace"]) ?></div></div></td>
         </tr>
     </table>
 

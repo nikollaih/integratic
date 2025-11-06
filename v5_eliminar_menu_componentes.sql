@@ -1,5 +1,9 @@
-UPDATE `cfg_menu` SET `enlace`='http://plataforma-proyectos-game.aulasquindio.local', tipo = 'web' WHERE id = 3;
-DELETE FROM `cfg_menu` WHERE id = 6;
-DELETE FROM `cfg_menu` WHERE id = 44;
-DELETE FROM `cfg_menu` WHERE id = 235;
-DELETE FROM `cfg_menu` WHERE id = 276;
+DELETE FROM `cfg_menu`
+WHERE `id` IN (
+    3,4,5,6,7,8,9,10,
+    12,14,15,16,17,18,19,20,
+    34,35,45,46,47,48,49,50,51,52,54,55,60,
+    218,219,220,221,222,223,224,226,227,233,234,236,237,
+    251,253,254,255,256,257,258,259,271,274,275,280,281,
+    285,286,288,291,292,293,294,295,296,297,298,299,300
+);

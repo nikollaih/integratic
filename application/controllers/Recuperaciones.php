@@ -170,7 +170,8 @@ class Recuperaciones extends CI_Controller
                     $actividades = $this->Actividades_Model->getActivitiesRecuperacion($data["id_recuperacion"]);
                     $pruebas = $this->Pruebas_Model->getPruebasRecuperacion($data["id_recuperacion"]);
                     $estudianteRecuperacion["id_recuperacion"] = $data["id_recuperacion"];
-                    foreach($data["estudiantes"] as $estudiante) {
+                    for($x = 0; $x < count($data["estudiantes"]); $x++) {
+                        $estudiante = $data["estudiantes"][$x];
                         $estudianteRecuperacion["id_estudiante"] = $estudiante;
                         $existsRecuperacionEstudiante = $this->RecuperacionEstudiante_Model->get($estudianteRecuperacion["id_recuperacion"], $estudianteRecuperacion["id_estudiante"]);
                         if(!$existsRecuperacionEstudiante) {
@@ -182,7 +183,6 @@ class Recuperaciones extends CI_Controller
                         // Add the student to pruebas participants
                         $this->agregar_estudiante_prueba($pruebas, $estudianteRecuperacion["id_estudiante"] );
                     }
-
                     header("Location: ".base_url()."Recuperaciones/view/".$estudianteRecuperacion["id_recuperacion"]);
                 }
                 else {
@@ -214,11 +214,14 @@ class Recuperaciones extends CI_Controller
             // Verifica que no sea un estudiante quien hace la petición
             if(strtolower(logged_user()["rol"]) !== "estudiante"){
                 if(is_array($actividades) && count($actividades) > 0) {
-                    foreach($actividades as $actividad) {
-                        $estudiantes_habilitados = ($actividad["estudiantes_habilitados"]) ? unserialize($actividad["estudiantes_habilitados"]) : [];
-                        if(!in_array($idEstudiante, $estudiantes_habilitados)) {
-                            array_push($estudiantes_habilitados, $idEstudiante);
-                            $this->Actividades_Model->update(array("id_actividad" => $actividad["id_actividad"], "estudiantes_habilitados" => serialize($estudiantes_habilitados)));
+                    foreach($actividades as $actividadF) {
+                        $actividad = $this->Actividades_Model->get_actividad($actividadF["id_actividad"]);
+                        if($actividad){
+                            $estudiantes_habilitados = ($actividad["estudiantes_habilitados"]) ? unserialize($actividad["estudiantes_habilitados"]) : [];
+                            if(!in_array($idEstudiante, $estudiantes_habilitados)) {
+                                array_push($estudiantes_habilitados, $idEstudiante);
+                                $this->Actividades_Model->update(array("id_actividad" => $actividad["id_actividad"], "estudiantes_habilitados" => serialize($estudiantes_habilitados)));
+                            }
                         }
                     }
                 }

@@ -74,13 +74,14 @@ function importar_estudiantes($FILES){
             if(count($sheetData) > 1){
                 for ($i=2; $i < count($sheetData); $i++) { 
                     $estudiante = $sheetData[$i];
-                    if(trim($estudiante[2]) != "" && trim($estudiante[4]) != "" && trim($estudiante[1]) != ""){
-                        $nuevo_estudiante["documento"] = $estudiante[2];
-                        $nuevo_estudiante["nombre"] = $estudiante[1];
-                        $nuevo_estudiante["email_acudiente"] = $estudiante[3];
-                        $nuevo_estudiante["grado"] = $estudiante[4];
-                        $nuevo_estudiante["email"] = $estudiante[5];
-                        $nuevo_estudiante["nee"] = $estudiante[6];
+
+                    if(trim($estudiante[1]) != "" && trim($estudiante[3]) != "" && trim($estudiante[0]) != ""){
+                        $nuevo_estudiante["documento"] = $estudiante[1];
+                        $nuevo_estudiante["nombre"] = $estudiante[0];
+                        $nuevo_estudiante["email_acudiente"] = $estudiante[2];
+                        $nuevo_estudiante["grado"] = $estudiante[3];
+                        $nuevo_estudiante["email"] = $estudiante[4];
+                        $nuevo_estudiante["nee"] = $estudiante[5];
                         array_push($estudiantes, $nuevo_estudiante);
                     }
                 }

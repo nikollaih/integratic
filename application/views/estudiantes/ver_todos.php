@@ -36,7 +36,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            if(isset($estudiantes)){
+                                            if(isset($estudiantes) && is_array($estudiantes)){
                                                 foreach ($estudiantes as $e) {
                                                     ?>
                                                         <tr id="estudiante-<?= $e["documento"] ?>" style="background: <?= $e["nee"] === '1' ? '#e9f3ff' : 'transparent' ?>">
