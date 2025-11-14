@@ -65,10 +65,20 @@ class PIAR_Item_Annual_Model extends CI_Model
 
     public function getAllByPiar($piarId){
         $this->db->from($this->piar_item_table);
+
+        // LEFT JOIN para no excluir items que no tengan id_materia
         $this->db->join($this->piar_table, $this->piar_item_table.'.id_piar = '.$this->piar_table.'.id_piar');
-        $this->db->join($this->materias_table, $this->materias_table.'.codmateria = '.$this->piar_item_table.'.id_materia');
-        $this->db->join($this->areas_table, $this->materias_table.'.area = '.$this->areas_table.'.codarea');
+        $this->db->join($this->materias_table, $this->materias_table.'.codmateria = '.$this->piar_item_table.'.id_materia', 'left');
+        $this->db->join($this->areas_table, $this->materias_table.'.area = '.$this->areas_table.'.codarea', 'left');
+
+        // Filtrar por id_piar y además aceptar los que tengan id_materia o tengan otro_materia distinto de NULL
         $this->db->where($this->piar_item_table.'.id_piar', $piarId);
+
+        // Agrupamos la condición OR
+        $this->db->group_start();
+        $this->db->where($this->piar_item_table.'.id_materia IS NOT NULL', null, false);
+        $this->db->or_where($this->piar_item_table.'.otro_materia IS NOT NULL', null, false);
+        $this->db->group_end();
 
         $result = $this->db->get();
 

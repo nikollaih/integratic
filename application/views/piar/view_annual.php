@@ -31,7 +31,7 @@
             if($items_piar && is_array($items_piar)){
                 foreach($items_piar as $item){ ?>
                     <tr>
-                        <td><strong><?= $item["nommateria"] ?>:</strong> <?= $item["destrezas_obtenidas"] ?></td>
+                        <td><strong><?= $item["nommateria"] ?? $item["otro_materia"] ?>:</strong> <?= $item["destrezas_obtenidas"] ?></td>
                     </tr>
                 <?php }
             }
@@ -43,7 +43,7 @@
         if($items_piar && is_array($items_piar)){
             foreach($items_piar as $item){ ?>
                 <tr>
-                    <td><strong><?= $item["nommateria"] ?>:</strong> <?= $item["dificultades"] ?></td>
+                    <td><strong><?= $item["nommateria"] ?? $item["otro_materia"] ?>:</strong> <?= $item["dificultades"] ?></td>
                 </tr>
             <?php }
         }
@@ -56,7 +56,7 @@
         if($items_piar && is_array($items_piar)){
             foreach($items_piar as $item){ ?>
                 <tr>
-                    <td><strong><?= $item["nommateria"] ?>:</strong> <?= $item["comportamiento"] ?></td>
+                    <td><strong><?= $item["nommateria"] ?? $item["otro_materia"] ?>:</strong> <?= $item["comportamiento"] ?></td>
                 </tr>
             <?php }
         }
@@ -68,7 +68,7 @@
         if($items_piar && is_array($items_piar)){
             foreach($items_piar as $item){ ?>
                 <tr>
-                    <td><strong><?= $item["nommateria"] ?>:</strong> <?= $item["desempeno"] ?></td>
+                    <td><strong><?= $item["nommateria"] ?? $item["otro_materia"] ?>:</strong> <?= $item["desempeno"] ?></td>
                 </tr>
             <?php }
         }
@@ -80,7 +80,7 @@
         if($items_piar && is_array($items_piar)){
             foreach($items_piar as $item){ ?>
                 <tr>
-                    <td><strong><?= $item["nommateria"] ?>:</strong> <?= $item["recomendaciones"] ?></td>
+                    <td><strong><?= $item["nommateria"] ?? $item["otro_materia"] ?>:</strong> <?= $item["recomendaciones"] ?></td>
                 </tr>
             <?php }
         }

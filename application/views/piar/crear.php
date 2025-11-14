@@ -37,7 +37,7 @@
             <?php require_once('templates/piar_form.php') ?>
 
             <?php
-                if(strtolower(logged_user()["rol"]) === "docente"){
+                if(strtolower(logged_user()["rol"]) === "docente" || strtolower(logged_user()["rol"]) === "docente de apoyo"){
                     require_once('templates/piar_annual_form.php');
                 }
             ?>

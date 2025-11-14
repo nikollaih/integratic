@@ -38,11 +38,11 @@ if(isset($estudiante["id_piar"])){ ?>
                             <label for="otro_materia">Seleccionar categoría</label>
                             <select class="form-control" name="otro_materia" id="otro_materia" required>
                                 <option value="">- Seleccionar</option>
-                                <option value="Convivencia">Convivencia</option>
-                                <option value="Socialización">Socialización</option>
-                                <option value="Participación">Participación</option>
-                                <option value="Autonomía">Autonomía</option>
-                                <option value="Autocontrol">Autocontrol</option>
+                                <option <?= ($item_piar_annual && $item_piar_annual["otro_materia"] == 'Convivencia') ? "selected" : "" ?> value="Convivencia">Convivencia</option>
+                                <option <?= ($item_piar_annual && $item_piar_annual["otro_materia"] == 'Socialización') ? "selected" : "" ?> value="Socialización">Socialización</option>
+                                <option <?= ($item_piar_annual && $item_piar_annual["otro_materia"] == 'Participación') ? "selected" : "" ?> value="Participación">Participación</option>
+                                <option <?= ($item_piar_annual && $item_piar_annual["otro_materia"] == 'Autonomía') ? "selected" : "" ?> value="Autonomía">Autonomía</option>
+                                <option <?= ($item_piar_annual && $item_piar_annual["otro_materia"] == 'Autocontrol') ? "selected" : "" ?> value="Autocontrol">Autocontrol</option>
                             </select>
                         </div>
                     <?php }
@@ -155,7 +155,7 @@ if(strtolower(logged_user()["rol"]) === "docente" || strtolower(logged_user()["r
                                     if($item["id_docente"] == logged_user()["id"]){
                                         ?>
                                         <tr id="piar-annual-item-<?= $item["id_piar_item_anual"] ?>">
-                                            <td><?= $item["nommateria"] ?></td>
+                                            <td><?= $item["nommateria"] ?? $item["otro_materia"] ?></td>
                                             <td><?= $item["destrezas_obtenidas"] ?></td>
                                             <td><?= $item["dificultades"] ?></td>
                                             <td><?= $item["comportamiento"] ?></td>

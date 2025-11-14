@@ -115,7 +115,7 @@
                                         }
 
                                     } else {
-                                        echo nl2br(htmlspecialchars($item["objetivos"]));
+                                        echo renderCampoPiar($item["objetivos"]);
                                     }
                                 }
                                 else {
@@ -139,11 +139,11 @@
                                     }
                                 }
                                 else {
-                                    echo nl2br(htmlspecialchars($item["barreras"]));
+                                    echo renderCampoPiar($item["barreras"]);
                                 }
 
                                 if (!empty($barreras['observaciones'])) {
-                                    echo "<div>".nl2br(htmlspecialchars($barreras['observaciones']))."</div>";
+                                    echo "<div>".renderCampoPiar($barreras['observaciones'])."</div>";
                                 }
                                 ?>
                             </div>
@@ -162,11 +162,11 @@
                                     }
                                 }
                                 else {
-                                    echo nl2br(htmlspecialchars($item["ajustes_razonables"]));
+                                    echo renderCampoPiar($item["ajustes_razonables"]);
                                 }
 
                                 if (!empty($ajustes_razonables['observaciones'])) {
-                                    echo "<div>".nl2br(htmlspecialchars($ajustes_razonables['observaciones']))."</div>";
+                                    echo "<div>".renderCampoPiar($ajustes_razonables['observaciones'])."</div>";
                                 }
                                 ?>
                             </div>
@@ -201,28 +201,28 @@
         <tbody>
         <tr>
             <td><strong>FAMILIA, CUIDADORES O CON QUIENES VIVE</strong></td>
-            <td><div class="allow-break"><?= nl2br(htmlspecialchars($piar["acciones_familia"])) ?></div></td>
-            <td><div class="allow-break"><?= nl2br(htmlspecialchars($piar["estrategias_familia"])) ?></div></td>
+            <td><div class="allow-break"><?= renderCampoPiar($piar["acciones_familia"]) ?></div></td>
+            <td><div class="allow-break"><?= renderCampoPiar($piar["estrategias_familia"]) ?></div></td>
         </tr>
         <tr>
             <td><strong>DOCENTES</strong></td>
-            <td><div class="allow-break"><?= nl2br(htmlspecialchars($piar["acciones_docentes"])) ?></div></td>
-            <td><div class="allow-break"><?= nl2br(htmlspecialchars($piar["estrategias_docentes"])) ?></div></td>
+            <td><div class="allow-break"><?= renderCampoPiar($piar["acciones_docentes"]) ?></div></td>
+            <td><div class="allow-break"><?= renderCampoPiar($piar["estrategias_docentes"]) ?></div></td>
         </tr>
         <tr>
             <td><strong>DIRECTIVOS</strong></td>
-            <td><div class="allow-break"><?= nl2br(htmlspecialchars($piar["acciones_directivos"])) ?></div></td>
-            <td><div class="allow-break"><?= nl2br(htmlspecialchars($piar["estrategias_directivos"])) ?></div></td>
+            <td><div class="allow-break"><?= renderCampoPiar($piar["acciones_directivos"]) ?></div></td>
+            <td><div class="allow-break"><?= renderCampoPiar($piar["estrategias_directivos"]) ?></div></td>
         </tr>
         <tr>
             <td><strong>ADMINISTRATIVOS</strong></td>
-            <td><div class="allow-break"><?= nl2br(htmlspecialchars($piar["acciones_administrativos"])) ?></div></td>
-            <td><div class="allow-break"><?= nl2br(htmlspecialchars($piar["estrategias_administrativos"])) ?></div></td>
+            <td><div class="allow-break"><?= renderCampoPiar($piar["acciones_administrativos"]) ?></div></td>
+            <td><div class="allow-break"><?= renderCampoPiar($piar["estrategias_administrativos"]) ?></div></td>
         </tr>
         <tr>
             <td><strong>PARES (Compañeros)</strong></td>
-            <td><div class="allow-break"><?= nl2br(htmlspecialchars($piar["acciones_companeros"])) ?></div></td>
-            <td><div class="allow-break"><?= nl2br(htmlspecialchars($piar["estrategias_companeros"])) ?></div></td>
+            <td><div class="allow-break"><?= renderCampoPiar($piar["acciones_companeros"]) ?></div></td>
+            <td><div class="allow-break"><?= renderCampoPiar($piar["estrategias_companeros"]) ?></div></td>
         </tr>
         </tbody>
     </table>

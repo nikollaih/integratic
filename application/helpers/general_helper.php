@@ -275,4 +275,21 @@ if (!function_exists('tipos_documento')) {
         ];
     }
 }
+
+if (!function_exists('renderCampoPiar')) {
+    function renderCampoPiar($valor)
+    {
+        // Limpia espacios al inicio y final
+        $valor = trim($valor);
+
+        // Si está vacío o contiene solo <p></p> o <p><br></p>, no mostrar nada
+        if (preg_match('/^<p>\s*(<br\s*\/?>)?\s*<\/p>$/i', $valor) || $valor === '') {
+            return ''; // no muestra nada
+        }
+
+        // Mostrar contenido normal escapado (evita XSS)
+        return nl2br(htmlspecialchars($valor));
+    }
+}
+
 ?>

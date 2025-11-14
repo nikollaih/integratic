@@ -1,0 +1,1 @@
+ALTER TABLE `piar_items_anual` ADD `otro_materia` VARCHAR(20) NOT NULL AFTER `id_materia`;
