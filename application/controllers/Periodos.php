@@ -10,7 +10,7 @@
 
     function index(){
         if(is_logged() && strtolower(logged_user()["rol"]) != "estudiante"){
-            $params["periodos"] = $this->Periodos_Model->getAll();
+            $params["periodos"] = $this->Periodos_Model->getAll(false);
             $this->load->view("periodos/all", $params);
         }
         else header("Location: ".base_url());

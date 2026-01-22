@@ -1,0 +1,1 @@
+ALTER TABLE `periodos` CHANGE `periodo` `periodo` VARCHAR(11) NOT NULL;

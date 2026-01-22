@@ -41,30 +41,48 @@ $(document).on("click", ".piar-backup-modal-open", function() {
 });
 
 $(document).on("click", ".backup-piar-generate-button", function() {
-    generatePIARBackup();
+    generatePIARBackupLote(0, 5, 0, 0, []); // Empieza desde offset 0, lote de 10
 });
 
-function generatePIARBackup() {
-    let year = $("#backup-piar-year").val()
-    let grado = $("#backup-piar-grado").val()
+// Nueva función para procesamiento por lotes
+function generatePIARBackupLote(offset = 0, limit = 10, total = 0, processed = 0, errors = []) {
+    let year = $("#backup-piar-year").val();
+    let grado = $("#backup-piar-grado").val();
     $("#background-loading").css("display", "flex");
-    let url = base_url + "PIAR/saveLocalPDF/" + year + "/" + grado;
+    let url = base_url + "PIAR/saveLocalPDF/" + year + "/" + grado + "/" + offset + "/" + limit;
     $.ajax({
         url: url,
         type: 'GET',
         dataType: 'json',
         success: function(response) {
             response = response.object;
+            processed += response.processed || 0;
+            if (response.errors && response.errors.length > 0) {
+                errors = errors.concat(response.errors);
+            }
 
-            if (response.status === 'ok') {
-                alert("Backup realizado con exito, "+response.processed+" archivos generados.")
+            // Si es la primera llamada, obten el total
+            if (total === 0 && response.total !== undefined) {
+                total = response.total;
             }
-            if (response.errors_count > 0) {
-                alert("Se encontraron " + response.errors_count + " errores.")
+            // Si hay más por procesar, llama de nuevo
+            if (total !== 0 && offset + limit < total) {
+                setTimeout(function() {
+                    generatePIARBackupLote(offset + limit, limit, total, processed, errors);
+                }, 200); // pequeña pausa para evitar saturar el servidor
+            } else {
+                // Terminado
+                alert("Backup realizado con exito, " + processed + " archivos generados.");
+                if (errors.length > 0) {
+                    alert("Se encontraron " + errors.length + " errores.");
+                }
+                $("#background-loading").css("display", "none");
             }
-            $("#background-loading").css("display", "none");
         },
-        error: function() { alert("Error!"); $("#background-loading").css("display", "node"); }
+        error: function() {
+            alert("Error!");
+            $("#background-loading").css("display", "none");
+        }
     });
 }
 

@@ -26,11 +26,21 @@ class Periodos_Model extends CI_Model {
         $this->db->from("periodos");
 		$result = $this->db->get();
 		return ($result->num_rows() > 0) ? $result->row_array() : false;
-	} 
+	}
 
-    function getAll(){
-        $this->db->from("periodos");
-		$result = $this->db->get();
-		return ($result->num_rows() > 0) ? $result->result_array() : false;
-	}   
+    function getAll($applyFilter = true){
+        $startDate = date('Y') . '-01-01';
+        $endDate   = date('Y') . '-12-31';
+
+        $this->db->from('periodos');
+
+        if ($applyFilter) {
+            $this->db->where('fecha_inicio >=', $startDate);
+            $this->db->where('fecha_fin <=', $endDate);
+        }
+
+        $result = $this->db->get();
+
+        return ($result->num_rows() > 0) ? $result->result_array() : false;
+    }
 }

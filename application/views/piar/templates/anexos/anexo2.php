@@ -1,6 +1,8 @@
 <?php
-    function cleanList($text) {
-        return str_replace('>         <', '>  <', $text);
+    if(!function_exists('cleanList')){
+        function cleanList($text) {
+            return str_replace('>         <', '>  <', $text);
+        }
     }
 ?>
 

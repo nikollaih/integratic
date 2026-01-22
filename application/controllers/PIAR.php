@@ -795,82 +795,66 @@ class PIAR extends CI_Controller
         else json_response(array("error" => "auth"), false, "Debe iniciar sesión para realizar esta acción");
     }
 
-    public function saveLocalPDF($year = null, $grado = 0) {
+    // Ahora acepta offset y limit para procesamiento por lotes
+    public function saveLocalPDF($year = null, $grado = 0, $offset = 0, $limit = 5) {
         $year = $year ?? date("Y");
-
-        // Ajustes para procesamiento largo
         set_time_limit(0);
         ini_set('memory_limit', '1024M');
 
         $PIARs = $this->PIAR_Model->getByYear($year, $grado);
-
         $baseRel = 'principal/piar/PIAR ' . $year . '/';
         $baseFull = rtrim(FCPATH, '/\\') . '/' . trim($baseRel, '/\\') . '/';
 
         $piarList = array_values($PIARs);
-        $chunkSize = 10;                // controla memoria/IO
-        $docTypes  = [1,2,3];           // tipos a generar por PIAR
+        $total = count($piarList);
+        $offset = intval($offset);
+        $limit = intval($limit);
+        $chunk = array_slice($piarList, $offset, $limit);
+        $docTypes  = [1,2,3];
         $processed = 0;
         $errors    = [];
 
-        foreach (array_chunk($piarList, $chunkSize) as $chunk) {
-            foreach ($chunk as $item) {
-                $processed++;
-
-                // Extraer id_piar y id_estudiante de forma flexible
-                if (is_array($item)) {
-                    $piarId = $item['id_piar'] ?? $item['id'] ?? null;
-                    $idEst  = $item['grado'] ?? $item['id_estudiante'] ?? $item['student_id'] ?? null;
-                } else {
-                    $piarId = $item->id_piar ?? $item->id ?? null;
-                    $idEst  = $item->id_estudiante ?? $item->documento ?? $item->student_id ?? null;
-                }
-
-                if (empty($piarId)) {
-                    $errors[] = "Índice {$processed}: faltó id_piar";
-                    continue;
-                }
-
-                $folder = $idEst ? preg_replace('/[^A-Za-z0-9_\-]/', '_', $idEst) : "piar_{$piarId}";
-                $saveRel = rtrim($baseRel, '/\\') . '/' . $folder . '/'.$item["nombre"].'/';
-
-                // Llamadas a viewDOM en modo 'save' manteniendo la firma original
-                foreach ($docTypes as $type) {
-                    try {
-                        // viewDOM manejará la creación/validación de paths si lo necesita,
-                        // pero aquí nos aseguramos que la carpeta exista por si viewDOM no la crea.
-                        $saveFull = rtrim(FCPATH, '/\\') . '/' . trim($saveRel, '/\\') . '/';
-                        if (!is_dir($saveFull) && !mkdir($saveFull, 0755, true)) {
-                            throw new Exception("No se pudo crear carpeta {$saveFull}");
-                        }
-
-                        // Mantener exactamente la llamada a viewDOM como pediste
-                        $this->viewDOM($piarId, $type, 'save', $saveRel);
-
-                        // Pequeña pausa para aliviar I/O
-                        usleep(40000); // 40ms
-                    } catch (Exception $e) {
-                        $msg = "Error PIAR {$piarId} type {$type}: " . $e->getMessage();
-                        $errors[] = $msg;
-                        // continuar con siguiente docType o PIAR
-                    }
-                }
-
-                // Liberar ciclos de GC entre PIARs
-                if (function_exists('gc_collect_cycles')) gc_collect_cycles();
-                usleep(80000); // 80ms
+        foreach ($chunk as $item) {
+            $processed++;
+            if (is_array($item)) {
+                $piarId = $item['id_piar'] ?? $item['id'] ?? null;
+                $idEst  = $item['grado'] ?? $item['id_estudiante'] ?? $item['student_id'] ?? null;
+            } else {
+                $piarId = $item->id_piar ?? $item->id ?? null;
+                $idEst  = $item->id_estudiante ?? $item->documento ?? $item->student_id ?? null;
             }
-            // Pausa entre chunks
-            usleep(200000); // 200ms
+            if (empty($piarId)) {
+                $errors[] = "Índice {$offset}: faltó id_piar";
+                continue;
+            }
+            $folder = $idEst ? preg_replace('/[^A-Za-z0-9_\-]/', '_', $idEst) : "piar_{$piarId}";
+            $saveRel = rtrim($baseRel, '/\\') . '/' . $folder . '/'.($item["nombre"] ?? $piarId).'/';
+            foreach ($docTypes as $type) {
+                try {
+                    $saveFull = rtrim(FCPATH, '/\\') . '/' . trim($saveRel, '/\\') . '/';
+                    if (!is_dir($saveFull) && !mkdir($saveFull, 0755, true)) {
+                        throw new Exception("No se pudo crear carpeta {$saveFull}");
+                    }
+                    $this->viewDOM($piarId, $type, 'save', $saveRel);
+                    usleep(40000);
+                } catch (Exception $e) {
+                    $msg = "Error PIAR {$piarId} type {$type}: " . $e->getMessage();
+                    $errors[] = $msg;
+                }
+            }
+            if (function_exists('gc_collect_cycles')) gc_collect_cycles();
+            usleep(80000);
         }
-
-        // Resultado
+        // Devuelve el total para el frontend
         json_response([
             'status' => empty($errors) ? 'ok' : 'partial',
             'processed' => $processed,
             'errors_count' => count($errors),
             'errors' => $errors,
-            'base_path' => $baseFull
+            'base_path' => $baseFull,
+            'total' => $total,
+            'offset' => $offset,
+            'limit' => $limit
         ], true);
     }
 

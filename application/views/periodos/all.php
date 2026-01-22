@@ -140,7 +140,7 @@
                     <select name="" class="form-control" id="nuevo-periodo-periodo">
                         <?php
                             for ($i=1; $i <= 10 ; $i++) { 
-                                echo "<option value='".$i."'>".$i."</option>";
+                                echo "<option value='".date('Y').'-'.$i."'>".date('Y')."-".$i."</option>";
                             }
                         ?>
                     </select>
