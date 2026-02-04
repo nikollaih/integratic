@@ -185,7 +185,7 @@ class PlanAula extends CI_Controller {
         }
     }
 
-    function ver($idPlanAula){
+    function ver($idPlanAula, $outputMode = 'inline', $savePath = null){
         $params["plan_area"] = $this->PlanAreas_Model->find($idPlanAula);
         if(is_array($params["plan_area"])){
             $area = $this->Areas_Model->find($params["plan_area"]["area"]);
@@ -201,13 +201,48 @@ class PlanAula extends CI_Controller {
             $params["tipos_componentes_evidencia"] = $this->TipoComponenteEvidencia_Model->getAll();
         }
 
+        // Limpiar el buffer de salida ANTES de cargar la vista para evitar acumulación
+        $this->output->set_output('');
         $this->load->view("plan_aula/ver", $params);
-
-        // Cargar HTML en dompdf (puedes cargar tu vista aquí)
         $html = $this->output->get_output();
+        // Crear una nueva instancia de mPDF para cada PDF
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4-L',
+            'margin_left' => 5,
+            'margin_right' => 5,
+            'margin_top' => 5,
+            'margin_bottom' => 5
+        ]);
+        $mpdf->WriteHTML($html);
+        // Construir nombre de archivo con usuario
+        $usuarioNombre = '';
+        if (isset($params["usuario"]["nombres"]) || isset($params["usuario"]["apellidos"])) {
+            $usuarioNombre = trim(($params["usuario"]["nombres"] ?? '') . '_' . ($params["usuario"]["apellidos"] ?? ''));
+            $usuarioNombre = preg_replace('/[^A-Za-z0-9_\-]/', '_', $usuarioNombre);
+        }
+        $fileName = 'Plan_Aula_' . ($usuarioNombre ? ('_' . $usuarioNombre) : '') .'_'.$params["plan_area"]['nommateria'].'_'.$params["plan_area"]['grado'].'_'.$params["plan_area"]['periodo']. '.pdf';
 
-        $this->mpdf->WriteHTML($html);
-        $this->mpdf->Output('documento.pdf', 'I');
+        if ($outputMode === 'save' && $savePath) {
+            $isDir = (substr($savePath, -1) === DIRECTORY_SEPARATOR) || is_dir($savePath);
+            if($isDir){
+                $dir = rtrim($savePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+                $saveFullPath = $dir . $fileName;
+            } else {
+                $saveFullPath = $savePath;
+                $dir = dirname($saveFullPath);
+            }
+            if(!is_dir($dir)){
+                if(!mkdir($dir, 0755, true)){
+                    return false;
+                }
+            }
+            $pdfString = $mpdf->Output($fileName, 'S');
+            file_put_contents($saveFullPath, $pdfString);
+            return $saveFullPath;
+        } else {
+            $mpdf->Output($fileName, 'I');
+        }
     }
 
     // Eliminar un plan de aula con sus respectivas evidencias de aprendizaje
@@ -236,4 +271,65 @@ class PlanAula extends CI_Controller {
             json_response(null, false, "Por favor inicie sesion");
         }
     }
-} 
+
+    public function saveLocalPDF($year = null, $area = 0, $offset = 0, $limit = 5) {
+        $year = $year ?? date("Y");
+        set_time_limit(0);
+        ini_set('memory_limit', '1024M');
+
+        $planesAula = $this->PlanAreas_Model->get_by_filter($area, null, null, $year);
+        $baseRel = 'principal/plan_aula/PLAN DE AULA ' . $year . '/';
+        $baseFull = rtrim(FCPATH, '/\\') . '/' . trim($baseRel, '/\\') . '/';
+
+        if($planesAula){
+            $planAulaList = array_values($planesAula);
+            $total = count($planAulaList);
+            $offset = intval($offset);
+            $limit = intval($limit);
+            $chunk = array_slice($planAulaList, $offset, $limit);
+            $processed = 0;
+            $errors    = [];
+
+            foreach ($chunk as $item) {
+                $processed++;
+                // Crear carpeta: baseRel/nomarea/nommateria/grado/
+                $nomarea = isset($item['nomarea']) ? preg_replace('/[^A-Za-z0-9_\-]/', '_', $item['nomarea']) : 'area';
+                $nommateria = isset($item['nommateria']) ? preg_replace('/[^A-Za-z0-9_\-]/', '_', $item['nommateria']) : 'materia';
+                $grado = isset($item['grado']) ? preg_replace('/[^A-Za-z0-9_\-]/', '_', $item['grado']) : 'grado';
+                $folderRel = rtrim($baseRel, '/\\') . '/' . $nomarea . '/' . $nommateria . '/' . $grado . '/';
+                $folderFull = rtrim(FCPATH, '/\\') . '/' . trim($folderRel, '/\\') . '/';
+                if (!is_dir($folderFull)) {
+                    if (!mkdir($folderFull, 0755, true)) {
+                        $errors[] = "No se pudo crear carpeta: $folderFull";
+                        continue;
+                    }
+                }
+                // Llamar a ver para guardar el PDF en la carpeta
+                $idPlanAula = isset($item['id_plan_area']) ? $item['id_plan_area'] : (isset($item['id']) ? $item['id'] : null);
+                if ($idPlanAula) {
+                    try {
+                        $this->ver($idPlanAula, 'save', $folderFull);
+                    } catch (Exception $e) {
+                        $errors[] = "Error al generar PDF para PlanAula $idPlanAula: " . $e->getMessage();
+                    }
+                } else {
+                    $errors[] = "No se encontró id_plan_area para el item.";
+                }
+            }
+        }
+
+
+        // Devuelve el total para el frontend
+        json_response([
+            'status' => empty($errors) ? 'ok' : 'partial',
+            'processed' => $processed?? 0,
+            'errors_count' => count($errors?? []),
+            'errors' => $errors?? [],
+            'base_path' => $baseFull,
+            'total' => $total?? 0,
+            'offset' => $offset,
+            'limit' => $limit,
+            'planes' => $planesAula
+        ], true);
+    }
+}

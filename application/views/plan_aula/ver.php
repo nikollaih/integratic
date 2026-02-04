@@ -1,12 +1,22 @@
 <div class="general-content">
     <div class="row">
         <div class="col-md-12">
-            <?php $logo = (configuracion()) ? configuracion()["logo_institucion"] : "" ?>
+            <?php 
+            $logo = (configuracion()) ? configuracion()["logo_institucion"] : "";
+            $logo_path = FCPATH . 'img/' . $logo;
+            if ($logo && file_exists($logo_path) && is_file($logo_path)) {
+                $logo_src = $logo_path;
+            } else {
+                $logo_src = '';
+            }
+            ?>
             <table>
                 <tbody>
                 <tr>
                     <td class="td-image" rowspan="3">
-                        <img width="100px" src="<?= base_url('img/'.$logo) ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>">
+                        <?php if ($logo_src): ?>
+                            <img width="100px" src="<?= $logo_src ?>" alt="<?= (configuracion()) ? configuracion()["nombre_institucion"] : "Logo" ?>">
+                        <?php endif; ?>
                     </td>
                     <td class="text-center"><p class="small-text text-center">FORMATO</p></td>
                 </tr>

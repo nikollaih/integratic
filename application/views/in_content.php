@@ -13,6 +13,7 @@
 <?php $this->load->view("actividades/crear_respuesta_actividad_modal"); ?>
 <?php $this->load->view("actividades/lista_respuestas_modal"); ?>
 <?php $this->load->view("modal/piar_backup"); ?>
+<?php $this->load->view("modal/plan_aula_backup"); ?>
 <!-- Ventana Modal Portada-->
 <?php 
     if(!$this->session->userdata("logged_in")){
@@ -2883,6 +2884,10 @@ function administrar(){
 
         html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
         html=html+"<div class='mini-stat clearfix bx-shadow piar-backup-modal-open'>";
+        html=html+"<img src='./img/botones/menu/piar_backup.jpeg' width='100%' height='100%'></div></div>";
+
+        html=html+"<div class='col-md-3 col-sm-3 col-lg-3'>";
+        html=html+"<div class='mini-stat clearfix bx-shadow planaula-backup-modal-open'>";
         html=html+"<img src='./img/botones/menu/piar_backup.jpeg' width='100%' height='100%'></div></div>";
 
     html+="</div></div>";

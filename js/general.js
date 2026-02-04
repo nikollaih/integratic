@@ -40,9 +40,58 @@ $(document).on("click", ".piar-backup-modal-open", function() {
     jQuery("#piar-backup-modal").modal("show");
 });
 
+$(document).on("click", ".planaula-backup-modal-open", function() {
+    jQuery("#planaula-backup-modal").modal("show");
+});
+
 $(document).on("click", ".backup-piar-generate-button", function() {
     generatePIARBackupLote(0, 5, 0, 0, []); // Empieza desde offset 0, lote de 10
 });
+
+$(document).on("click", ".backup-planaula-generate-button", function() {
+    generatePlanAulaBackupLote(0, 5, 0, 0, []); // Empieza desde offset 0, lote de 10
+});
+
+function generatePlanAulaBackupLote(offset = 0, limit = 10, total = 0, processed = 0, errors = []) {
+    let year = $("#backup-planaula-year").val();
+    let area = $("#backup-planaula-area").val();
+    $("#background-loading").css("display", "flex");
+    let url = base_url + "PlanAula/saveLocalPDF/" + year + "/" + area + "/" + offset + "/" + limit;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            response = response.object;
+            processed += response.processed || 0;
+            if (response.errors && response.errors.length > 0) {
+                errors = errors.concat(response.errors);
+            }
+
+            // Si es la primera llamada, obten el total
+            if (total === 0 && response.total !== undefined) {
+                total = response.total;
+            }
+            // Si hay más por procesar, llama de nuevo
+            if (total !== 0 && offset + limit < total) {
+                setTimeout(function() {
+                    generatePlanAulaBackupLote(offset + limit, limit, total, processed, errors);
+                }, 200); // pequeña pausa para evitar saturar el servidor
+            } else {
+                // Terminado
+                alert("Backup realizado con exito, " + processed + " archivos generados.");
+                if (errors.length > 0) {
+                    alert("Se encontraron " + errors.length + " errores.");
+                }
+                $("#background-loading").css("display", "none");
+            }
+        },
+        error: function() {
+            alert("Error!");
+            $("#background-loading").css("display", "none");
+        }
+    });
+}
 
 // Nueva función para procesamiento por lotes
 function generatePIARBackupLote(offset = 0, limit = 10, total = 0, processed = 0, errors = []) {

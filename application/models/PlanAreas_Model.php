@@ -18,9 +18,11 @@ class PlanAreas_Model extends CI_Model {
     }
 
     function find($idPlanArea){
-        $this->db->select("pa.*, p.periodo, p.id_periodo");
+        $this->db->select("pa.*, p.periodo, p.id_periodo, ca.*, cm.*");
         $this->db->from("plan_areas pa");
         $this->db->join("periodos p", "p.id_periodo = pa.periodo");
+        $this->db->join("cfg_areas ca", "ca.codarea = pa.area");
+        $this->db->join("cfg_materias cm", "cm.codmateria = pa.materia");
         $this->db->where("id_plan_area", $idPlanArea);
         $result = $this->db->get();
         return ($result->num_rows() > 0) ? $result->row_array() : false;
@@ -56,7 +58,9 @@ class PlanAreas_Model extends CI_Model {
         return ($result->num_rows() > 0) ? $result->result_array() : false;
     }
 
-    function get_by_filter($area = null, $materia = null, $periodo = null){
+    function get_by_filter($area = null, $materia = null, $periodo = null, $year = null){
+        $startDate = $year."-01-01";
+        $endDate = $year."-12-31";
         $this->db->select('ca.*, cm.*, pa.*, p.*');
         $this->db->from("plan_areas pa");
         $this->db->join("cfg_areas ca", "ca.codarea = pa.area");
@@ -70,6 +74,10 @@ class PlanAreas_Model extends CI_Model {
         }
         if($periodo != "" && $periodo != null){
             $this->db->where("pa.periodo", $periodo);
+        }
+        if($year){
+            $this->db->where('pa.fecha_inicio >=', $startDate);
+            $this->db->where('pa.fecha_fin <=', $endDate);
         }
         $result = $this->db->get();
         return ($result->num_rows() > 0) ? $result->result_array() : false;
