@@ -1,3 +1,8 @@
+$(document).on("click", ".btn-eliminar-direccion-grupo", function() {
+    let id = $(this).attr("data-id");
+    eliminarDireccionGrupo(id);
+});
+
 function guardarDireccionGrupo() {
     let url = base_url + "DireccionGrupo/guardar";
     let grupo = $("#direccion_grupos").val();
@@ -21,6 +26,28 @@ function guardarDireccionGrupo() {
     });
 }
 
+function eliminarDireccionGrupo(id) {
+    if (confirm("¿Está seguro que desea eliminar la dirección de grupo?") === true) {
+        $.ajax({
+            url: base_url + 'DireccionGrupo/delete/' + id,
+            type: 'GET',
+            success: function(response) {
+                let data = JSON.parse(response);
+                if (data.status) {
+                    $("#direccion-grupo-" + id).remove();
+                }
+                else {
+                    alert(data.message);
+                }
+
+                if (data?.object?.error === "auth") {
+                    prelogin();
+                }
+            }
+        });
+    }
+}
+
 function obtenerDireccionGrupo() {
     let url = base_url + "DireccionGrupo/get";
 
@@ -37,9 +64,14 @@ function obtenerDireccionGrupo() {
             if(list && list.length > 0) {
                 tbody.html("");
                 for (let i = 0; i < list.length; i++) {
-                    row += `<tr>
+                    row += `<tr id="direccion-grupo-${list[i].id}">
                                 <td>${list[i].nombres} ${list[i].apellidos}</td>
                                 <td>${list[i].grado}</td>
+                                <td>
+                                    <a class="d-flex align-items-center justify-center btn-eliminar-direccion-grupo pointer" data-id="${list[i].id}"> 
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </a>
+                                </td>
                             </tr>`;
                 }
 

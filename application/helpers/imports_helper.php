@@ -72,7 +72,7 @@ function importar_estudiantes($FILES){
 
         if(is_array($sheetData)){
             if(count($sheetData) > 1){
-                for ($i=2; $i < count($sheetData); $i++) { 
+                for ($i=1; $i < count($sheetData); $i++) {
                     $estudiante = $sheetData[$i];
 
                     if(trim($estudiante[1]) != "" && trim($estudiante[3]) != "" && trim($estudiante[0]) != ""){
@@ -95,6 +95,7 @@ function importar_estudiantes($FILES){
             return false;
         }
     }
+    return false;
 }
 
 function importar_instituciones($FILES, $municipio, $start_line = 0){

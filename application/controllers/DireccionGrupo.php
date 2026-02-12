@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property $DireccionGrupo_Model
+ */
 class DireccionGrupo extends CI_Controller
 {
     public function __construct()
@@ -33,6 +36,15 @@ class DireccionGrupo extends CI_Controller
         if(is_logged()){
             $result = $this->DireccionGrupo_Model->get();
             json_response($result, true, "Lista de dirección de grupo.");
+        }
+        else json_response(null, false, "Debe iniciar sesión para realizar esta acción.");
+    }
+
+    public function delete($id) {
+        if(is_logged() && strtolower(logged_user()["rol"]) == "super"){
+            $result = $this->DireccionGrupo_Model->delete($id);
+            if($result) json_response(null, true, "Dirección de grupo eliminada exitosamente.");
+            else json_response(null, false, "No es posible eliminar esta dirección de grupo.");
         }
         else json_response(null, false, "Debe iniciar sesión para realizar esta acción.");
     }

@@ -57,13 +57,14 @@ setlocale(LC_ALL,"es_CO");
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-if ($_SERVER['SERVER_NAME']=='23.81.180.247' || $_SERVER['SERVER_NAME'] == 'iegsc-integratic.edu.co')
-   define('ENVIRONMENT', 'production');
-else if ($_SERVER['HTTP_HOST'] == 'localhost:8888' || $_SERVER['HTTP_HOST'] == 'localhost')
-   define('ENVIRONMENT', 'development');
-else
-   define('ENVIRONMENT', 'testing');
-	//define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+}
+
+define('ENVIRONMENT', $_ENV['CI_ENV'] ?? 'production');
 
 /*
  *---------------------------------------------------------------
@@ -73,7 +74,6 @@ else
  * Different environments will require different levels of error reporting.
  * By default development will show errors but testing and live will hide them.
  */
-
 switch (ENVIRONMENT)
 {
 	case 'development':
