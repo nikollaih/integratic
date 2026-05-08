@@ -1,1 +1,2 @@
 ALTER TABLE `periodos` CHANGE `periodo` `periodo` VARCHAR(11) NOT NULL;
+ALTER TABLE `respuestas_actividades` CHANGE `calificacion` `calificacion` VARCHAR(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0';

@@ -311,7 +311,7 @@ function actualizar_notificaciones() {
 
 function obtener_notificaciones() {
     $.ajax({
-        url: "./index.php/Notificaciones/obtener_contador_notificaciones",
+        url: base_url + "Notificaciones/obtener_contador_notificaciones",
         type: 'GET',
         success: function(data) {
             var data = JSON.parse(data);

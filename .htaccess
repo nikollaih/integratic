@@ -47,12 +47,25 @@ Options All -Indexes
     ServerSignature Off
 # Disable server signature end
 
+# Deshabilitar ModSecurity para uploads
+<IfModule mod_security2.c>
+    <If "%{REQUEST_URI} =~ m|/upload/do_upload|">
+        SecRuleEngine Off
+    </If>
+</IfModule>
+<IfModule mod_security2.c>
+    <If "%{REQUEST_URI} =~ m|/upload/do_upload_act|">
+        SecRuleEngine Off
+    </If>
+</IfModule>
+
 # BEGIN cPanel-generated php ini directives, do not edit
 # Manual editing of this file may result in unexpected behavior.
 # To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
 # For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
 <IfModule php7_module>
-   php_flag display_errors On
+   php_flag display_errors Off
+   php_value date.timezone "America/Bogota"
    php_value max_execution_time 36000
    php_value max_input_time 60
    php_value max_input_vars 1000
@@ -64,7 +77,8 @@ Options All -Indexes
    php_flag zlib.output_compression Off
 </IfModule>
 <IfModule lsapi_module>
-   php_flag display_errors On
+   php_flag display_errors Off
+   php_value date.timezone "America/Bogota"
    php_value max_execution_time 36000
    php_value max_input_time 60
    php_value max_input_vars 1000

@@ -133,11 +133,18 @@
                                 $barreras = [];
                                 if (strpos($item["barreras"], 'a:') === 0 && is_array($item["barreras_seleccionadas"])) {
                                     if (str_contains($item["barreras"], "observaciones")){
-                                        $barreras = unserialize($item["barreras"]);
+                                        $barreras_data = unserialize($item["barreras"]);
+                                        if (is_array($barreras_data)) {
+                                            $barreras = $barreras_data;
+                                        }
                                     }
 
                                     foreach ($item["barreras_seleccionadas"] as $barrera) {
                                         echo "<div>- ".htmlspecialchars($barrera->descripcion)."</div><br>";
+                                    }
+
+                                    if (!empty($barreras['barreras']) && is_string($barreras['barreras'])) {
+                                        echo $barreras['barreras'];
                                     }
                                 }
                                 else {
@@ -154,13 +161,21 @@
                         <td>
                             <div class="allow-break small-text">
                                 <?php
+                                $ajustes_razonables = [];
                                 if (strpos($item["ajustes_razonables"], 'a:') === 0 && is_array($item["ajustes_razonables_seleccionados"])) {
                                     if (str_contains($item["ajustes_razonables"], "observaciones")) {
-                                        $ajustes_razonables = unserialize($item["ajustes_razonables"]);
+                                        $ajustes_data = unserialize($item["ajustes_razonables"]);
+                                        if (is_array($ajustes_data)) {
+                                            $ajustes_razonables = $ajustes_data;
+                                        }
                                     }
 
                                     foreach ($item["ajustes_razonables_seleccionados"] as $ajusteRazonable) {
                                         echo "<div>- ".htmlspecialchars($ajusteRazonable->descripcion)."</div><br>";
+                                    }
+
+                                    if (!empty($ajustes_razonables['ajustes_razonables']) && is_string($ajustes_razonables['ajustes_razonables'])) {
+                                        echo $ajustes_razonables['ajustes_razonables'];
                                     }
                                 }
                                 else {

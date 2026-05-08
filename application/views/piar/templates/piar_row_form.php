@@ -27,13 +27,15 @@ if(isset($estudiante["id_piar"])){ ?>
                     if(strtolower(logged_user()["rol"]) === "docente de apoyo" || strtolower(logged_user()["rol"]) === "orientador"){ ?>
                         <div class="col-md-6">
                             <label for="otro_materia">Seleccionar categoría</label>
+                            <?php
+                            $categorias_piar = ["Convivencia", "Socialización", "Participación", "Autonomía", "Autocontrol"];
+                            $cat_actual = $item_piar ? ($item_piar["nommateria"] ?? "") : "";
+                            ?>
                             <select class="form-control" name="otro_materia" id="otro_materia" required>
                                 <option value="">- Seleccionar</option>
-                                <option value="Convivencia">Convivencia</option>
-                                <option value="Socialización">Socialización</option>
-                                <option value="Participación">Participación</option>
-                                <option value="Autonomía">Autonomía</option>
-                                <option value="Autocontrol">Autocontrol</option>
+                                <?php foreach ($categorias_piar as $cat): ?>
+                                    <option value="<?= $cat ?>" <?= $cat_actual === $cat ? "selected" : "" ?>><?= $cat ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     <?php }
