@@ -134,7 +134,7 @@ if((strtolower(logged_user()["rol"]) === "docente" || strtolower(logged_user()["
                                     if($item["id_docente"] == logged_user()["id"]){
                                         ?>
                                         <tr id="piar-item-<?= $item["id_piar_item"] ?>">
-                                            <td><?= $item["nomarea"] ?? "Otras" ?></td>
+                                            <td><?= $item["nomarea"] ?? "Orientación" ?></td>
                                             <td>
                                                 <?php
                                                 if(isset($item["nomarea"])){

@@ -39,6 +39,7 @@ class Pruebas_Model extends CI_Model {
         $this->db->from("pruebas p");
         $this->db->join('recuperaciones_pruebas rp', 'rp.id_prueba = p.id_prueba');
         $this->db->where("p.estado !=", 2);
+        $this->db->where("rp.id_recuperacion =", $idRecuperacion);
         $this->db->order_by("p.created_at", "desc");
         $result = $this->db->get();
         return ($result->num_rows() > 0) ? $result->result_array() : false;

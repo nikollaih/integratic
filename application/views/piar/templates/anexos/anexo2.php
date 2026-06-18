@@ -91,7 +91,7 @@
                     ?>
                     <tr>
                         <td>
-                            <div class="allow-break small-block"><?= $item["nomarea"] ?? "Otras" ?></div>
+                            <div class="allow-break small-block"><?= $item["nomarea"] ?? "Orientación" ?></div>
                         </td>
 
                         <td>
